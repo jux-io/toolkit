@@ -1,0 +1,13 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "useUnknownInCatchVariables": false,
+    "importHelpers": false,
+    "baseUrl": "."
+  },
+  "include": [],
+  "exclude": ["node_modules"]
+}

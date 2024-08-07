@@ -1,0 +1,12 @@
+{
+  "root": true,
+  "ignorePatterns": ["node_modules/**/*", "dist/**/*"],
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/stylistic"
+  ]
+}

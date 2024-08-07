@@ -1,0 +1,55 @@
+{
+  "name": "jux-toolkit",
+  "version": "1.0.0",
+  "description": "A repository for Jux toolkit",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "pnpm --parallel --filter=./packages/** dev",
+    "lint": "eslint packages --ext .ts",
+    "lint:fix": "eslint packages --ext .ts --fix",
+    "build": "pnpm -r --filter=./packages/** build",
+    "prepare": "husky"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.24.9",
+    "@babel/parser": "^7.24.8",
+    "@swc/core": "^1.7.0",
+    "tsup": "^8.2.1",
+    "typescript": "^5.5.3"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.4.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@types/babel-core": "^6.25.10",
+    "@types/node": "^18",
+    "@typescript-eslint/eslint-plugin": "^7.16.1",
+    "@typescript-eslint/parser": "^7.16.1",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "cz-customizable": "^7.2.1",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^18.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "husky": "^9.1.1",
+    "lint-staged": "^15.2.7",
+    "prettier": "^3.3.3",
+    "tslib": "^2.6.3"
+  },
+  "lint-staged": {
+    "packages/**/*.{ts,tsx}": [
+      "prettier --write packages",
+      "git add --all"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    }
+  },
+  "packageManager": "pnpm@9.1.0"
+}

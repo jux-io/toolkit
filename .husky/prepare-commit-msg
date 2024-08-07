@@ -1,0 +1,11 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+COMMIT_SOURCE=$2
+
+if [ "${COMMIT_SOURCE}" = message ] || [ "${COMMIT_SOURCE}" = merge ];then
+  echo "Skip commit message linting for ${COMMIT_SOURCE}"
+  exit 0
+else
+    exec < /dev/tty && git cz --hook || true
+fi

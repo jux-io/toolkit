@@ -1,0 +1,80 @@
+{
+  "name": "@juxio/cli",
+  "description": "Jux CLI to generate design tokens and components",
+  "version": "0.1.0",
+  "author": "jux",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "jux": "./bin/run.js"
+  },
+  "bugs": "https://github.com/juxio/toolkit/issues",
+  "scripts": {
+    "build": "tsup",
+    "dev": "pnpm build --watch src",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "posttest": "pnpm run lint",
+    "prepack": "oclif manifest && oclif readme",
+    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "version": "oclif readme && git add README.md"
+  },
+  "files": [
+    "/bin",
+    "/dist",
+    "/oclif.manifest.json"
+  ],
+  "homepage": "https://github.com/juxio/toolkit",
+  "keywords": [
+    "jux"
+  ],
+  "license": "MIT",
+  "oclif": {
+    "bin": "jux",
+    "dirname": "jux",
+    "commands": "./dist/commands",
+    "plugins": [
+      "@oclif/plugin-help"
+    ],
+    "topicSeparator": " "
+  },
+  "repository": "packages/cli",
+  "dependencies": {
+    "@juxio/design-tokens": "workspace:*",
+    "@juxio/core": "workspace:*",
+    "@oclif/core": "^4.0.17",
+    "@oclif/plugin-help": "^6.2.6",
+    "enquirer": "^2.4.1",
+    "execa": "5.1.1",
+    "ora": "5.4.1"
+  },
+  "devDependencies": {
+    "@oclif/prettier-config": "^0.2.1",
+    "@oclif/test": "^4",
+    "@types/chai": "^4",
+    "@types/node": "^18.19.41",
+    "chai": "^4",
+    "eslint": "^8",
+    "eslint-config-oclif": "^5",
+    "eslint-config-oclif-typescript": "^3",
+    "eslint-config-prettier": "^9",
+    "oclif": "^4.14.15",
+    "ts-node": "^10",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
