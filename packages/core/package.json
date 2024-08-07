@@ -22,7 +22,7 @@
     "@babel/core": "^7.24.9",
     "@babel/plugin-transform-typescript": "^7.24.8",
     "@juxio/design-tokens": "workspace:*",
-    "@oclif/core": "^4.0.13",
+    "@oclif/core": "^4.0.17",
     "axios": "^1.7.2",
     "bluebird": "^3.7.2",
     "bundle-require": "^5.0.0",

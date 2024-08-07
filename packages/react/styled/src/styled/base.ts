@@ -41,7 +41,8 @@ export type MergeWithOverrides<A extends object, B extends object> = FastOmit<
  * });
  * ```
  */
-export interface CustomTokensValues<Tokens> extends CSSProperties {
+export interface CustomTokensValues<Tokens extends BaseProps>
+  extends CSSProperties {
   color?: Tokens['color'];
   backgroundColor?: Tokens['color'];
   borderRadius?: Tokens['dimension'];
@@ -58,7 +59,7 @@ export interface CustomTokensValues<Tokens> extends CSSProperties {
  * });
  * ```
  */
-export interface CustomTypes<Tokens> {
+export interface CustomTypes<Tokens extends BaseProps> {
   /**
    * Custom typography tokens as defined in config file.
    *

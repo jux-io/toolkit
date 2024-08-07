@@ -155,8 +155,8 @@ importers:
         specifier: workspace:*
         version: link:../design-tokens
       '@oclif/core':
-        specifier: ^4.0.13
-        version: 4.0.13
+        specifier: ^4.0.17
+        version: 4.0.17
       axios:
         specifier: ^1.7.2
         version: 1.7.2
@@ -1003,10 +1003,6 @@ packages:
   '@nodelib/fs.walk@1.2.8':
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
-
-  '@oclif/core@4.0.13':
-    resolution: {integrity: sha512-xZAOTK6f0Dk+DidDI7SvmbMpmBXYmzRA1YrAw5g+/cMTSmmOojq/DGNCgdUf2i+S/DEMIOs0uEUIUidYBnIfkQ==}
-    engines: {node: '>=18.0.0'}
 
   '@oclif/core@4.0.17':
     resolution: {integrity: sha512-zfdSRip9DVMOklMojWCLZEB4iOzy7LDTABCDzCXqmpZGS+o1e1xts4jGhnte3mi0WV0YthNfYqF16tqk6CWITA==}
@@ -6087,26 +6083,6 @@ snapshots:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
-
-  '@oclif/core@4.0.13':
-    dependencies:
-      ansi-escapes: 4.3.2
-      ansis: 3.3.1
-      clean-stack: 3.0.1
-      cli-spinners: 2.9.2
-      debug: 4.3.5(supports-color@8.1.1)
-      ejs: 3.1.10
-      get-package-type: 0.1.0
-      globby: 11.1.0
-      indent-string: 4.0.0
-      is-wsl: 2.2.0
-      lilconfig: 3.1.2
-      minimatch: 9.0.5
-      string-width: 4.2.3
-      supports-color: 8.1.1
-      widest-line: 3.1.0
-      wordwrap: 1.0.0
-      wrap-ansi: 7.0.0
 
   '@oclif/core@4.0.17':
     dependencies:

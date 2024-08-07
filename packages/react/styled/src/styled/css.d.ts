@@ -2,13 +2,14 @@
  * CSS function that returns a string of class name.
  */
 
-import type {
+import {
+  BaseProps,
   CSSPropertiesWithCustomValues,
   CustomTokensValues,
   CustomTypes,
 } from './base';
 
-export type CSS = <Tokens>(
+export type CSS = <Tokens extends BaseProps>(
   styles: CSSPropertiesWithCustomValues<
     object,
     CustomTokensValues<Tokens>,

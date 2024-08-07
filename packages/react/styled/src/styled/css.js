@@ -1,4 +1,3 @@
-import crypto from 'node:crypto';
 import { calculateHash } from './utils/calculate-hash';
 
 export default function css(styles) {
