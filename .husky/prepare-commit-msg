@@ -1,6 +1,3 @@
-#!/bin/sh
-. "$(dirname "$0")/h"
-
 COMMIT_SOURCE=$2
 
 if [ "${COMMIT_SOURCE}" = message ] || [ "${COMMIT_SOURCE}" = merge ];then
