@@ -13,6 +13,11 @@ export interface ProjectOptions {
   definitions_directory: string;
 }
 
+interface ModuleReplacement {
+  oldModule: string;
+  newModule: string;
+}
+
 export class Project {
   public project: TSProject;
 
@@ -64,5 +69,36 @@ export class Project {
       sourceFile,
       juxImportsPath,
     });
+  }
+
+  replaceImports(
+    fileName: string,
+    sourceCode: string,
+    moduleReplacements: ModuleReplacement[]
+  ): string {
+    const sourceFile = this.project.createSourceFile(fileName, sourceCode);
+
+    // Find all import declarations that import from the old modules
+    const importDeclarations = sourceFile
+      .getImportDeclarations()
+      .filter((decl) =>
+        moduleReplacements.some(
+          (replacement) =>
+            decl.getModuleSpecifierValue() === replacement.oldModule
+        )
+      );
+
+    // Replace the module specifier in each import declaration
+    importDeclarations.forEach((decl) => {
+      const replacement = moduleReplacements.find(
+        (r) => decl.getModuleSpecifierValue() === r.oldModule
+      );
+      if (replacement) {
+        decl.setModuleSpecifier(replacement.newModule);
+      }
+    });
+
+    // Get the updated source code
+    return sourceFile.getFullText();
   }
 }

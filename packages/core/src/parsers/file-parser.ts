@@ -306,8 +306,6 @@ export class FileParser {
     let cssObject: Record<string, any> = {};
     let baseClassHash = '';
 
-    console.log(parsedFile);
-
     Array.from(parsedFile.entries()).forEach(([functionName, parsedResult]) => {
       switch (parsedResult.kind) {
         case JUX_FUNCTIONS.STYLED:

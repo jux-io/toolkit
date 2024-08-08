@@ -9,8 +9,9 @@ import { FileManager } from '../fs';
 import { TokensManager } from '../tokens';
 import { arrayToUnionType, capitalize } from '../utils';
 import { outdent } from 'outdent';
-import { Project } from '../parsers';
+import { JUX_STYLED_PACKAGES, Project } from '../parsers';
 import { StylesheetManager } from '../stylesheet';
+import { JUX_FUNCTIONS } from '../parsers/file-parser.ts';
 
 interface PullAssetsOptions {
   components: string[];
@@ -218,7 +219,25 @@ export class JuxContext {
 
     return bluebird.map(generatedFiles, async (f) => {
       f.file.name = `${f.file.name}.tsx`;
-      f.file.content = await this.fs.prettierFormat(f.file.content);
+      console.log(
+        path.join(this.cwd, this.cliConfig.components_directory, f.file.name),
+        path.join(this.cwd, this.cliConfig.definitions_directory, 'styled')
+      );
+      f.file.content = await this.fs.prettierFormat(
+        this.fileParser.replaceImports(f.file.name, f.file.content, [
+          {
+            oldModule: JUX_STYLED_PACKAGES.react,
+            newModule: path.relative(
+              path.join(this.cwd, this.cliConfig.components_directory),
+              path.join(
+                this.cwd,
+                this.cliConfig.definitions_directory,
+                JUX_FUNCTIONS.STYLED
+              )
+            ),
+          },
+        ])
+      );
       return {
         directory: path.join(this.cwd, this.cliConfig.components_directory),
         files: [f.file],

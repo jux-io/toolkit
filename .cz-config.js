@@ -40,6 +40,10 @@ module.exports = {
       value: 'revert',
       name: 'revert:      Revert to a commit',
     },
+    {
+      value: 'merge',
+      name: 'merge:      Merge from master',
+    },
   ],
   upperCaseSubject: false,
   useEmoji: true,
