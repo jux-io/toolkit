@@ -3,39 +3,35 @@
 Jux CLI to generate design tokens and components from Jux editor
 
 <!-- toc -->
-
-- [Usage](#usage)
-- [Commands](#commands)
+* [Usage](#usage)
+* [Commands](#commands)
 <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g @juxio/cli
 $ jux COMMAND
 running command...
 $ jux (--version)
-@juxio/cli/0.1.0 darwin-arm64 node-v21.6.2
+@juxio/cli/0.0.0 darwin-arm64 node-v21.6.2
 $ jux --help [COMMAND]
 USAGE
   $ jux COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-
-- [`jux generate`](#jux-generate)
-- [`jux help [COMMAND]`](#jux-help-command)
-- [`jux init`](#jux-init)
-- [`jux login`](#jux-login)
-- [`jux pull`](#jux-pull)
-- [`jux tokens`](#jux-tokens)
+* [`jux generate`](#jux-generate)
+* [`jux help [COMMAND]`](#jux-help-command)
+* [`jux init`](#jux-init)
+* [`jux login`](#jux-login)
+* [`jux pull`](#jux-pull)
+* [`jux tokens`](#jux-tokens)
 
 ## `jux generate`
 
@@ -46,8 +42,7 @@ USAGE
   $ jux generate [--tokensOnly] [--cwd <value>]
 
 FLAGS
-  --cwd=<value>  [default: process.cwd()] The current working directory for the
-                 command
+  --cwd=<value>  [default: process.cwd()] The current working directory for the command
   --tokensOnly   Generate tokens definitions only
 
 DESCRIPTION
@@ -59,7 +54,7 @@ EXAMPLES
   $ jux generate --tokens-only
 ```
 
-_See code: [src/commands/generate.ts](https://github.com/packages/cli/blob/v0.1.0/src/commands/generate.ts)_
+_See code: [src/commands/generate.ts](https://github.com/packages/cli/blob/v0.0.0/src/commands/generate.ts)_
 
 ## `jux help [COMMAND]`
 
@@ -92,8 +87,7 @@ USAGE
 FLAGS
   -f, --force        Force overwrite of existing configuration
   -i, --interactive  Run in interactive mode
-      --cwd=<value>  [default: process.cwd()] The directory to initialize the
-                     project in
+      --cwd=<value>  [default: process.cwd()] The directory to initialize the project in
 
 DESCRIPTION
   initialize your project and install dependencies
@@ -102,7 +96,7 @@ EXAMPLES
   $ jux init -d
 ```
 
-_See code: [src/commands/init.ts](https://github.com/packages/cli/blob/v0.1.0/src/commands/init.ts)_
+_See code: [src/commands/init.ts](https://github.com/packages/cli/blob/v0.0.0/src/commands/init.ts)_
 
 ## `jux login`
 
@@ -113,8 +107,7 @@ USAGE
   $ jux login [-d] [-c <value>]
 
 FLAGS
-  -c, --cwd=<value>  [default: process.cwd()] The directory to initialize the
-                     project in
+  -c, --cwd=<value>  [default: process.cwd()] The directory to initialize the project in
   -d, --defaults     Use defaults configurations
 
 DESCRIPTION
@@ -124,7 +117,7 @@ EXAMPLES
   $ jux login -d
 ```
 
-_See code: [src/commands/login.ts](https://github.com/packages/cli/blob/v0.1.0/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/packages/cli/blob/v0.0.0/src/commands/login.ts)_
 
 ## `jux pull`
 
@@ -136,8 +129,7 @@ USAGE
 
 FLAGS
   -c, --components=<value>...  Pull specific components. Separate multiple components with a space.
-      --cwd=<value>            [default: process.cwd()] The current working
-                               directory for the command
+      --cwd=<value>            [default: process.cwd()] The current working directory for the command
 
 DESCRIPTION
   Pull components from Jux editor
@@ -148,7 +140,7 @@ EXAMPLES
   $ jux pull --all
 ```
 
-_See code: [src/commands/pull.ts](https://github.com/packages/cli/blob/v0.1.0/src/commands/pull.ts)_
+_See code: [src/commands/pull.ts](https://github.com/packages/cli/blob/v0.0.0/src/commands/pull.ts)_
 
 ## `jux tokens`
 
@@ -160,8 +152,7 @@ USAGE
 
 FLAGS
   -c, --components=<value>...  Pull specific components. Separate multiple components with a space.
-  -c, --cwd=<value>            [default: process.cwd()] The current working
-                               directory for the command
+  -c, --cwd=<value>            [default: process.cwd()] The current working directory for the command
 
 DESCRIPTION
   Pull tokens from Jux editor
@@ -172,6 +163,5 @@ EXAMPLES
   $ jux tokens --all
 ```
 
-_See code: [src/commands/tokens.ts](https://github.com/packages/cli/blob/v0.1.0/src/commands/tokens.ts)_
-
+_See code: [src/commands/tokens.ts](https://github.com/packages/cli/blob/v0.0.0/src/commands/tokens.ts)_
 <!-- commandsstop -->
