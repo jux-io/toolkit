@@ -27,7 +27,7 @@ jobs:
 
       - name: Creating .npmrc
         run: |
-          cat << EOF > ".npmrc"
+          cat << EOF > "$HOME/.npmrc"
             registry=https://$NPM_REGISTRY
             //$NPM_REGISTRY/:_authToken=$NPM_TOKEN
           EOF
