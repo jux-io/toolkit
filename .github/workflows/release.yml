@@ -26,11 +26,11 @@ jobs:
           echo "AUTH_DOMAIN=${{ vars.AUTH_DOMAIN }}" >> packages/core/.env
           echo "API_AUDIENCE=${{ vars.API_AUDIENCE }}" >> packages/core/.env
 
-      - name: echo env
-        run: cat packages/core/.env
-
       - name: Build packages
         run: pnpm build
+
+      - name: Login to NPM
+        run: printf "registry=https://${{ vars.NPM_REGISTRY }}\n//${{ vars.NPM_REGISTRY }}/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
 
       - name: Publish packages
         id: changesets
