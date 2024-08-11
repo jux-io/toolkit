@@ -22,20 +22,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: ./.github/common-actions/install
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: latest
+          run_install: false
 
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          registry-url: ${{ vars.NPM_REGISTRY }}
+          registry-url: 'https://npm.jux.dev'
           cache: 'pnpm'
+
+      - name: Install dependencies
+        shell: bash
+        run: pnpm install
 
       - name: Creating .npmrc
         run: |
           cat << EOF > "$HOME/.npmrc"
-            registry=https://$NPM_REGISTRY
             //$NPM_REGISTRY/:_authToken=$NPM_TOKEN
           EOF
         env:
