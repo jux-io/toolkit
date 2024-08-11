@@ -18,6 +18,9 @@ jobs:
       - name: Install pnpm
         uses: ./.github/common-actions/install
 
+      - name: Build packages
+        run: pnpm build
+
       - name: Publish packages
         id: changesets
         uses: changesets/action@v1

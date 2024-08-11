@@ -22,6 +22,7 @@ export default class Init extends JuxCommand<typeof Init> {
     cwd: Flags.string({
       default: process.cwd(),
       description: 'The directory to initialize the project in',
+      noCacheDefault: true,
       required: false,
     }),
 

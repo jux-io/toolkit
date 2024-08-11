@@ -22,6 +22,7 @@ export default class Tokens extends JuxCommand<typeof Tokens> {
       char: 'c',
       description: 'The current working directory for the command',
       default: process.cwd(),
+      noCacheDefault: true,
       required: false,
     }),
   };

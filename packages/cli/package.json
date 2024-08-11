@@ -1,7 +1,7 @@
 {
   "name": "@juxio/cli",
   "description": "Jux CLI to generate design tokens and components",
-  "version": "0.0.0-dev-20240811171158",
+  "version": "0.1.0",
   "author": "jux",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -25,8 +25,11 @@
   "scripts": {
     "build": "tsup",
     "dev": "pnpm build --watch src",
+    "postpack": "shx rm -f oclif.manifest.json",
     "posttest": "pnpm run lint",
-    "test": "mocha --forbid-only \"test/**/*.test.ts\""
+    "prepack": "oclif manifest && oclif readme",
+    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "version": "oclif readme && git add README.md"
   },
   "files": [
     "/bin",
@@ -49,8 +52,8 @@
   },
   "repository": "packages/cli",
   "dependencies": {
-    "@juxio/design-tokens": "workspace:*",
     "@juxio/core": "workspace:*",
+    "@juxio/design-tokens": "workspace:*",
     "@oclif/core": "^4.0.17",
     "@oclif/plugin-help": "^6.2.6",
     "enquirer": "^2.4.1",
@@ -68,6 +71,7 @@
     "eslint-config-oclif-typescript": "^3",
     "eslint-config-prettier": "^9",
     "oclif": "^4.14.15",
+    "shx": "^0.3.4",
     "ts-node": "^10",
     "typescript": "^5"
   },

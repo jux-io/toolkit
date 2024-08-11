@@ -25,6 +25,7 @@ export default class Login extends JuxCommand<typeof Login> {
       char: 'c',
       description: 'The directory to initialize the project in',
       default: process.cwd(),
+      noCacheDefault: true,
       required: false,
     }),
   };
