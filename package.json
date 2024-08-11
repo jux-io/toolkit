@@ -4,11 +4,15 @@
   "description": "A repository for Jux toolkit",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier": "prettier --check packages",
+    "prettier:fix": "prettier --write packages",
     "dev": "pnpm --parallel --filter=./packages/** dev",
     "lint": "eslint packages --ext .ts",
     "lint:fix": "eslint packages --ext .ts --fix",
     "build": "pnpm -r --filter=./packages/** build",
-    "prepare": "husky"
+    "prepare": "husky",
+    "release": "changeset publish",
+    "release:dev": "changeset version --snapshot dev && changeset publish --tag dev"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +25,8 @@
     "typescript": "^5.5.3"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.5.0",
+    "@changesets/cli": "^2.27.7",
     "@commitlint/cli": "^19.4.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@types/babel-core": "^6.25.10",
@@ -37,12 +43,14 @@
     "eslint-plugin-prettier": "^5.2.1",
     "husky": "^9.1.1",
     "lint-staged": "^15.2.7",
+    "pkg-pr-new": "^0.0.20",
     "prettier": "^3.3.3",
     "tslib": "^2.6.3"
   },
   "lint-staged": {
     "packages/**/*.{ts,tsx}": [
-      "prettier --write packages",
+      "pnpm prettier:fix",
+      "pnpm lint:fix",
       "git add --all"
     ]
   },
@@ -50,6 +58,5 @@
     "commitizen": {
       "path": "node_modules/cz-customizable"
     }
-  },
-  "packageManager": "pnpm@9.1.0"
+  }
 }
