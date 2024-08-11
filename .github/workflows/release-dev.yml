@@ -31,10 +31,12 @@ jobs:
             registry=https://$NPM_REGISTRY
             //$NPM_REGISTRY/:_authToken=$NPM_TOKEN
           EOF
-
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_REGISTRY: ${{ vars.NPM_REGISTRY }}
+
+      - name: Cat npmrc
+        run: cat $HOME/.npmrc
 
       - name: Release to dev tag
         run: |
