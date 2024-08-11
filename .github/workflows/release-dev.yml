@@ -18,7 +18,10 @@ jobs:
     name: Release dev version
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout and install
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
         uses: ./.github/common-actions/install
 
       - name: Release to dev tag
