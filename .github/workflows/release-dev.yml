@@ -26,12 +26,11 @@ jobs:
         uses: ./.github/common-actions/install
 
       - name: Create env file for CLI
-        shell: bash
         run: |
-          echo "API_SERVER=${{ vars.API_SERVER }}" > packages/cli/.env
-          echo "CLIENT_ID=${{ vars.CLIENT_ID }}" > packages/cli/.env
-          echo "AUTH_DOMAIN=${{ vars.AUTH_DOMAIN }}" > packages/cli/.env
-          echo "API_AUDIENCE=${{ vars.API_AUDIENCE }}" > packages/cli/.env
+          echo "API_SERVER=${{ vars.API_SERVER }}" > packages/core/.env
+          echo "CLIENT_ID=${{ vars.CLIENT_ID }}" > packages/core/.env
+          echo "AUTH_DOMAIN=${{ vars.AUTH_DOMAIN }}" > packages/core/.env
+          echo "API_AUDIENCE=${{ vars.API_AUDIENCE }}" > packages/core/.env
 
       - name: Build packages
         run: pnpm build
