@@ -30,7 +30,7 @@ jobs:
       - name: Release to dev tag
         if: steps.changesets.outputs.published != 'true'
         run: |
-          git checkout main
+          git checkout master
           pnpm changeset version --snapshot dev
           pnpm changeset publish --tag dev
         env:
