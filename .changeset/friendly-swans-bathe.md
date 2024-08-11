@@ -6,4 +6,4 @@
 '@juxio/cli': minor
 ---
 
-Initial release
+Initial release - dev tests
