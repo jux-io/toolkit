@@ -57,6 +57,5 @@
     "commitizen": {
       "path": "node_modules/cz-customizable"
     }
-  },
-  "packageManager": "pnpm@9.1.0"
+  }
 }
