@@ -22,11 +22,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
-        with:
-          version: latest
-          run_install: false
+#      - uses: pnpm/action-setup@v4
+#        name: Install pnpm
+#        with:
+#          version: latest
+#          run_install: false
 
       - name: Install Node.js
         uses: actions/setup-node@v4
@@ -48,13 +48,10 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_REGISTRY: ${{ vars.NPM_REGISTRY }}
 
-      - name: Cat npmrc
-        run: cat $HOME/.npmrc
-
-      - name: Release to dev tag
-        run: |
-          pnpm changeset version --snapshot dev
-          pnpm changeset publish --tag dev
+      - name: 🚀 Create and publish versions
+        uses: changesets/action@v1
+        with:
+          publish: pnpm release:dev
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
