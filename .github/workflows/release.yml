@@ -19,6 +19,9 @@ jobs:
       - name: Install pnpm
         uses: ./.github/common-actions/install
 
+      - name: Write env file for CLI
+        uses: ./.github/common-actions/write-env-file
+
       - name: Build packages
         run: pnpm build
 
