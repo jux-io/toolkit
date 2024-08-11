@@ -1,17 +1,18 @@
-
 # @juxio/cli
 
 Jux CLI to generate design tokens and components from Jux editor
 
 <!-- toc -->
-* [@juxio/cli](#juxiocli)
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->	
+
+- [@juxio/cli](#juxiocli)
+- [Usage](#usage)
+- [Commands](#commands)
+<!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g @juxio/cli
 $ jux COMMAND
@@ -23,17 +24,19 @@ USAGE
   $ jux COMMAND
 ...
 ```
-<!-- usagestop -->	
 
-# Commands	
+<!-- usagestop -->
+
+# Commands
 
 <!-- commands -->
-* [`jux generate`](#jux-generate)
-* [`jux help [COMMAND]`](#jux-help-command)
-* [`jux init`](#jux-init)
-* [`jux login`](#jux-login)
-* [`jux pull`](#jux-pull)
-* [`jux tokens`](#jux-tokens)
+
+- [`jux generate`](#jux-generate)
+- [`jux help [COMMAND]`](#jux-help-command)
+- [`jux init`](#jux-init)
+- [`jux login`](#jux-login)
+- [`jux pull`](#jux-pull)
+- [`jux tokens`](#jux-tokens)
 
 ## `jux generate`
 
@@ -166,4 +169,5 @@ EXAMPLES
 ```
 
 _See code: [src/commands/tokens.ts](https://github.com/packages/cli/blob/v0.1.0/src/commands/tokens.ts)_
+
 <!-- commandsstop -->
