@@ -1,6 +1,6 @@
 {
   "name": "@juxio/react-styled",
-  "version": "0.0.0-dev-20240811171158",
+  "version": "0.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
