@@ -22,6 +22,7 @@ export default class Pull extends JuxCommand<typeof Pull> {
     cwd: Flags.string({
       description: 'The current working directory for the command',
       default: process.cwd(),
+      noCacheDefault: true,
       required: false,
     }),
   };

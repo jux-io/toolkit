@@ -19,6 +19,7 @@ export default class Generate extends JuxCommand<typeof Generate> {
     cwd: Flags.string({
       description: 'The current working directory for the command',
       default: process.cwd(),
+      noCacheDefault: true,
       required: false,
     }),
   };
