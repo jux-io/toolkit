@@ -13,6 +13,9 @@
     },
     "./package.json": "./package.json"
   },
+  "files": [
+    "/dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "pnpm build --watch src"
