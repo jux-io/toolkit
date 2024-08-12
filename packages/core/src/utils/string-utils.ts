@@ -3,7 +3,6 @@ const STRING_DASH_REGEXP_ = /-|\s+/g;
 
 /**
  * Converts an array of strings to a union type string.
- * @method underscore
 
  ```javascript
  arrayToUnionType(['value-1', 'value-2]); // '"value-1" | "value-2"'

@@ -23,7 +23,7 @@ interface ADD_VALUES {
 type WalkCallback = (
   key: string,
   value: any
-) => REPLACE_VALUE | REMOVE_VALUE | MERGE_WITH_PARENT | ADD_VALUES;
+) => REPLACE_VALUE | REMOVE_VALUE | MERGE_WITH_PARENT | ADD_VALUES | void;
 
 export function walkObject(obj: any, callback: WalkCallback): any {
   if (typeof obj !== 'object' || obj === null) {
@@ -34,6 +34,11 @@ export function walkObject(obj: any, callback: WalkCallback): any {
 
   for (const [key, value] of Object.entries(obj)) {
     const action = callback(key, walkObject(value, callback));
+
+    if (!action) {
+      result[key] = value;
+      return;
+    }
 
     switch (action.type) {
       case 'replace':
