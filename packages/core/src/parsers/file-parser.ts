@@ -365,7 +365,6 @@ export class FileParser {
           break;
       }
     });
-    console.log('done');
     return results.join('\n\n');
   }
 }
