@@ -1,10 +1,6 @@
 import { z } from 'zod';
 import { internalConfigSchema } from './get-and-verify-internal-config';
-import {
-  type DesignToken,
-  DesignTokenTypeEnum,
-  type TypographyTokenValue,
-} from '@juxio/design-tokens';
+import { type DesignToken, DesignTokenTypeEnum } from '@juxio/design-tokens';
 
 export interface UserTokens {
   access_token: string;
@@ -26,20 +22,17 @@ export interface Recursive<T> {
   [key: string]: T | Recursive<T>;
 }
 
-export type TokenValue = Pick<DesignToken, '$value' | '$description'>;
-export type CompositieTokenValue = TypographyTokenValue;
+export type TokenValue = Pick<DesignToken, '$value' | '$description'> &
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Record<string, any>;
 
 export interface Tokens {
   [DesignTokenTypeEnum.color]?: Recursive<TokenValue>;
   [DesignTokenTypeEnum.dimension]?: Recursive<TokenValue>;
   [DesignTokenTypeEnum.typography]?: Recursive<TokenValue>;
-}
-
-export interface Theme {
-  /**
-   * The core tokens for the theme
-   */
-  tokens: Tokens;
+  [DesignTokenTypeEnum.border]?: Recursive<TokenValue>;
+  [DesignTokenTypeEnum.fontFamily]?: Recursive<TokenValue>;
+  $description?: string;
 }
 
 export interface APIConfig {
