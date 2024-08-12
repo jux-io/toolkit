@@ -46,6 +46,22 @@ export interface CustomTokensValues<Tokens extends BaseProps>
   color?: Tokens['color'];
   backgroundColor?: Tokens['color'];
   borderRadius?: Tokens['dimension'];
+  borderWidth?: Tokens['dimension'];
+  width?: Tokens['dimension'];
+  height?: Tokens['dimension'];
+  fontFamily?: Tokens['fontFamily'];
+  fontSize?: Tokens['dimension'];
+  lineHeight?: Tokens['dimension'];
+  padding?: Tokens['dimension'];
+  paddingTop?: Tokens['dimension'];
+  paddingRight?: Tokens['dimension'];
+  paddingBottom?: Tokens['dimension'];
+  paddingLeft?: Tokens['dimension'];
+  margin?: Tokens['dimension'];
+  marginTop?: Tokens['dimension'];
+  marginRight?: Tokens['dimension'];
+  marginBottom?: Tokens['dimension'];
+  marginLeft?: Tokens['dimension'];
 }
 
 /**
