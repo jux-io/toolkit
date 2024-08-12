@@ -18,13 +18,13 @@ export interface JuxCliConfigOptions {
   rsc: boolean;
 }
 
-export interface Recursive<T> {
+export type Recursive<T> = {
   [key: string]: T | Recursive<T>;
-}
+} & {
+  $description?: string;
+};
 
-export type TokenValue = Pick<DesignToken, '$value' | '$description'> &
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  Record<string, any>;
+export type TokenValue = Pick<DesignToken, '$value' | '$description'>;
 
 export interface Tokens {
   [DesignTokenTypeEnum.color]?: Recursive<TokenValue>;
