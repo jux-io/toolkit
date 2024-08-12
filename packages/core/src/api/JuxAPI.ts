@@ -9,6 +9,7 @@ import {
   type JuxInternalCliConfig,
   type UserTokens,
 } from '../config';
+import { DesignTokens } from '@juxio/design-tokens';
 
 export interface ComponentDependencies {
   name: string;
@@ -22,6 +23,11 @@ export interface ComponentFileStructure {
     name: string;
     content: string;
   };
+}
+
+export interface TokenSet {
+  name: string;
+  value: DesignTokens;
 }
 
 export class JuxAPI {
@@ -148,6 +154,18 @@ export class JuxAPI {
         params: {
           organizationId: this.orgId,
           components,
+        },
+      }
+    );
+    return data;
+  }
+
+  async pullDesignTokens() {
+    const { data } = await this.axios.get<TokenSet[]>(
+      `${this.apiServer}/themes/token-sets`,
+      {
+        params: {
+          organizationId: this.orgId,
         },
       }
     );
