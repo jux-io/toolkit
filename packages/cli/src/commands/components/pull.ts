@@ -1,5 +1,5 @@
 import { Flags } from '@oclif/core';
-import { JuxCommand } from '../baseCommand';
+import { JuxCommand } from '../../baseCommand';
 import { getAndVerifyInternalConfig, getConfigContext } from '@juxio/core';
 import ora from 'ora';
 
