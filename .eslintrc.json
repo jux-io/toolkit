@@ -8,5 +8,8 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/stylistic"
-  ]
+  ],
+  "rules": {
+    "no-console": "error"
+  }
 }

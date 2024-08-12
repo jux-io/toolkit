@@ -32,7 +32,6 @@ const juxtacss: PluginCreator<PluginOptions> = (options = {}) => {
             });
           });
         } catch (error) {
-          console.trace(error);
           logger.error(error.message);
         }
       },
