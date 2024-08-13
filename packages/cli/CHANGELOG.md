@@ -1,5 +1,17 @@
 # @juxio/cli
 
+## 0.3.0
+
+### Minor Changes
+
+- [#8](https://github.com/jux-io/toolkit/pull/8) [`4330497`](https://github.com/jux-io/toolkit/commit/433049755811df36c1a34dfec620903d1674e195) Thanks [@tnipri](https://github.com/tnipri)! - Added support for built-in fonts (google fonts)
+
+### Patch Changes
+
+- Updated dependencies [[`4330497`](https://github.com/jux-io/toolkit/commit/433049755811df36c1a34dfec620903d1674e195)]:
+  - @juxio/core@0.3.0
+  - @juxio/design-tokens@0.3.0
+
 ## 0.2.0
 
 ### Minor Changes
