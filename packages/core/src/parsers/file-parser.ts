@@ -208,8 +208,15 @@ export class FileParser {
 
       const fnArguments = callExpression.getArguments();
 
-      fnArguments.forEach((arg) => {
-        if (Node.isObjectLiteralExpression(arg)) {
+      fnArguments.forEach((arg, index) => {
+        // Our styled function supports options as well, so we must make sure we are parsing the first argument in case of css, and the 2nd in case of styled
+        // styled('button', { color: 'red' }, { shouldForwardProp: () => true })
+        //                  ^^^^^^^^^^^^^^^^
+        // css({ color: 'red' })
+        if (
+          Node.isObjectLiteralExpression(arg) &&
+          ((this.cssImports.has(functionName) && index === 0) || index === 1)
+        ) {
           this.parsedFileStructure.set(functionName, {
             type: 'function',
             kind: this.cssImports.has(functionName)
