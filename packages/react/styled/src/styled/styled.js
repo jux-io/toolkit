@@ -20,7 +20,7 @@ export const getDisplayName = (Component) => {
 const styled = (tag, styles, options = {}) => {
   const baseClassName = `jux-${calculateHash(JSON.stringify(styles.root)).slice(0, 6)}`;
 
-  const { displayName, shouldForwardProp = () => true } = options;
+  const { shouldForwardProp = () => true } = options;
 
   const StyledComponent = React.forwardRef(
     function StyledComponent(props, ref) {
