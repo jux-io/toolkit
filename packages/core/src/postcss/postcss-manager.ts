@@ -132,6 +132,15 @@ export class PostcssManager {
 
     root.removeAll();
 
+    if (this.context.cliConfig.builtInFonts) {
+      // If user has enabled built-in fonts, inject the Google Fonts stylesheet based on given configuration
+      root.append(
+        this.context.stylesheetManager.generateGoogleFontsStyles(
+          this.context.cliConfig.builtInFonts.google
+        )
+      );
+    }
+
     root.append(this.context.stylesheetManager.layers.juxbase);
     root.append(this.context.stylesheetManager.layers.juxtokens);
     root.append(this.context.stylesheetManager.layers.juxutilities);
