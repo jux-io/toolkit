@@ -1,5 +1,15 @@
 # @juxio/cli
 
+## 0.4.0
+
+### Patch Changes
+
+- [#10](https://github.com/jux-io/toolkit/pull/10) [`af1ef8f`](https://github.com/jux-io/toolkit/commit/af1ef8f31142df20332b28c54f064d6eae3ad5b5) Thanks [@tnipri](https://github.com/tnipri)! - made more sense in CLI command structure
+
+- Updated dependencies [[`70b3017`](https://github.com/jux-io/toolkit/commit/70b30170f5d62e728fd5b9d0bf6384416959fe75)]:
+  - @juxio/core@0.4.0
+  - @juxio/design-tokens@0.4.0
+
 ## 0.3.0
 
 ### Minor Changes
