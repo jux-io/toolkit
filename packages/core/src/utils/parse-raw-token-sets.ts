@@ -10,6 +10,7 @@ export function parseRawTokenSets(tokens: TokenSet[]) {
     const tokenSetName = underscore(tokenSet.name);
     // It's safe to assume core is common among all token sets
     const modifiedTokenSet = walkObject(tokenSet.value, (key, value) => {
+      // We don't need these keys in the final token set
       if (key === '$extensions' || key === '$type') {
         return { type: 'remove' };
       }
