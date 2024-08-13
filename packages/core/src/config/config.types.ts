@@ -19,9 +19,11 @@ export interface JuxCliConfigOptions {
   rsc: boolean;
 }
 
-export interface Recursive<T> {
+export type Recursive<T> = {
   [key: string]: T | Recursive<T>;
-}
+} & {
+  $description?: string;
+};
 
 export type TokenValue = Pick<DesignToken, '$value' | '$description'> | string;
 
