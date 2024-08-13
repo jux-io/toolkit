@@ -5,3 +5,4 @@ export * from './setup-config';
 export * from './validate-config';
 export * from './jux-context';
 export * from './get-and-verify-internal-config';
+export * from './builtin-fonts';

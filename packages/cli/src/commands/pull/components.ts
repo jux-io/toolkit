@@ -3,7 +3,7 @@ import { JuxCommand } from '../../baseCommand';
 import { getAndVerifyInternalConfig, getConfigContext } from '@juxio/core';
 import ora from 'ora';
 
-export default class Pull extends JuxCommand<typeof Pull> {
+export default class PullComponents extends JuxCommand<typeof PullComponents> {
   static description = 'Pull components from Jux editor';
   static examples = [
     `<%= config.bin %> <%= command.id %> -c component1 component2 component3`,
@@ -28,7 +28,7 @@ export default class Pull extends JuxCommand<typeof Pull> {
   };
 
   async run() {
-    const { flags } = await this.parse(Pull);
+    const { flags } = await this.parse(PullComponents);
     const internalConfig = getAndVerifyInternalConfig(this.config.configDir);
 
     const ctx = await getConfigContext(

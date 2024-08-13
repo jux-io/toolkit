@@ -4,6 +4,7 @@ import cssbeautify from 'cssbeautify';
 import { generateResetStyles } from './generate-reset-styles.ts';
 import { convertObjectToCSS } from './style-object-to-css-string.ts';
 import { stringifyCssObject, TokensManager } from '../tokens';
+import { GoogleFont, googleFonts } from '../config/builtin-fonts.ts';
 
 export const LAYERS = ['juxbase', 'juxtokens', 'juxutilities'] as const;
 
@@ -114,6 +115,25 @@ export class StylesheetManager {
     return this.beautifyCss(results.join('\n\n'));
   }
 
+  generateGoogleFontsStyles(fontsFamily: GoogleFont['family'][]): string {
+    const formattedFonts: string[] = [];
+    fontsFamily.forEach((fontFamilyName) => {
+      const googleFontFamily = googleFonts.find(
+        (gf) => gf.family === fontFamilyName
+      );
+
+      if (!googleFontFamily) return;
+
+      const { variants, subsets, family } = googleFontFamily;
+      const formattedFamily = family.replace(/\s+/g, '+');
+      formattedFonts.push(
+        `@import url('https://fonts.googleapis.com/css?family=${formattedFamily}:${variants.join(',')}&subset=${subsets.join(',')}');`
+      );
+    });
+
+    return formattedFonts.join('\n');
+  }
+
   async appendBaseStyles() {
     if (this.preflight) {
       this.layers.juxbase.append(convertObjectToCSS(generateResetStyles()));
@@ -122,10 +142,6 @@ export class StylesheetManager {
     if (!this.tokensManager.isEmpty) {
       this.layers.juxtokens.append(await this.generateTokenStyles());
       this.layers.juxtokens.append(await this.generateThemeStyles());
-
-      // this.layers.juxutilities.append(
-      //   await this.generateCoreCompositeClasses()
-      // );
     }
   }
 }
