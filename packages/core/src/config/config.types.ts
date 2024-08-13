@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { internalConfigSchema } from './get-and-verify-internal-config';
 import { type DesignToken, DesignTokenTypeEnum } from '@juxio/design-tokens';
+import { GoogleFont } from './builtin-fonts.ts';
 
 export interface UserTokens {
   access_token: string;
@@ -18,13 +19,11 @@ export interface JuxCliConfigOptions {
   rsc: boolean;
 }
 
-export type Recursive<T> = {
+export interface Recursive<T> {
   [key: string]: T | Recursive<T>;
-} & {
-  $description?: string;
-};
+}
 
-export type TokenValue = Pick<DesignToken, '$value' | '$description'>;
+export type TokenValue = Pick<DesignToken, '$value' | '$description'> | string;
 
 export interface Tokens {
   [DesignTokenTypeEnum.color]?: Recursive<TokenValue>;
@@ -33,6 +32,10 @@ export interface Tokens {
   [DesignTokenTypeEnum.border]?: Recursive<TokenValue>;
   [DesignTokenTypeEnum.fontFamily]?: Recursive<TokenValue>;
   $description?: string;
+}
+
+export interface BuiltInFonts {
+  google: GoogleFont['family'][];
 }
 
 export interface APIConfig {
@@ -50,6 +53,11 @@ export interface JuxCLIConfig {
    * @default true
    */
   preflight?: boolean;
+
+  /**
+   * Built in fonts to use. Currently only supports Google Fonts
+   */
+  builtInFonts?: BuiltInFonts;
 
   /**
    * The root pseudo class to apply CSS variables to
