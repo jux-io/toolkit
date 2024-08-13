@@ -48,6 +48,11 @@
     "plugins": [
       "@oclif/plugin-help"
     ],
+    "topics": {
+      "pull": {
+        "description": "Pull assets from Jux editor"
+      }
+    },
     "topicSeparator": " "
   },
   "repository": "packages/cli",
