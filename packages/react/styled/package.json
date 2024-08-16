@@ -5,8 +5,29 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
-    "/dist"
+    "dist",
+    "tokens",
+    "package.json"
   ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json",
+    "./tokens": {
+      "types": "./tokens/index.d.ts",
+      "import": "./tokens/index.mjs",
+      "require": "./tokens/index.js",
+      "default": "./tokens/index.js"
+    }
+  },
   "scripts": {
     "build": "tsup",
     "dev": "pnpm build --watch src"
