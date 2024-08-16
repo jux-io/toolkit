@@ -3,8 +3,11 @@ import cssnano from 'cssnano';
 import cssbeautify from 'cssbeautify';
 import { generateResetStyles } from './generate-reset-styles.ts';
 import { convertObjectToCSS } from './style-object-to-css-string.ts';
-import { stringifyCssObject, TokensManager } from '../tokens';
-import { GoogleFont, googleFonts } from '../config/builtin-fonts.ts';
+import { formatTokenValue, stringifyCssObject, TokensManager } from '../tokens';
+import { GoogleFont, googleFonts } from '../config';
+import { JuxCLIConfig } from '../config';
+import { colorScheme, logger, walkObject } from '../utils';
+import { getAliasMatches, isAlias } from '@juxio/design-tokens';
 
 export const LAYERS = ['juxbase', 'juxtokens', 'juxutilities'] as const;
 
@@ -14,11 +17,13 @@ interface StylesheetManagerOptions {
   cssVarsRoot?: string;
   tokensManager: TokensManager;
   preflight: boolean;
+  globalCss?: JuxCLIConfig['globalCss'];
 }
 
 export class StylesheetManager {
   public readonly cssVarsRoot: string;
   public readonly preflight: boolean;
+  private readonly globalCss: JuxCLIConfig['globalCss'];
   public readonly layers: Layers = {} as Layers;
   public readonly tokensManager: TokensManager;
 
@@ -26,6 +31,7 @@ export class StylesheetManager {
     this.cssVarsRoot = options.cssVarsRoot ?? ':root';
     this.preflight = options.preflight ?? true;
     this.tokensManager = options.tokensManager;
+    this.globalCss = options.globalCss;
 
     LAYERS.forEach((layer) => {
       this.layers[layer] = postcss.atRule({
@@ -134,9 +140,50 @@ export class StylesheetManager {
     return formattedFonts.join('\n');
   }
 
+  processGlobalStyles() {
+    return walkObject(this.globalCss, (key, value) => {
+      if (typeof value === 'string' && isAlias(value)) {
+        const { valuePath } = getAliasMatches(value);
+        const token = this.tokensManager.tokensMap.get(valuePath);
+
+        if (!token) {
+          logger.warn(
+            `Token value "${colorScheme.input(value)}" was not found in global styles configuration. Skipping...`
+          );
+          return {
+            type: 'remove',
+          };
+        }
+
+        if (token.isComposite) {
+          logger.warn(
+            `Token value "${colorScheme.input(value)}" is a composite token and cannot be used in global styles configuration. Skipping...`
+          );
+          return {
+            type: 'remove',
+          };
+        }
+
+        return {
+          type: 'replace',
+          key,
+          value: formatTokenValue(valuePath),
+        };
+      }
+
+      return { type: 'replace', value };
+    });
+  }
+
   async appendBaseStyles() {
     if (this.preflight) {
       this.layers.juxbase.append(convertObjectToCSS(generateResetStyles()));
+    }
+
+    if (this.globalCss) {
+      this.layers.juxbase.append(
+        convertObjectToCSS(this.processGlobalStyles())
+      );
     }
 
     if (!this.tokensManager.isEmpty) {
