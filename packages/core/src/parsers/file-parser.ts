@@ -1,4 +1,4 @@
-import { Node, SourceFile, SyntaxKind } from 'ts-morph';
+import { Node, SourceFile, SyntaxKind, VariableDeclaration } from 'ts-morph';
 import memoizee from 'memoizee';
 import { ImportDescriptor } from './get-imports-from-file.ts';
 import { colorScheme, logger } from '../utils';
@@ -29,6 +29,8 @@ export const enum JUX_FUNCTIONS {
 
 export interface ParsedJsxFunctionResult {
   type: 'function';
+  // The variable name this function is assigned to
+  variableName?: string;
   kind: JUX_FUNCTIONS.STYLED;
   /**
    * The key is the function parameter key, the value is the object or array of objects passed to this key
@@ -62,6 +64,8 @@ export interface ParsedJsxFunctionResult {
  */
 export interface ParsedCSSFunctionResult {
   type: 'function';
+  // The variable name this function is assigned to
+  variableName?: string;
   kind: JUX_FUNCTIONS.CSS;
   props: object;
 }
@@ -191,6 +195,14 @@ export class FileParser {
     callExpressions.forEach((callExpression) => {
       // Get the actual function name
       const expression = callExpression.getExpression();
+
+      // Get the variable name this function is assigned to
+      const variableDeclaration = callExpression.getParentWhile((parent) => {
+        return VariableDeclaration.isVariableDeclaration(parent);
+      });
+
+      // If the function is not assigned to a variable, it might be an annoymous function
+      // for e.g <div className={css({ color: 'red' })} />
       const functionName = expression.getText();
 
       if (!this.isJuxFunction(functionName)) {
@@ -217,8 +229,10 @@ export class FileParser {
           Node.isObjectLiteralExpression(arg) &&
           ((this.cssImports.has(functionName) && index === 0) || index === 1)
         ) {
-          this.parsedFileStructure.set(functionName, {
+          //console.log(evaluateObject(arg, this.options.sourceFile));
+          this.parsedFileStructure.set(Math.random().toString(), {
             type: 'function',
+            variableName: variableDeclaration?.getName(),
             kind: this.cssImports.has(functionName)
               ? JUX_FUNCTIONS.CSS
               : JUX_FUNCTIONS.STYLED,
@@ -285,14 +299,18 @@ export class FileParser {
       if (typeof value === 'string') {
         const { valuePath } = getAliasMatches(value);
         if (valuePath) {
-          if (
-            !Array.from(tokensManager.tokensMap.values()).find(
-              (t) => t.finalizedTokenName === valuePath
-            )
-          ) {
+          const parsedToken = Array.from(tokensManager.tokensMap.values()).find(
+            (t) => t.finalizedTokenName === valuePath
+          );
+          if (!parsedToken) {
             logger.warn(
               `Token value ${colorScheme.input(key)}: "${colorScheme.input(value)}" was not found in ${colorScheme.debug(functionName)} function`
             );
+          } else {
+            return {
+              type: 'replace',
+              value: `var(${parsedToken.cssVar})`,
+            };
           }
         }
       }
@@ -313,7 +331,11 @@ export class FileParser {
     let cssObject: Record<string, any> = {};
     let baseClassHash = '';
 
-    Array.from(parsedFile.entries()).forEach(([functionName, parsedResult]) => {
+    Array.from(parsedFile.entries()).forEach(([, parsedResult]) => {
+      const functionName = parsedResult.variableName
+        ? `${parsedResult.variableName}:${parsedResult.kind}`
+        : parsedResult.kind;
+
       switch (parsedResult.kind) {
         case JUX_FUNCTIONS.STYLED:
           baseClassHash = `jux-${crypto

@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { internalConfigSchema } from './get-and-verify-internal-config';
 import { type DesignToken, DesignTokenTypeEnum } from '@juxio/design-tokens';
 import { GoogleFont } from './builtin-fonts.ts';
+import * as CSS from 'csstype';
 
 export interface UserTokens {
   access_token: string;
@@ -40,6 +41,8 @@ export interface BuiltInFonts {
   google: GoogleFont['family'][];
 }
 
+export type GlobalCssStyles = Record<string, CSS.Properties>;
+
 export interface APIConfig {
   API_SERVER: string;
   CLIENT_ID: string;
@@ -55,6 +58,11 @@ export interface JuxCLIConfig {
    * @default true
    */
   preflight?: boolean;
+
+  /**
+   * Global CSS styles to apply
+   */
+  globalCss?: GlobalCssStyles;
 
   /**
    * Built in fonts to use. Currently only supports Google Fonts

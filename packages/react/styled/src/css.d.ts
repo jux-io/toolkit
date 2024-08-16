@@ -3,13 +3,14 @@
  */
 
 import {
-  BaseProps,
   CSSPropertiesWithCustomValues,
   CustomTokensValues,
   CustomTypes,
 } from './base';
 
-export type CSS = <Tokens extends BaseProps>(
+import { Tokens } from './tokens';
+
+export type CSS = (
   styles: CSSPropertiesWithCustomValues<
     object,
     CustomTokensValues<Tokens>,

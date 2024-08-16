@@ -175,4 +175,8 @@ export class TokensManager {
 
     return byCategory;
   }
+
+  getTokenByName(name: string) {
+    return this.tokensMap.get(name);
+  }
 }

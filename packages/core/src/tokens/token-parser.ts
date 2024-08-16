@@ -106,12 +106,10 @@ export class TokenParser {
    * const modifiedObject = replaceReferences({
    *  token: '{core.color.brand_100}',
    * });
+   * // Returns { token: 'var(--core-color-brand-100)' }
    *
-   * OUTPUT:
-   *
-   * {
-   *  token: '--var(core-color-brand-100)',
-   * }
+   * const modifiedObject = replaceReferences('{core.color.brand_100}')
+   * // Returns 'var(--core-color-brand-100)'
    * ```
    */
   get cssVarValue(): DesignTokenValue {

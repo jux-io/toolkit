@@ -121,6 +121,12 @@ export type CSSPropertiesWithCustomValues<
     CustomTokensValues,
     CustomTypes
   >;
+} & {
+  [K in Prefix<'.', string>]?: CSSPropertiesWithCustomValues<
+    Props,
+    CustomTokensValues,
+    CustomTypes
+  >;
 } & CustomTypes & {
     [K: string]:
       | number
@@ -128,3 +134,7 @@ export type CSSPropertiesWithCustomValues<
       | CSSPropertiesWithCustomValues<Props, CustomTokensValues, CustomTypes>
       | undefined;
   };
+
+export type StyleArguments = {
+  [K in keyof CSSProperties]: CSS.Properties[K];
+};

@@ -96,6 +96,7 @@ export class JuxContext {
       cssVarsRoot: this.cliConfig.cssVarsRoot,
       tokensManager: this.tokens,
       preflight: !!this.cliConfig.preflight,
+      globalCss: this.cliConfig.globalCss,
     });
   }
 
