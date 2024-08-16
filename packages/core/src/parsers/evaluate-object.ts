@@ -5,6 +5,7 @@ export function evaluateObject(node: Node, sourceFile: SourceFile): any {
   if (Node.isObjectLiteralExpression(node)) {
     const result: any = {};
     for (const prop of node.getProperties()) {
+      //console.log(prop.getText(), prop.getKindName());
       if (Node.isPropertyAssignment(prop)) {
         let name = prop.getName();
         // Remove quotes from special keys

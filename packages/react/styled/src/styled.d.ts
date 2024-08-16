@@ -1,9 +1,13 @@
-import type {
+import {
   BaseProps,
   CSSProperties,
   CSSPropertiesWithCustomValues,
+  CustomTokensValues,
+  CustomTypes,
   MergeWithOverrides,
 } from './base';
+import { Tokens } from './tokens';
+import React from 'react';
 
 export interface StyledVariants<
   Props extends BaseProps,
@@ -17,13 +21,13 @@ export interface StyledVariants<
 export interface StylesDefinition<Props extends BaseProps> {
   root: CSSPropertiesWithCustomValues<
     Props,
-    NonNullable<unknown>,
-    NonNullable<unknown>
+    CustomTokensValues<Tokens>,
+    CustomTypes<Tokens>
   >;
   variants?: StyledVariants<
     Props,
-    NonNullable<unknown>,
-    NonNullable<unknown>
+    CustomTokensValues<Tokens>,
+    CustomTypes<Tokens>
   >[];
 }
 
