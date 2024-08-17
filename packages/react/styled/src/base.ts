@@ -23,11 +23,10 @@ type FastOmit<T extends object, U extends string | number | symbol> = {
  * @typeParam A - An object type whose properties might be partially replaced by `B`.
  * @typeParam B - An object type whose properties will replace or extend those of `A`.
  */
-export type MergeWithOverrides<A extends object, B extends object> = FastOmit<
-  A,
-  keyof B
-> &
+export type Merge<A extends object, B extends object> = FastOmit<A, keyof B> &
   B;
+
+export type ConditionalValue<V> = V | (V | null)[] | NonNullable<unknown>;
 
 /**
  * This allows us to add typing and auto-completion to css properties
@@ -41,27 +40,26 @@ export type MergeWithOverrides<A extends object, B extends object> = FastOmit<
  * });
  * ```
  */
-export interface CustomTokensValues<Tokens extends BaseProps>
-  extends CSSProperties {
+export interface CustomTokensValues<Tokens extends BaseProps = CSSProperties> {
   color?: Tokens['color'];
-  backgroundColor?: Tokens['color'];
-  borderRadius?: Tokens['dimension'];
-  borderWidth?: Tokens['dimension'];
-  width?: Tokens['dimension'];
-  height?: Tokens['dimension'];
-  fontFamily?: Tokens['fontFamily'];
-  fontSize?: Tokens['dimension'];
-  lineHeight?: Tokens['dimension'];
-  padding?: Tokens['dimension'];
-  paddingTop?: Tokens['dimension'];
-  paddingRight?: Tokens['dimension'];
-  paddingBottom?: Tokens['dimension'];
-  paddingLeft?: Tokens['dimension'];
-  margin?: Tokens['dimension'];
-  marginTop?: Tokens['dimension'];
-  marginRight?: Tokens['dimension'];
-  marginBottom?: Tokens['dimension'];
-  marginLeft?: Tokens['dimension'];
+  // backgroundColor?: CSSProperties['backgroundColor'] | Tokens['color'];
+  // borderRadius?: Tokens['dimension'];
+  // borderWidth?: Tokens['dimension'];
+  // width?: Tokens['dimension'];
+  // height?: Tokens['dimension'];
+  // fontFamily?: Tokens['fontFamily'];
+  // fontSize?: Tokens['dimension'];
+  // lineHeight?: Tokens['dimension'];
+  // padding?: Tokens['dimension'];
+  // paddingTop?: Tokens['dimension'];
+  // paddingRight?: Tokens['dimension'];
+  // paddingBottom?: Tokens['dimension'];
+  // paddingLeft?: Tokens['dimension'];
+  // margin?: Tokens['dimension'];
+  // marginTop?: Tokens['dimension'];
+  // marginRight?: Tokens['dimension'];
+  // marginBottom?: Tokens['dimension'];
+  // marginLeft?: Tokens['dimension'];
 }
 
 /**
