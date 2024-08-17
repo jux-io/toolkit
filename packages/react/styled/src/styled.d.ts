@@ -4,10 +4,10 @@ import {
   CSSPropertiesWithCustomValues,
   CustomTokensValues,
   CustomTypes,
-  MergeWithOverrides,
+  Merge,
 } from './base';
 import { Tokens } from './tokens';
-import React from 'react';
+import * as React from 'react';
 
 export interface StyledVariants<
   Props extends BaseProps,
@@ -21,12 +21,12 @@ export interface StyledVariants<
 export interface StylesDefinition<Props extends BaseProps> {
   root: CSSPropertiesWithCustomValues<
     Props,
-    CustomTokensValues<Tokens>,
+    CustomTokensValues<Tokens> & CSSProperties,
     CustomTypes<Tokens>
   >;
   variants?: StyledVariants<
     Props,
-    CustomTokensValues<Tokens>,
+    CustomTokensValues<Tokens> & CSSProperties,
     CustomTypes<Tokens>
   >[];
 }
@@ -46,9 +46,7 @@ export type CreateStyled = <
   component: Component,
   styles: StylesDefinition<Props>,
   options?: CreateStyledOptions
-) => StyledComponent<
-  MergeWithOverrides<React.ComponentPropsWithRef<Component>, Props>
->;
+) => StyledComponent<Merge<React.ComponentPropsWithRef<Component>, Props>>;
 
 declare const styled: CreateStyled;
 

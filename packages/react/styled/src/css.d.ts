@@ -9,11 +9,12 @@ import {
 } from './base';
 
 import { Tokens } from './tokens';
+import { CSSProperties } from 'react';
 
 export type CSS = (
   styles: CSSPropertiesWithCustomValues<
     object,
-    CustomTokensValues<Tokens>,
+    CustomTokensValues<Tokens> & CSSProperties,
     CustomTypes<Tokens>
   >
 ) => string;
