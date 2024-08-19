@@ -193,12 +193,15 @@ importers:
       bluebird:
         specifier: ^3.7.2
         version: 3.7.2
-      bundle-require:
-        specifier: ^5.0.0
-        version: 5.0.0(esbuild@0.23.0)
       cli-color:
         specifier: ^2.0.4
         version: 2.0.4
+      cosmiconfig:
+        specifier: ^9.0.0
+        version: 9.0.0(typescript@5.5.3)
+      cosmiconfig-typescript-loader:
+        specifier: ^5.0.0
+        version: 5.0.0(@types/node@22.1.0)(cosmiconfig@9.0.0(typescript@5.5.3))(typescript@5.5.3)
       cssbeautify:
         specifier: ^0.3.1
         version: 0.3.1
@@ -211,9 +214,6 @@ importers:
       enquirer:
         specifier: ^2.4.1
         version: 2.4.1
-      escalade:
-        specifier: ^3.1.2
-        version: 3.1.2
       fast-safe-stringify:
         specifier: ^2.1.1
         version: 2.1.1
@@ -9656,6 +9656,13 @@ snapshots:
   cosmiconfig-typescript-loader@5.0.0(@types/node@18.19.41)(cosmiconfig@9.0.0(typescript@5.5.3))(typescript@5.5.3):
     dependencies:
       '@types/node': 18.19.41
+      cosmiconfig: 9.0.0(typescript@5.5.3)
+      jiti: 1.21.6
+      typescript: 5.5.3
+
+  cosmiconfig-typescript-loader@5.0.0(@types/node@22.1.0)(cosmiconfig@9.0.0(typescript@5.5.3))(typescript@5.5.3):
+    dependencies:
+      '@types/node': 22.1.0
       cosmiconfig: 9.0.0(typescript@5.5.3)
       jiti: 1.21.6
       typescript: 5.5.3
