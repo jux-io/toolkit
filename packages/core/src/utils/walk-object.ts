@@ -20,7 +20,7 @@ interface ADD_VALUES {
   value: any;
 }
 
-type WalkCallback = (
+export type WalkCallback = (
   key: string,
   value: any
 ) => REPLACE_VALUE | REMOVE_VALUE | MERGE_WITH_PARENT | ADD_VALUES | void;

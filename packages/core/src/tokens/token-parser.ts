@@ -10,7 +10,7 @@ export interface TokenInfo {
   value: DesignTokenValue;
   /* The calculated value of this token, in case of semantic token */
   originalValue: DesignTokenValue;
-  category: keyof Tokens;
+  category: keyof Tokens | undefined | null;
   description?: string;
 }
 
@@ -22,18 +22,18 @@ export enum TokenTypes {
 export const CORE_TOKEN_IDENTIFIER = 'core';
 
 export class TokenParser {
-  name: string;
+  name: TokenInfo['name'];
   type: TokenTypes;
   isCore: boolean;
 
   themeName?: string;
 
-  value: DesignTokenValue;
-  originalValue: DesignTokenValue;
+  value: TokenInfo['value'];
+  originalValue: TokenInfo['originalValue'];
 
-  path: string[];
-  category: keyof Tokens;
-  description?: string;
+  path: TokenInfo['path'];
+  category: TokenInfo['category'];
+  description?: TokenInfo['description'];
 
   constructor(tokenInfo: TokenInfo) {
     this.name = tokenInfo.name;

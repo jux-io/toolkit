@@ -18,7 +18,9 @@ export interface StyledVariants<
   style: CSSPropertiesWithCustomValues<Props, CustomTokensValues, CustomTypes>;
 }
 
-export interface StylesDefinition<Props extends BaseProps> {
+export interface StylesDefinition<
+  Props extends BaseProps = NonNullable<unknown>,
+> {
   root: CSSPropertiesWithCustomValues<
     Props,
     CustomTokensValues<Tokens> & CSSProperties,
