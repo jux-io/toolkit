@@ -3,14 +3,11 @@ import memoizee from 'memoizee';
 import { ImportDescriptor } from './get-imports-from-file.ts';
 import { colorScheme, logger } from '../utils';
 import { evaluateObject } from './evaluate-object.ts';
-import { BEFORE_PARENT, stringifyCssObject, TokensManager } from '../tokens';
-import { transformDesignTokenValueToCss } from '../tokens/transform-design-token-value-to-css.ts';
-import { getAliasMatches } from '@juxio/design-tokens';
+import { stringifyCssObject, TokensManager } from '../tokens';
 import crypto from 'node:crypto';
-import { walkObject } from '../utils';
-import { Tokens } from '../config';
 import cssbeautify from 'cssbeautify';
 import path from 'path';
+import { parseRawStyleObject } from '../utils';
 
 export interface FileParserOptions {
   sourceFile: SourceFile;
@@ -229,7 +226,6 @@ export class FileParser {
           Node.isObjectLiteralExpression(arg) &&
           ((this.cssImports.has(functionName) && index === 0) || index === 1)
         ) {
-          //console.log(evaluateObject(arg, this.options.sourceFile));
           this.parsedFileStructure.set(Math.random().toString(), {
             type: 'function',
             variableName: variableDeclaration?.getName(),
@@ -243,83 +239,6 @@ export class FileParser {
     });
 
     return this.parsedFileStructure;
-  }
-
-  /**
-   * Parses the styles given to css / styled function
-   */
-  parseStyleObject(
-    tokensManager: TokensManager,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    baseStyles: Record<string, any>,
-    functionName: string
-  ) {
-    // We're creating classes for each composite tokens, so collect all composite tokens by category
-    const compositeTokens = tokensManager.getCompositeTokensByCategory();
-
-    return walkObject(baseStyles, (key, value) => {
-      if (compositeTokens.has(key as keyof Tokens)) {
-        const { valuePath } = getAliasMatches(value);
-        if (!valuePath) {
-          logger.warn(
-            `Token value ${colorScheme.input(key)}: "${colorScheme.input(value)}" is not a valid design token path in ${colorScheme.debug(functionName)} function`
-          );
-          // if valuePath cannot be found, it means it does not contain any design token (required for composite tokens)
-          return { type: 'remove' };
-        }
-
-        const compositeToken = compositeTokens
-          .get(key as keyof Tokens)!
-          .filter((t) => t.finalizedTokenName === valuePath);
-
-        if (compositeToken.length === 0) {
-          // User used non-existing composite token
-          logger.warn(
-            `Token value ${colorScheme.input(key)}: "${colorScheme.input(value)}" was not found in ${colorScheme.debug(functionName)} function`
-          );
-          return { type: 'remove' };
-        }
-
-        return {
-          type: 'merge_with_parent',
-          value:
-            compositeToken.length > 1
-              ? compositeToken
-                  .map((t) => ({
-                    [`${BEFORE_PARENT}[data-jux-theme="${t.themeName}"]`]:
-                      t.cssVarValue,
-                  }))
-                  .reduce((acc, val) => ({ ...acc, ...val }), {})
-              : compositeToken[0].cssVarValue,
-        };
-      }
-
-      // This is not a composite token, so we need to transform the value to CSS
-      // Check if the value contains an alias token path, and check if it exist so we can give warning to user
-      if (typeof value === 'string') {
-        const { valuePath } = getAliasMatches(value);
-        if (valuePath) {
-          const parsedToken = Array.from(tokensManager.tokensMap.values()).find(
-            (t) => t.finalizedTokenName === valuePath
-          );
-          if (!parsedToken) {
-            logger.warn(
-              `Token value ${colorScheme.input(key)}: "${colorScheme.input(value)}" was not found in ${colorScheme.debug(functionName)} function`
-            );
-          } else {
-            return {
-              type: 'replace',
-              value: `var(${parsedToken.cssVar})`,
-            };
-          }
-        }
-      }
-
-      return {
-        type: 'replace',
-        value: transformDesignTokenValueToCss(value),
-      };
-    });
   }
 
   generateParsedFilesStyles(tokensManager: TokensManager): string {
@@ -346,7 +265,7 @@ export class FileParser {
 
           // Parse and push 'root' styles
           cssObject = {
-            [`.${baseClassHash}`]: this.parseStyleObject(
+            [`.${baseClassHash}`]: parseRawStyleObject(
               tokensManager,
               parsedResult.props.root,
               functionName
@@ -364,7 +283,7 @@ export class FileParser {
 
             cssObject[`.${baseClassHash}`] = {
               ...cssObject[`.${baseClassHash}`],
-              [`&.${subClassHash}`]: this.parseStyleObject(
+              [`&.${subClassHash}`]: parseRawStyleObject(
                 tokensManager,
                 v.style,
                 functionName
@@ -383,7 +302,7 @@ export class FileParser {
 
           // Parse and push 'root' styles
           cssObject = {
-            [`.${baseClassHash}`]: this.parseStyleObject(
+            [`.${baseClassHash}`]: parseRawStyleObject(
               tokensManager,
               parsedResult.props,
               functionName

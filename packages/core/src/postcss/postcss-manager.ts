@@ -2,6 +2,8 @@ import { getConfigContext, JuxContext } from '../config';
 import { colorScheme, logger } from '../utils';
 import { Root } from 'postcss';
 import path from 'path';
+import { transform, TransformCacheCollection } from '@wyw-in-js/transform';
+import * as util from 'node:util';
 
 export interface PluginOptions {
   configPath?: string;
@@ -94,20 +96,64 @@ export class PostcssManager {
     assets.map((a) => this.context.fs.writeAsset(a));
   }
 
-  parseFile(filePath: string) {
+  async parseFile(filePath: string) {
     logger.debug(
       `Parsing file: ${colorScheme.verbose(path.relative(this.context.cwd, filePath))}`
     );
-    const parsedFile = this.context.fileParser.parseFile(filePath);
 
-    if (!parsedFile) {
-      logger.debug(`No parsed file found for ${filePath}`);
-      return;
+    const cache = new TransformCacheCollection();
+
+    const code = this.context.fs.readFile(filePath);
+
+    const transformService = {
+      options: {
+        filename: filePath,
+        root: this.context.cwd,
+        pluginOptions: {
+          tokens: this.context.tokens,
+          babelOptions: {
+            presets: [
+              [
+                '@babel/preset-react',
+                {
+                  runtime: 'automatic',
+                },
+              ],
+              [
+                '@babel/preset-env',
+                {
+                  modules: false,
+                },
+              ],
+              '@babel/preset-typescript',
+            ],
+          },
+        },
+      },
+      cache,
+    };
+
+    try {
+      const result = await transform(
+        transformService,
+        code,
+        async (/* what, importer, stack */) => {
+          // TODO: Implement import resolver
+          return null;
+        }
+      );
+
+      // result's results could be an array or single object
+      const style = Object.values(result.rules ?? {})
+        .map((r) => r.cssText)
+        .join('\n');
+
+      // Append all the styles into the stylesheet manager
+      this.context.stylesheetManager.layers.juxutilities.append(style);
+    } catch (error) {
+      logger.error(`Error parsing file: ${filePath}`);
+      logger.debug(util.inspect(error, { showHidden: false, depth: null }));
     }
-
-    this.context.stylesheetManager.layers.juxutilities.append(
-      parsedFile.generateParsedFilesStyles(this.context.tokens)
-    );
 
     // Mark the file as unchanged as we just parsed it
     this.filesToWatch.set(filePath, {
@@ -116,11 +162,11 @@ export class PostcssManager {
     });
   }
 
-  parseFiles() {
+  async parseFiles() {
     // Check if files to watch have changed
     for (const [file, { isChanged }] of this.filesToWatch) {
       if (isChanged) {
-        this.parseFile(file);
+        await this.parseFile(file);
       }
     }
   }

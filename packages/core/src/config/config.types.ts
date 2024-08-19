@@ -34,6 +34,7 @@ export interface Tokens {
   [DesignTokenTypeEnum.typography]?: Recursive<TokenValue>;
   [DesignTokenTypeEnum.border]?: Recursive<TokenValue>;
   [DesignTokenTypeEnum.fontFamily]?: Recursive<TokenValue>;
+  [DesignTokenTypeEnum.fontWeight]?: Recursive<TokenValue>;
   $description?: string;
 }
 

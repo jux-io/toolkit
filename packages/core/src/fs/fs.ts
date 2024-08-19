@@ -43,6 +43,10 @@ export class FileManager {
     return fs.unlinkSync(filePath);
   }
 
+  readFile(filePath: string) {
+    return fs.readFileSync(filePath, 'utf8');
+  }
+
   writeFile(directory: string, fileName: string, content: string) {
     fs.ensureDirSync(directory);
 

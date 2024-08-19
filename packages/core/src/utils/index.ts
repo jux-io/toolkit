@@ -4,3 +4,4 @@ export * from './string-utils';
 export * from './transform-jsx';
 export * from './transformers';
 export * from './walk-object';
+export * from './parse-raw-style-object';

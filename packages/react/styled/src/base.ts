@@ -42,24 +42,25 @@ export type ConditionalValue<V> = V | (V | null)[] | NonNullable<unknown>;
  */
 export interface CustomTokensValues<Tokens extends BaseProps = CSSProperties> {
   color?: Tokens['color'];
-  // backgroundColor?: CSSProperties['backgroundColor'] | Tokens['color'];
-  // borderRadius?: Tokens['dimension'];
-  // borderWidth?: Tokens['dimension'];
-  // width?: Tokens['dimension'];
-  // height?: Tokens['dimension'];
-  // fontFamily?: Tokens['fontFamily'];
-  // fontSize?: Tokens['dimension'];
-  // lineHeight?: Tokens['dimension'];
-  // padding?: Tokens['dimension'];
-  // paddingTop?: Tokens['dimension'];
-  // paddingRight?: Tokens['dimension'];
-  // paddingBottom?: Tokens['dimension'];
-  // paddingLeft?: Tokens['dimension'];
-  // margin?: Tokens['dimension'];
-  // marginTop?: Tokens['dimension'];
-  // marginRight?: Tokens['dimension'];
-  // marginBottom?: Tokens['dimension'];
-  // marginLeft?: Tokens['dimension'];
+  backgroundColor?: Tokens['color'];
+  gap?: Tokens['dimension'];
+  borderRadius?: Tokens['dimension'];
+  borderWidth?: Tokens['dimension'];
+  width?: Tokens['dimension'];
+  height?: Tokens['dimension'];
+  fontFamily?: Tokens['fontFamily'];
+  fontSize?: Tokens['dimension'];
+  lineHeight?: Tokens['dimension'];
+  padding?: Tokens['dimension'];
+  paddingTop?: Tokens['dimension'];
+  paddingRight?: Tokens['dimension'];
+  paddingBottom?: Tokens['dimension'];
+  paddingLeft?: Tokens['dimension'];
+  margin?: Tokens['dimension'];
+  marginTop?: Tokens['dimension'];
+  marginRight?: Tokens['dimension'];
+  marginBottom?: Tokens['dimension'];
+  marginLeft?: Tokens['dimension'];
 }
 
 /**
@@ -115,12 +116,6 @@ export type CSSPropertiesWithCustomValues<
   [K in keyof CSSProperties]: CustomTokensValues[K] | CSS.Properties[K];
 } & {
   [K in Prefix<'&', CSS.Pseudos>]?: CSSPropertiesWithCustomValues<
-    Props,
-    CustomTokensValues,
-    CustomTypes
-  >;
-} & {
-  [K in Prefix<'.', string>]?: CSSPropertiesWithCustomValues<
     Props,
     CustomTokensValues,
     CustomTypes

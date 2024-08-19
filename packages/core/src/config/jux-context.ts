@@ -7,11 +7,10 @@ import { Config } from '@oclif/core';
 import path from 'path';
 import { FileManager } from '../fs';
 import { TokensManager } from '../tokens';
-import { arrayToUnionType } from '../utils';
+import { arrayToUnionType, capitalize } from '../utils';
 import { outdent } from 'outdent';
-import { JUX_STYLED_PACKAGES, Project } from '../parsers';
+import { Project } from '../parsers';
 import { StylesheetManager } from '../stylesheet';
-import { JUX_FUNCTIONS } from '../parsers/file-parser.ts';
 import { parseRawTokenSets } from '../utils/parse-raw-token-sets.ts';
 import camelCase from 'lodash/camelCase';
 
@@ -115,22 +114,26 @@ export class JuxContext {
   public async generateTokensDefinitions(): Promise<Asset[]> {
     const set = new Set<string>();
 
+    set.add(`import '@juxio/react-styled/tokens';`);
+
     for (const [name, token] of this.tokens.getTokensByCategory()) {
       set.add(
-        `export type ${camelCase(name)}Token = ${arrayToUnionType(
+        `export type ${capitalize(name)}Token = ${arrayToUnionType(
           // Remove duplicates
           Array.from(new Set(token.map((t) => `{${t.finalizedTokenName}}`)))
         )};`
       );
     }
 
-    set.add(`export interface Tokens {
+    set.add(`declare module '@juxio/react-styled/tokens' {
+          export interface Tokens {
               ${Array.from(this.tokens.getTokensByCategory().keys())
                 .map((name) => {
-                  return `${camelCase(name)}: ${camelCase(name)}Token;`;
+                  return `${camelCase(name)}: ${capitalize(name)}Token;`;
                 })
                 .join('\n')}
-      };`);
+      }
+    }`);
 
     return [
       {
@@ -231,21 +234,7 @@ export class JuxContext {
 
     return bluebird.map(generatedFiles, async (f) => {
       f.file.name = `${f.file.name}.tsx`;
-      f.file.content = await this.fs.prettierFormat(
-        this.fileParser.replaceImports(f.file.name, f.file.content, [
-          {
-            oldModule: JUX_STYLED_PACKAGES.react,
-            newModule: path.relative(
-              path.join(this.cwd, this.cliConfig.components_directory),
-              path.join(
-                this.cwd,
-                this.cliConfig.definitions_directory,
-                JUX_FUNCTIONS.STYLED
-              )
-            ),
-          },
-        ])
-      );
+      f.file.content = await this.fs.prettierFormat(f.file.content);
       return {
         directory: path.join(this.cwd, this.cliConfig.components_directory),
         files: [f.file],
@@ -295,10 +284,7 @@ export class JuxContext {
   }
 
   public async generateAssets(): Promise<Asset[]> {
-    return [
-      ...(await this.generateTokensDefinitions()),
-      ...(await this.generateStyledDefinitions()),
-    ];
+    return [...(await this.generateTokensDefinitions())];
   }
 
   public async pullAssets(options: PullAssetsOptions): Promise<Asset[]> {

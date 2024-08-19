@@ -11,13 +11,17 @@ import {
 import { Tokens } from './tokens';
 import { CSSProperties } from 'react';
 
-export type CSS = (
-  styles: CSSPropertiesWithCustomValues<
-    object,
-    CustomTokensValues<Tokens> & CSSProperties,
-    CustomTypes<Tokens>
-  >
-) => string;
+export interface CSS {
+  (
+    styles: CSSPropertiesWithCustomValues<
+      object,
+      CustomTokensValues<Tokens> & CSSProperties,
+      CustomTypes<Tokens>
+    >
+  ): string;
+
+  (styles: CSSPropertiesWithCustomValues): string;
+}
 
 declare const css: CSS;
 
