@@ -1,8 +1,9 @@
 import { Config } from '@oclif/core';
-import { findConfig } from './find-config';
-import { bundleRequire } from 'bundle-require';
+import { cosmiconfigSync } from 'cosmiconfig';
 import { readTSConfig, resolveTSConfig, type TSConfig } from 'pkg-types';
-import { logger } from '../utils';
+import { z } from 'zod';
+import { TypeScriptLoader } from 'cosmiconfig-typescript-loader';
+import { colorScheme, logger } from '../utils';
 import {
   type APIConfig,
   type JuxCLIConfig,
@@ -11,6 +12,7 @@ import {
 import { validateConfig } from './validate-config';
 import { JuxContext } from './jux-context';
 import { getCliConfigEnv } from './get-and-verify-internal-config';
+import { DesignTokenTypeEnum } from '@juxio/design-tokens';
 
 export interface LoadConfigRes {
   cliConfig: JuxCLIConfig;
@@ -29,34 +31,81 @@ export interface LoadConfigOptions {
   configFile?: string; // The path to the config file
 }
 
-async function loadConfig(
-  options: LoadConfigOptions
-): Promise<Pick<LoadConfigRes, 'cliConfig' | 'configPath'>> {
-  const configPath = findConfig(options);
+export const tokensSchema = z.object({
+  ...Object.values(DesignTokenTypeEnum).reduce(
+    (acc, curr) => {
+      acc[curr] = z.object({}).passthrough().optional();
+      return acc;
+    },
+    {} as Record<string, z.ZodType>
+  ),
+  $description: z.string().optional(),
+});
 
-  if (!configPath) {
+export const rawConfigSchema = z.object({
+  preflight: z.boolean().optional().default(true),
+  globalCss: z.record(z.string(), z.any()).optional(),
+  builtInFonts: z
+    .object({
+      google: z.array(z.string()),
+    })
+    .optional(),
+  cssVarsRoot: z.string().optional(),
+  include: z.array(z.string()),
+  exclude: z.array(z.string()).optional(),
+  tsx: z.boolean().default(true),
+  components_directory: z.string(),
+  tokens_directory: z.string(),
+  definitions_directory: z.string(),
+  rsc: z.boolean().optional(),
+  core_tokens: tokensSchema,
+  themes: z.record(z.string(), tokensSchema),
+});
+
+export function loadConfig(
+  options: LoadConfigOptions,
+  withValidation = true
+): Pick<LoadConfigRes, 'cliConfig' | 'configPath'> {
+  const explorer = cosmiconfigSync('jux', {
+    searchPlaces: ['jux.config.ts'],
+    loaders: {
+      '.ts': TypeScriptLoader(),
+    },
+  });
+
+  const result = explorer.search(options.cwd);
+
+  if (!result) {
     throw new Error('No config file found. Did you forget to run jux init?');
   }
 
-  logger.debug(`Using config file ${configPath}`);
+  logger.debug(`Using config file ${result.filepath}`);
 
-  const { mod } = await bundleRequire<{
-    default: JuxCLIConfig;
-  }>({
-    filepath: configPath,
-  });
+  if (withValidation) {
+    if (!result.config) {
+      throw new Error('Config must export a default object');
+    }
 
-  if (!mod.default) {
-    throw new Error('Config must export a default object');
-  }
+    if (typeof result.config !== 'object') {
+      throw new Error('Config must be an object');
+    }
 
-  if (typeof mod.default !== 'object') {
-    throw new Error('Config must be an object');
+    const parseResult = rawConfigSchema.safeParse(result.config);
+
+    if (!parseResult.success) {
+      parseResult.error.errors.forEach((error) => {
+        logger.error(
+          `Config error in ${colorScheme.debug(error.path.join('.'))}: ${error.message}`
+        );
+      });
+
+      throw new Error('Invalid config file');
+    }
   }
 
   return {
-    cliConfig: mod.default,
-    configPath,
+    cliConfig: result.config,
+    configPath: result.filepath,
   };
 }
 
@@ -65,7 +114,7 @@ export async function getConfigContext(
   oclifConfig?: Config,
   internalConfig?: JuxInternalCliConfig
 ) {
-  const loadConfigRes = await loadConfig(options);
+  const loadConfigRes = loadConfig(options);
 
   const apiConfig = getCliConfigEnv();
 
