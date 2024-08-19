@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { internalConfigSchema } from './get-and-verify-internal-config';
-import { type DesignToken, DesignTokenTypeEnum } from '@juxio/design-tokens';
+import { type DesignToken, DesignTokenType } from '@juxio/design-tokens';
 import { GoogleFont } from './builtin-fonts.ts';
 import * as CSS from 'csstype';
 
@@ -14,7 +14,6 @@ export type JuxInternalCliConfig = z.infer<typeof internalConfigSchema>;
 
 export interface JuxCliConfigOptions {
   tsx: boolean;
-  styled_option: string;
   components_directory: string;
   tokens_directory: string;
   rsc: boolean;
@@ -28,13 +27,11 @@ export type Recursive<T> = {
 
 export type TokenValue = Pick<DesignToken, '$value' | '$description'> | string;
 
-export interface Tokens {
-  [DesignTokenTypeEnum.color]?: Recursive<TokenValue>;
-  [DesignTokenTypeEnum.dimension]?: Recursive<TokenValue>;
-  [DesignTokenTypeEnum.typography]?: Recursive<TokenValue>;
-  [DesignTokenTypeEnum.border]?: Recursive<TokenValue>;
-  [DesignTokenTypeEnum.fontFamily]?: Recursive<TokenValue>;
-  [DesignTokenTypeEnum.fontWeight]?: Recursive<TokenValue>;
+export type MappedTokenTypes = {
+  [key in DesignTokenType]: Recursive<TokenValue>;
+};
+
+export interface Tokens extends MappedTokenTypes {
   $description?: string;
 }
 
@@ -87,9 +84,6 @@ export interface JuxCLIConfig {
    * */
   tsx: boolean;
 
-  /** The styled option to use */
-  styled_option: 'styled';
-
   /** Where to pull generated components */
   components_directory: string;
 
@@ -100,7 +94,7 @@ export interface JuxCLIConfig {
   definitions_directory: string;
 
   /** Whether to use rsc in pulled components */
-  rsc: boolean;
+  rsc?: boolean;
 
   /** The core tokens for the design system */
   core_tokens: Tokens;

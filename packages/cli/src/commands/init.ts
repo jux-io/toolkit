@@ -66,12 +66,6 @@ export default class Init extends JuxCommand<typeof Init> {
             type: 'confirm',
           },
           {
-            choices: ['styled'],
-            message: 'How would you like to style your components?',
-            name: 'styled_option',
-            type: 'select',
-          },
-          {
             initial: './src/components/jux',
             message: 'Where would you like to save Jux components?',
             name: 'directory',

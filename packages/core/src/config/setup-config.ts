@@ -1,12 +1,11 @@
 import { type JuxCliConfigOptions } from './config.types';
 import { logger } from '../utils';
 import { outdent } from 'outdent';
-import { findConfig } from './find-config';
 import { prettierFormat, FileManager } from '../fs';
+import { loadConfig } from './load-config.ts';
 
 export const DEFAULT_JUX_CONFIG: JuxCliConfigOptions = {
   tsx: true,
-  styled_option: 'styled',
   components_directory: 'src/components/jux',
   tokens_directory: 'src/design-tokens',
   rsc: true,
@@ -20,11 +19,16 @@ export async function setupJuxConfig(
   const fs = new FileManager(cwd);
   const configFile = `jux.config.${options.tsx ? 'ts' : 'js'}`;
 
-  const configPath = findConfig({ cwd });
+  const configPath = loadConfig(
+    {
+      cwd,
+    },
+    false
+  );
 
   if (configPath && !forceOverwrite) {
     logger.warn(
-      `config file already exists: ${configPath}. Use -f to overwrite.`
+      `config file already exists: ${configPath.configPath}. Use -f to overwrite.`
     );
     return false;
   } else {
@@ -35,9 +39,6 @@ export async function setupJuxConfig(
       export default defineConfig({
         /* Whether to pull components in tsx / jsx */
         tsx: true,
-
-        /* The styled option to use */
-        styled_option: 'styled',
 
         /* The directory to pull components into */
         components_directory: 'src/components/jux',
