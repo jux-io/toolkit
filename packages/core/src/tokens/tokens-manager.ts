@@ -7,6 +7,7 @@ import {
 import { type TokenInfo, TokenParser, TokenTypes } from './token-parser';
 import { underscore } from '../utils';
 import { getCategoryByCssProperty } from '../utils/get-category-by-css-property.ts';
+import camelCase from 'lodash/camelCase';
 
 export interface TokensView {
   cssVars: Map<string, Map<string, DesignTokenValue>>;
@@ -31,7 +32,9 @@ export class TokensManager {
     Object.keys(parsedTokens).forEach((token) => {
       const name = underscore(token);
       const path = token.split('.').map(underscore);
-      const category = path[1] as keyof Tokens;
+
+      // path is snake_case (e.g. font_family), but we want camelCase for the category
+      const category = camelCase(path[1]) as keyof Tokens;
 
       const tokenInfo: TokenInfo = {
         name,
