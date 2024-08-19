@@ -1,7 +1,12 @@
 import { type Themes, type Tokens } from '../config';
-import { DesignTokensParser, DesignTokenValue } from '@juxio/design-tokens';
+import {
+  DesignTokenComposite,
+  DesignTokensParser,
+  DesignTokenValue,
+} from '@juxio/design-tokens';
 import { type TokenInfo, TokenParser, TokenTypes } from './token-parser';
 import { underscore } from '../utils';
+import { getCategoryByCssProperty } from '../utils/get-category-by-css-property.ts';
 
 export interface TokensView {
   cssVars: Map<string, Map<string, DesignTokenValue>>;
@@ -41,6 +46,27 @@ export class TokensManager {
       };
 
       this.tokensMap.set(tokenInfo.name, new TokenParser(tokenInfo));
+
+      // add tokens for individual values in composite tokens
+      if (tokenInfo.type === TokenTypes.COMPOSITE) {
+        Object.entries(parsedTokens[token] as DesignTokenComposite).forEach(
+          ([key, value]) => {
+            const compositeTokenInfo: TokenInfo = {
+              name: `${name}.${key}`,
+              type: TokenTypes.VALUE,
+              path: [...path, key],
+              value,
+              originalValue: value,
+              category: getCategoryByCssProperty(key),
+            };
+
+            this.tokensMap.set(
+              compositeTokenInfo.name,
+              new TokenParser(compositeTokenInfo)
+            );
+          }
+        );
+      }
     });
   }
 
@@ -53,7 +79,8 @@ export class TokensManager {
     // Add to category map
     Object.entries(
       Object.groupBy<keyof Tokens, TokenParser>(
-        Array.from(this.tokensMap.values()),
+        Array.from(this.tokensMap.values()).filter((t) => t.category),
+        // @ts-expect-error category is defined as we just filtered it
         (t) => t.category
       )
     ).forEach(([key, value]) => {
@@ -166,7 +193,10 @@ export class TokensManager {
     // Add to category map
     Object.entries(
       Object.groupBy<keyof Tokens, TokenParser>(
-        Array.from(this.tokensMap.values()).filter((t) => t.isComposite),
+        Array.from(this.tokensMap.values()).filter(
+          (t) => t.isComposite && t.category
+        ),
+        // @ts-expect-error category is defined as we just filtered it
         (t) => t.category
       )
     ).forEach(([key, value]) => {
