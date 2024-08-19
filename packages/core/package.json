@@ -14,7 +14,8 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "/dist"
+    "/dist",
+    "package.json"
   ],
   "scripts": {
     "build": "tsup",
@@ -23,9 +24,15 @@
   "dependencies": {
     "@antfu/ni": "^0.22.0",
     "@babel/core": "^7.24.9",
-    "@babel/plugin-transform-typescript": "^7.24.8",
+    "@babel/plugin-transform-typescript": "^7.25.2",
+    "@babel/preset-env": "^7.25.3",
+    "@babel/preset-react": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
     "@juxio/design-tokens": "workspace:*",
     "@oclif/core": "^4.0.17",
+    "@wyw-in-js/processor-utils": "^0.5.4",
+    "@wyw-in-js/shared": "^0.5.4",
+    "@wyw-in-js/transform": "^0.5.4",
     "axios": "^1.7.2",
     "bluebird": "^3.7.2",
     "bundle-require": "^5.0.0",

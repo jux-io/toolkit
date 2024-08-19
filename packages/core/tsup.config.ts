@@ -8,6 +8,7 @@ export default defineConfig({
   format: ['cjs', 'esm'],
   splitting: false,
   dts: true,
+  cjsInterop: true,
   shims: true,
   clean: true,
   env: {
