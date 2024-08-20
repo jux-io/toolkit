@@ -12,6 +12,7 @@
     "build": "pnpm -r --filter=./packages/** build",
     "prepare": "husky",
     "release": "changeset publish",
+    "version": "changeset version && pnpm --filter=./packages/** version",
     "release:dev": "changeset version --snapshot dev && changeset publish --tag dev"
   },
   "keywords": [],
