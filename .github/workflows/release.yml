@@ -32,11 +32,13 @@ jobs:
       - name: Login to NPM
         run: printf "registry=https://${{ vars.NPM_REGISTRY }}\n//${{ vars.NPM_REGISTRY }}/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
 
-      - name: Publish packages
+      - name: Create Release PR or publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
           publish: pnpm release
+          commit: "chore: new release"
+          title: "chore: new release candidate"
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
