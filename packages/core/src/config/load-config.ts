@@ -1,8 +1,9 @@
 import { Config } from '@oclif/core';
-import { cosmiconfigSync } from 'cosmiconfig';
-import { readTSConfig, resolveTSConfig, type TSConfig } from 'pkg-types';
+import { bundleRequire } from 'bundle-require';
+import { type TSConfig } from 'pkg-types';
+// @ts-expect-error load-tsconfig is not typed
+import { loadTsConfig } from 'load-tsconfig';
 import { z } from 'zod';
-import { TypeScriptLoader } from 'cosmiconfig-typescript-loader';
 import { colorScheme, logger } from '../utils';
 import {
   type APIConfig,
@@ -13,6 +14,7 @@ import { validateConfig } from './validate-config';
 import { JuxContext } from './jux-context';
 import { getCliConfigEnv } from './get-and-verify-internal-config';
 import { DesignTokenTypeEnum } from '@juxio/design-tokens';
+import { findConfig } from './find-config.ts';
 
 export interface LoadConfigRes {
   cliConfig: JuxCLIConfig;
@@ -20,7 +22,7 @@ export interface LoadConfigRes {
   internalConfig?: JuxInternalCliConfig;
   environmentConfig?: Config;
   tsconfig?: {
-    content: TSConfig;
+    data: TSConfig;
     path: string;
   };
   apiConfig: APIConfig;
@@ -28,7 +30,11 @@ export interface LoadConfigRes {
 
 export interface LoadConfigOptions {
   cwd?: string; // The current directory to load the config from
-  configFile?: string; // The path to the config file
+}
+
+export interface LoadTsConfigRes {
+  path: string;
+  data: TSConfig;
 }
 
 export const tokensSchema = z.object({
@@ -62,35 +68,32 @@ export const rawConfigSchema = z.object({
   themes: z.record(z.string(), tokensSchema),
 });
 
-export function loadConfig(
+export async function loadConfig(
   options: LoadConfigOptions,
   withValidation = true
-): Pick<LoadConfigRes, 'cliConfig' | 'configPath'> {
-  const explorer = cosmiconfigSync('jux', {
-    searchPlaces: ['jux.config.ts'],
-    loaders: {
-      '.ts': TypeScriptLoader(),
-    },
-  });
+): Promise<Pick<LoadConfigRes, 'cliConfig' | 'configPath'>> {
+  const configPath = findConfig(options);
 
-  const result = explorer.search(options.cwd);
-
-  if (!result) {
+  if (!configPath) {
     throw new Error('No config file found. Did you forget to run jux init?');
   }
 
-  logger.debug(`Using config file ${result.filepath}`);
+  const { mod } = await bundleRequire<{
+    default: JuxCLIConfig;
+  }>({
+    filepath: configPath,
+  });
 
   if (withValidation) {
-    if (!result.config) {
+    if (!mod.default) {
       throw new Error('Config must export a default object');
     }
 
-    if (typeof result.config !== 'object') {
+    if (typeof mod.default !== 'object') {
       throw new Error('Config must be an object');
     }
 
-    const parseResult = rawConfigSchema.safeParse(result.config);
+    const parseResult = rawConfigSchema.safeParse(mod.default);
 
     if (!parseResult.success) {
       parseResult.error.errors.forEach((error) => {
@@ -104,8 +107,8 @@ export function loadConfig(
   }
 
   return {
-    cliConfig: result.config,
-    configPath: result.filepath,
+    cliConfig: mod.default,
+    configPath,
   };
 }
 
@@ -114,23 +117,32 @@ export async function getConfigContext(
   oclifConfig?: Config,
   internalConfig?: JuxInternalCliConfig
 ) {
-  const loadConfigRes = loadConfig(options);
+  const loadConfigRes = await loadConfig(options);
 
   const apiConfig = getCliConfigEnv();
+
+  const tsConfigRes: LoadTsConfigRes | null = loadTsConfig(
+    options.cwd,
+    loadConfigRes.cliConfig.tsconfig ?? 'tsconfig.json'
+  );
 
   const result: LoadConfigRes = {
     ...loadConfigRes,
     environmentConfig: oclifConfig,
     internalConfig,
-    tsconfig: {
-      content: await readTSConfig(options.cwd),
-      path: await resolveTSConfig(options.cwd),
-    },
+    tsconfig: tsConfigRes
+      ? {
+          data: tsConfigRes.data,
+          path: tsConfigRes.path,
+        }
+      : undefined,
     apiConfig,
   };
 
   // Validate config will throw if there are any issues
   validateConfig(result.cliConfig);
+
+  logger.debug(`Using config file ${result.configPath}`);
 
   return new JuxContext(result);
 }

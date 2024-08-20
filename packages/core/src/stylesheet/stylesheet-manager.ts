@@ -27,6 +27,14 @@ export class StylesheetManager {
   public readonly layers: Layers = {} as Layers;
   public readonly tokensManager: TokensManager;
 
+  private fileClasses = new Map<
+    string,
+    {
+      className: string;
+      cssText: string;
+    }[]
+  >();
+
   constructor(options: StylesheetManagerOptions) {
     this.cssVarsRoot = options.cssVarsRoot ?? ':root';
     this.preflight = options.preflight ?? true;
@@ -39,6 +47,45 @@ export class StylesheetManager {
         params: layer,
         nodes: [],
       });
+    });
+  }
+
+  async appendClassName(
+    fileName: string,
+    layer: (typeof LAYERS)[number],
+    className: string,
+    cssText: string
+  ) {
+    const beautifiedCss = await this.beautifyCss(cssText);
+
+    if (!this.fileClasses.has(fileName)) {
+      // This is the first time we're adding a class to this file.
+      this.fileClasses.set(fileName, [{ className, cssText: beautifiedCss }]);
+      this.layers[layer].append(beautifiedCss);
+
+      return;
+    }
+
+    // Check if the className already exists in the file. If it does, remove it and append the new one.
+    const existingClass = this.fileClasses.get(fileName)!;
+
+    const classInfo = existingClass.find((c) => c.className === className);
+
+    if (!classInfo) {
+      // class is not registered yet
+      existingClass.push({ className, cssText: beautifiedCss });
+      this.layers[layer].append(beautifiedCss);
+      return;
+    }
+  }
+
+  removeClassNames(layer: (typeof LAYERS)[number], classNames: string[]) {
+    const rule = this.layers[layer];
+
+    rule.walkRules((rule) => {
+      if (classNames.includes(rule.selector)) {
+        rule.remove();
+      }
     });
   }
 

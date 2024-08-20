@@ -97,7 +97,7 @@ export class CssProcessor extends BaseProcessor {
   }
 
   doEvaltimeReplacement() {
-    // this.replacer(this.value, false);
+    return;
   }
 
   doRuntimeReplacement() {
