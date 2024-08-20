@@ -3,7 +3,7 @@
   "changelog": [
     "@changesets/changelog-github",
     {
-      "repo": "drimz-io/toolkit"
+      "repo": "jux-io/toolkit"
     }
   ],
   "commit": false,

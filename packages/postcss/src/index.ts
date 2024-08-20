@@ -1,5 +1,6 @@
 import type { PluginCreator } from 'postcss';
 import { logger, type PluginOptions, PostcssManager } from '@juxio/core';
+import * as util from 'node:util';
 
 const postcssManager = new PostcssManager();
 
@@ -32,9 +33,7 @@ const juxtacss: PluginCreator<PluginOptions> = (options = {}) => {
             });
           });
         } catch (error) {
-          logger.error(error.message);
-          // eslint-disable-next-line no-console
-          console.trace(error);
+          logger.error(util.inspect(error, { showHidden: false, depth: null }));
         }
       },
     ],

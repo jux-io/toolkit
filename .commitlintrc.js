@@ -1,7 +1,11 @@
 module.exports = {
   extends: ['@commitlint/config-conventional'],
   // Ignore the following messages (changesets messages)
-  ignores: [(message) => message.includes('Version Packages')],
+  ignores: [
+    (message) =>
+      message.includes('Version Packages') ||
+      message.includes('chore: new release candidate'),
+  ],
   rules: {
     'type-enum': [
       2,
