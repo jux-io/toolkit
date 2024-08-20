@@ -1,15 +1,31 @@
-import { getConfigContext, JuxContext } from '../config';
+import { getConfigContext, JuxContext, loadConfig } from '../config';
 import { colorScheme, logger } from '../utils';
 import { Root } from 'postcss';
 import path from 'path';
 import { transform, TransformCacheCollection } from '@wyw-in-js/transform';
 import * as util from 'node:util';
+import {
+  ConfigTsOptions,
+  getFileDependencies,
+} from '../utils/get-file-dependencies.ts';
+import { convertTsPathsToRegexes } from '../utils/ts-config-paths.ts';
+
+// A map of files to their last modified time.
+const fileModifiedMap = new Map<string, number>();
+
+export interface FileMeta {
+  modifiedMs: number;
+  isUnchanged: boolean;
+}
+
+interface FileChanges {
+  changes: Map<string, FileMeta>;
+  hasFilesChanged: boolean;
+}
 
 export interface PluginOptions {
   configPath?: string;
-  loglevel?: string;
   cwd?: string;
-  allow?: RegExp[];
 }
 
 const VALID_LAYER_NAMES = ['juxbase', 'juxtokens', 'juxutilities'];
@@ -17,46 +33,93 @@ const VALID_LAYER_NAMES = ['juxbase', 'juxtokens', 'juxutilities'];
 export class PostcssManager {
   public juxContext: JuxContext | undefined;
 
+  private configDependencies = new Set<string>();
+
+  private hasConfigChanged = true;
+
   /**
    * A map of files to watch and their recent modification time
    * @private
    */
-  private filesToWatch = new Map<
-    string,
-    {
-      modifiedMs: number;
-      isChanged: boolean;
+  private filesToWatch: FileChanges | undefined;
+
+  configDeps(cwd: string, configPath: string) {
+    let tsOptions: ConfigTsOptions | undefined;
+    const compilerOptions = this.juxContext?.tsconfig?.compilerOptions ?? {};
+
+    if (compilerOptions?.paths) {
+      tsOptions = {
+        baseUrl: compilerOptions.baseUrl,
+        pathMappings: convertTsPathsToRegexes(
+          compilerOptions.paths,
+          compilerOptions.baseUrl ?? cwd
+        ),
+      };
     }
-  >();
+
+    const configDeps = getFileDependencies(
+      configPath,
+      cwd,
+      tsOptions,
+      compilerOptions
+    );
+
+    configDeps.deps.forEach((filePath) =>
+      this.configDependencies.add(filePath)
+    );
+  }
 
   async init(options: PluginOptions) {
     logger.debug('Initializing PostcssManager...');
 
+    const cwd = options.cwd ?? process.cwd();
+    const configPath =
+      options.configPath ?? (await loadConfig({ cwd: cwd })).configPath;
+
+    this.configDeps(cwd, configPath);
+
     if (!this.juxContext) {
       this.juxContext = await getConfigContext({
-        cwd: options.cwd ?? process.cwd(),
+        cwd,
       });
+      return;
     }
 
-    // Initialize the files to watch and their recent modification time, so we can compare them later
-    this.checkChangedFiles(this.context.getFilesToWatch());
+    // Check if we should reload the context
+    this.hasConfigChanged = await this.context.reloadConfigFile(async () => {
+      logger.debug('Reloading config file...');
+      this.juxContext = await getConfigContext({
+        cwd,
+      });
+    });
+
+    this.filesToWatch = this.checkChangedFiles(this.context.getFilesToWatch());
+  }
+
+  getFileMetadata(filePath: string) {
+    const modifiedMs = this.context.fs.getFileModifiedTime(filePath);
+    return {
+      modifiedMs,
+      isUnchanged:
+        fileModifiedMap.has(filePath) &&
+        modifiedMs === fileModifiedMap.get(filePath),
+    };
   }
 
   checkChangedFiles(filesToCheck: string[]) {
-    filesToCheck.map((file) => {
-      const modifiedTime = this.context.fs.getFileModifiedTime(file);
-      const previousModifiedTime = this.filesToWatch.get(file)?.modifiedMs;
+    const changes = new Map<string, FileMeta>();
 
-      if (modifiedTime !== previousModifiedTime) {
-        this.filesToWatch.set(file, {
-          modifiedMs: modifiedTime,
-          isChanged: true,
-        });
+    let hasFilesChanged = false;
 
-        // Add this file as source file to project
-        this.context.fileParser.addOrRefreshFile(file);
+    for (const file of filesToCheck) {
+      const metadata = this.getFileMetadata(file);
+      changes.set(file, metadata);
+      if (!metadata.isUnchanged) {
+        hasFilesChanged = true;
       }
-    });
+    }
+
+    return { changes, hasFilesChanged };
   }
 
   get context() {
@@ -89,17 +152,24 @@ export class PostcssManager {
   }
 
   async emitAssets() {
-    // TODO: Only emit when files are changed.
-    logger.debug('Emitting assets...');
-    const assets = await this.context.generateAssets();
+    if (this.hasConfigChanged) {
+      logger.debug('Emitting assets...');
+      const assets = await this.context.generateAssets();
 
-    assets.map((a) => this.context.fs.writeAsset(a));
+      assets.map((a) => this.context.fs.writeAsset(a));
+    }
   }
 
   async parseFile(filePath: string) {
     logger.debug(
       `Parsing file: ${colorScheme.verbose(path.relative(this.context.cwd, filePath))}`
     );
+
+    const metadata =
+      this.filesToWatch?.changes.get(filePath) ??
+      this.getFileMetadata(filePath);
+
+    if (metadata.isUnchanged && !this.hasConfigChanged) return;
 
     const cache = new TransformCacheCollection();
 
@@ -143,31 +213,34 @@ export class PostcssManager {
         }
       );
 
-      // result's results could be an array or single object
-      const style = Object.values(result.rules ?? {})
-        .map((r) => r.cssText)
-        .join('\n');
-
-      // Append all the styles into the stylesheet manager
-      this.context.stylesheetManager.layers.juxutilities.append(style);
+      for (const key of Object.keys(result.rules ?? {})) {
+        // We can safely cast as we will get here only if key exist in result.rules
+        const rule = result.rules![key];
+        await this.context.stylesheetManager.appendClassName(
+          filePath,
+          'juxutilities',
+          rule.className,
+          rule.cssText
+        );
+      }
     } catch (error) {
       logger.error(`Error parsing file: ${filePath}`);
       logger.debug(util.inspect(error, { showHidden: false, depth: null }));
+    } finally {
+      fileModifiedMap.set(filePath, metadata.modifiedMs);
     }
-
-    // Mark the file as unchanged as we just parsed it
-    this.filesToWatch.set(filePath, {
-      ...this.filesToWatch.get(filePath)!,
-      isChanged: false,
-    });
   }
 
   async parseFiles() {
-    // Check if files to watch have changed
-    for (const [file, { isChanged }] of this.filesToWatch) {
-      if (isChanged) {
-        await this.parseFile(file);
-      }
+    if (!this.filesToWatch && !this.hasConfigChanged) {
+      logger.debug(`No files to parse`);
+      return;
+    }
+
+    const filesToParse = this.context.getFilesToWatch();
+
+    for (const file of filesToParse) {
+      await this.parseFile(file);
     }
   }
 
@@ -193,6 +266,8 @@ export class PostcssManager {
   }
 
   getWatchedFiles() {
-    return Array.from(this.filesToWatch.keys());
+    // Collect all the files we should watch, so once they change, postcss manager can re-parse them
+    const watchedFiles = this.context.getFilesToWatch();
+    return Array.from([...this.configDependencies, ...watchedFiles]);
   }
 }

@@ -3,6 +3,8 @@ import {
   DesignTokenComposite,
   DesignTokensParser,
   DesignTokenValue,
+  getAliasMatches,
+  isAlias,
 } from '@juxio/design-tokens';
 import { type TokenInfo, TokenParser, TokenTypes } from './token-parser';
 import { underscore } from '../utils';
@@ -36,6 +38,24 @@ export class TokensManager {
       // path is snake_case (e.g. font_family), but we want camelCase for the category
       const category = camelCase(path[1]) as keyof Tokens;
 
+      // Get the raw, original value of the token (an alias or a value)
+      // in case it's an alias, it can point to either a value or a composite token
+      let originalValue = rawValuesMap[token];
+
+      if (isAlias(originalValue)) {
+        const rawTokenValue = this.parsedTokens.getTokenRawValue(
+          getAliasMatches(originalValue).valuePath,
+          true
+        );
+
+        if (typeof rawTokenValue === 'object') {
+          // We do this because in composite tokens (like typography), the value is an object and does not represent a single value
+          // we can reference using var(--token-name), so we need to create a class for it. To do it properly, we need to keep the
+          // original value of the token (recursively)
+          originalValue = rawTokenValue;
+        }
+      }
+
       const tokenInfo: TokenInfo = {
         name,
         type:
@@ -44,7 +64,7 @@ export class TokensManager {
             : TokenTypes.COMPOSITE,
         path,
         value: parsedTokens[token],
-        originalValue: rawValuesMap[token],
+        originalValue: originalValue,
         category,
       };
 
