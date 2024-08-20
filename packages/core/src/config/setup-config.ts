@@ -19,7 +19,7 @@ export async function setupJuxConfig(
   const fs = new FileManager(cwd);
   const configFile = `jux.config.${options.tsx ? 'ts' : 'js'}`;
 
-  const configPath = loadConfig(
+  const configPath = await loadConfig(
     {
       cwd,
     },

@@ -4,13 +4,13 @@ import { logger, type PluginOptions, PostcssManager } from '@juxio/core';
 const postcssManager = new PostcssManager();
 
 const juxtacss: PluginCreator<PluginOptions> = (options = {}) => {
-  const { cwd, configPath, allow } = options;
+  const { cwd, configPath } = options;
   return {
     postcssPlugin: '@juxio/postcss',
     plugins: [
       async (root, result) => {
         try {
-          await postcssManager.init({ cwd, allow, configPath });
+          await postcssManager.init({ cwd: cwd ?? process.cwd(), configPath });
 
           if (!postcssManager.validateRoot(root)) {
             return;
@@ -33,6 +33,8 @@ const juxtacss: PluginCreator<PluginOptions> = (options = {}) => {
           });
         } catch (error) {
           logger.error(error.message);
+          // eslint-disable-next-line no-console
+          console.trace(error);
         }
       },
     ],

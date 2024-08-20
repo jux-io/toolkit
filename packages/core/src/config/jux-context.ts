@@ -1,4 +1,4 @@
-import { type LoadConfigRes } from './load-config';
+import { loadConfig, type LoadConfigRes } from './load-config';
 import bluebird from 'bluebird';
 import { JuxAPI } from '../api';
 import { type Asset } from '../assets';
@@ -9,10 +9,11 @@ import { FileManager } from '../fs';
 import { TokensManager } from '../tokens';
 import { arrayToUnionType, capitalize } from '../utils';
 import { outdent } from 'outdent';
-import { Project } from '../parsers';
 import { StylesheetManager } from '../stylesheet';
 import { parseRawTokenSets } from '../utils/parse-raw-token-sets.ts';
 import camelCase from 'lodash/camelCase';
+import { TSConfig } from 'pkg-types';
+import fastDeepEqual from 'fast-deep-equal';
 
 interface PullAssetsOptions {
   components: string[];
@@ -40,12 +41,6 @@ export class JuxContext {
   public readonly cliConfig: JuxCLIConfig;
 
   /**
-   * Responsible for parsing source code files to generate the final CSS
-   * @private
-   */
-  public readonly fileParser: Project;
-
-  /**
    * The path to the config file
    */
   private readonly configPath: string;
@@ -60,6 +55,8 @@ export class JuxContext {
    * Responsible for generating the final CSS
    */
   public stylesheetManager: StylesheetManager;
+
+  tsconfig?: TSConfig;
 
   /**
    * Oclif's environment config. This is the config that is passed to the CLI.
@@ -77,10 +74,7 @@ export class JuxContext {
     this.cwd = path.parse(this.configPath).dir;
     this.fs = new FileManager(this.cwd);
 
-    this.fileParser = new Project({
-      tsconfig: config.tsconfig,
-      definitions_directory: this.cliConfig.definitions_directory,
-    });
+    this.tsconfig = config.tsconfig?.data;
 
     this.juxApi =
       config.internalConfig && config.environmentConfig
@@ -289,6 +283,19 @@ export class JuxContext {
 
   public async pullAssets(options: PullAssetsOptions): Promise<Asset[]> {
     return [...(await this.pullGeneratedComponentsCode(options.components))];
+  }
+
+  async reloadConfigFile(cb: () => Promise<void>): Promise<boolean> {
+    const { cliConfig } = await loadConfig({ cwd: this.cwd }, true);
+
+    if (fastDeepEqual(cliConfig, this.cliConfig)) {
+      // No need to reload
+      return false;
+    }
+
+    await cb();
+
+    return true;
   }
 
   public getFilesToWatch() {
