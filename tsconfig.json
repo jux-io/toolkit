@@ -6,8 +6,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "useUnknownInCatchVariables": false,
-    "importHelpers": false,
-    "baseUrl": "."
+    "importHelpers": false
   },
   "include": [],
   "exclude": ["node_modules"]

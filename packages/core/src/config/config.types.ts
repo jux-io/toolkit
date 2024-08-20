@@ -28,7 +28,7 @@ export type Recursive<T> = {
 export type TokenValue = Pick<DesignToken, '$value' | '$description'> | string;
 
 export type MappedTokenTypes = {
-  [key in DesignTokenType]: Recursive<TokenValue>;
+  [key in DesignTokenType]?: Recursive<TokenValue>;
 };
 
 export interface Tokens extends MappedTokenTypes {
@@ -72,11 +72,24 @@ export interface JuxCLIConfig {
    */
   cssVarsRoot?: string;
 
-  /** List of glob file patterns to watch for changes */
+  /** List of glob file patterns to watch for changes
+   * ```
+   * include: ['./src/app/page.tsx', './src/components/jux/**']
+   * ```
+   * */
   include: string[];
 
-  /** List of glob file patterns to exclude from watch changes */
+  /** List of glob file patterns to exclude from watch changes
+   * ```
+   * exclude: ['./src/components/jux/not_for_watch_age.tsx']
+   * ```
+   * */
   exclude?: string[];
+
+  /** The tsconfig file to use
+   * @default 'tsconfig.json'
+   * */
+  tsconfig?: string;
 
   /**
    * Whether to pull components in tsx / jsx
