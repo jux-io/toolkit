@@ -1,5 +1,4 @@
 import { Flags } from '@oclif/core';
-import execa from 'execa';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import ora from 'ora';
@@ -50,13 +49,12 @@ export default class Init extends JuxCommand<typeof Init> {
 
     const spinner = ora(`Installing dependencies...`).start();
 
+    const { execa } = await import('execa');
+
     // Install dependencies
     await execa(
       packageManager,
-      [
-        packageManager === 'npm' ? 'install' : 'add',
-        this.dependencies.join(' '),
-      ],
+      [packageManager === 'npm' ? 'install' : 'add', ...this.dependencies],
       {
         cwd,
       }
