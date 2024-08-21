@@ -1,8 +1,8 @@
 {
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
-    "target": "esnext",
-    "lib": ["esnext", "DOM"],
+    "target": "es2023",
+    "lib": ["es2023", "DOM"],
     "jsx": "react-jsx",
     "types": ["node"],
     "outDir": "dist",
