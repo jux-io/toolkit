@@ -47,7 +47,8 @@
     "dirname": "jux",
     "commands": "./dist/commands",
     "plugins": [
-      "@oclif/plugin-help"
+      "@oclif/plugin-help",
+      "@oclif/plugin-version"
     ],
     "topics": {
       "pull": {
@@ -62,8 +63,9 @@
     "@juxio/design-tokens": "workspace:*",
     "@oclif/core": "^4.0.17",
     "@oclif/plugin-help": "^6.2.6",
+    "@oclif/plugin-version": "^2.2.10",
     "enquirer": "^2.4.1",
-    "execa": "5.1.1",
+    "execa": "^9.3.1",
     "ora": "5.4.1"
   },
   "devDependencies": {
