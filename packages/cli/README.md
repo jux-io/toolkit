@@ -6,7 +6,7 @@ $ npm install -g @juxio/cli
 $ jux COMMAND
 running command...
 $ jux (--version)
-@juxio/cli/0.5.3 linux-x64 node-v20.16.0
+@juxio/cli/0.5.4 linux-x64 node-v20.16.0
 $ jux --help [COMMAND]
 USAGE
   $ jux COMMAND
@@ -46,7 +46,7 @@ EXAMPLES
   $ jux generate --tokens-only
 ```
 
-_See code: [src/commands/generate.ts](https://github.com/packages/cli/blob/v0.5.3/src/commands/generate.ts)_
+_See code: [src/commands/generate.ts](https://github.com/jux-io/toolkit/blob/v0.5.4/src/commands/generate.ts)_
 
 ## `jux help [COMMAND]`
 
@@ -90,7 +90,7 @@ EXAMPLES
   $ jux init --force
 ```
 
-_See code: [src/commands/init.ts](https://github.com/packages/cli/blob/v0.5.3/src/commands/init.ts)_
+_See code: [src/commands/init.ts](https://github.com/jux-io/toolkit/blob/v0.5.4/src/commands/init.ts)_
 
 ## `jux login`
 
@@ -112,7 +112,7 @@ EXAMPLES
   $ jux login -d
 ```
 
-_See code: [src/commands/login.ts](https://github.com/packages/cli/blob/v0.5.3/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/jux-io/toolkit/blob/v0.5.4/src/commands/login.ts)_
 
 ## `jux pull components`
 
@@ -136,7 +136,7 @@ EXAMPLES
   $ jux pull components --all
 ```
 
-_See code: [src/commands/pull/components.ts](https://github.com/packages/cli/blob/v0.5.3/src/commands/pull/components.ts)_
+_See code: [src/commands/pull/components.ts](https://github.com/jux-io/toolkit/blob/v0.5.4/src/commands/pull/components.ts)_
 
 ## `jux pull tokens`
 
@@ -160,7 +160,7 @@ EXAMPLES
   $ jux pull tokens -d
 ```
 
-_See code: [src/commands/pull/tokens.ts](https://github.com/packages/cli/blob/v0.5.3/src/commands/pull/tokens.ts)_
+_See code: [src/commands/pull/tokens.ts](https://github.com/jux-io/toolkit/blob/v0.5.4/src/commands/pull/tokens.ts)_
 
 ## `jux version`
 
