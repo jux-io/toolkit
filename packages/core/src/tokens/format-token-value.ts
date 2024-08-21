@@ -1,6 +1,6 @@
-import { getCssVariableName } from './get-css-variable-name.ts';
+import { getCssVariableName } from './get-css-variable-name';
 import { underscore } from '../utils';
-import { CORE_TOKEN_IDENTIFIER } from './token-parser.ts';
+import { CORE_TOKEN_IDENTIFIER } from './token-parser';
 
 /**
  * Format token value to be used in CSS

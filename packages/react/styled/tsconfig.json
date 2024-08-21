@@ -1,8 +1,8 @@
 {
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
-    "target": "ES2023",
-    "lib": ["es2022", "DOM"],
+    "target": "esnext",
+    "lib": ["esnext", "DOM"],
     "jsx": "react-jsx",
     "types": ["node"],
     "outDir": "dist",
@@ -15,5 +15,5 @@
   },
   "files": [],
   "include": ["src/**/*"],
-  "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts", "**/*.snap"]
+  "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts", "**/*.snap", "node_modules", "dist", "tsup.config.ts"]
 }

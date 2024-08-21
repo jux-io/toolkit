@@ -37,7 +37,8 @@
   },
   "scripts": {
     "build": "tsup",
-    "dev": "pnpm build --watch src"
+    "dev": "pnpm build --watch src",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@wyw-in-js/processor-utils": "^0.5.4",

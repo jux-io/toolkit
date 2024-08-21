@@ -1,2 +1,2 @@
-export * from './fs.ts';
-export * from './fs.utils.ts';
+export * from './fs';
+export * from './fs.utils';

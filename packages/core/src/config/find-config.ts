@@ -1,5 +1,5 @@
 import findUp from 'escalade/sync';
-import { LoadConfigOptions } from './load-config.ts';
+import { LoadConfigOptions } from './load-config';
 
 const configFiles = new Set(['jux.config.ts', 'jux.config.js']);
 

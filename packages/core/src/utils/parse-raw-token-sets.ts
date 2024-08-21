@@ -1,5 +1,5 @@
-import { underscore } from './string-utils.ts';
-import { walkObject } from './walk-object.ts';
+import { underscore } from './string-utils';
+import { walkObject } from './walk-object';
 import { isAlias } from '@juxio/design-tokens';
 import { CORE_TOKEN_IDENTIFIER } from '../tokens';
 import { TokenSet } from '../api';
