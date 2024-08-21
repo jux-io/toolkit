@@ -18,7 +18,8 @@
   ],
   "scripts": {
     "build": "tsup",
-    "dev": "pnpm build --watch src"
+    "dev": "pnpm build --watch src",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "postcss": "^8.4.39",

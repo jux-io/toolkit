@@ -8,7 +8,7 @@ import {
 } from '@juxio/design-tokens';
 import { type TokenInfo, TokenParser, TokenTypes } from './token-parser';
 import { underscore } from '../utils';
-import { getCategoryByCssProperty } from '../utils/get-category-by-css-property.ts';
+import { getCategoryByCssProperty } from '../utils/get-category-by-css-property';
 import camelCase from 'lodash/camelCase';
 
 export interface TokensView {

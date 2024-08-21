@@ -8,6 +8,6 @@
     "useUnknownInCatchVariables": false,
     "importHelpers": false
   },
-  "include": [],
+  "include": ["packages/**/*.ts"],
   "exclude": ["node_modules"]
 }

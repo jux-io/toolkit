@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["es2023"],
+    "lib": ["esnext"],
     "types": ["node"],
     "outDir": "dist",
     "strict": true,
@@ -18,6 +18,8 @@
     "**/*.spec.ts",
     "**/*.test.ts",
     "**/*.snap",
+    "node_modules",
+    "dist",
     "tsup.config.ts"
   ]
 }

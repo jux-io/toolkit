@@ -1,9 +1,9 @@
 import { BEFORE_PARENT, TokensManager } from '../tokens';
-import { walkObject } from './walk-object.ts';
+import { walkObject } from './walk-object';
 import { Tokens } from '../config';
 import { getAliasMatches } from '@juxio/design-tokens';
-import { transformDesignTokenValueToCss } from '../tokens/transform-design-token-value-to-css.ts';
-import { resolveTokenValue } from './resolve-token-value.ts';
+import { transformDesignTokenValueToCss } from '../tokens/transform-design-token-value-to-css';
+import { resolveTokenValue } from './resolve-token-value';
 
 /**
  * Parses the styles given to css / styled function

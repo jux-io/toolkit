@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { hypenateProperty, unitlessProperties } from './unitless-properties.ts';
+import { hypenateProperty, unitlessProperties } from './unitless-properties';
 
 export type Dict<T = any> = Record<string, T>;
 
