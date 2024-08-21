@@ -1,31 +1,28 @@
 # Usage
 
   <!-- usage -->
-
 ```sh-session
 $ npm install -g @juxio/cli
 $ jux COMMAND
 running command...
 $ jux (--version)
-@juxio/cli/0.5.0 darwin-arm64 node-v21.6.2
+@juxio/cli/0.5.1 linux-x64 node-v20.16.0
 $ jux --help [COMMAND]
 USAGE
   $ jux COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
   <!-- commands -->
-
-- [`jux generate`](#jux-generate)
-- [`jux help [COMMAND]`](#jux-help-command)
-- [`jux init`](#jux-init)
-- [`jux login`](#jux-login)
-- [`jux pull components`](#jux-pull-components)
-- [`jux pull tokens`](#jux-pull-tokens)
+* [`jux generate`](#jux-generate)
+* [`jux help [COMMAND]`](#jux-help-command)
+* [`jux init`](#jux-init)
+* [`jux login`](#jux-login)
+* [`jux pull components`](#jux-pull-components)
+* [`jux pull tokens`](#jux-pull-tokens)
 
 ## `jux generate`
 
@@ -36,7 +33,7 @@ USAGE
   $ jux generate [--tokensOnly] [--cwd <value>]
 
 FLAGS
-  --cwd=<value>  The current working directory for the command
+  --cwd=<value>  [default: /home/runner/work/toolkit/toolkit/packages/cli] The current working directory for the command
   --tokensOnly   Generate tokens definitions only
 
 DESCRIPTION
@@ -48,7 +45,7 @@ EXAMPLES
   $ jux generate --tokens-only
 ```
 
-_See code: [src/commands/generate.ts](https://github.com/packages/cli/blob/v0.5.0/src/commands/generate.ts)_
+_See code: [src/commands/generate.ts](https://github.com/packages/cli/blob/v0.5.1/src/commands/generate.ts)_
 
 ## `jux help [COMMAND]`
 
@@ -76,21 +73,23 @@ initialize your project and install dependencies
 
 ```
 USAGE
-  $ jux init [--cwd <value>] [-f] [-i]
+  $ jux init [--cwd <value>] [-f]
 
 FLAGS
   -f, --force        Force overwrite of existing configuration
-  -i, --interactive  Run in interactive mode
-      --cwd=<value>  The directory to initialize the project in
+      --cwd=<value>  [default: /home/runner/work/toolkit/toolkit/packages/cli] The directory to initialize the project
+                     in
 
 DESCRIPTION
   initialize your project and install dependencies
 
 EXAMPLES
-  $ jux init -d
+  $ jux init
+
+  $ jux init --force
 ```
 
-_See code: [src/commands/init.ts](https://github.com/packages/cli/blob/v0.5.0/src/commands/init.ts)_
+_See code: [src/commands/init.ts](https://github.com/packages/cli/blob/v0.5.1/src/commands/init.ts)_
 
 ## `jux login`
 
@@ -101,7 +100,8 @@ USAGE
   $ jux login [-d] [-c <value>]
 
 FLAGS
-  -c, --cwd=<value>  The directory to initialize the project in
+  -c, --cwd=<value>  [default: /home/runner/work/toolkit/toolkit/packages/cli] The directory to initialize the project
+                     in
   -d, --defaults     Use defaults configurations
 
 DESCRIPTION
@@ -111,7 +111,7 @@ EXAMPLES
   $ jux login -d
 ```
 
-_See code: [src/commands/login.ts](https://github.com/packages/cli/blob/v0.5.0/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/packages/cli/blob/v0.5.1/src/commands/login.ts)_
 
 ## `jux pull components`
 
@@ -123,7 +123,8 @@ USAGE
 
 FLAGS
   -c, --components=<value>...  Pull specific components. Separate multiple components with a space.
-      --cwd=<value>            The current working directory for the command
+      --cwd=<value>            [default: /home/runner/work/toolkit/toolkit/packages/cli] The current working directory
+                               for the command
 
 DESCRIPTION
   Pull components from Jux editor
@@ -134,7 +135,7 @@ EXAMPLES
   $ jux pull components --all
 ```
 
-_See code: [src/commands/pull/components.ts](https://github.com/packages/cli/blob/v0.5.0/src/commands/pull/components.ts)_
+_See code: [src/commands/pull/components.ts](https://github.com/packages/cli/blob/v0.5.1/src/commands/pull/components.ts)_
 
 ## `jux pull tokens`
 
@@ -145,7 +146,8 @@ USAGE
   $ jux pull tokens [-d] [-c <value>]
 
 FLAGS
-  -c, --cwd=<value>  The current working directory for the command
+  -c, --cwd=<value>  [default: /home/runner/work/toolkit/toolkit/packages/cli] The current working directory for the
+                     command
   -d, --definitions  Generate token definitions after pull
 
 DESCRIPTION
@@ -157,15 +159,13 @@ EXAMPLES
   $ jux pull tokens -d
 ```
 
-_See code: [src/commands/pull/tokens.ts](https://github.com/packages/cli/blob/v0.5.0/src/commands/pull/tokens.ts)_
-
+_See code: [src/commands/pull/tokens.ts](https://github.com/packages/cli/blob/v0.5.1/src/commands/pull/tokens.ts)_
 <!-- commandsstop -->
 
 # Table of contents
 
   <!-- toc -->
-
-- [Usage](#usage)
-- [Commands](#commands)
-- [Table of contents](#table-of-contents)
+* [Usage](#usage)
+* [Commands](#commands)
+* [Table of contents](#table-of-contents)
 <!-- tocstop -->
