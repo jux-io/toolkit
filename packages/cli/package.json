@@ -21,7 +21,7 @@
   "bin": {
     "jux": "./bin/run.js"
   },
-  "bugs": "https://github.com/juxio/toolkit/issues",
+  "bugs": "https://github.com/jux-io/toolkit/issues",
   "scripts": {
     "build": "tsup",
     "dev": "pnpm build --watch src",
@@ -37,7 +37,7 @@
     "/dist",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/juxio/toolkit",
+  "homepage": "https://github.com/jux-io/toolkit",
   "keywords": [
     "jux"
   ],
@@ -57,7 +57,11 @@
     },
     "topicSeparator": " "
   },
-  "repository": "packages/cli",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jux-io/toolkit.git",
+    "directory": "packages/cli"
+  },
   "dependencies": {
     "@juxio/core": "workspace:*",
     "@juxio/design-tokens": "workspace:*",
