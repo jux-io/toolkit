@@ -1,5 +1,14 @@
 # @juxio/react-styled
 
+## 0.5.3
+
+### Patch Changes
+
+- [#22](https://github.com/jux-io/toolkit/pull/22) [`2010327`](https://github.com/jux-io/toolkit/commit/2010327fa9789b7ceae162296847f28bc3e81db4) Thanks [@tnipri](https://github.com/tnipri)! - fixed an issue where styled function crashed when target is set to es2023
+
+- Updated dependencies []:
+  - @juxio/core@0.5.3
+
 ## 0.5.2
 
 ### Patch Changes
