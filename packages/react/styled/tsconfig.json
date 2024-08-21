@@ -15,5 +15,13 @@
   },
   "files": [],
   "include": ["src/**/*"],
-  "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts", "**/*.snap", "node_modules", "dist", "tsup.config.ts"]
+  "exclude": [
+    "jest.config.ts",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "**/*.snap",
+    "node_modules",
+    "dist",
+    "tsup.config.ts"
+  ]
 }
