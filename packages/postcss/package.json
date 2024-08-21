@@ -13,6 +13,12 @@
     },
     "./package.json": "./package.json"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jux-io/toolkit.git",
+    "directory": "packages/postcss"
+  },
+  "homepage": "https://github.com/jux-io/toolkit",
   "files": [
     "/dist"
   ],
