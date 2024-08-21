@@ -1,4 +1,4 @@
-import { getConfigContext, JuxContext, loadConfig } from '../config';
+import { getConfigContext, JuxContext } from '../config';
 import { colorScheme, logger } from '../utils';
 import { Root } from 'postcss';
 import path from 'path';
@@ -9,6 +9,7 @@ import {
   getFileDependencies,
 } from '../utils/get-file-dependencies.ts';
 import { convertTsPathsToRegexes } from '../utils/ts-config-paths.ts';
+import { findConfig } from '../config/find-config.ts';
 
 // A map of files to their last modified time.
 const fileModifiedMap = new Map<string, number>();
@@ -35,7 +36,7 @@ export class PostcssManager {
 
   private configDependencies = new Set<string>();
 
-  private hasConfigChanged = true;
+  private hasConfigChanged = false;
 
   /**
    * A map of files to watch and their recent modification time
@@ -71,10 +72,9 @@ export class PostcssManager {
 
   async init(options: PluginOptions) {
     logger.debug('Initializing PostcssManager...');
-
     const cwd = options.cwd ?? process.cwd();
-    const configPath =
-      options.configPath ?? (await loadConfig({ cwd: cwd })).configPath;
+
+    const configPath = findConfig({ cwd }) ?? cwd;
 
     this.configDeps(cwd, configPath);
 
@@ -82,6 +82,7 @@ export class PostcssManager {
       this.juxContext = await getConfigContext({
         cwd,
       });
+      this.hasConfigChanged = true;
       return;
     }
 
@@ -161,15 +162,15 @@ export class PostcssManager {
   }
 
   async parseFile(filePath: string) {
-    logger.debug(
-      `Parsing file: ${colorScheme.verbose(path.relative(this.context.cwd, filePath))}`
-    );
-
     const metadata =
       this.filesToWatch?.changes.get(filePath) ??
       this.getFileMetadata(filePath);
 
     if (metadata.isUnchanged && !this.hasConfigChanged) return;
+
+    logger.debug(
+      `Parsing file: ${colorScheme.verbose(path.relative(this.context.cwd, filePath))}`
+    );
 
     const cache = new TransformCacheCollection();
 
@@ -242,6 +243,8 @@ export class PostcssManager {
     for (const file of filesToParse) {
       await this.parseFile(file);
     }
+
+    this.hasConfigChanged = false;
   }
 
   async injectStyles(root: Root) {

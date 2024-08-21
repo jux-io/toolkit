@@ -39,6 +39,15 @@ export default class PullComponents extends JuxCommand<typeof PullComponents> {
       internalConfig
     );
 
+    if (
+      !ctx.cliConfig.components_directory ||
+      !ctx.cliConfig.tokens_directory
+    ) {
+      throw new Error(
+        'components_directory and tokens_directory should be defined in jux.config'
+      );
+    }
+
     const spinner = ora(`Generating assets...\n`).start();
 
     const assets = await ctx.pullAssets({

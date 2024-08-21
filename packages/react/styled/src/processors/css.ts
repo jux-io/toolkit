@@ -14,6 +14,7 @@ import { CSSPropertiesWithCustomValues } from '../base';
 import css from '../css';
 import { logger, stringifyCssObject, type TokensManager } from '@juxio/core';
 import { parseRawStyleObject, colorScheme } from '@juxio/core';
+import path from 'node:path';
 
 export type ExtendedOptions = IOptions & {
   tokens: TokensManager;
@@ -74,7 +75,15 @@ export class CssProcessor extends BaseProcessor {
 
     const { tokens } = this.options as ExtendedOptions;
 
-    const parsedStyle = parseRawStyleObject(tokens, styleObject, cssClassName);
+    const parsedStyle = parseRawStyleObject(
+      tokens,
+      styleObject,
+      (cssKey, value) => {
+        logger.warn(
+          `[${colorScheme.debug(path.basename(this.context.filename!))}]: Token value ${colorScheme.input(cssKey)}: "${colorScheme.input(value)}" was not found in ${colorScheme.debug(this.displayName)} function`
+        );
+      }
+    );
 
     const cssText = stringifyCssObject({
       [`.${cssClassName}`]: parsedStyle,

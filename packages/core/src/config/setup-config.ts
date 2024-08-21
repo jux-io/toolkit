@@ -13,11 +13,10 @@ export const DEFAULT_JUX_CONFIG: JuxCliConfigOptions = {
 
 export async function setupJuxConfig(
   cwd: string,
-  options: JuxCliConfigOptions,
   forceOverwrite = false
 ): Promise<boolean> {
   const fs = new FileManager(cwd);
-  const configFile = `jux.config.${options.tsx ? 'ts' : 'js'}`;
+  const configFile = `jux.config.ts`;
 
   const configPath = await loadConfig(
     {
@@ -34,24 +33,27 @@ export async function setupJuxConfig(
   } else {
     logger.info(`creating jux config file: ${configFile}`);
     const configContent = outdent`
-      import { defineConfig } from '@jux/cli';
+      import { defineConfig } from '@juxio/cli';
 
       export default defineConfig({
-        /* Whether to pull components in tsx / jsx */
-        tsx: true,
-
-        /* The directory to pull components into */
-        components_directory: 'src/components/jux',
-
-        /* The directory to pull design tokens into */
-        tokens_directory: 'src/design-tokens',
-
-        /* Whether to use rsc in pulled components */
-        rsc: true,
-
-        /* The tokens and themes for the design system */
-        themes: {
-          core: {
+        /* Whether to apply preflight styles */
+        preflight: true,
+        
+        /* A list of glob file patterns to watch for styling configurations */
+        include: ['./src/**/*.{js,jsx,ts,tsx}', './pages/**/*.{js,jsx,ts,tsx}'],
+        
+        exclude: [],
+        
+        globalCss: {
+          '*': {
+            margin: 0,
+            padding: 0,
+            boxSizing: 'border-box',
+          },
+        },
+        
+        /* The core tokens */
+        core_tokens: {
             color: {
               brand_100: {
                 $value: '#0070f3',
@@ -62,15 +64,50 @@ export async function setupJuxConfig(
                 $description: 'Secondary brand color',
               },
             },
-          },
-          myTheme: {
+            dimension: {
+              spacing_100: {
+                  $value: '8px',
+                  $description: 'Base spacing unit',
+              },
+            }
+        },
+        
+        definitions_directory: './src/jux/types',
+
+        /* The tokens and themes for the design system */
+        themes: {
+          light: {
             color: {
               primary: {
-                $value: '{core.color.brand_100}',
-                $description: 'Should be the primary brand color',
+                  $value: '{core.color.brand_100}',
+                  $description: 'Primary color',
               },
             },
+            dimension: {
+              specific: {
+                button_radius: {
+                  $value: '{core.dimension.spacing_100}',
+                  $description: 'Button border radius',
+                }
+              }
+            }
           },
+          dark: {
+            color: {
+              primary: {
+                $value: '{core.color.brand_200}',
+                $description: 'Primary color',
+              },
+            },
+            dimension: {
+              specific: {
+                button_radius: {
+                  $value: '{core.dimension.spacing_100}',
+                  $description: 'Button border radius',
+                }
+              }
+            }
+          }
         },
       });
     `;
