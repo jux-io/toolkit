@@ -15,6 +15,7 @@ import { JuxContext } from './jux-context';
 import { getCliConfigEnv } from './get-and-verify-internal-config';
 import { DesignTokenTypeEnum } from '@juxio/design-tokens';
 import { findConfig } from './find-config.ts';
+import { ConfigNotFoundError } from '../utils/exceptions.ts';
 
 export interface LoadConfigRes {
   cliConfig: JuxCLIConfig;
@@ -59,9 +60,8 @@ export const rawConfigSchema = z.object({
   cssVarsRoot: z.string().optional(),
   include: z.array(z.string()),
   exclude: z.array(z.string()).optional(),
-  tsx: z.boolean().default(true),
-  components_directory: z.string(),
-  tokens_directory: z.string(),
+  components_directory: z.string().optional(),
+  tokens_directory: z.string().optional(),
   definitions_directory: z.string(),
   rsc: z.boolean().optional(),
   core_tokens: tokensSchema,
@@ -71,11 +71,11 @@ export const rawConfigSchema = z.object({
 export async function loadConfig(
   options: LoadConfigOptions,
   withValidation = true
-): Promise<Pick<LoadConfigRes, 'cliConfig' | 'configPath'>> {
+): Promise<Pick<LoadConfigRes, 'cliConfig' | 'configPath'> | undefined> {
   const configPath = findConfig(options);
 
   if (!configPath) {
-    throw new Error('No config file found. Did you forget to run jux init?');
+    return;
   }
 
   const { mod } = await bundleRequire<{
@@ -113,11 +113,15 @@ export async function loadConfig(
 }
 
 export async function getConfigContext(
-  options: LoadConfigOptions,
+  options: LoadConfigOptions = { cwd: process.cwd() },
   oclifConfig?: Config,
   internalConfig?: JuxInternalCliConfig
 ) {
   const loadConfigRes = await loadConfig(options);
+
+  if (!loadConfigRes) {
+    throw new ConfigNotFoundError(options.cwd!);
+  }
 
   const apiConfig = getCliConfigEnv();
 

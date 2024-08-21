@@ -1,5 +1,7 @@
 # Usage
+
   <!-- usage -->
+
 ```sh-session
 $ npm install -g @juxio/cli
 $ jux COMMAND
@@ -11,15 +13,19 @@ USAGE
   $ jux COMMAND
 ...
 ```
+
 <!-- usagestop -->
+
 # Commands
+
   <!-- commands -->
-* [`jux generate`](#jux-generate)
-* [`jux help [COMMAND]`](#jux-help-command)
-* [`jux init`](#jux-init)
-* [`jux login`](#jux-login)
-* [`jux pull components`](#jux-pull-components)
-* [`jux pull tokens`](#jux-pull-tokens)
+
+- [`jux generate`](#jux-generate)
+- [`jux help [COMMAND]`](#jux-help-command)
+- [`jux init`](#jux-init)
+- [`jux login`](#jux-login)
+- [`jux pull components`](#jux-pull-components)
+- [`jux pull tokens`](#jux-pull-tokens)
 
 ## `jux generate`
 
@@ -152,10 +158,14 @@ EXAMPLES
 ```
 
 _See code: [src/commands/pull/tokens.ts](https://github.com/packages/cli/blob/v0.5.0/src/commands/pull/tokens.ts)_
+
 <!-- commandsstop -->
+
 # Table of contents
+
   <!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
-* [Table of contents](#table-of-contents)
+
+- [Usage](#usage)
+- [Commands](#commands)
+- [Table of contents](#table-of-contents)
 <!-- tocstop -->
