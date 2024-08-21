@@ -1,5 +1,15 @@
 # @juxio/cli
 
+## 0.5.2
+
+### Patch Changes
+
+- [#20](https://github.com/jux-io/toolkit/pull/20) [`5d9cd03`](https://github.com/jux-io/toolkit/commit/5d9cd03e29f2ed62340541b95ca4e1ed6b1605fb) Thanks [@tnipri](https://github.com/tnipri)! - - added version command to cli
+  - fixed an issue where the cli installs invalid packages on init
+- Updated dependencies [[`5d9cd03`](https://github.com/jux-io/toolkit/commit/5d9cd03e29f2ed62340541b95ca4e1ed6b1605fb)]:
+  - @juxio/core@0.5.2
+  - @juxio/design-tokens@0.5.2
+
 ## 0.5.1
 
 ### Patch Changes
