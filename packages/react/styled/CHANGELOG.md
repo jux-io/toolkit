@@ -1,5 +1,14 @@
 # @juxio/react-styled
 
+## 0.5.4
+
+### Patch Changes
+
+- [#24](https://github.com/jux-io/toolkit/pull/24) [`dbe0501`](https://github.com/jux-io/toolkit/commit/dbe0501368f45387a0cdad3453f644e5323cb351) Thanks [@tnipri](https://github.com/tnipri)! - modified package json to contain homepage and repository
+
+- Updated dependencies [[`dbe0501`](https://github.com/jux-io/toolkit/commit/dbe0501368f45387a0cdad3453f644e5323cb351)]:
+  - @juxio/core@0.5.4
+
 ## 0.5.3
 
 ### Patch Changes
