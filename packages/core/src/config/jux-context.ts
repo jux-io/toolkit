@@ -10,11 +10,11 @@ import { TokensManager } from '../tokens';
 import { arrayToUnionType, capitalize } from '../utils';
 import { outdent } from 'outdent';
 import { StylesheetManager } from '../stylesheet';
-import { parseRawTokenSets } from '../utils/parse-raw-token-sets.ts';
+import { parseRawTokenSets } from '../utils/parse-raw-token-sets';
 import camelCase from 'lodash/camelCase';
 import { TSConfig } from 'pkg-types';
 import fastDeepEqual from 'fast-deep-equal';
-import { ConfigNotFoundError } from '../utils/exceptions.ts';
+import { ConfigNotFoundError } from '../utils/exceptions';
 
 interface PullAssetsOptions {
   components: string[];

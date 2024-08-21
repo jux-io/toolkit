@@ -1,9 +1,9 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "lib": ["ESNext", "DOM"],
-    "target": "ESNext",
-    "module": "ESNext",
+    "lib": ["esnext", "DOM"],
+    "target": "esnext",
+    "module": "esnext",
     "moduleDetection": "force",
     "allowJs": true,
     "moduleResolution": "Bundler",
@@ -16,5 +16,5 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": ["src/**/*"],
-  "exclude": ["tsup.config.ts"]
+  "exclude": ["node_modules", "dist", "tsup.config.ts"]
 }

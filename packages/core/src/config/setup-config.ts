@@ -1,15 +1,7 @@
-import { type JuxCliConfigOptions } from './config.types';
 import { logger } from '../utils';
 import { outdent } from 'outdent';
 import { prettierFormat, FileManager } from '../fs';
-import { loadConfig } from './load-config.ts';
-
-export const DEFAULT_JUX_CONFIG: JuxCliConfigOptions = {
-  tsx: true,
-  components_directory: 'src/components/jux',
-  tokens_directory: 'src/design-tokens',
-  rsc: true,
-};
+import { loadConfig } from './load-config';
 
 export async function setupJuxConfig(
   cwd: string,

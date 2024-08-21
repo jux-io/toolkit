@@ -5,7 +5,7 @@ import {
   DesignTokenType,
   DesignTokenValue,
 } from '@juxio/design-tokens';
-import { GoogleFont } from './builtin-fonts.ts';
+import { GoogleFont } from './builtin-fonts';
 import * as CSS from 'csstype';
 
 export interface UserTokens {
