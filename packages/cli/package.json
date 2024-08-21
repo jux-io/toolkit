@@ -27,9 +27,9 @@
     "dev": "pnpm build --watch src",
     "postpack": "shx rm -f oclif.manifest.json",
     "posttest": "pnpm run lint",
-    "prepack": "oclif manifest && oclif readme",
+    "prepack": "oclif manifest && oclif readme --repository-prefix \"<%- repo %>/tree/%40juxio/cli%40<%- version %>/packages/cli/<%- commandPath %>\"",
     "test": "mocha --forbid-only \"test/**/*.test.ts\"",
-    "version": "oclif readme && git add README.md",
+    "version": "oclif readme --repository-prefix \"<%- repo %>/tree/%40juxio/cli%40<%- version %>/packages/cli/<%- commandPath %>\" && git add README.md",
     "typecheck": "tsc --noEmit"
   },
   "files": [
