@@ -7,9 +7,9 @@ import * as util from 'node:util';
 import {
   ConfigTsOptions,
   getFileDependencies,
-} from '../utils/get-file-dependencies.ts';
-import { convertTsPathsToRegexes } from '../utils/ts-config-paths.ts';
-import { findConfig } from '../config/find-config.ts';
+} from '../utils/get-file-dependencies';
+import { convertTsPathsToRegexes } from '../utils/ts-config-paths';
+import { findConfig } from '../config/find-config';
 
 // A map of files to their last modified time.
 const fileModifiedMap = new Map<string, number>();

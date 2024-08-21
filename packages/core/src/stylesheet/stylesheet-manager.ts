@@ -1,8 +1,8 @@
 import postcss from 'postcss';
 import cssnano from 'cssnano';
 import cssbeautify from 'cssbeautify';
-import { generateResetStyles } from './generate-reset-styles.ts';
-import { convertObjectToCSS } from './style-object-to-css-string.ts';
+import { generateResetStyles } from './generate-reset-styles';
+import { convertObjectToCSS } from './style-object-to-css-string';
 import { formatTokenValue, stringifyCssObject, TokensManager } from '../tokens';
 import { GoogleFont, googleFonts } from '../config';
 import { JuxCLIConfig } from '../config';

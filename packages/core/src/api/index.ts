@@ -1,2 +1,2 @@
-export * from './JuxAPI.ts';
-export * from './OrganizationsAPI.ts';
+export * from './JuxAPI';
+export * from './OrganizationsAPI';

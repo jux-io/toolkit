@@ -14,8 +14,8 @@ import { validateConfig } from './validate-config';
 import { JuxContext } from './jux-context';
 import { getCliConfigEnv } from './get-and-verify-internal-config';
 import { DesignTokenTypeEnum } from '@juxio/design-tokens';
-import { findConfig } from './find-config.ts';
-import { ConfigNotFoundError } from '../utils/exceptions.ts';
+import { findConfig } from './find-config';
+import { ConfigNotFoundError } from '../utils/exceptions';
 
 export interface LoadConfigRes {
   cliConfig: JuxCLIConfig;

@@ -1,4 +1,4 @@
-import { JuxAPI } from './JuxAPI.ts';
+import { JuxAPI } from './JuxAPI';
 
 interface Organization {
   id: number;

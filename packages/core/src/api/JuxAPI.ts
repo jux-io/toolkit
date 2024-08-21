@@ -2,7 +2,7 @@ import { Config } from '@oclif/core';
 import axios, { AxiosError, type AxiosInstance } from 'axios';
 import https from 'https';
 import { logger } from '../utils';
-import { getNewAccessToken } from '../auth.ts';
+import { getNewAccessToken } from '../auth';
 import {
   type APIConfig,
   createInternalConfig,

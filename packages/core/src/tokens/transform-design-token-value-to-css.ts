@@ -1,5 +1,5 @@
 import { getAliasMatches, isAlias } from '@juxio/design-tokens';
-import { formatTokenValue } from './format-token-value.ts';
+import { formatTokenValue } from './format-token-value';
 import { walkObject } from '../utils';
 
 /**

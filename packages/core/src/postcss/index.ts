@@ -1,1 +1,1 @@
-export * from './postcss-manager.ts';
+export * from './postcss-manager';

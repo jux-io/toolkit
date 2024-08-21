@@ -1,7 +1,7 @@
 import { type DesignTokenValue } from '@juxio/design-tokens';
 import { type Tokens } from '../config';
-import { getCssVariableName } from './get-css-variable-name.ts';
-import { transformDesignTokenValueToCss } from './transform-design-token-value-to-css.ts';
+import { getCssVariableName } from './get-css-variable-name';
+import { transformDesignTokenValueToCss } from './transform-design-token-value-to-css';
 
 export interface TokenInfo {
   name: string;
