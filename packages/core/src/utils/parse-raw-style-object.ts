@@ -2,7 +2,6 @@ import { BEFORE_PARENT, TokensManager } from '../tokens';
 import { walkObject } from './walk-object.ts';
 import { Tokens } from '../config';
 import { getAliasMatches } from '@juxio/design-tokens';
-import { colorScheme, logger } from './logger.ts';
 import { transformDesignTokenValueToCss } from '../tokens/transform-design-token-value-to-css.ts';
 import { resolveTokenValue } from './resolve-token-value.ts';
 
@@ -13,7 +12,7 @@ export function parseRawStyleObject(
   tokensManager: TokensManager,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   baseStyles: Record<string, any>,
-  functionName: string
+  onTokenNotFound: (cssKey: string, value: string) => void
 ) {
   // We're creating classes for each composite tokens, so collect all composite tokens by category
   const compositeTokens = tokensManager.getCompositeTokensByCategory();
@@ -22,9 +21,6 @@ export function parseRawStyleObject(
     if (compositeTokens.has(key as keyof Tokens)) {
       const { valuePath } = getAliasMatches(value);
       if (!valuePath) {
-        logger.warn(
-          `Token value ${colorScheme.input(key)}: "${colorScheme.input(value)}" is not a valid design token path in ${colorScheme.debug(functionName)} function`
-        );
         // if valuePath cannot be found, it means it does not contain any design token (required for composite tokens)
         return { type: 'remove' };
       }
@@ -35,9 +31,9 @@ export function parseRawStyleObject(
 
       if (compositeToken.length === 0) {
         // User used non-existing composite token
-        logger.warn(
-          `Token value ${colorScheme.input(key)}: "${colorScheme.input(value)}" was not found in ${colorScheme.debug(functionName)} function`
-        );
+
+        onTokenNotFound?.(key, value);
+
         return { type: 'remove' };
       }
 
@@ -63,9 +59,7 @@ export function parseRawStyleObject(
           (t) => t.finalizedTokenName === valuePath
         );
         if (!parsedToken) {
-          logger.warn(
-            `Token value ${colorScheme.input(key)}: "${colorScheme.input(value)}" was not found in ${colorScheme.debug(functionName)} function`
-          );
+          onTokenNotFound?.(key, value);
           return `var(--${valuePath})`;
         }
         return `var(${parsedToken.cssVar})`;

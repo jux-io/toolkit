@@ -1,6 +1,10 @@
 import { z } from 'zod';
 import { internalConfigSchema } from './get-and-verify-internal-config';
-import { type DesignToken, DesignTokenType } from '@juxio/design-tokens';
+import {
+  type DesignToken,
+  DesignTokenType,
+  DesignTokenValue,
+} from '@juxio/design-tokens';
 import { GoogleFont } from './builtin-fonts.ts';
 import * as CSS from 'csstype';
 
@@ -12,20 +16,13 @@ export interface UserTokens {
 
 export type JuxInternalCliConfig = z.infer<typeof internalConfigSchema>;
 
-export interface JuxCliConfigOptions {
-  tsx: boolean;
-  components_directory: string;
-  tokens_directory: string;
-  rsc: boolean;
+export interface Recursive<T> {
+  [key: string]: T | Recursive<T>;
 }
 
-export type Recursive<T> = {
-  [key: string]: T | Recursive<T>;
-} & {
-  $description?: string;
-};
-
-export type TokenValue = Pick<DesignToken, '$value' | '$description'> | string;
+export type TokenValue =
+  | Pick<DesignToken, '$value' | '$description'>
+  | DesignTokenValue;
 
 export type MappedTokenTypes = {
   [key in DesignTokenType]?: Recursive<TokenValue>;
@@ -74,14 +71,14 @@ export interface JuxCLIConfig {
 
   /** List of glob file patterns to watch for changes
    * ```
-   * include: ['./src/app/page.tsx', './src/components/jux/**']
+   * include: ["./src/**\/*.{js,jsx,ts,tsx}"],
    * ```
    * */
   include: string[];
 
   /** List of glob file patterns to exclude from watch changes
    * ```
-   * exclude: ['./src/components/jux/not_for_watch_age.tsx']
+   * exclude: ['./src/components/jux/not_for_watch_page.tsx']
    * ```
    * */
   exclude?: string[];
@@ -91,17 +88,11 @@ export interface JuxCLIConfig {
    * */
   tsconfig?: string;
 
-  /**
-   * Whether to pull components in tsx / jsx
-   * @default true
-   * */
-  tsx: boolean;
-
   /** Where to pull generated components */
-  components_directory: string;
+  components_directory?: string;
 
   /** Where to pull design tokens */
-  tokens_directory: string;
+  tokens_directory?: string;
 
   /** Where to generate functions and type definitions */
   definitions_directory: string;

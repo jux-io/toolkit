@@ -14,6 +14,7 @@ import { parseRawTokenSets } from '../utils/parse-raw-token-sets.ts';
 import camelCase from 'lodash/camelCase';
 import { TSConfig } from 'pkg-types';
 import fastDeepEqual from 'fast-deep-equal';
+import { ConfigNotFoundError } from '../utils/exceptions.ts';
 
 interface PullAssetsOptions {
   components: string[];
@@ -223,6 +224,10 @@ export class JuxContext {
   public async pullGeneratedComponentsCode(
     components: string[]
   ): Promise<Asset[]> {
+    if (!this.cliConfig.components_directory) {
+      throw new Error('components_directory is not defined in jux.config.ts');
+    }
+
     const generatedFiles =
       await this.api.pullGeneratedComponentsCode(components);
 
@@ -230,6 +235,7 @@ export class JuxContext {
       f.file.name = `${f.file.name}.tsx`;
       f.file.content = await this.fs.prettierFormat(f.file.content);
       return {
+        // @ts-expect-error - we checked above if this.cliConfig.components_directory is defined
         directory: path.join(this.cwd, this.cliConfig.components_directory),
         files: [f.file],
       };
@@ -237,6 +243,10 @@ export class JuxContext {
   }
 
   public async pullDesignTokens(reload = false): Promise<Asset[]> {
+    if (!this.cliConfig.tokens_directory) {
+      throw new Error('tokens_directory is not defined in jux.config.ts');
+    }
+
     const tokens = await this.api.pullDesignTokens();
 
     const parsedTokenSets = parseRawTokenSets(tokens);
@@ -286,9 +296,13 @@ export class JuxContext {
   }
 
   async reloadConfigFile(cb: () => Promise<void>): Promise<boolean> {
-    const { cliConfig } = await loadConfig({ cwd: this.cwd }, true);
+    const config = await loadConfig({ cwd: this.cwd }, true);
 
-    if (fastDeepEqual(cliConfig, this.cliConfig)) {
+    if (!config) {
+      throw new ConfigNotFoundError(this.cwd);
+    }
+
+    if (fastDeepEqual(config.cliConfig, this.cliConfig)) {
       // No need to reload
       return false;
     }
@@ -300,8 +314,8 @@ export class JuxContext {
 
   public getFilesToWatch() {
     return this.fs.glob({
-      include: this.cliConfig.include,
-      exclude: this.cliConfig.exclude,
+      include: [...this.cliConfig.include],
+      exclude: this.cliConfig.exclude ? [...this.cliConfig.exclude] : [],
     });
   }
 }
