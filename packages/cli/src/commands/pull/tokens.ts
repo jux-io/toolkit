@@ -43,6 +43,10 @@ export default class PullTokens extends JuxCommand<typeof PullTokens> {
       internalConfig
     );
 
+    if (!ctx.cliConfig.tokens_directory) {
+      throw new Error('tokens_directory should be defined in jux.config');
+    }
+
     const tokens = await ctx.pullDesignTokens(flags.definitions);
 
     tokens.map((a) => ctx.fs.writeAsset(a));
