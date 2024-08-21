@@ -49,6 +49,7 @@ module.exports = {
   useEmoji: true,
   scopes: [
     'root',
+    'website',
     '@juxio/cli',
     '@juxio/core',
     '@juxio/design-tokens',
