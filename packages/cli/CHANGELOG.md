@@ -1,5 +1,15 @@
 # @juxio/cli
 
+## 0.5.5
+
+### Patch Changes
+
+- [#26](https://github.com/jux-io/toolkit/pull/26) [`3f2c85d`](https://github.com/jux-io/toolkit/commit/3f2c85d34bfafa4fc1c81ad6fc2dc47c04e60c13) Thanks [@tnipri](https://github.com/tnipri)! - modified README generation process to correct the links generated inside the CLI README
+
+- Updated dependencies []:
+  - @juxio/core@0.5.5
+  - @juxio/design-tokens@0.5.5
+
 ## 0.5.4
 
 ### Patch Changes
