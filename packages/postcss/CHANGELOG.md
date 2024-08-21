@@ -1,5 +1,12 @@
 # @juxio/postcss
 
+## 0.5.1
+
+### Patch Changes
+
+- Updated dependencies [[`50c50d2`](https://github.com/jux-io/toolkit/commit/50c50d252cbf48884d467eb09fe6c90acd19e4fa)]:
+  - @juxio/core@0.5.1
+
 ## 0.5.0
 
 ### Minor Changes
