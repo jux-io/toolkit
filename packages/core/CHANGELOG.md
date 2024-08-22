@@ -1,5 +1,21 @@
 # @juxio/core
 
+## 0.5.7
+
+### Patch Changes
+
+- [`fdef145`](https://github.com/jux-io/toolkit/commit/fdef145d179d23f46f04e26c0858001addc23e2e) Thanks [@tnipri](https://github.com/tnipri)! - tokens output from pull command is now prettified
+
+- [`a8d091f`](https://github.com/jux-io/toolkit/commit/a8d091fd4e6afa826b5ff247f29dc1d5ba744af0) Thanks [@tnipri](https://github.com/tnipri)! - added meaningful error messages once CLI API communication fails
+
+- [`0b36d04`](https://github.com/jux-io/toolkit/commit/0b36d04e70e543fc351cf4085963cee492a3d10c) Thanks [@tnipri](https://github.com/tnipri)! - Added two main changes:
+
+  - CLI will now install react-styled library on init
+  - Added 'no-deps' flag to init command, which will not install any dependencies
+
+- Updated dependencies []:
+  - @juxio/design-tokens@0.5.7
+
 ## 0.5.6
 
 ### Patch Changes
