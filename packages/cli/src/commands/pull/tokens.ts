@@ -5,6 +5,7 @@ import {
   getConfigContext,
   logger,
 } from '@juxio/core';
+import ora from 'ora';
 
 export default class PullTokens extends JuxCommand<typeof PullTokens> {
   static description = 'Pull tokens from Jux editor';
@@ -47,9 +48,18 @@ export default class PullTokens extends JuxCommand<typeof PullTokens> {
       throw new Error('tokens_directory should be defined in jux.config');
     }
 
-    const tokens = await ctx.pullDesignTokens(flags.definitions);
+    const spinner = ora(`Generating tokens...\n`).start();
 
-    tokens.map((a) => ctx.fs.writeAsset(a));
+    try {
+      const tokens = await ctx.pullDesignTokens(flags.definitions);
+
+      tokens.map((a) => ctx.fs.writeAsset(a));
+    } catch (error) {
+      spinner.fail('Failed to generate assets');
+      throw new Error(error);
+    }
+
+    spinner.succeed('Done');
 
     if (flags.definitions) {
       logger.info('Generating token definitions');
