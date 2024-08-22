@@ -1,5 +1,14 @@
 # @juxio/core
 
+## 0.5.6
+
+### Patch Changes
+
+- [#28](https://github.com/jux-io/toolkit/pull/28) [`edf3be4`](https://github.com/jux-io/toolkit/commit/edf3be40aa988cd13e6dd6a4582f8298ced9c870) Thanks [@tnipri](https://github.com/tnipri)! - fixed an issue where using groupBy function caused CLI to crash
+
+- Updated dependencies []:
+  - @juxio/design-tokens@0.5.6
+
 ## 0.5.5
 
 ### Patch Changes
