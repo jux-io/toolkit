@@ -50,11 +50,16 @@ export default class PullComponents extends JuxCommand<typeof PullComponents> {
 
     const spinner = ora(`Generating assets...\n`).start();
 
-    const assets = await ctx.pullAssets({
-      components: flags.components || [],
-    });
+    try {
+      const assets = await ctx.pullAssets({
+        components: flags.components || [],
+      });
 
-    assets.map((a) => ctx.fs.writeAsset(a));
+      assets.map((a) => ctx.fs.writeAsset(a));
+    } catch (error) {
+      spinner.fail('Failed to generate assets');
+      throw new Error(error);
+    }
 
     spinner.succeed('Done');
   }
