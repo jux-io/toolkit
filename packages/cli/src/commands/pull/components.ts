@@ -1,6 +1,10 @@
 import { Flags } from '@oclif/core';
 import { JuxCommand } from '../../baseCommand';
-import { getAndVerifyInternalConfig, getConfigContext } from '@juxio/core';
+import {
+  getAndVerifyInternalConfig,
+  getConfigContext,
+  AxiosError,
+} from '@juxio/core';
 import ora from 'ora';
 
 export default class PullComponents extends JuxCommand<typeof PullComponents> {
@@ -57,8 +61,12 @@ export default class PullComponents extends JuxCommand<typeof PullComponents> {
 
       assets.map((a) => ctx.fs.writeAsset(a));
     } catch (error) {
-      spinner.fail('Failed to generate assets');
-      throw new Error(error);
+      if (error instanceof AxiosError && error.response?.status === 404) {
+        spinner.warn(error.response.data.message);
+      } else {
+        spinner.fail('Failed to generate assets');
+        throw new Error(error);
+      }
     }
 
     spinner.succeed('Done');
