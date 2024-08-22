@@ -1,6 +1,7 @@
 import { Flags } from '@oclif/core';
 import { JuxCommand } from '../../baseCommand';
 import {
+  AxiosError,
   getAndVerifyInternalConfig,
   getConfigContext,
   logger,
@@ -55,8 +56,12 @@ export default class PullTokens extends JuxCommand<typeof PullTokens> {
 
       tokens.map((a) => ctx.fs.writeAsset(a));
     } catch (error) {
-      spinner.fail('Failed to generate assets');
-      throw new Error(error);
+      if (error instanceof AxiosError && error.response?.status === 404) {
+        spinner.warn(error.response.data.message);
+      } else {
+        spinner.fail('Failed to generate tokens');
+        throw new Error(error);
+      }
     }
 
     spinner.succeed('Done');

@@ -1,5 +1,6 @@
 import { Command, Config, Interfaces } from '@oclif/core';
 import { logger } from '@juxio/core';
+import * as util from 'node:util';
 
 export type CommandFlags<T extends typeof Command> = Interfaces.InferredFlags<
   (typeof JuxCommand)['baseFlags'] & T['flags']
@@ -20,7 +21,7 @@ export abstract class JuxCommand<T extends typeof Command> extends Command {
   }
 
   async catch(error: Error) {
-    logger.error(error.message);
+    logger.error(util.inspect(error, { depth: null }));
   }
 
   public async init(): Promise<void> {
