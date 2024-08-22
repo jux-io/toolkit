@@ -43,13 +43,23 @@
   ],
   "license": "MIT",
   "oclif": {
+    "additionalVersionFlags": [
+      "-v",
+      "version"
+    ],
     "bin": "jux",
     "dirname": "jux",
     "commands": "./dist/commands",
     "plugins": [
       "@oclif/plugin-help",
-      "@oclif/plugin-version"
+      "@oclif/plugin-version",
+      "@oclif/plugin-update",
+      "@oclif/plugin-warn-if-update-available"
     ],
+    "warn-if-update-available": {
+      "frequency": 7,
+      "frequencyUnit": "days"
+    },
     "topics": {
       "pull": {
         "description": "Pull assets from Jux editor"
@@ -68,6 +78,7 @@
     "@oclif/core": "^4.0.17",
     "@oclif/plugin-help": "^6.2.6",
     "@oclif/plugin-version": "^2.2.10",
+    "@oclif/plugin-warn-if-update-available": "^3.1.11",
     "enquirer": "^2.4.1",
     "execa": "^9.3.1",
     "ora": "5.4.1"
