@@ -27,9 +27,19 @@ export default class Init extends JuxCommand<typeof Init> {
       description: 'Force overwrite of existing configuration',
       required: false,
     }),
+
+    'no-deps': Flags.boolean({
+      default: false,
+      description: 'Do not install dependencies',
+      required: false,
+    }),
   };
 
-  private dependencies = ['@juxio/cli', '@juxio/postcss'];
+  private dependencies = [
+    '@juxio/cli',
+    '@juxio/postcss',
+    '@juxio/react-styled',
+  ];
 
   async run() {
     const { flags } = await this.parse(Init);
@@ -42,6 +52,10 @@ export default class Init extends JuxCommand<typeof Init> {
     }
 
     if (!(await setupJuxConfig(cwd, flags.force))) {
+      return;
+    }
+
+    if (flags['no-deps']) {
       return;
     }
 
