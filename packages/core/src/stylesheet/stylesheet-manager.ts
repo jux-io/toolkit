@@ -1,5 +1,5 @@
 import postcss from 'postcss';
-import { transform } from 'lightningcss';
+import { browserslistToTargets, transform } from 'lightningcss';
 import { generateResetStyles } from './generate-reset-styles';
 import { convertObjectToCSS } from './style-object-to-css-string';
 import { formatTokenValue, stringifyCssObject, TokensManager } from '../tokens';
@@ -17,12 +17,14 @@ interface StylesheetManagerOptions {
   tokensManager: TokensManager;
   preflight: boolean;
   globalCss?: JuxCLIConfig['globalCss'];
+  browserlist?: JuxCLIConfig['browserlist'];
 }
 
 export class StylesheetManager {
   public readonly cssVarsRoot: string;
   public readonly preflight: boolean;
   private readonly globalCss: JuxCLIConfig['globalCss'];
+  private readonly browserlist: JuxCLIConfig['browserlist'];
   public readonly layers: Layers = {} as Layers;
   public readonly tokensManager: TokensManager;
 
@@ -39,6 +41,7 @@ export class StylesheetManager {
     this.preflight = options.preflight ?? true;
     this.tokensManager = options.tokensManager;
     this.globalCss = options.globalCss;
+    this.browserlist = options.browserlist;
 
     LAYERS.forEach((layer) => {
       this.layers[layer] = postcss.atRule({
@@ -83,7 +86,10 @@ export class StylesheetManager {
       filename: 'input.css',
       code: Buffer.from(css),
       sourceMap: false,
-      minify: process.env.NODE_ENV === 'production',
+      minify: true,
+      targets: this.browserlist
+        ? browserslistToTargets(this.browserlist)
+        : undefined,
     }).code.toString();
   }
 

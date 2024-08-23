@@ -98,7 +98,7 @@ export interface JuxCLIConfig {
   definitions_directory: string;
 
   /** An array of browserslist targets */
-  browserslist?: string[];
+  browserlist?: string[];
 
   /** Whether to use rsc in pulled components */
   rsc?: boolean;
