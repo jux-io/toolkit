@@ -1,4 +1,4 @@
-import { BEFORE_PARENT, TokensManager } from '../tokens';
+import { BEFORE_PARENT, formatTokenValue, TokensManager } from '../tokens';
 import { walkObject } from './walk-object';
 import { Tokens } from '../config';
 import { getAliasMatches } from '@juxio/design-tokens';
@@ -60,7 +60,7 @@ export function parseRawStyleObject(
         );
         if (!parsedToken) {
           onTokenNotFound?.(key, value);
-          return `var(--${valuePath})`;
+          return formatTokenValue(valuePath);
         }
         return `var(${parsedToken.cssVar})`;
       });

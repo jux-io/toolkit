@@ -43,6 +43,10 @@
   ],
   "license": "MIT",
   "oclif": {
+    "additionalHelpFlags": [
+      "-h",
+      "help"
+    ],
     "additionalVersionFlags": [
       "-v",
       "version"
