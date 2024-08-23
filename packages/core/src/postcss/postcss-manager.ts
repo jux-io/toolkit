@@ -136,7 +136,7 @@ export class PostcssManager {
    * @layer juxbase, juxtokens, juxutilities; => true
    * ```
    */
-  validateRoot(root: Root) {
+  static validateRoot(root: Root) {
     let isValid = false;
 
     root.walkAtRules((rule) => {
@@ -217,7 +217,7 @@ export class PostcssManager {
       for (const key of Object.keys(result.rules ?? {})) {
         // We can safely cast as we will get here only if key exist in result.rules
         const rule = result.rules![key];
-        await this.context.stylesheetManager.appendClassName(
+        this.context.stylesheetManager.appendClassName(
           filePath,
           'juxutilities',
           rule.className,
@@ -248,6 +248,7 @@ export class PostcssManager {
   }
 
   async injectStyles(root: Root) {
+    const css: string[] = [];
     this.context.stylesheetManager.layers.juxbase.removeAll();
     this.context.stylesheetManager.layers.juxtokens.removeAll();
     await this.context.stylesheetManager.appendBaseStyles();
@@ -256,16 +257,18 @@ export class PostcssManager {
 
     if (this.context.cliConfig.builtInFonts) {
       // If user has enabled built-in fonts, inject the Google Fonts stylesheet based on given configuration
-      root.append(
+      css.push(
         this.context.stylesheetManager.generateGoogleFontsStyles(
           this.context.cliConfig.builtInFonts.google
         )
       );
     }
 
-    root.append(this.context.stylesheetManager.layers.juxbase);
-    root.append(this.context.stylesheetManager.layers.juxtokens);
-    root.append(this.context.stylesheetManager.layers.juxutilities);
+    css.push(this.context.stylesheetManager.layers.juxbase.toString());
+    css.push(this.context.stylesheetManager.layers.juxtokens.toString());
+    css.push(this.context.stylesheetManager.layers.juxutilities.toString());
+
+    root.append(this.context.stylesheetManager.transformCss(css.join('\n\n')));
   }
 
   getWatchedFiles() {

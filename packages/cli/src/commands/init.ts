@@ -28,7 +28,7 @@ export default class Init extends JuxCommand<typeof Init> {
       required: false,
     }),
 
-    'no-deps': Flags.boolean({
+    'skip-deps': Flags.boolean({
       default: false,
       description: 'Do not install dependencies',
       required: false,
@@ -55,7 +55,7 @@ export default class Init extends JuxCommand<typeof Init> {
       return;
     }
 
-    if (flags['no-deps']) {
+    if (flags['skip-deps']) {
       return;
     }
 

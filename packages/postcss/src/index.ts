@@ -11,11 +11,14 @@ const juxtacss: PluginCreator<PluginOptions> = (options = {}) => {
     plugins: [
       async (root, result) => {
         try {
-          await postcssManager.init({ cwd: cwd ?? process.cwd(), configPath });
-
-          if (!postcssManager.validateRoot(root)) {
+          if (!PostcssManager.validateRoot(root)) {
+            logger.debug(
+              `File ${result.opts.from} does not contain valid jux layer names. Skipping...`
+            );
             return;
           }
+
+          await postcssManager.init({ cwd: cwd ?? process.cwd(), configPath });
 
           await postcssManager.emitAssets();
 

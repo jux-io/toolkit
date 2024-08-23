@@ -107,7 +107,7 @@ function resolveWithExtension(file: string, extensions: string[]) {
  *
  * @returns {boolean} - True if the path is under the current working directory, false otherwise.
  */
-function isPathUnderCwd(cwd: string, absolutePath: string) {
+function isPathUnderCwd(cwd: string, absolutePath: string): boolean {
   const relativePath = path.relative(cwd, absolutePath);
 
   // If the relative path starts with "..", it's outside the cwd

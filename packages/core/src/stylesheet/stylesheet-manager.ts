@@ -1,6 +1,5 @@
 import postcss from 'postcss';
-import cssnano from 'cssnano';
-import cssbeautify from 'cssbeautify';
+import { transform } from 'lightningcss';
 import { generateResetStyles } from './generate-reset-styles';
 import { convertObjectToCSS } from './style-object-to-css-string';
 import { formatTokenValue, stringifyCssObject, TokensManager } from '../tokens';
@@ -50,13 +49,13 @@ export class StylesheetManager {
     });
   }
 
-  async appendClassName(
+  appendClassName(
     fileName: string,
     layer: (typeof LAYERS)[number],
     className: string,
     cssText: string
   ) {
-    const beautifiedCss = await this.beautifyCss(cssText);
+    const beautifiedCss = this.transformCss(cssText);
 
     if (!this.fileClasses.has(fileName)) {
       // This is the first time we're adding a class to this file.
@@ -79,27 +78,16 @@ export class StylesheetManager {
     }
   }
 
-  removeClassNames(layer: (typeof LAYERS)[number], classNames: string[]) {
-    const rule = this.layers[layer];
-
-    rule.walkRules((rule) => {
-      if (classNames.includes(rule.selector)) {
-        rule.remove();
-      }
-    });
+  transformCss(css: string): string {
+    return transform({
+      filename: 'input.css',
+      code: Buffer.from(css),
+      sourceMap: false,
+      minify: process.env.NODE_ENV === 'production',
+    }).code.toString();
   }
 
-  async beautifyCss(css: string) {
-    return postcss([
-      cssnano({
-        preset: ['default', {}],
-      }),
-    ])
-      .process(css, { from: undefined })
-      .then((result) => cssbeautify(result.css));
-  }
-
-  generateTokenStyles(): Promise<string> {
+  generateTokenStyles(): string {
     const results: string[] = [];
 
     const coreTokens = this.tokensManager.getCoreTokens();
@@ -112,28 +100,10 @@ export class StylesheetManager {
       })
     );
 
-    return this.beautifyCss(results.join('\n\n'));
+    return results.join('\n\n');
   }
 
-  generateCoreCompositeClasses(): Promise<string> {
-    const results: string[] = [];
-
-    const coreCompositeTokens = this.tokensManager.getCoreCompositeTokens();
-
-    for (const [className, themeTokensView] of Object.entries(
-      coreCompositeTokens.view
-    )) {
-      const css = stringifyCssObject({
-        [className]: themeTokensView,
-      });
-
-      results.push(css);
-    }
-
-    return this.beautifyCss(results.join('\n\n'));
-  }
-
-  async generateThemeStyles(): Promise<string> {
+  generateThemeStyles(): string {
     const results: string[] = [];
 
     const themeTokens = this.tokensManager.getThemesTokens();
@@ -147,25 +117,7 @@ export class StylesheetManager {
       results.push(css);
     }
 
-    return this.beautifyCss(results.join('\n\n'));
-  }
-
-  async generateThemeCompositeClasses(): Promise<string> {
-    const results: string[] = [];
-
-    const themeCompositeTokens = this.tokensManager.getThemesCompositeTokens();
-
-    for (const [themeName, themeTokensView] of Object.entries(
-      themeCompositeTokens.view
-    )) {
-      const css = stringifyCssObject({
-        [`& [data-jux-theme="${themeName}"]`]: themeTokensView,
-      });
-
-      results.push(css);
-    }
-
-    return this.beautifyCss(results.join('\n\n'));
+    return results.join('\n\n');
   }
 
   generateGoogleFontsStyles(fontsFamily: GoogleFont['family'][]): string {
@@ -234,8 +186,8 @@ export class StylesheetManager {
     }
 
     if (!this.tokensManager.isEmpty) {
-      this.layers.juxtokens.append(await this.generateTokenStyles());
-      this.layers.juxtokens.append(await this.generateThemeStyles());
+      this.layers.juxtokens.append(this.generateTokenStyles());
+      this.layers.juxtokens.append(this.generateThemeStyles());
     }
   }
 }
