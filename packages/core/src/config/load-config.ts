@@ -69,7 +69,7 @@ export const rawConfigSchema = z.object({
 });
 
 export async function loadConfig(
-  options: LoadConfigOptions,
+  options: LoadConfigOptions & { tsConfig?: TSConfig },
   withValidation = true
 ): Promise<Pick<LoadConfigRes, 'cliConfig' | 'configPath'> | undefined> {
   const configPath = findConfig(options);
@@ -82,6 +82,7 @@ export async function loadConfig(
     default: JuxCLIConfig;
   }>({
     filepath: configPath,
+    tsconfig: options.tsConfig,
   });
 
   if (withValidation) {
@@ -117,18 +118,18 @@ export async function getConfigContext(
   oclifConfig?: Config,
   internalConfig?: JuxInternalCliConfig
 ) {
-  const loadConfigRes = await loadConfig(options);
+  const tsConfigRes: LoadTsConfigRes | null = loadTsConfig(options.cwd);
+
+  const loadConfigRes = await loadConfig({
+    ...options,
+    tsConfig: tsConfigRes?.data,
+  });
 
   if (!loadConfigRes) {
     throw new ConfigNotFoundError(options.cwd!);
   }
 
   const apiConfig = getCliConfigEnv();
-
-  const tsConfigRes: LoadTsConfigRes | null = loadTsConfig(
-    options.cwd,
-    loadConfigRes.cliConfig.tsconfig ?? 'tsconfig.json'
-  );
 
   const result: LoadConfigRes = {
     ...loadConfigRes,
