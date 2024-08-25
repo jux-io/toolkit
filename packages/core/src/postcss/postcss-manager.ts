@@ -1,7 +1,7 @@
 import { getConfigContext, JuxContext } from '../config';
 import { colorScheme, logger } from '../utils';
-import { Root } from 'postcss';
-import path from 'path';
+import { Message, Root } from 'postcss';
+import path, { normalize, resolve } from 'path';
 import { transform, TransformCacheCollection } from '@wyw-in-js/transform';
 import * as util from 'node:util';
 import {
@@ -10,6 +10,7 @@ import {
 } from '../utils/get-file-dependencies';
 import { convertTsPathsToRegexes } from '../utils/ts-config-paths';
 import { findConfig } from '../config/find-config';
+import { parseDependencies } from '../utils/parse-dependencies.ts';
 
 // A map of files to their last modified time.
 const fileModifiedMap = new Map<string, number>();
@@ -275,5 +276,18 @@ export class PostcssManager {
     // Collect all the files we should watch, so once they change, postcss manager can re-parse them
     const watchedFiles = this.context.getFilesToWatch();
     return Array.from([...this.configDependencies, ...watchedFiles]);
+  }
+
+  registerDependencies(register: (dependency: Message) => void) {
+    for (const fileOrGlob of this.context.cliConfig.include) {
+      const dependency = parseDependencies(fileOrGlob);
+      if (dependency) {
+        register(dependency);
+      }
+    }
+
+    for (const file of this.configDependencies) {
+      register({ type: 'dependency', file: normalize(resolve(file)) });
+    }
   }
 }

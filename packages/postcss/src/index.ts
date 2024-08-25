@@ -27,11 +27,10 @@ const juxtacss: PluginCreator<PluginOptions> = (options = {}) => {
           await postcssManager.injectStyles(root);
 
           // Register the dependencies for this css file
-          postcssManager.getWatchedFiles().forEach((file) => {
+          postcssManager.registerDependencies((dependency) => {
             result.messages.push({
-              type: 'dependency',
+              ...dependency,
               plugin: '@juxio/postcss',
-              file,
               parent: result.opts.from,
             });
           });
