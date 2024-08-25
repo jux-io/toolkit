@@ -83,11 +83,6 @@ export interface JuxCLIConfig {
    * */
   exclude?: string[];
 
-  /** The tsconfig file to use
-   * @default 'tsconfig.json'
-   * */
-  tsconfig?: string;
-
   /** Where to pull generated components */
   components_directory?: string;
 
