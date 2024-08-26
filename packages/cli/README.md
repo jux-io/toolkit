@@ -6,7 +6,7 @@ $ npm install -g @juxio/cli
 $ jux COMMAND
 running command...
 $ jux (--version|-v|version)
-@juxio/cli/0.6.1 linux-x64 node-v20.16.0
+@juxio/cli/0.6.2 linux-x64 node-v20.16.0
 $ jux --help [COMMAND]
 USAGE
   $ jux COMMAND
@@ -46,7 +46,7 @@ EXAMPLES
   $ jux generate --tokens-only
 ```
 
-_See code: [src/commands/generate.ts](https://github.com/jux-io/toolkit/tree/%40juxio/cli%400.6.1/packages/cli/src/commands/generate.ts)_
+_See code: [src/commands/generate.ts](https://github.com/jux-io/toolkit/tree/%40juxio/cli%400.6.2/packages/cli/src/commands/generate.ts)_
 
 ## `jux help [COMMAND]`
 
@@ -91,7 +91,7 @@ EXAMPLES
   $ jux init --force
 ```
 
-_See code: [src/commands/init.ts](https://github.com/jux-io/toolkit/tree/%40juxio/cli%400.6.1/packages/cli/src/commands/init.ts)_
+_See code: [src/commands/init.ts](https://github.com/jux-io/toolkit/tree/%40juxio/cli%400.6.2/packages/cli/src/commands/init.ts)_
 
 ## `jux login`
 
@@ -113,7 +113,7 @@ EXAMPLES
   $ jux login -d
 ```
 
-_See code: [src/commands/login.ts](https://github.com/jux-io/toolkit/tree/%40juxio/cli%400.6.1/packages/cli/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/jux-io/toolkit/tree/%40juxio/cli%400.6.2/packages/cli/src/commands/login.ts)_
 
 ## `jux pull components`
 
@@ -137,7 +137,7 @@ EXAMPLES
   $ jux pull components --all
 ```
 
-_See code: [src/commands/pull/components.ts](https://github.com/jux-io/toolkit/tree/%40juxio/cli%400.6.1/packages/cli/src/commands/pull/components.ts)_
+_See code: [src/commands/pull/components.ts](https://github.com/jux-io/toolkit/tree/%40juxio/cli%400.6.2/packages/cli/src/commands/pull/components.ts)_
 
 ## `jux pull tokens`
 
@@ -161,7 +161,7 @@ EXAMPLES
   $ jux pull tokens -d
 ```
 
-_See code: [src/commands/pull/tokens.ts](https://github.com/jux-io/toolkit/tree/%40juxio/cli%400.6.1/packages/cli/src/commands/pull/tokens.ts)_
+_See code: [src/commands/pull/tokens.ts](https://github.com/jux-io/toolkit/tree/%40juxio/cli%400.6.2/packages/cli/src/commands/pull/tokens.ts)_
 
 ## `jux version`
 
