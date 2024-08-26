@@ -26,7 +26,10 @@ export const isAlias = (value: DesignTokenValue): value is string =>
 export const isAliasToTokenType = (alias: string, tokenType: DesignTokenType) =>
   alias?.startsWith(`{${tokenType}`);
 
-export const getAliasToTokenPath = (tokenPath: string) => `{${tokenPath}}`;
+export const startWithAlias = (value: string, startWith: string) =>
+  value.startsWith(`{${startWith}`);
+
+export const formatToAlias = (tokenPath: DesignTokenValue) => `{${tokenPath}}`;
 
 const PATH_SEPARATOR = '.';
 export const concatTokenPath = (tokenPath: string, fieldName: string) =>

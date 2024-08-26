@@ -1,8 +1,9 @@
 import { DesignTokenTypeEnum } from './types';
 
+// we only support names that contain letters, numbers and the following characters: _+-:
 export const NAMING_PATTERNS = {
   legalCharactersRegex: {
-    value: /^[:\sa-zA-Z0-9_-]+$/,
+    value: /^[a-zA-Z0-9_:+-]+$/,
     message: 'Use letters, numbers, hyphens, and underscores',
   },
 } as const;
