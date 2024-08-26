@@ -1,5 +1,11 @@
 # @juxio/design-tokens
 
+## 0.6.1
+
+### Patch Changes
+
+- [#35](https://github.com/jux-io/toolkit/pull/35) [`c9b6a03`](https://github.com/jux-io/toolkit/commit/c9b6a03ba4207a9b85d75ab5c21cc2b565b1c7e4) Thanks [@tnipri](https://github.com/tnipri)! - added new types and helpers
+
 ## 0.6.0
 
 ## 0.5.7
