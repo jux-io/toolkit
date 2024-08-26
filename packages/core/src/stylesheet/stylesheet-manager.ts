@@ -37,7 +37,7 @@ export class StylesheetManager {
   >();
 
   constructor(options: StylesheetManagerOptions) {
-    this.cssVarsRoot = options.cssVarsRoot ?? ':root';
+    this.cssVarsRoot = options.cssVarsRoot ?? ':where(:root, :host)';
     this.preflight = options.preflight ?? true;
     this.tokensManager = options.tokensManager;
     this.globalCss = options.globalCss;
@@ -86,7 +86,7 @@ export class StylesheetManager {
       filename: 'input.css',
       code: Buffer.from(css),
       sourceMap: false,
-      minify: true,
+      minify: process.env.NODE_ENV === 'production',
       targets: this.browserlist
         ? browserslistToTargets(this.browserlist)
         : undefined,

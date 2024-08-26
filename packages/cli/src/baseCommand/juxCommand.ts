@@ -1,4 +1,4 @@
-import { Command, Config, Interfaces } from '@oclif/core';
+import { Command, Config, Interfaces, Errors } from '@oclif/core';
 import { logger } from '@juxio/core';
 import * as util from 'node:util';
 
@@ -21,7 +21,11 @@ export abstract class JuxCommand<T extends typeof Command> extends Command {
   }
 
   async catch(error: Error) {
-    logger.error(util.inspect(error, { depth: null }));
+    if (error instanceof Errors.CLIError) {
+      logger.error(error.message);
+    } else {
+      logger.error(util.inspect(error, { depth: null }));
+    }
   }
 
   public async init(): Promise<void> {

@@ -1,4 +1,4 @@
-import { loadConfig, type LoadConfigRes } from './load-config';
+import { type LoadConfigRes } from './load-config';
 import bluebird from 'bluebird';
 import { JuxAPI } from '../api';
 import { type Asset } from '../assets';
@@ -15,6 +15,7 @@ import camelCase from 'lodash/camelCase';
 import { TSConfig } from 'pkg-types';
 import fastDeepEqual from 'fast-deep-equal';
 import { ConfigNotFoundError } from '../utils/exceptions';
+import { loadCliConfig } from './load-cli-config.ts';
 
 interface PullAssetsOptions {
   components: string[];
@@ -66,7 +67,7 @@ export class JuxContext {
 
   constructor(config: LoadConfigRes) {
     this.tokens = new TokensManager({
-      core: config.cliConfig.core_tokens,
+      core: config.cliConfig.core_tokens ?? {},
       ...config.cliConfig.themes,
     });
     this.cliConfig = config.cliConfig;
@@ -107,6 +108,10 @@ export class JuxContext {
   }
 
   public async generateTokensDefinitions(): Promise<Asset[]> {
+    if (!this.cliConfig.definitions_directory) {
+      throw new Error('definitions_directory is not defined in jux.config.ts');
+    }
+
     const set = new Set<string>();
 
     set.add(`import '@juxio/react-styled/tokens';`);
@@ -223,7 +228,7 @@ export class JuxContext {
   }
 
   async reloadConfigFile(cb: () => Promise<void>): Promise<boolean> {
-    const config = await loadConfig({ cwd: this.cwd }, true);
+    const config = await loadCliConfig({ cwd: this.cwd });
 
     if (!config) {
       throw new ConfigNotFoundError(this.cwd);
@@ -241,7 +246,7 @@ export class JuxContext {
 
   public getFilesToWatch() {
     return this.fs.glob({
-      include: [...this.cliConfig.include],
+      include: [...(this.cliConfig.include ?? [])],
       exclude: this.cliConfig.exclude ? [...this.cliConfig.exclude] : [],
     });
   }

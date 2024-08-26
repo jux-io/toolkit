@@ -1,7 +1,7 @@
 import { logger } from '../utils';
 import { outdent } from 'outdent';
 import { prettierFormat, FileManager } from '../fs';
-import { loadConfig } from './load-config';
+import { findConfig } from './find-config.ts';
 
 export async function setupJuxConfig(
   cwd: string,
@@ -10,16 +10,13 @@ export async function setupJuxConfig(
   const fs = new FileManager(cwd);
   const configFile = `jux.config.ts`;
 
-  const configPath = await loadConfig(
-    {
-      cwd,
-    },
-    false
-  );
+  const configPath = findConfig({
+    cwd,
+  });
 
   if (configPath && !forceOverwrite) {
     logger.warn(
-      `config file already exists: ${configPath.configPath}. Use -f to overwrite.`
+      `config file already exists: ${configPath}. Use -f to overwrite.`
     );
     return false;
   } else {

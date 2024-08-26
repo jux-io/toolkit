@@ -1,10 +1,9 @@
 import { Config } from '@oclif/core';
-import { bundleRequire } from 'bundle-require';
 import { type TSConfig } from 'pkg-types';
 // @ts-expect-error load-tsconfig is not typed
 import { loadTsConfig } from 'load-tsconfig';
 import { z } from 'zod';
-import { colorScheme, logger } from '../utils';
+import { logger } from '../utils';
 import {
   type APIConfig,
   type JuxCLIConfig,
@@ -14,8 +13,8 @@ import { validateConfig } from './validate-config';
 import { JuxContext } from './jux-context';
 import { getCliConfigEnv } from './get-and-verify-internal-config';
 import { DesignTokenTypeEnum } from '@juxio/design-tokens';
-import { findConfig } from './find-config';
 import { ConfigNotFoundError } from '../utils/exceptions';
+import { loadCliConfig } from './load-cli-config.ts';
 
 export interface LoadConfigRes {
   cliConfig: JuxCLIConfig;
@@ -30,7 +29,7 @@ export interface LoadConfigRes {
 }
 
 export interface LoadConfigOptions {
-  cwd?: string; // The current directory to load the config from
+  cwd: string; // The current directory to load the config from
 }
 
 export interface LoadTsConfigRes {
@@ -68,59 +67,14 @@ export const rawConfigSchema = z.object({
   themes: z.record(z.string(), tokensSchema),
 });
 
-export async function loadConfig(
-  options: LoadConfigOptions & { tsConfig?: TSConfig },
-  withValidation = true
-): Promise<Pick<LoadConfigRes, 'cliConfig' | 'configPath'> | undefined> {
-  const configPath = findConfig(options);
-
-  if (!configPath) {
-    return;
-  }
-
-  const { mod } = await bundleRequire<{
-    default: JuxCLIConfig;
-  }>({
-    filepath: configPath,
-    tsconfig: options.tsConfig,
-  });
-
-  if (withValidation) {
-    if (!mod.default) {
-      throw new Error('Config must export a default object');
-    }
-
-    if (typeof mod.default !== 'object') {
-      throw new Error('Config must be an object');
-    }
-
-    const parseResult = rawConfigSchema.safeParse(mod.default);
-
-    if (!parseResult.success) {
-      parseResult.error.errors.forEach((error) => {
-        logger.error(
-          `Config error in ${colorScheme.debug(error.path.join('.'))}: ${error.message}`
-        );
-      });
-
-      throw new Error('Invalid config file');
-    }
-  }
-
-  return {
-    cliConfig: mod.default,
-    configPath,
-  };
-}
-
 export async function getConfigContext(
-  options: LoadConfigOptions = { cwd: process.cwd() },
+  options: LoadConfigOptions,
   oclifConfig?: Config,
   internalConfig?: JuxInternalCliConfig
 ) {
   const tsConfigRes: LoadTsConfigRes | null = loadTsConfig(options.cwd);
 
-  const loadConfigRes = await loadConfig({
+  const loadConfigRes = await loadCliConfig({
     ...options,
     tsConfig: tsConfigRes?.data,
   });

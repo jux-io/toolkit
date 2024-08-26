@@ -11,6 +11,7 @@ import {
 import { convertTsPathsToRegexes } from '../utils/ts-config-paths';
 import { findConfig } from '../config/find-config';
 import { parseDependencies } from '../utils/parse-dependencies.ts';
+import { LAYERS } from '../stylesheet';
 
 // A map of files to their last modified time.
 const fileModifiedMap = new Map<string, number>();
@@ -254,7 +255,13 @@ export class PostcssManager {
     this.context.stylesheetManager.layers.juxtokens.removeAll();
     await this.context.stylesheetManager.appendBaseStyles();
 
-    root.removeAll();
+    // Clear all the previous layers
+    root.walkAtRules('layer', (atRule) => {
+      // @ts-expect-error safe to ignore as we know that params is a string
+      if (LAYERS.includes(atRule.params.trim())) {
+        atRule.remove();
+      }
+    });
 
     if (this.context.cliConfig.builtInFonts) {
       // If user has enabled built-in fonts, inject the Google Fonts stylesheet based on given configuration
@@ -279,7 +286,7 @@ export class PostcssManager {
   }
 
   registerDependencies(register: (dependency: Message) => void) {
-    for (const fileOrGlob of this.context.cliConfig.include) {
+    for (const fileOrGlob of this.context.cliConfig.include ?? []) {
       const dependency = parseDependencies(fileOrGlob);
       if (dependency) {
         register(dependency);
