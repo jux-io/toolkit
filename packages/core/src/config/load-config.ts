@@ -61,8 +61,7 @@ export const rawConfigSchema = z.object({
   exclude: z.array(z.string()).optional(),
   components_directory: z.string().optional(),
   tokens_directory: z.string().optional(),
-  definitions_directory: z.string(),
-  rsc: z.boolean().optional(),
+  definitions_directory: z.string().optional(),
   core_tokens: tokensSchema,
   themes: z.record(z.string(), tokensSchema),
 });
