@@ -1,4 +1,5 @@
 import { DesignTokens } from '../../types';
+import { formatToAlias } from '../validations';
 import { setByPath } from './set-by-path';
 
 // mutates the tokenSet
@@ -15,7 +16,7 @@ export const updateAffectedAliases = ({
     setByPath({
       tokenOrGroupPath,
       tokenSet,
-      value: `{${value}}`,
+      value: formatToAlias(value),
     });
   }
 

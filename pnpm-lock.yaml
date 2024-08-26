@@ -281,8 +281,8 @@ importers:
         specifier: ^3.13.1
         version: 3.13.1
       zod:
-        specifier: ^3.20.6
-        version: 3.23.8
+        specifier: 3.21.4
+        version: 3.21.4
     devDependencies:
       '@types/babel__core':
         specifier: ^7.20.5
@@ -327,8 +327,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       zod:
-        specifier: ^3.20.6
-        version: 3.23.8
+        specifier: 3.21.4
+        version: 3.21.4
     devDependencies:
       '@types/flat':
         specifier: ^5.0.5
@@ -379,15 +379,6 @@ importers:
       react:
         specifier: ^18.2.0
         version: 18.2.0
-
-  website:
-    dependencies:
-      '@juxio/cli':
-        specifier: workspace:*
-        version: link:../packages/cli
-      postcss:
-        specifier: link:@juxio/cli @juxio/postcss
-        version: link:@juxio/cli @juxio/postcss
 
 packages:
 
@@ -2659,7 +2650,7 @@ packages:
     resolution: {integrity: sha512-eBOBtHnzt9xvnjpYNI5HmaPp/b2vMveE5XggzqHnQeHJ8mFIBrBv6WZEVIj5jJ2uwTItkqKo9gWzEEcBxEq0yw==}
     deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
     peerDependencies:
-      '@babel/core': ^7.24.4
+      '@babel/core': ^7.0.0
 
   babel-plugin-polyfill-corejs2@0.4.11:
     resolution: {integrity: sha512-sMEJ27L0gRHShOh5G54uAAPaiCOygY/5ratXuiyb2G46FmlSpc9eFCzYVyDiPxfNbwzA7mYahmjQc5q+CZQ09Q==}
@@ -5740,6 +5731,9 @@ packages:
   zod-package-json@1.0.3:
     resolution: {integrity: sha512-Mb6GzuRyUEl8X+6V6xzHbd4XV0au/4gOYrYP+CAfHL32uPmGswES+v2YqonZiW1NZWVA3jkssCKSU2knonm/aQ==}
     engines: {node: '>=20'}
+
+  zod@3.21.4:
+    resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
 
   zod@3.23.8:
     resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
@@ -12537,5 +12531,7 @@ snapshots:
   zod-package-json@1.0.3:
     dependencies:
       zod: 3.23.8
+
+  zod@3.21.4: {}
 
   zod@3.23.8: {}

@@ -46,3 +46,8 @@ export interface DesignToken {
 export interface DesignTokens {
   [key: string]: DesignTokens | DesignToken;
 }
+
+export interface DesignTokenData {
+  name: string;
+  value: DesignTokenValue;
+}
