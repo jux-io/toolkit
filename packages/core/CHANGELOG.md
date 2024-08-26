@@ -1,5 +1,14 @@
 # @juxio/core
 
+## 0.6.2
+
+### Patch Changes
+
+- [#37](https://github.com/jux-io/toolkit/pull/37) [`f14f8a9`](https://github.com/jux-io/toolkit/commit/f14f8a92a03c8811ec91f767b388ae295d300fcb) Thanks [@tnipri](https://github.com/tnipri)! - fixed an issue where zod provides an error while definitions_directory is undefined
+
+- Updated dependencies []:
+  - @juxio/design-tokens@0.6.2
+
 ## 0.6.1
 
 ### Patch Changes
