@@ -47,13 +47,7 @@ export interface APIConfig {
 
 export type Themes = Record<string, Tokens>;
 
-export interface JuxCLIConfig {
-  /**
-   * Whether to apply preflight styles
-   * @default true
-   */
-  preflight?: boolean;
-
+export interface PresetCore {
   /**
    * Global CSS styles to apply
    */
@@ -63,6 +57,29 @@ export interface JuxCLIConfig {
    * Built in fonts to use. Currently only supports Google Fonts
    */
   builtInFonts?: BuiltInFonts;
+
+  /** The core tokens for the design system */
+  core_tokens?: Tokens;
+
+  /** The themes for the design system */
+  themes?: Themes;
+}
+
+export interface PresetConfig extends PresetCore {
+  name: string;
+}
+
+export interface JuxCLIConfig extends PresetCore {
+  /**
+   * Whether to apply preflight styles
+   * @default true
+   */
+  preflight?: boolean;
+
+  /**
+   * Used to create config presets to be shared across projects
+   */
+  presets?: (PresetConfig | string)[];
 
   /**
    * The root pseudo class to apply CSS variables to
@@ -74,7 +91,7 @@ export interface JuxCLIConfig {
    * include: ["./src/**\/*.{js,jsx,ts,tsx}"],
    * ```
    * */
-  include: string[];
+  include?: string[];
 
   /** List of glob file patterns to exclude from watch changes
    * ```
@@ -90,17 +107,8 @@ export interface JuxCLIConfig {
   tokens_directory?: string;
 
   /** Where to generate functions and type definitions */
-  definitions_directory: string;
+  definitions_directory?: string;
 
   /** An array of browserslist targets */
   browserlist?: string[];
-
-  /** Whether to use rsc in pulled components */
-  rsc?: boolean;
-
-  /** The core tokens for the design system */
-  core_tokens: Tokens;
-
-  /** The themes for the design system */
-  themes: Themes;
 }

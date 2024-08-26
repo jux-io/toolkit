@@ -29,7 +29,7 @@ export class FileManager {
       excludePatterns.push('**/*.d.ts');
     }
 
-    return globSync(options.include, {
+    return globSync(options.include ?? [], {
       cwd: this.cwd,
       ignore: excludePatterns,
       absolute: true,

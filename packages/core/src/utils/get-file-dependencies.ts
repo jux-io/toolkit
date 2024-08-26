@@ -102,18 +102,6 @@ function resolveWithExtension(file: string, extensions: string[]) {
   return null;
 }
 
-/**
- * Checks if the given path is under the current working directory.
- *
- * @returns {boolean} - True if the path is under the current working directory, false otherwise.
- */
-function isPathUnderCwd(cwd: string, absolutePath: string): boolean {
-  const relativePath = path.relative(cwd, absolutePath);
-
-  // If the relative path starts with "..", it's outside the cwd
-  return !relativePath.startsWith('..') && !path.isAbsolute(relativePath);
-}
-
 function getDependencies(options: GetDependenciesOptions, fromAlias?: string) {
   const { filename, seen } = options;
 
@@ -134,8 +122,6 @@ function getDependencies(options: GetDependenciesOptions, fromAlias?: string) {
   }
 
   if (absoluteFile.includes('node_modules')) return;
-
-  if (!isPathUnderCwd(options.projectCwd, absoluteFile)) return;
 
   // If we've already seen this file, don't process it again
   if (seen.size > 1 && seen.has(absoluteFile)) return;

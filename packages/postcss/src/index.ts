@@ -20,8 +20,6 @@ const juxtacss: PluginCreator<PluginOptions> = (options = {}) => {
 
           await postcssManager.init({ cwd: cwd ?? process.cwd(), configPath });
 
-          await postcssManager.emitAssets();
-
           await postcssManager.parseFiles();
 
           await postcssManager.injectStyles(root);
