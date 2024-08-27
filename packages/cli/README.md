@@ -1,6 +1,7 @@
 # Usage
 
   <!-- usage -->
+
 ```sh-session
 $ npm install -g @juxio/cli
 $ jux COMMAND
@@ -12,18 +13,20 @@ USAGE
   $ jux COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 # Commands
 
   <!-- commands -->
-* [`jux generate`](#jux-generate)
-* [`jux help [COMMAND]`](#jux-help-command)
-* [`jux init`](#jux-init)
-* [`jux login`](#jux-login)
-* [`jux pull components`](#jux-pull-components)
-* [`jux pull tokens`](#jux-pull-tokens)
-* [`jux version`](#jux-version)
+
+- [`jux generate`](#jux-generate)
+- [`jux help [COMMAND]`](#jux-help-command)
+- [`jux init`](#jux-init)
+- [`jux login`](#jux-login)
+- [`jux pull components`](#jux-pull-components)
+- [`jux pull tokens`](#jux-pull-tokens)
+- [`jux version`](#jux-version)
 
 ## `jux generate`
 
@@ -182,12 +185,14 @@ FLAG DESCRIPTIONS
 ```
 
 _See code: [@oclif/plugin-version](https://github.com/oclif/plugin-version/tree/%40juxio/cli%402.2.10/packages/cli/src/commands/version.ts)_
+
 <!-- commandsstop -->
 
 # Table of contents
 
   <!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
-* [Table of contents](#table-of-contents)
+
+- [Usage](#usage)
+- [Commands](#commands)
+- [Table of contents](#table-of-contents)
 <!-- tocstop -->
