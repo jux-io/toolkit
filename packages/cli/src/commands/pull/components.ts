@@ -43,10 +43,7 @@ export default class PullComponents extends JuxCommand<typeof PullComponents> {
       internalConfig
     );
 
-    if (
-      !ctx.cliConfig.components_directory ||
-      !ctx.cliConfig.tokens_directory
-    ) {
+    if (!ctx.cliConfig.components_directory) {
       throw new Error(
         'components_directory and tokens_directory should be defined in jux.config'
       );
@@ -55,11 +52,11 @@ export default class PullComponents extends JuxCommand<typeof PullComponents> {
     const spinner = ora(`Generating assets...\n`).start();
 
     try {
-      const assets = await ctx.pullAssets({
-        components: flags.components || [],
-      });
+      const components = await ctx.pullGeneratedComponentsCode(
+        flags.components || []
+      );
 
-      assets.map((a) => ctx.fs.writeAsset(a));
+      components.map((a) => ctx.fs.writeAsset(a));
     } catch (error) {
       if (error instanceof AxiosError && error.response?.status === 404) {
         spinner.warn(error.response.data.message);
