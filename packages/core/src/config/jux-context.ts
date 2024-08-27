@@ -224,7 +224,10 @@ export class JuxContext {
   }
 
   public async pullAssets(options: PullAssetsOptions): Promise<Asset[]> {
-    return [...(await this.pullGeneratedComponentsCode(options.components))];
+    return [
+      ...(await this.pullGeneratedComponentsCode(options.components)),
+      ...(await this.pullDesignTokens()),
+    ];
   }
 
   async reloadConfigFile(cb: () => Promise<void>): Promise<boolean> {
