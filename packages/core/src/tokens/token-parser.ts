@@ -2,6 +2,7 @@ import { type DesignTokenValue } from '@juxio/design-tokens';
 import { type Tokens } from '../config';
 import { getCssVariableName } from './get-css-variable-name';
 import { transformDesignTokenValueToCss } from './transform-design-token-value-to-css';
+import { underscore } from '../utils';
 
 export interface TokenInfo {
   name: string;
@@ -23,6 +24,7 @@ export const CORE_TOKEN_IDENTIFIER = 'core';
 
 export class TokenParser {
   name: TokenInfo['name'];
+  formattedName: TokenInfo['name'];
   type: TokenTypes;
   isCore: boolean;
 
@@ -37,6 +39,7 @@ export class TokenParser {
 
   constructor(tokenInfo: TokenInfo) {
     this.name = tokenInfo.name;
+    this.formattedName = underscore(tokenInfo.name);
     this.isCore = tokenInfo.name.startsWith(CORE_TOKEN_IDENTIFIER);
     this.value = tokenInfo.value;
     this.type = tokenInfo.type;
@@ -57,7 +60,7 @@ export class TokenParser {
     }
 
     return this.isCore
-      ? getCssVariableName(this.name)
+      ? getCssVariableName(this.formattedName)
       : getCssVariableName(
           this.path.filter((p) => p !== this.themeName).join('.')
         );
@@ -71,7 +74,7 @@ export class TokenParser {
     }
 
     return this.isCore
-      ? `.${this.name.replace(/\./g, '-')}`
+      ? `.${this.formattedName.replace(/\./g, '-')}`
       : `.${this.path.filter((p) => p !== this.themeName).join('-')}`;
   }
 
@@ -83,7 +86,7 @@ export class TokenParser {
    * @returns The finalized token name without the theme name if it's not a core value.
    *
    * @example
-   * // Assuming the token name is 'theme.color.primary' and it's not a core value
+   * // Assuming the token name is 'theme.color.primary' and it's not a core token value
    * const tokenParser = new TokenParser({
    *   name: 'theme.color.primary',
    *   type: TokenTypes.VALUE,
