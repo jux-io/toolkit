@@ -1,4 +1,4 @@
-import { BEFORE_PARENT, formatTokenValue, TokensManager } from '../tokens';
+import { BEFORE_PARENT, getCssVariableName, TokensManager } from '../tokens';
 import { walkObject } from './walk-object';
 import { Tokens } from '../config';
 import { getAliasMatches } from '@juxio/design-tokens';
@@ -60,7 +60,9 @@ export function parseRawStyleObject(
         );
         if (!parsedToken) {
           onTokenNotFound?.(key, value);
-          return formatTokenValue(valuePath);
+
+          // Token was not found, so just convert it to plain css variable
+          return `var(${getCssVariableName(value)})`;
         }
         return `var(${parsedToken.cssVar})`;
       });
