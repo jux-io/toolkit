@@ -1,5 +1,15 @@
 # @juxio/cli
 
+## 0.6.6
+
+### Patch Changes
+
+- [#47](https://github.com/jux-io/toolkit/pull/47) [`7ee29ce`](https://github.com/jux-io/toolkit/commit/7ee29cef496e2ff629a37d94df9a1c0571a6c737) Thanks [@tnipri](https://github.com/tnipri)! - components command no longer pull tokens when pulling components
+
+- Updated dependencies [[`ae488e3`](https://github.com/jux-io/toolkit/commit/ae488e3056855780364419c011829cf9480bfbe3), [`7ee29ce`](https://github.com/jux-io/toolkit/commit/7ee29cef496e2ff629a37d94df9a1c0571a6c737)]:
+  - @juxio/core@0.6.6
+  - @juxio/design-tokens@0.6.6
+
 ## 0.6.5
 
 ### Patch Changes
