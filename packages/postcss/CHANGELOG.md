@@ -1,5 +1,12 @@
 # @juxio/postcss
 
+## 0.6.6
+
+### Patch Changes
+
+- Updated dependencies [[`ae488e3`](https://github.com/jux-io/toolkit/commit/ae488e3056855780364419c011829cf9480bfbe3)]:
+  - @juxio/core@0.6.6
+
 ## 0.6.5
 
 ### Patch Changes
