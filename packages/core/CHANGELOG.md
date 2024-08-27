@@ -1,5 +1,14 @@
 # @juxio/core
 
+## 0.6.3
+
+### Patch Changes
+
+- [#39](https://github.com/jux-io/toolkit/pull/39) [`9a634ef`](https://github.com/jux-io/toolkit/commit/9a634efe1df7d5ccac1d98868e870bb195ff0a15) Thanks [@tnipri](https://github.com/tnipri)! - fixed a bug with invalid characters in css variable names
+
+- Updated dependencies []:
+  - @juxio/design-tokens@0.6.3
+
 ## 0.6.2
 
 ### Patch Changes
