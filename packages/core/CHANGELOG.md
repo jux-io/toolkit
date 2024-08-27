@@ -1,5 +1,14 @@
 # @juxio/core
 
+## 0.6.5
+
+### Patch Changes
+
+- [#43](https://github.com/jux-io/toolkit/pull/43) [`f345677`](https://github.com/jux-io/toolkit/commit/f345677f37a835e8a08684384fa0e8b65a45881e) Thanks [@tnipri](https://github.com/tnipri)! - fixed an issue where token type generation underscored the output
+
+- Updated dependencies []:
+  - @juxio/design-tokens@0.6.5
+
 ## 0.6.4
 
 ### Patch Changes
