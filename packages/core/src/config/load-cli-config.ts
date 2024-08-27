@@ -57,9 +57,15 @@ export async function resolveFinalConfig(
     configs.unshift(current);
   }
 
-  return configs.reduce((accumulator, currentObject) => {
+  const finalConfig = configs.reduce((accumulator, currentObject) => {
     return deepmerge(accumulator, currentObject);
   }, {} as JuxCLIConfig);
+
+  finalConfig.core_tokens = finalConfig.core_tokens ?? {};
+  finalConfig.themes = finalConfig.themes ?? {};
+  finalConfig.include = finalConfig.include ?? [];
+
+  return finalConfig;
 }
 
 export async function loadCliConfig(
