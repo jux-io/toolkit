@@ -90,7 +90,7 @@ export class PostcssManager {
 
     // Check if we should reload the context
     this.hasConfigChanged = await this.context.reloadConfigFile(async () => {
-      logger.debug('Reloading config file...');
+      logger.info('Reloading config file...');
       this.juxContext = await getConfigContext({
         cwd,
       });
