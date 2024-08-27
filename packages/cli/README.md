@@ -1,32 +1,29 @@
 # Usage
 
   <!-- usage -->
-
 ```sh-session
 $ npm install -g @juxio/cli
 $ jux COMMAND
 running command...
 $ jux (--version|-v|version)
-@juxio/cli/0.6.3 linux-x64 node-v20.16.0
+@juxio/cli/0.6.4 linux-x64 node-v20.16.0
 $ jux --help [COMMAND]
 USAGE
   $ jux COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
   <!-- commands -->
-
-- [`jux generate`](#jux-generate)
-- [`jux help [COMMAND]`](#jux-help-command)
-- [`jux init`](#jux-init)
-- [`jux login`](#jux-login)
-- [`jux pull components`](#jux-pull-components)
-- [`jux pull tokens`](#jux-pull-tokens)
-- [`jux version`](#jux-version)
+* [`jux generate`](#jux-generate)
+* [`jux help [COMMAND]`](#jux-help-command)
+* [`jux init`](#jux-init)
+* [`jux login`](#jux-login)
+* [`jux pull components`](#jux-pull-components)
+* [`jux pull tokens`](#jux-pull-tokens)
+* [`jux version`](#jux-version)
 
 ## `jux generate`
 
@@ -49,7 +46,7 @@ EXAMPLES
   $ jux generate --tokens-only
 ```
 
-_See code: [src/commands/generate.ts](https://github.com/jux-io/toolkit/tree/%40juxio/cli%400.6.3/packages/cli/src/commands/generate.ts)_
+_See code: [src/commands/generate.ts](https://github.com/jux-io/toolkit/tree/%40juxio/cli%400.6.4/packages/cli/src/commands/generate.ts)_
 
 ## `jux help [COMMAND]`
 
@@ -94,7 +91,7 @@ EXAMPLES
   $ jux init --force
 ```
 
-_See code: [src/commands/init.ts](https://github.com/jux-io/toolkit/tree/%40juxio/cli%400.6.3/packages/cli/src/commands/init.ts)_
+_See code: [src/commands/init.ts](https://github.com/jux-io/toolkit/tree/%40juxio/cli%400.6.4/packages/cli/src/commands/init.ts)_
 
 ## `jux login`
 
@@ -116,7 +113,7 @@ EXAMPLES
   $ jux login -d
 ```
 
-_See code: [src/commands/login.ts](https://github.com/jux-io/toolkit/tree/%40juxio/cli%400.6.3/packages/cli/src/commands/login.ts)_
+_See code: [src/commands/login.ts](https://github.com/jux-io/toolkit/tree/%40juxio/cli%400.6.4/packages/cli/src/commands/login.ts)_
 
 ## `jux pull components`
 
@@ -140,7 +137,7 @@ EXAMPLES
   $ jux pull components --all
 ```
 
-_See code: [src/commands/pull/components.ts](https://github.com/jux-io/toolkit/tree/%40juxio/cli%400.6.3/packages/cli/src/commands/pull/components.ts)_
+_See code: [src/commands/pull/components.ts](https://github.com/jux-io/toolkit/tree/%40juxio/cli%400.6.4/packages/cli/src/commands/pull/components.ts)_
 
 ## `jux pull tokens`
 
@@ -164,7 +161,7 @@ EXAMPLES
   $ jux pull tokens -d
 ```
 
-_See code: [src/commands/pull/tokens.ts](https://github.com/jux-io/toolkit/tree/%40juxio/cli%400.6.3/packages/cli/src/commands/pull/tokens.ts)_
+_See code: [src/commands/pull/tokens.ts](https://github.com/jux-io/toolkit/tree/%40juxio/cli%400.6.4/packages/cli/src/commands/pull/tokens.ts)_
 
 ## `jux version`
 
@@ -185,14 +182,12 @@ FLAG DESCRIPTIONS
 ```
 
 _See code: [@oclif/plugin-version](https://github.com/oclif/plugin-version/tree/%40juxio/cli%402.2.10/packages/cli/src/commands/version.ts)_
-
 <!-- commandsstop -->
 
 # Table of contents
 
   <!-- toc -->
-
-- [Usage](#usage)
-- [Commands](#commands)
-- [Table of contents](#table-of-contents)
+* [Usage](#usage)
+* [Commands](#commands)
+* [Table of contents](#table-of-contents)
 <!-- tocstop -->
