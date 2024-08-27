@@ -33,7 +33,6 @@ export class TokensManager {
 
     // Parse core tokens
     Object.keys(parsedTokens).forEach((token) => {
-      const name = underscore(token);
       const path = token.split('.').map(underscore);
 
       // path is snake_case (e.g. font_family), but we want camelCase for the category
@@ -58,7 +57,7 @@ export class TokensManager {
       }
 
       const tokenInfo: TokenInfo = {
-        name,
+        name: token,
         type:
           typeof parsedTokens[token] === 'string'
             ? TokenTypes.VALUE
@@ -76,7 +75,7 @@ export class TokensManager {
         Object.entries(parsedTokens[token] as DesignTokenComposite).forEach(
           ([key, value]) => {
             const compositeTokenInfo: TokenInfo = {
-              name: `${name}.${key}`,
+              name: `${token}.${key}`,
               type: TokenTypes.VALUE,
               path: [...path, key],
               value,
