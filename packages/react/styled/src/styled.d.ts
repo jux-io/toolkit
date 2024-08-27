@@ -4,6 +4,7 @@ import {
   CSSPropertiesWithCustomValues,
   CustomTokensValues,
   CustomTypes,
+  EmptyObject,
   Merge,
 } from './base';
 import { Tokens } from './tokens';
@@ -43,7 +44,7 @@ export type StyledComponent<Props extends BaseProps> =
 
 export type CreateStyled = <
   Component extends React.ElementType,
-  Props extends BaseProps = NonNullable<unknown>,
+  Props extends BaseProps = EmptyObject,
 >(
   component: Component,
   styles: StylesDefinition<Props>,
