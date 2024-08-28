@@ -69,6 +69,6 @@ export function getAndVerifyInternalConfig(
   try {
     return internalConfigSchema.parse(internalConfig);
   } catch (error) {
-    throw new CLIError(`Invalid login configurations.`);
+    throw new CLIError(`Invalid login configurations. Please run 'jux login'`);
   }
 }
