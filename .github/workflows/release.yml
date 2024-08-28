@@ -2,8 +2,11 @@ name: Release
 
 on:
   push:
+    paths:
+      - '.changeset/**'
+      - 'packages/**'
     branches:
-      - master
+      - main
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
