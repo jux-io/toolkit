@@ -17,7 +17,7 @@ import { CORE_TOKEN_IDENTIFIER } from './token-parser';
  */
 export function formatTokenValue(value: string) {
   const path = value.split('.');
-  if (path.at(0) === CORE_TOKEN_IDENTIFIER) {
+  if (path.at(0) === CORE_TOKEN_IDENTIFIER || path.length === 1) {
     return `var(${getCssVariableName(underscore(value))})`;
   } else {
     return `var(${getCssVariableName(underscore(path.splice(1).join('.')))})`;

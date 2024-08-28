@@ -1,10 +1,13 @@
 import { defineConfig, defaultExclude } from 'vitest/config';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import path from 'node:path';
 
 export default defineConfig({
   plugins: [tsconfigPaths()],
   resolve: {
-    alias: {},
+    alias: {
+      '@juxio/cli': path.resolve(__dirname, 'packages/cli/src'),
+    },
   },
   test: {
     globals: true,
@@ -15,7 +18,8 @@ export default defineConfig({
       reportsDirectory: 'coverage',
     },
     watch: false,
-    silent: true,
+    silent: false,
+    passWithNoTests: true,
     setupFiles: [],
     include: ['**/*.test.{ts,js}'],
     // it is recommended to define a name when using inline configs

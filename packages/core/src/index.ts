@@ -6,6 +6,5 @@ export * from './tokens';
 export * from './utils';
 export * from './auth';
 export * from './postcss';
-export * from './parsers';
 
 export { AxiosError } from 'axios';
