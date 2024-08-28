@@ -1,5 +1,15 @@
 # @juxio/cli
 
+## 0.6.8
+
+### Patch Changes
+
+- [#52](https://github.com/jux-io/toolkit/pull/52) [`86e8b3d`](https://github.com/jux-io/toolkit/commit/86e8b3d72f25921013728a8b8d8bc8973c503689) Thanks [@tnipri](https://github.com/tnipri)! - improved error logging on some cases
+
+- Updated dependencies [[`86e8b3d`](https://github.com/jux-io/toolkit/commit/86e8b3d72f25921013728a8b8d8bc8973c503689)]:
+  - @juxio/core@0.6.8
+  - @juxio/design-tokens@0.6.8
+
 ## 0.6.7
 
 ### Patch Changes
