@@ -3,6 +3,7 @@ import path from 'path';
 import { type APIConfig, type JuxInternalCliConfig } from './config.types';
 import { z } from 'zod';
 import { FileManager } from '../fs';
+import { CLIError } from '@oclif/core/errors';
 
 export const CONFIG_FILE = 'config.json';
 
@@ -52,7 +53,9 @@ export function getInternalConfig(configDirPath: string): JuxInternalCliConfig {
     return JSON.parse(config);
   } catch (error) {
     if (error.code === 'ENOENT') {
-      throw new Error(`Login configurations not found. Please run 'jux login'`);
+      throw new CLIError(
+        `Login configurations not found. Please run 'jux login'`
+      );
     }
     throw error;
   }
@@ -66,6 +69,6 @@ export function getAndVerifyInternalConfig(
   try {
     return internalConfigSchema.parse(internalConfig);
   } catch (error) {
-    throw new Error(`Invalid login configurations.`);
+    throw new CLIError(`Invalid login configurations.`);
   }
 }

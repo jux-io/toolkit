@@ -64,13 +64,13 @@ export default class PullTokens extends JuxCommand<typeof PullTokens> {
       }
     }
 
-    spinner.succeed('Done');
-
     if (flags.definitions) {
-      logger.info('Generating token definitions');
+      logger.info('Generating token definitions...');
       const assets = await ctx.generateTokensDefinitions();
       assets.map((a) => ctx.fs.writeAsset(a));
     }
+
+    spinner.succeed('Done');
 
     return true;
   }
