@@ -14,13 +14,6 @@ export default class Login extends JuxCommand<typeof Login> {
   static examples = [`<%= config.bin %> <%= command.id %> -d`];
 
   static flags = {
-    defaults: Flags.boolean({
-      char: 'd',
-      default: false,
-      description: 'Use defaults configurations',
-      required: false,
-    }),
-
     cwd: Flags.string({
       char: 'c',
       description: 'The directory to initialize the project in',

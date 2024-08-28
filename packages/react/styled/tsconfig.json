@@ -4,7 +4,6 @@
     "target": "es2023",
     "lib": ["es2023", "DOM"],
     "jsx": "react-jsx",
-    "types": ["node"],
     "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,

@@ -33,6 +33,7 @@ export default class PullComponents extends JuxCommand<typeof PullComponents> {
 
   async run() {
     const { flags } = await this.parse(PullComponents);
+
     const internalConfig = getAndVerifyInternalConfig(this.config.configDir);
 
     const ctx = await getConfigContext(
@@ -67,5 +68,7 @@ export default class PullComponents extends JuxCommand<typeof PullComponents> {
     }
 
     spinner.succeed('Done');
+
+    return true;
   }
 }
