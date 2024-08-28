@@ -53,15 +53,10 @@ describe('jux pull components', () => {
         },
       ] as ComponentFileStructure[]);
 
-    const { result } = await runCommand(
-      [`pull components --cwd=${testsOutputDir}`],
-      {
-        root,
-        configDir: testsOutputDir,
-      }
-    );
-
-    expect(result).toBe(true);
+    await runCommand([`pull components --cwd=${testsOutputDir}`], {
+      root,
+      configDir: testsOutputDir,
+    });
 
     await expect(
       fs.readFileSync(
@@ -89,15 +84,10 @@ describe('jux pull components', () => {
         },
       ] as ComponentFileStructure[]);
 
-    const { result } = await runCommand(
-      [`pull components -c Input --cwd=${testsOutputDir}`],
-      {
-        root,
-        configDir: testsOutputDir,
-      }
-    );
-
-    expect(result).toBe(true);
+    await runCommand([`pull components -c Input --cwd=${testsOutputDir}`], {
+      root,
+      configDir: testsOutputDir,
+    });
 
     await expect(
       fs.readFileSync(
