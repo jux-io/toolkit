@@ -1,5 +1,15 @@
 # @juxio/cli
 
+## 0.6.7
+
+### Patch Changes
+
+- [#49](https://github.com/jux-io/toolkit/pull/49) [`545ce15`](https://github.com/jux-io/toolkit/commit/545ce15c3f146d631a0595463b5044d0ad27ce4a) Thanks [@tnipri](https://github.com/tnipri)! - fixed various bugs that came up from tests
+
+- Updated dependencies [[`545ce15`](https://github.com/jux-io/toolkit/commit/545ce15c3f146d631a0595463b5044d0ad27ce4a)]:
+  - @juxio/design-tokens@0.6.7
+  - @juxio/core@0.6.7
+
 ## 0.6.6
 
 ### Patch Changes
