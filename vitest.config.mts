@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig, defaultExclude } from 'vitest/config';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
@@ -10,8 +10,8 @@ export default defineConfig({
     globals: true,
     coverage: {
       provider: 'v8',
-      include: ['packages/cli/**/*.ts', 'packages/design-tokens/**/*.ts'],
-      exclude: ['node_modules'],
+      include: ['packages/**/*.ts'],
+      exclude: [...defaultExclude],
       reportsDirectory: 'coverage',
     },
     watch: false,

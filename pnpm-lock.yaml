@@ -308,9 +308,6 @@ importers:
       '@types/cli-color':
         specifier: ^2.0.6
         version: 2.0.6
-      '@types/cssbeautify':
-        specifier: ^0.3.5
-        version: 0.3.5
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
@@ -357,9 +354,16 @@ importers:
       '@juxio/core':
         specifier: workspace:*
         version: link:../core
+      fs-extra:
+        specifier: ^11.2.0
+        version: 11.2.0
       postcss:
         specifier: ^8.4.39
         version: 8.4.39
+    devDependencies:
+      '@juxio/cli':
+        specifier: workspace:*
+        version: link:../cli
 
   packages/react/styled:
     dependencies:
@@ -2434,9 +2438,6 @@ packages:
   '@types/conventional-commits-parser@5.0.0':
     resolution: {integrity: sha512-loB369iXNmAZglwWATL+WRe+CRMmmBPtpolYzIebFaX4YA3x+BEfLqhUAV9WanycKI3TG1IMr5bMJDajDKLlUQ==}
 
-  '@types/cssbeautify@0.3.5':
-    resolution: {integrity: sha512-bkxuJdUu7Liw14EouI8IFNvJXvd5IioAZdDvlCFBXv+Sel8uPK9rcxfvOchQKqw2AtppxRvcYaWmimi0t0Yuow==}
-
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
 
@@ -2802,7 +2803,7 @@ packages:
     resolution: {integrity: sha512-eBOBtHnzt9xvnjpYNI5HmaPp/b2vMveE5XggzqHnQeHJ8mFIBrBv6WZEVIj5jJ2uwTItkqKo9gWzEEcBxEq0yw==}
     deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
     peerDependencies:
-      '@babel/core': ^7.24.4
+      '@babel/core': ^7.0.0
 
   babel-plugin-polyfill-corejs2@0.4.11:
     resolution: {integrity: sha512-sMEJ27L0gRHShOh5G54uAAPaiCOygY/5ratXuiyb2G46FmlSpc9eFCzYVyDiPxfNbwzA7mYahmjQc5q+CZQ09Q==}
@@ -9042,8 +9043,6 @@ snapshots:
   '@types/conventional-commits-parser@5.0.0':
     dependencies:
       '@types/node': 18.19.41
-
-  '@types/cssbeautify@0.3.5': {}
 
   '@types/estree@1.0.5': {}
 

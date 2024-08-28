@@ -1,6 +1,18 @@
 import type { PluginCreator } from 'postcss';
 import { logger, type PluginOptions, PostcssManager } from '@juxio/core';
 import * as util from 'node:util';
+import path from 'node:path';
+
+const shouldSkip = (fileName: string | undefined) => {
+  if (!fileName) return true;
+
+  const [filePath] = fileName.split('?');
+  const isValidCss = path.extname(filePath) === '.css';
+
+  if (!isValidCss) return true;
+
+  return /node_modules/.test(fileName);
+};
 
 const postcssManager = new PostcssManager();
 
@@ -11,6 +23,9 @@ const juxtacss: PluginCreator<PluginOptions> = (options = {}) => {
     plugins: [
       async (root, result) => {
         try {
+          // Skip if css file is from node_modules
+          if (shouldSkip(result.opts.from)) return;
+
           if (!PostcssManager.validateRoot(root)) {
             logger.debug(
               `File ${result.opts.from} does not contain valid jux layer names. Skipping...`
