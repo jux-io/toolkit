@@ -66,7 +66,7 @@ export class FileManager {
         )}`
       );
 
-      fs.writeFile(`${asset.directory}/${file.name}`, file.content, 'utf8');
+      fs.writeFileSync(`${asset.directory}/${file.name}`, file.content, 'utf8');
     }
   }
 

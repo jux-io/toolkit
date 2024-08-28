@@ -71,5 +71,7 @@ export default class PullTokens extends JuxCommand<typeof PullTokens> {
       const assets = await ctx.generateTokensDefinitions();
       assets.map((a) => ctx.fs.writeAsset(a));
     }
+
+    return true;
   }
 }

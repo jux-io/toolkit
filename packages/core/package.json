@@ -36,7 +36,7 @@
     "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
     "@juxio/design-tokens": "workspace:*",
-    "@oclif/core": "^4.0.17",
+    "@oclif/core": "^4.0.19",
     "@wyw-in-js/processor-utils": "^0.5.4",
     "@wyw-in-js/shared": "^0.5.4",
     "@wyw-in-js/transform": "^0.5.4",

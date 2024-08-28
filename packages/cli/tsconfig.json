@@ -6,12 +6,12 @@
     "rootDir": "src",
     "strict": true,
     "target": "ESNext",
-    "module": "esnext",
+    "module": "commonjs",
     "types": ["node"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "skipLibCheck": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "tsup.config.ts"]
+  "exclude": ["node_modules", "dist", "tsup.config.ts", "vitest.config.ts"]
 }

@@ -6,7 +6,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "useUnknownInCatchVariables": false,
-    "importHelpers": false
+    "importHelpers": false,
+    "types": ["node", "vitest/globals"]
   },
   "include": ["packages/**/*.ts"],
   "exclude": ["node_modules"]

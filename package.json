@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A repository for Jux toolkit",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest",
     "prettier": "prettier --check packages",
     "prettier:fix": "prettier --write packages",
     "dev": "pnpm --parallel --filter=./packages/** dev",
@@ -47,7 +47,9 @@
     "lint-staged": "^15.2.7",
     "pkg-pr-new": "^0.0.20",
     "prettier": "^3.3.3",
-    "tslib": "^2.6.3"
+    "tslib": "^2.6.3",
+    "vite-tsconfig-paths": "^5.0.1",
+    "vitest": "^2.0.5"
   },
   "lint-staged": {
     "packages/**/*.{ts,tsx}": [

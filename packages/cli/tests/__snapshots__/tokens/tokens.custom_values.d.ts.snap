@@ -1,0 +1,33 @@
+import '@juxio/react-styled/tokens';
+
+export type ColorToken = '{core.color.brand_100}' | '{color.+1}';
+
+export type TypographyToken =
+  | '{core.typography.12_bold}'
+  | '{typography.12_bold}';
+
+export type DimensionToken =
+  | '{core.typography.12_bold.fontSize}'
+  | '{core.typography.12_bold.lineHeight}'
+  | '{core.typography.12_bold.letterSpacing}'
+  | '{typography.12_bold.fontSize}'
+  | '{typography.12_bold.lineHeight}'
+  | '{typography.12_bold.letterSpacing}';
+
+export type FontFamilyToken =
+  | '{core.typography.12_bold.fontFamily}'
+  | '{typography.12_bold.fontFamily}';
+
+export type FontWeightToken =
+  | '{core.typography.12_bold.fontWeight}'
+  | '{typography.12_bold.fontWeight}';
+
+declare module '@juxio/react-styled/tokens' {
+  export interface Tokens {
+    color: ColorToken;
+    typography: TypographyToken;
+    dimension: DimensionToken;
+    fontFamily: FontFamilyToken;
+    fontWeight: FontWeightToken;
+  }
+}

@@ -52,11 +52,11 @@ export default class Init extends JuxCommand<typeof Init> {
     }
 
     if (!(await setupJuxConfig(cwd, flags.force))) {
-      return;
+      return false;
     }
 
     if (flags['skip-deps']) {
-      return;
+      return true;
     }
 
     const packageManager = await getPackageManager(cwd);
@@ -75,5 +75,7 @@ export default class Init extends JuxCommand<typeof Init> {
     );
 
     spinner.succeed('Done.');
+
+    return true;
   }
 }

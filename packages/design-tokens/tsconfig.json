@@ -3,7 +3,6 @@
   "compilerOptions": {
     "target": "ESNext",
     "lib": ["esnext"],
-    "types": ["node"],
     "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,
@@ -14,10 +13,6 @@
   "files": [],
   "include": ["src/**/*"],
   "exclude": [
-    "jest.config.ts",
-    "**/*.spec.ts",
-    "**/*.test.ts",
-    "**/*.snap",
     "node_modules",
     "dist",
     "tsup.config.ts"
