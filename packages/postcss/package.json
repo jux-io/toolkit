@@ -28,9 +28,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "postcss": "^8.4.39",
-    "@juxio/core": "workspace:*"
+    "@juxio/core": "workspace:*",
+    "fs-extra": "^11.2.0",
+    "postcss": "^8.4.39"
   },
-  "devDependencies": {},
-  "peerDependencies": {}
+  "devDependencies": {
+    "@juxio/cli": "workspace:*"
+  }
 }

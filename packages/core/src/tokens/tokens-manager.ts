@@ -79,7 +79,7 @@ export class TokensManager {
               type: TokenTypes.VALUE,
               path: [...path, key],
               value,
-              originalValue: value,
+              originalValue: (rawValuesMap[token] as DesignTokenComposite)[key],
               category: getCategoryByCssProperty(key),
             };
 

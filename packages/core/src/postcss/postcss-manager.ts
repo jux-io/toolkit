@@ -257,6 +257,17 @@ export class PostcssManager {
 
     // Clear all the previous layers
     root.walkAtRules('layer', (atRule) => {
+      if (
+        VALID_LAYER_NAMES.every((name) =>
+          atRule.params
+            .split(',')
+            .map((name) => name.trim())
+            .includes(name)
+        )
+      ) {
+        // Remove the layer if it contains all the valid layer names
+        atRule.remove();
+      }
       // @ts-expect-error safe to ignore as we know that params is a string
       if (LAYERS.includes(atRule.params.trim())) {
         atRule.remove();
@@ -268,7 +279,7 @@ export class PostcssManager {
       css.push(
         this.context.stylesheetManager.generateGoogleFontsStyles(
           this.context.cliConfig.builtInFonts.google
-        )
+        ) + '\n\n'
       );
     }
 
@@ -276,18 +287,12 @@ export class PostcssManager {
     css.push(this.context.stylesheetManager.layers.juxtokens.toString());
     css.push(this.context.stylesheetManager.layers.juxutilities.toString());
 
-    root.append(this.context.stylesheetManager.transformCss(css.join('\n\n')));
-  }
-
-  getWatchedFiles() {
-    // Collect all the files we should watch, so once they change, postcss manager can re-parse them
-    const watchedFiles = this.context.getFilesToWatch();
-    return Array.from([...this.configDependencies, ...watchedFiles]);
+    root.append(this.context.stylesheetManager.transformCss(css.join('\r\n')));
   }
 
   registerDependencies(register: (dependency: Message) => void) {
     for (const fileOrGlob of this.context.cliConfig.include ?? []) {
-      const dependency = parseDependencies(fileOrGlob);
+      const dependency = parseDependencies(fileOrGlob, this.context.cwd);
       if (dependency) {
         register(dependency);
       }

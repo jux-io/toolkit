@@ -1,10 +1,11 @@
 import { describe, it, vi } from 'vitest';
-import { DesignTokensParser } from '../';
-import { getCurrentTimestamp } from './helpers';
+import { DesignTokensParser } from '../src';
+// do not change the import path, it is used for testing the mock
+import { getCurrentTimestamp } from '../src/parser/helpers';
 
-vi.mock('./helpers', async (importOriginal) => {
+vi.mock('../src/parser/helpers', async (importOriginal) => {
   return {
-    ...(await importOriginal<typeof import('./helpers')>()),
+    ...(await importOriginal<typeof import('../src/parser/helpers')>()),
     getCurrentTimestamp: vi.fn(() => '2021-09-01T00:00:00Z'),
   };
 });
