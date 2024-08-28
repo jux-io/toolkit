@@ -1,0 +1,1093 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`DesignTokensParser > should parse tokens 1`] = `
+{
+  "color": {
+    "primary": {
+      "border": {
+        "$description": "Primary border color",
+        "$type": "color",
+        "$value": "#8a4242",
+      },
+      "text": {
+        "$description": "Primary text color",
+        "$type": "color",
+        "$value": "#8a4242",
+      },
+    },
+    "secondary": {
+      "border": {
+        "$description": "Secondary border color",
+        "$type": "color",
+        "$value": "#bd7a3b",
+      },
+      "text": {
+        "$description": "Secondary text color",
+        "$type": "color",
+        "$value": "#bd7a3b",
+      },
+    },
+  },
+}
+`;
+
+exports[`DesignTokensParser > should parse tokens 2`] = `
+{
+  "color.primary.border": "#8a4242",
+  "color.primary.text": "#8a4242",
+  "color.secondary.border": "#bd7a3b",
+  "color.secondary.text": "#bd7a3b",
+}
+`;
+
+exports[`DesignTokensParser > should parse tokens 3`] = `
+{
+  "dark": {
+    "color": {
+      "primary": {
+        "border": {
+          "$description": "Primary border color",
+          "$type": "color",
+          "$value": "#8a4242",
+        },
+        "text": {
+          "$description": "Primary text color",
+          "$type": "color",
+          "$value": "#8a4242",
+        },
+      },
+      "secondary": {
+        "border": {
+          "$description": "Secondary border color",
+          "$type": "color",
+          "$value": "#bd7a3b",
+        },
+        "text": {
+          "$description": "Secondary text color",
+          "$type": "color",
+          "$value": "#bd7a3b",
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`DesignTokensParser > should parse tokens 4`] = `
+{
+  "dark.color.primary.border": "#8a4242",
+  "dark.color.primary.text": "#8a4242",
+  "dark.color.secondary.border": "#bd7a3b",
+  "dark.color.secondary.text": "#bd7a3b",
+}
+`;
+
+exports[`DesignTokensParser > should parse tokens with aliases 1`] = `
+{
+  "color": {
+    "primary": {
+      "border": {
+        "$description": "Primary border color",
+        "$value": "{color.secondary.border}",
+      },
+      "text": {
+        "$description": "Primary text color",
+        "$value": "{color.secondary.text}",
+      },
+    },
+    "secondary": {
+      "border": {
+        "$description": "Secondary border color",
+        "$type": "color",
+        "$value": "#bd7a3b",
+      },
+      "text": {
+        "$description": "Secondary text color",
+        "$type": "color",
+        "$value": "#bd7a3b",
+      },
+    },
+  },
+  "typography": {
+    "body": {
+      "$description": "Body typography",
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Helvetica",
+        "fontSize": "14px",
+        "fontWeight": "bold",
+      },
+    },
+    "heading": {
+      "$description": "Heading typography",
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Comic Sans MS",
+        "fontSize": "24px",
+        "fontWeight": "bold",
+      },
+    },
+    "paragraph": {
+      "$description": "Paragraph typography",
+      "$value": "{typography.body}",
+    },
+  },
+}
+`;
+
+exports[`DesignTokensParser > should parse tokens with aliases 2`] = `
+{
+  "color.primary.border": "#bd7a3b",
+  "color.primary.text": "#bd7a3b",
+  "color.secondary.border": "#bd7a3b",
+  "color.secondary.text": "#bd7a3b",
+  "typography.body": {
+    "fontFamily": "Helvetica",
+    "fontSize": "14px",
+    "fontWeight": "bold",
+  },
+  "typography.heading": {
+    "fontFamily": "Comic Sans MS",
+    "fontSize": "24px",
+    "fontWeight": "bold",
+  },
+  "typography.paragraph": {
+    "fontFamily": "Helvetica",
+    "fontSize": "14px",
+    "fontWeight": "bold",
+  },
+}
+`;
+
+exports[`DesignTokensParser > should set tokens and groups 1`] = `
+{
+  "color": {
+    "primary": {
+      "$description": "Primary test colors group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "test": {
+        "$description": "Primary test color",
+        "$type": "color",
+        "$value": "#8a4242",
+      },
+    },
+  },
+}
+`;
+
+exports[`DesignTokensParser > should set tokens and groups 2`] = `
+{
+  "color.primary.test": "#8a4242",
+}
+`;
+
+exports[`DesignTokensParser > should set tokens and groups 3`] = `
+{
+  "color": {
+    "primary": {
+      "$description": "Primary test colors group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "test": {
+        "$description": "Primary test color",
+        "$type": "color",
+        "$value": "#8a4242",
+      },
+    },
+    "secondary": {
+      "$description": "Secondary test colors group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "test": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "{color.primary.test}",
+      },
+    },
+  },
+}
+`;
+
+exports[`DesignTokensParser > should set tokens and groups 4`] = `
+{
+  "color.primary.test": "#8a4242",
+  "color.secondary.test": "#8a4242",
+}
+`;
+
+exports[`DesignTokensParser > should set tokens and groups 5`] = `
+{
+  "color": {
+    "primary": {
+      "$description": "Primary test colors group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "test": {
+        "$description": "Primary test color",
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "#FFFFFF",
+      },
+    },
+    "secondary": {
+      "$description": "Secondary test colors group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "test": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "{color.primary.test}",
+      },
+    },
+  },
+}
+`;
+
+exports[`DesignTokensParser > should set tokens and groups 6`] = `
+{
+  "color.primary.test": "#FFFFFF",
+  "color.secondary.test": "#FFFFFF",
+}
+`;
+
+exports[`DesignTokensParser > should set tokens and groups 7`] = `
+{
+  "color": {
+    "primary": {
+      "$description": "Primary test colors group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "test": {
+        "$description": "Primary test color",
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "#FFFFFF",
+      },
+    },
+    "secondary": {
+      "$description": "Secondary test colors group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "test": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "#000000",
+      },
+    },
+  },
+}
+`;
+
+exports[`DesignTokensParser > should set tokens and groups 8`] = `
+{
+  "color.primary.test": "#FFFFFF",
+  "color.secondary.test": "#000000",
+}
+`;
+
+exports[`DesignTokensParser > should set tokens and groups 9`] = `
+{
+  "color": {
+    "primary": {
+      "$description": "Primary test colors group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "test": {
+        "$description": "Primary test color",
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "{color.secondary.test}",
+      },
+    },
+    "secondary": {
+      "$description": "Secondary test colors group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "test": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "#000000",
+      },
+    },
+  },
+}
+`;
+
+exports[`DesignTokensParser > should set tokens and groups 10`] = `
+{
+  "color.primary.test": "#000000",
+  "color.secondary.test": "#000000",
+}
+`;
+
+exports[`DesignTokensParser > should set tokens and groups 11`] = `
+{
+  "color": {
+    "primary": {
+      "$description": "Primary test colors group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "test2": {
+        "$description": "Primary test color",
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "{color.secondary.test}",
+      },
+    },
+    "secondary": {
+      "$description": "Secondary test colors group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "test": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "#000000",
+      },
+    },
+  },
+}
+`;
+
+exports[`DesignTokensParser > should set tokens and groups 12`] = `
+{
+  "color.primary.test2": "#000000",
+  "color.secondary.test": "#000000",
+}
+`;
+
+exports[`DesignTokensParser > should set tokens and groups 13`] = `
+{
+  "color": {
+    "primary": {
+      "$description": "Primary test colors group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "test2": {
+        "$description": "Primary test color",
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "{color.secondary.test2}",
+      },
+    },
+    "secondary": {
+      "$description": "Secondary test colors group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "test2": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "#000000",
+      },
+    },
+  },
+}
+`;
+
+exports[`DesignTokensParser > should set tokens and groups 14`] = `
+{
+  "color.primary.test2": "#000000",
+  "color.secondary.test2": "#000000",
+}
+`;
+
+exports[`DesignTokensParser > should support multi-level aliases 1`] = `
+{
+  "color": {
+    "$extensions": {
+      "createdAt": "2021-09-01T00:00:00Z",
+    },
+    "primary": {
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "test": {
+        "$description": "Primary test color",
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "#8a4242",
+      },
+    },
+    "secondary": {
+      "$description": "Secondary test colors group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "test0": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "{color.secondary.test2}",
+      },
+      "test1": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "{color.secondary.test0}",
+      },
+      "test2": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "{color.primary.test}",
+      },
+    },
+  },
+  "fontFamily": {
+    "$description": "Font family group",
+    "$extensions": {
+      "createdAt": "2021-09-01T00:00:00Z",
+    },
+    "primary": {
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "$type": "fontFamily",
+      "$value": "Helvetica",
+    },
+    "secondary": {
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "$type": "fontFamily",
+      "$value": "{fontFamily.primary}",
+    },
+  },
+  "fontWeight": {
+    "$description": "Font weight group",
+    "$extensions": {
+      "createdAt": "2021-09-01T00:00:00Z",
+    },
+    "primary": {
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "$type": "fontWeight",
+      "$value": "bold",
+    },
+    "secondary": {
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "$type": "fontWeight",
+      "$value": "{fontWeight.primary}",
+    },
+  },
+  "typography": {
+    "$extensions": {
+      "createdAt": "2021-09-01T00:00:00Z",
+    },
+    "body": {
+      "$description": "Body typography group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "primary": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Helvetica",
+          "fontSize": "14px",
+          "fontWeight": "bold",
+        },
+      },
+      "secondary": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "typography",
+        "$value": "{typography.body.primary}",
+      },
+    },
+    "heading": {
+      "$description": "Heading typography group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "h1": {
+        "$description": "Heading 1 typography",
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Comic Sans MS",
+          "fontSize": "24px",
+          "fontWeight": "bold",
+        },
+      },
+      "h2": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "typography",
+        "$value": "{typography.heading.h1}",
+      },
+      "h3": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{fontFamily.primary}",
+          "fontWeight": "{fontWeight.primary}",
+        },
+      },
+      "h4": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "typography",
+        "$value": "{typography.heading.h3}",
+      },
+    },
+    "paragraph": {
+      "$description": "Paragraph typography group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "primary": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{fontFamily.secondary}",
+          "fontWeight": "{fontWeight.secondary}",
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`DesignTokensParser > should support multi-level aliases 2`] = `
+{
+  "color.primary.test": "#8a4242",
+  "color.secondary.test0": "#8a4242",
+  "color.secondary.test1": "#8a4242",
+  "color.secondary.test2": "#8a4242",
+  "fontFamily.primary": "Helvetica",
+  "fontFamily.secondary": "Helvetica",
+  "fontWeight.primary": "bold",
+  "fontWeight.secondary": "bold",
+  "typography.body.primary": {
+    "fontFamily": "Helvetica",
+    "fontSize": "14px",
+    "fontWeight": "bold",
+  },
+  "typography.body.secondary": {
+    "fontFamily": "Helvetica",
+    "fontSize": "14px",
+    "fontWeight": "bold",
+  },
+  "typography.heading.h1": {
+    "fontFamily": "Comic Sans MS",
+    "fontSize": "24px",
+    "fontWeight": "bold",
+  },
+  "typography.heading.h2": {
+    "fontFamily": "Comic Sans MS",
+    "fontSize": "24px",
+    "fontWeight": "bold",
+  },
+  "typography.heading.h3": {
+    "fontFamily": "Helvetica",
+    "fontWeight": "bold",
+  },
+  "typography.heading.h4": {
+    "fontFamily": "Helvetica",
+    "fontWeight": "bold",
+  },
+  "typography.paragraph.primary": {
+    "fontFamily": "Helvetica",
+    "fontWeight": "bold",
+  },
+}
+`;
+
+exports[`DesignTokensParser > should support multi-level aliases 3`] = `
+{
+  "color": {
+    "$extensions": {
+      "createdAt": "2021-09-01T00:00:00Z",
+    },
+    "defaults": {
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "test": {
+        "$description": "Primary test color",
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "lightsalmon",
+      },
+    },
+    "secondary": {
+      "$description": "Secondary test colors group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "test0": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "{color.secondary.test2}",
+      },
+      "test1": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "{color.secondary.test0}",
+      },
+      "test2": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "{color.defaults.test}",
+      },
+    },
+  },
+  "fontFamilies": {
+    "$description": "Font family group",
+    "$extensions": {
+      "createdAt": "2021-09-01T00:00:00Z",
+    },
+    "default": {
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "$type": "fontFamily",
+      "$value": "Helvetica",
+    },
+    "secondary": {
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "$type": "fontFamily",
+      "$value": "{fontFamilies.default}",
+    },
+  },
+  "fontWeight": {
+    "$description": "Font weight group",
+    "$extensions": {
+      "createdAt": "2021-09-01T00:00:00Z",
+    },
+    "primary": {
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "$type": "fontWeight",
+      "$value": "bold",
+    },
+    "secondary": {
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "$type": "fontWeight",
+      "$value": "{fontWeight.primary}",
+    },
+  },
+  "typography": {
+    "$extensions": {
+      "createdAt": "2021-09-01T00:00:00Z",
+    },
+    "defaults": {
+      "$description": "Body typography group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "primary": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Helvetica",
+          "fontSize": "14px",
+          "fontWeight": "bold",
+        },
+      },
+      "secondary": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "typography",
+        "$value": "{typography.defaults.primary}",
+      },
+    },
+    "headings": {
+      "$description": "Heading typography group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "h1": {
+        "$description": "Heading 1 typography",
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Comic Sans MS",
+          "fontSize": "24px",
+          "fontWeight": "bold",
+        },
+      },
+      "h2": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "typography",
+        "$value": "{typography.headings.h1}",
+      },
+      "h3": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{fontFamilies.default}",
+          "fontWeight": "{fontWeight.primary}",
+        },
+      },
+      "h4": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "typography",
+        "$value": "{typography.headings.h3}",
+      },
+    },
+    "paragraph": {
+      "$description": "Paragraph typography group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "primary": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{fontFamilies.secondary}",
+          "fontWeight": "{fontWeight.secondary}",
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`DesignTokensParser > should support multi-level aliases 4`] = `
+{
+  "color.defaults.test": "lightsalmon",
+  "color.secondary.test0": "lightsalmon",
+  "color.secondary.test1": "lightsalmon",
+  "color.secondary.test2": "lightsalmon",
+  "fontFamilies.default": "Helvetica",
+  "fontFamilies.secondary": "Helvetica",
+  "fontWeight.primary": "bold",
+  "fontWeight.secondary": "bold",
+  "typography.defaults.primary": {
+    "fontFamily": "Helvetica",
+    "fontSize": "14px",
+    "fontWeight": "bold",
+  },
+  "typography.defaults.secondary": {
+    "fontFamily": "Helvetica",
+    "fontSize": "14px",
+    "fontWeight": "bold",
+  },
+  "typography.headings.h1": {
+    "fontFamily": "Comic Sans MS",
+    "fontSize": "24px",
+    "fontWeight": "bold",
+  },
+  "typography.headings.h2": {
+    "fontFamily": "Comic Sans MS",
+    "fontSize": "24px",
+    "fontWeight": "bold",
+  },
+  "typography.headings.h3": {
+    "fontFamily": "Helvetica",
+    "fontWeight": "bold",
+  },
+  "typography.headings.h4": {
+    "fontFamily": "Helvetica",
+    "fontWeight": "bold",
+  },
+  "typography.paragraph.primary": {
+    "fontFamily": "Helvetica",
+    "fontWeight": "bold",
+  },
+}
+`;
+
+exports[`DesignTokensParser > should support multi-level aliases 5`] = `
+{
+  "color": {
+    "$extensions": {
+      "createdAt": "2021-09-01T00:00:00Z",
+    },
+    "primary": {
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "test": {
+        "$description": "Primary test color",
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "#8a4242",
+      },
+    },
+    "secondary": {
+      "$description": "Secondary test colors group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "test0": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "{color.secondary.test2}",
+      },
+      "test1": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "{color.secondary.test0}",
+      },
+      "test2": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "color",
+        "$value": "{color.primary.test}",
+      },
+    },
+  },
+  "fontFamily": {
+    "$description": "Font family group",
+    "$extensions": {
+      "createdAt": "2021-09-01T00:00:00Z",
+    },
+    "primary": {
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "$type": "fontFamily",
+      "$value": "Helvetica",
+    },
+    "secondary": {
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "$type": "fontFamily",
+      "$value": "{fontFamily.primary}",
+    },
+  },
+  "fontWeight": {
+    "$description": "Font weight group",
+    "$extensions": {
+      "createdAt": "2021-09-01T00:00:00Z",
+    },
+    "primary": {
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "$type": "fontWeight",
+      "$value": "bold",
+    },
+    "secondary": {
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "$type": "fontWeight",
+      "$value": "{fontWeight.primary}",
+    },
+  },
+  "typography": {
+    "$extensions": {
+      "createdAt": "2021-09-01T00:00:00Z",
+    },
+    "body": {
+      "$description": "Body typography group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "primary": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Helvetica",
+          "fontSize": "14px",
+          "fontWeight": "bold",
+        },
+      },
+      "secondary": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "typography",
+        "$value": "{typography.body.primary}",
+      },
+    },
+    "heading": {
+      "$description": "Heading typography group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "h1": {
+        "$description": "Heading 1 typography",
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "Comic Sans MS",
+          "fontSize": "24px",
+          "fontWeight": "bold",
+        },
+      },
+      "h2": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "typography",
+        "$value": "{typography.heading.h1}",
+      },
+      "h3": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{fontFamily.primary}",
+          "fontWeight": "{fontWeight.primary}",
+        },
+      },
+      "h4": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "typography",
+        "$value": "{typography.heading.h3}",
+      },
+    },
+    "paragraph": {
+      "$description": "Paragraph typography group",
+      "$extensions": {
+        "createdAt": "2021-09-01T00:00:00Z",
+      },
+      "primary": {
+        "$extensions": {
+          "createdAt": "2021-09-01T00:00:00Z",
+        },
+        "$type": "typography",
+        "$value": {
+          "fontFamily": "{fontFamily.secondary}",
+          "fontWeight": "{fontWeight.secondary}",
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`DesignTokensParser > should support multi-level aliases 6`] = `
+{
+  "color.primary.test": "#8a4242",
+  "color.secondary.test0": "#8a4242",
+  "color.secondary.test1": "#8a4242",
+  "color.secondary.test2": "#8a4242",
+  "fontFamily.primary": "Helvetica",
+  "fontFamily.secondary": "Helvetica",
+  "fontWeight.primary": "bold",
+  "fontWeight.secondary": "bold",
+  "typography.body.primary": {
+    "fontFamily": "Helvetica",
+    "fontSize": "14px",
+    "fontWeight": "bold",
+  },
+  "typography.body.secondary": {
+    "fontFamily": "Helvetica",
+    "fontSize": "14px",
+    "fontWeight": "bold",
+  },
+  "typography.heading.h1": {
+    "fontFamily": "Comic Sans MS",
+    "fontSize": "24px",
+    "fontWeight": "bold",
+  },
+  "typography.heading.h2": {
+    "fontFamily": "Comic Sans MS",
+    "fontSize": "24px",
+    "fontWeight": "bold",
+  },
+  "typography.heading.h3": {
+    "fontFamily": "Helvetica",
+    "fontWeight": "bold",
+  },
+  "typography.heading.h4": {
+    "fontFamily": "Helvetica",
+    "fontWeight": "bold",
+  },
+  "typography.paragraph.primary": {
+    "fontFamily": "Helvetica",
+    "fontWeight": "bold",
+  },
+}
+`;

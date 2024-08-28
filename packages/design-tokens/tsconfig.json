@@ -12,9 +12,5 @@
   },
   "files": [],
   "include": ["src/**/*"],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "tsup.config.ts"
-  ]
+  "exclude": ["node_modules", "dist", "tsup.config.ts"]
 }

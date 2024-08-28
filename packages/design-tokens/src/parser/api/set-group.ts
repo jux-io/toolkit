@@ -1,5 +1,5 @@
 import { AliasesMap, DesignTokens, DesignTokensValidators } from '../../types';
-import { getCurrentTimestamp } from '../helpers/get-current-timestamp';
+import { getCurrentTimestamp } from '../helpers';
 import { getByPath } from './get-by-path';
 import { updateAffectedAliases } from './update-affected-aliases';
 
