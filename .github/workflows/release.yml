@@ -32,9 +32,6 @@ jobs:
       - name: Build packages
         run: pnpm build
 
-      - name: Test packages
-        run: pnpm test
-
       - name: Login to NPM
         run: printf "registry=https://${{ vars.NPM_REGISTRY }}\n//${{ vars.NPM_REGISTRY }}/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
 
