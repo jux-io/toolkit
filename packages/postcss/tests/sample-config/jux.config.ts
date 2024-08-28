@@ -1,6 +1,4 @@
-import { defineConfig } from '@juxio/cli';
-
-export default defineConfig({
+export default {
   /* Whether to apply preflight styles */
   preflight: true,
 
@@ -97,4 +95,4 @@ export default defineConfig({
       },
     },
   },
-});
+};

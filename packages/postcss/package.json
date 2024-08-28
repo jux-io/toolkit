@@ -31,8 +31,5 @@
     "@juxio/core": "workspace:*",
     "fs-extra": "^11.2.0",
     "postcss": "^8.4.39"
-  },
-  "devDependencies": {
-    "@juxio/cli": "workspace:*"
   }
 }

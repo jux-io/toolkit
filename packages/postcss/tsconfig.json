@@ -14,7 +14,8 @@
     "noEmit": true,
     "strict": true,
     "noFallthroughCasesInSwitch": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
   },
   "include": ["src/**/*", "tests/**/*"],
   "exclude": ["node_modules", "dist", "tsup.config.ts"]

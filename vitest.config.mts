@@ -18,7 +18,7 @@ export default defineConfig({
       reportsDirectory: 'coverage',
     },
     watch: false,
-    silent: false,
+    silent: true,
     passWithNoTests: true,
     setupFiles: [],
     include: ['**/*.test.{ts,js}'],

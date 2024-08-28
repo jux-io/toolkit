@@ -89,11 +89,9 @@
   "devDependencies": {
     "@oclif/prettier-config": "^0.2.1",
     "@oclif/test": "^4.0.9",
-    "@types/chai": "^4",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^18.19.41",
     "@types/sinon": "^17.0.3",
-    "chai": "^4",
     "eslint": "^8",
     "eslint-config-oclif": "^5",
     "eslint-config-oclif-typescript": "^3",
