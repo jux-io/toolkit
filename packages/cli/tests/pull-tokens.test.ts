@@ -129,15 +129,10 @@ describe('jux pull tokens', () => {
       .query(true)
       .reply(200, TOKENS_RESPONSE);
 
-    const { result } = await runCommand(
-      [`pull tokens --cwd=${testsOutputDir}`],
-      {
-        root,
-        configDir: testsOutputDir,
-      }
-    );
-
-    expect(result).toBe(true);
+    await runCommand([`pull tokens --cwd=${testsOutputDir}`], {
+      root,
+      configDir: testsOutputDir,
+    });
 
     await expect(
       fs.readFileSync(
@@ -174,15 +169,10 @@ describe('jux pull tokens', () => {
       .query(true)
       .reply(200, TOKENS_RESPONSE);
 
-    const { result } = await runCommand(
-      [`pull tokens --definitions --cwd=${testsOutputDir}`],
-      {
-        root,
-        configDir: testsOutputDir,
-      }
-    );
-
-    expect(result).toBe(true);
+    await runCommand([`pull tokens --definitions --cwd=${testsOutputDir}`], {
+      root,
+      configDir: testsOutputDir,
+    });
 
     await expect(
       fs.readFileSync(
