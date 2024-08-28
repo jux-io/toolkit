@@ -6,7 +6,7 @@ on:
       - '.changeset/**'
       - 'packages/**'
     branches:
-      - main
+      - master
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
