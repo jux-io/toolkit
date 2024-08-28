@@ -34,7 +34,7 @@ describe('PostCSS plugin', () => {
       from: '/test.css',
     });
 
-    expect(result.css).toMatchFileSnapshot(`./__snapshots__/output.css`);
+    expect(result.css).toMatchFileSnapshot(`./__snapshots__/output.css.snap`);
   });
 
   it('Plugin dependencies should include globs specified in config and config itself', async () => {
