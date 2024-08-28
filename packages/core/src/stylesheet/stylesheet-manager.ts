@@ -155,8 +155,10 @@ export class StylesheetManager {
           logger.warn(
             `Token value "${colorScheme.input(value)}" was not found in global styles configuration. Skipping...`
           );
+          // Token was not found, so just convert it to plain css variable
           return {
-            type: 'remove',
+            type: 'replace',
+            value: formatTokenValue(valuePath),
           };
         }
 
@@ -178,6 +180,12 @@ export class StylesheetManager {
 
       return { type: 'replace', value };
     });
+  }
+
+  toCss() {
+    return Object.values(this.layers)
+      .map((layer) => layer.toString())
+      .join('\n');
   }
 
   async appendBaseStyles() {
