@@ -1,0 +1,55 @@
+---
+import { Icon } from '@astrojs/starlight/components';
+import {Card as StyledCard} from './Card'
+
+interface Props {
+    icon?: keyof typeof Icon;
+    title: string;
+}
+
+const { icon, title } = Astro.props;
+---
+
+<a href="https://google.com">
+    <StyledCard title={title}>
+        <slot />
+    </StyledCard>
+</a>
+<!--<article class="card sl-flex">-->
+<!--    <p class="title sl-flex">-->
+<!--        {icon && <Icon name={icon} class="icon" size="1.333em" />}-->
+<!--        <span set:html={title} />-->
+<!--    </p>-->
+<!--    <div class="body"><slot /></div>-->
+<!--</article>-->
+
+<style>
+    .card {
+        --sl-card-border: var(--sl-color-purple);
+        --sl-card-bg: var(--sl-color-purple-low);
+        border: 1px solid var(--sl-color-gray-5);
+        border-radius: 16px;
+        background-color: var(--sl-color-black);
+        padding: 1.5rem;
+        flex-direction: column;
+        gap: clamp(0.5rem, calc(0.125rem + 1vw), 1rem);
+    }
+    .title {
+        font-weight: 600;
+        font-size: var(--sl-text-h5);
+        color: var(--sl-color-white);
+        line-height: var(--sl-line-height-headings);
+        gap: 1rem;
+        align-items: center;
+    }
+    .card .icon {
+        border: 1px solid var(--sl-card-border);
+        background-color: var(--sl-card-bg);
+        padding: 0.2em;
+        border-radius: 0.25rem;
+    }
+    .card .body {
+        margin: 0;
+        font-size: clamp(var(--sl-text-sm), calc(0.5rem + 1vw), var(--sl-text-body));
+    }
+</style>

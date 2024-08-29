@@ -1,26 +1,29 @@
 {
   "name": "website",
-  "version": "1.0.0",
-  "description": "",
-  "main": "next.config.js",
+  "type": "module",
+  "version": "0.0.1",
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jux-io/toolkit.git"
-  },
-  "private": true,
   "dependencies": {
+    "@astrojs/check": "^0.9.3",
+    "@astrojs/react": "^3.6.2",
+    "@astrojs/starlight": "^0.26.1",
+    "@types/react-dom": "^18.3.0",
+    "astro": "^4.10.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sharp": "^0.32.5",
+    "typescript": "^5.5.4"
+  },
+  "devDependencies": {
     "@juxio/cli": "workspace:*",
-    "@juxio/postcss": "^0.5.7",
-    "@juxio/react-styled": "^0.5.7",
-    "next": "^14.2.5",
-    "nextra": "^2.13.4",
-    "nextra-theme-docs": "^2.13.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.3.1"
+    "@juxio/postcss": "workspace:*",
+    "@juxio/react-styled": "workspace:*",
+    "@types/react": "^18.3.4"
   }
 }
