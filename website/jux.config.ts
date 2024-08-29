@@ -1,29 +1,44 @@
 import { defineConfig } from '@juxio/cli';
-import * as tokens from './src/design-tokens';
 
 export default defineConfig({
   /* Whether to apply preflight styles */
-  preflight: true,
+  preflight: false,
 
   /* A list of glob file patterns to watch for styling configurations */
-  include: ['./src/**/*.{js,jsx,ts,tsx}', './pages/**/*.{js,jsx,ts,tsx}'],
+  include: ['./src/**/*.{ts,tsx,js,jsx,astro}'],
 
   exclude: [],
 
-  globalCss: {
-    '*': {
-      margin: 0,
-      padding: 0,
-      boxSizing: 'border-box',
+  /* The core tokens */
+  core_tokens: {
+    color: {
+      brand_100: {
+        $value: '#0070f3',
+        $description: 'Primary brand color',
+      },
+      brand_200: {
+        $value: '#ff0080',
+        $description: 'Secondary brand color',
+      },
+    },
+    dimension: {
+      spacing_1: {
+        $value: '0.25rem',
+      },
+      spacing_2: {
+        $value: '0.5rem',
+      },
+      spacing_3: {
+        $value: '0.75rem',
+      },
+      spacing_4: {
+        $value: '1rem',
+      },
+      spacing_5: {
+        $value: '1.25rem',
+      },
     },
   },
-
-  components_directory: './src/components',
-
-  tokens_directory: './src/design-tokens',
-
-  /* The core tokens */
-  core_tokens: tokens.core,
 
   definitions_directory: './src/jux/types',
 
@@ -39,7 +54,7 @@ export default defineConfig({
       dimension: {
         specific: {
           button_radius: {
-            $value: '{core.dimension.spacing_100}',
+            $value: '{core.dimension.spacing_1}',
             $description: 'Button border radius',
           },
         },
@@ -55,7 +70,7 @@ export default defineConfig({
       dimension: {
         specific: {
           button_radius: {
-            $value: '{core.dimension.spacing_100}',
+            $value: '{core.dimension.spacing_1}',
             $description: 'Button border radius',
           },
         },
