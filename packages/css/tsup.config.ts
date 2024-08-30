@@ -1,9 +1,9 @@
 import { defineConfig, Options } from 'tsup';
 
-const PROCESSOR_FILES = ['styled'];
+const PROCESSOR_FILES = ['css'];
 
 const BASE_CONFIG: Options = {
-  name: '@juxio/react-styled',
+  name: '@juxio/css',
   tsconfig: './tsconfig.json',
   format: ['cjs', 'esm'],
   splitting: true,

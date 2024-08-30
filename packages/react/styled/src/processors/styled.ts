@@ -1,6 +1,7 @@
 import {
   BaseProcessor,
   CallParam,
+  IOptions,
   Params,
   TailProcessorParams,
   validateParams,
@@ -10,11 +11,15 @@ import { Expression } from '@babel/types';
 import { colorScheme, logger, stringifyCssObject } from '@juxio/core';
 import { Rules, ValueType } from '@wyw-in-js/shared';
 import { StylesDefinition } from '../styled';
-import css from '../css';
 import { parseRawStyleObject } from '@juxio/core';
-import { CSSPropertiesWithCustomValues } from '../base';
-import { ExtendedOptions } from './css';
+import { CSSPropertiesWithCustomValues, css } from '@juxio/css';
 import path from 'node:path';
+import { TokensManager } from '@juxio/core';
+
+// TODO: Duplicate type definition
+export type ExtendedOptions = IOptions & {
+  tokens: TokensManager;
+};
 
 export class StyledProcessor extends BaseProcessor {
   callParam: CallParam;

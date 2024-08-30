@@ -2,6 +2,7 @@
   "name": "@juxio/core",
   "description": "Jux core library",
   "version": "0.6.8",
+  "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -13,14 +14,14 @@
   },
   "exports": {
     ".": {
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
     "./package.json": "./package.json"
   },
   "files": [
-    "/dist",
+    "dist",
     "package.json"
   ],
   "scripts": {
