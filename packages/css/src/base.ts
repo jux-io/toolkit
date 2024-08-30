@@ -58,7 +58,17 @@ type FastOmit<T extends object, U extends string | number | symbol> = {
 export type Merge<A extends object, B extends object> = FastOmit<A, keyof B> &
   B;
 
-export type ConditionalValue<V> = V | (V | null)[] | NonNullable<unknown>;
+export type ConditionalValue<V> =
+  | V
+  | (V | null)[]
+  | {
+      [K in keyof string]?: ConditionalValue<V>;
+    };
+
+/**
+ * Helper type to safely access nested properties and handle unknown types
+ */
+type TokenValue<T, K extends keyof T> = K extends keyof T ? T[K] : never;
 
 /**
  * This allows us to add typing and auto-completion to css properties
@@ -72,27 +82,39 @@ export type ConditionalValue<V> = V | (V | null)[] | NonNullable<unknown>;
  * });
  * ```
  */
-export interface CustomTokensValues<Tokens extends BaseProps = CSSProperties> {
-  color?: Tokens['color'];
-  backgroundColor?: Tokens['color'];
-  gap?: Tokens['dimension'];
-  borderRadius?: Tokens['dimension'];
-  borderWidth?: Tokens['dimension'];
-  width?: Tokens['dimension'];
-  height?: Tokens['dimension'];
-  fontFamily?: Tokens['fontFamily'];
-  fontSize?: Tokens['dimension'];
-  lineHeight?: Tokens['dimension'];
-  padding?: Tokens['dimension'];
-  paddingTop?: Tokens['dimension'];
-  paddingRight?: Tokens['dimension'];
-  paddingBottom?: Tokens['dimension'];
-  paddingLeft?: Tokens['dimension'];
-  margin?: Tokens['dimension'];
-  marginTop?: Tokens['dimension'];
-  marginRight?: Tokens['dimension'];
-  marginBottom?: Tokens['dimension'];
-  marginLeft?: Tokens['dimension'];
+export interface CustomTokensValues<
+  Tokens extends Record<string, any> = object,
+> {
+  color?: TokenValue<Tokens, 'color'> | CSSProperties['color'];
+  backgroundColor?:
+    | TokenValue<Tokens, 'color'>
+    | CSSProperties['backgroundColor'];
+  gap?: TokenValue<Tokens, 'dimension'> | CSSProperties['gap'];
+  borderRadius?:
+    | TokenValue<Tokens, 'dimension'>
+    | CSSProperties['borderRadius'];
+  borderWidth?: TokenValue<Tokens, 'dimension'> | CSSProperties['borderWidth'];
+  width?: TokenValue<Tokens, 'dimension'> | CSSProperties['width'];
+  height?: TokenValue<Tokens, 'dimension'> | CSSProperties['height'];
+  fontFamily?: TokenValue<Tokens, 'fontFamily'> | CSSProperties['fontFamily'];
+  fontSize?: TokenValue<Tokens, 'dimension'> | CSSProperties['fontSize'];
+  lineHeight?: TokenValue<Tokens, 'dimension'> | CSSProperties['lineHeight'];
+  padding?: TokenValue<Tokens, 'dimension'> | CSSProperties['padding'];
+  paddingTop?: TokenValue<Tokens, 'dimension'> | CSSProperties['paddingTop'];
+  paddingRight?:
+    | TokenValue<Tokens, 'dimension'>
+    | CSSProperties['paddingRight'];
+  paddingBottom?:
+    | TokenValue<Tokens, 'dimension'>
+    | CSSProperties['paddingBottom'];
+  paddingLeft?: TokenValue<Tokens, 'dimension'> | CSSProperties['paddingLeft'];
+  margin?: TokenValue<Tokens, 'dimension'> | CSSProperties['margin'];
+  marginTop?: TokenValue<Tokens, 'dimension'> | CSSProperties['marginTop'];
+  marginRight?: TokenValue<Tokens, 'dimension'> | CSSProperties['marginRight'];
+  marginBottom?:
+    | TokenValue<Tokens, 'dimension'>
+    | CSSProperties['marginBottom'];
+  marginLeft?: TokenValue<Tokens, 'dimension'> | CSSProperties['marginLeft'];
 }
 
 /**
@@ -108,7 +130,7 @@ export interface CustomTokensValues<Tokens extends BaseProps = CSSProperties> {
  */
 export interface CustomTypes<Tokens extends BaseProps> {
   /**
-   * Custom typography tokens as defined in config file.
+   * Custom typography tokens as defined in jux config file.
    *
    * ```
    * const juxStyles = css({ typography: '{typography.body}' });
@@ -141,11 +163,11 @@ export type Prefix<
  * @returns A type that includes CSS properties with custom values, pseudo-classes, and additional custom types.
  */
 export type CSSPropertiesWithCustomValues<
-  Props extends BaseProps = object,
+  Props extends BaseProps = EmptyObject,
   CustomTokensValues extends CSSProperties = object,
   CustomTypes = object,
 > = {
-  [K in keyof CSSProperties]: CustomTokensValues[K] | CSS.Properties[K];
+  [K in keyof CSSProperties]: CustomTokensValues[K];
 } & {
   [K in Prefix<'&', CSS.Pseudos>]?: CSSPropertiesWithCustomValues<
     Props,

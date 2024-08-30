@@ -1,3 +1,3 @@
-export * from './base';
+export { css } from '@juxio/css';
+export type { Merge } from '@juxio/css';
 export { default as styled } from './styled';
-export { default as css } from './css';

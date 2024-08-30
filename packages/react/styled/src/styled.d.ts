@@ -6,8 +6,8 @@ import {
   CustomTypes,
   EmptyObject,
   Merge,
-} from './base';
-import { Tokens } from './tokens';
+} from '@juxio/css';
+import { Tokens } from '@juxio/css/tokens';
 import * as React from 'react';
 
 export interface StyledVariants<
@@ -24,12 +24,12 @@ export interface StylesDefinition<
 > {
   root: CSSPropertiesWithCustomValues<
     Props,
-    CustomTokensValues<Tokens> & CSSProperties,
+    Merge<CSSProperties, CustomTokensValues<Tokens>>,
     CustomTypes<Tokens>
   >;
   variants?: StyledVariants<
     Props,
-    CustomTokensValues<Tokens> & CSSProperties,
+    Merge<CSSProperties, CustomTokensValues<Tokens>>,
     CustomTypes<Tokens>
   >[];
 }

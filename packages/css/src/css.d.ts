@@ -4,18 +4,19 @@
 
 import {
   CSSPropertiesWithCustomValues,
+  CSSProperties,
   CustomTokensValues,
   CustomTypes,
+  Merge,
 } from './base';
 
 import { Tokens } from './tokens';
-import { CSSProperties } from 'react';
 
 export interface CSS {
   (
     styles: CSSPropertiesWithCustomValues<
       object,
-      CustomTokensValues<Tokens> & CSSProperties,
+      Merge<CSSProperties, CustomTokensValues<Tokens>>,
       CustomTypes<Tokens>
     >
   ): string;
@@ -23,6 +24,4 @@ export interface CSS {
   (styles: CSSPropertiesWithCustomValues): string;
 }
 
-declare const css: CSS;
-
-export default css;
+export declare const css: CSS;
