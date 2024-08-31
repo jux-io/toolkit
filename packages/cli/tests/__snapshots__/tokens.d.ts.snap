@@ -1,4 +1,4 @@
-import '@juxio/react-styled/tokens';
+import '@juxio/css/tokens';
 
 export type ColorToken =
   | '{core.color.brand_100}'
@@ -9,7 +9,7 @@ export type DimensionToken =
   | '{core.dimension.spacing_100}'
   | '{dimension.specific.button_radius}';
 
-declare module '@juxio/react-styled/tokens' {
+declare module '@juxio/css/tokens' {
   export interface Tokens {
     color: ColorToken;
     dimension: DimensionToken;
