@@ -1,5 +1,15 @@
 # @juxio/react-styled
 
+## 0.6.9
+
+### Patch Changes
+
+- [#56](https://github.com/jux-io/toolkit/pull/56) [`d8019ae`](https://github.com/jux-io/toolkit/commit/d8019ae08a2a141449a1ccbf0b1e4875342fa8d3) Thanks [@tnipri](https://github.com/tnipri)! - separated css function from styled to its own package
+
+- Updated dependencies [[`d8019ae`](https://github.com/jux-io/toolkit/commit/d8019ae08a2a141449a1ccbf0b1e4875342fa8d3)]:
+  - @juxio/core@0.6.9
+  - @juxio/css@0.6.9
+
 ## 0.6.8
 
 ### Patch Changes
