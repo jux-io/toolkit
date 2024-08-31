@@ -1,5 +1,0 @@
-import './jux.css'
-
-export default function Home() {
-    return <div>Hello from Jux</div>
-}

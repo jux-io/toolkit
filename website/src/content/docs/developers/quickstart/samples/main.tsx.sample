@@ -1,0 +1,18 @@
+import './jux.css';
+
+import { css } from '@juxio/css';
+
+export default function Home() {
+  return (
+    <div
+      className={css({
+        color: 'violet',
+        '&:hover': {
+          color: 'darkviolet',
+        },
+      })}
+    >
+      Hello from Jux 🤖
+    </div>
+  );
+}

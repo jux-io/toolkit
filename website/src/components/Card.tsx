@@ -6,6 +6,12 @@ interface Props {
   children?: React.ReactNode;
 }
 
+const title = css({
+  color: 'var(--sl-color-gray-1)',
+  fontSize: '1.5rem',
+  fontWeight: 'bold',
+});
+
 export const StyledCard = styled('div', {
   root: {
     border: '1px solid var(--sl-color-gray-5)',
@@ -14,6 +20,10 @@ export const StyledCard = styled('div', {
     padding: '1.5rem',
     flexDirection: 'column',
     gap: 'clamp(0.5rem, calc(0.125rem + 1vw), 1rem)',
+
+    [`.${title}`]: {
+      marginBottom: '1rem',
+    },
   },
 });
 
