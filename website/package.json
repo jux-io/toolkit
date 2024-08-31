@@ -13,6 +13,8 @@
     "@astrojs/check": "^0.9.3",
     "@astrojs/react": "^3.6.2",
     "@astrojs/starlight": "^0.26.1",
+    "@juxio/css": "workspace:*",
+    "@juxio/react-styled": "workspace:*",
     "@types/react-dom": "^18.3.0",
     "astro": "^4.10.2",
     "react": "^18.3.1",
@@ -23,7 +25,6 @@
   "devDependencies": {
     "@juxio/cli": "workspace:*",
     "@juxio/postcss": "workspace:*",
-    "@juxio/react-styled": "workspace:*",
     "@types/react": "^18.3.4"
   }
 }

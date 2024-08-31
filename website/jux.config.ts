@@ -9,6 +9,10 @@ export default defineConfig({
 
   exclude: [],
 
+  builtInFonts: {
+    google: ['Inter'],
+  },
+
   /* The core tokens */
   core_tokens: {
     color: {

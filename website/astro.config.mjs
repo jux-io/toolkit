@@ -27,19 +27,53 @@ export default defineConfig({
           link: '/',
         },
         {
-          label: 'Getting started',
-          link: '/developers/getting-started',
+          label: 'Quickstart',
+          link: '/developers/quickstart',
         },
         {
           label: 'Technical Overview',
           link: '/developers/technical-overview',
         },
         {
-          label: 'Using Jux',
+          label: 'Getting Started',
           items: [
             {
               label: 'PostCSS',
-              link: '/developers/cli',
+              link: '/developers/getting-started/postcss',
+            },
+            {
+              label: 'Next.js',
+              link: '/developers/getting-started/nextjs',
+            },
+            {
+              label: 'Astro',
+              link: '/developers/getting-started/astro',
+            },
+          ],
+        },
+        {
+          label: 'Working with Jux Editor',
+          items: [
+            {
+              label: 'Pull tokens and themes',
+              link: '/developers/editor/tokens',
+            },
+            {
+              label: 'Pull Components',
+              link: '/developers/reference/cli',
+            },
+          ],
+        },
+        {
+          label: 'References',
+          items: [
+            {
+              label: 'Configuration reference',
+              link: '/developers/reference/config',
+            },
+            {
+              label: 'CLI Reference',
+              link: '/developers/reference/cli',
             },
           ],
         },

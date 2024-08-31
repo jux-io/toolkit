@@ -32,6 +32,7 @@
 :root[data-theme='light'] {
     --sl-color-accent-low: #c7d6ff;
     --sl-color-accent: #364bff;
+    --sl-color-text-accent: #000;
     --sl-color-accent-high: #182775;
     --sl-color-white: #17181c;
     --sl-color-gray-1: #24272f;
