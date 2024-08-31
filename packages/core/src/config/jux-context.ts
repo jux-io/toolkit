@@ -114,7 +114,7 @@ export class JuxContext {
 
     const set = new Set<string>();
 
-    set.add(`import '@juxio/react-styled/tokens';`);
+    set.add(`import '@juxio/css/tokens';`);
 
     for (const [name, token] of this.tokens.getTokensByCategory()) {
       set.add(
@@ -125,7 +125,7 @@ export class JuxContext {
       );
     }
 
-    set.add(`declare module '@juxio/react-styled/tokens' {
+    set.add(`declare module '@juxio/css/tokens' {
           export interface Tokens {
               ${Array.from(this.tokens.getTokensByCategory().keys())
                 .map((name) => {

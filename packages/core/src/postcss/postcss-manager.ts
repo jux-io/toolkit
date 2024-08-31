@@ -2,7 +2,6 @@ import { getConfigContext, JuxContext } from '../config';
 import { colorScheme, logger } from '../utils';
 import { Message, Root } from 'postcss';
 import path, { normalize, resolve } from 'path';
-import { transform, TransformCacheCollection } from '@wyw-in-js/transform';
 import * as util from 'node:util';
 import {
   ConfigTsOptions,
@@ -12,6 +11,7 @@ import { convertTsPathsToRegexes } from '../utils/ts-config-paths';
 import { findConfig } from '../config/find-config';
 import { parseDependencies } from '../utils/parse-dependencies.ts';
 import { LAYERS } from '../stylesheet';
+import { inJsTransform } from '../utils/in-js-transform.ts';
 
 // A map of files to their last modified time.
 const fileModifiedMap = new Map<string, number>();
@@ -154,15 +154,6 @@ export class PostcssManager {
     return isValid;
   }
 
-  async emitAssets() {
-    if (this.hasConfigChanged) {
-      logger.debug('Emitting assets...');
-      const assets = await this.context.generateAssets();
-
-      assets.map((a) => this.context.fs.writeAsset(a));
-    }
-  }
-
   async parseFile(filePath: string) {
     const metadata =
       this.filesToWatch?.changes.get(filePath) ??
@@ -174,47 +165,15 @@ export class PostcssManager {
       `Parsing file: ${colorScheme.verbose(path.relative(this.context.cwd, filePath))}`
     );
 
-    const cache = new TransformCacheCollection();
-
     const code = this.context.fs.readFile(filePath);
 
-    const transformService = {
-      options: {
-        filename: filePath,
-        root: this.context.cwd,
-        pluginOptions: {
-          tokens: this.context.tokens,
-          babelOptions: {
-            presets: [
-              [
-                '@babel/preset-react',
-                {
-                  runtime: 'automatic',
-                },
-              ],
-              [
-                '@babel/preset-env',
-                {
-                  modules: false,
-                },
-              ],
-              '@babel/preset-typescript',
-            ],
-          },
-        },
-      },
-      cache,
-    };
-
     try {
-      const result = await transform(
-        transformService,
+      const result = await inJsTransform({
         code,
-        async (/* what, importer, stack */) => {
-          // TODO: Implement import resolver
-          return null;
-        }
-      );
+        filePath,
+        cwd: this.context.cwd,
+        tokens: this.context.tokens,
+      });
 
       for (const key of Object.keys(result.rules ?? {})) {
         // We can safely cast as we will get here only if key exist in result.rules

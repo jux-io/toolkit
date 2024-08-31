@@ -1,4 +1,4 @@
-import '@juxio/react-styled/tokens';
+import '@juxio/css/tokens';
 
 export type ColorToken = '{core.color.brand_100}' | '{color.+1}';
 
@@ -22,7 +22,7 @@ export type FontWeightToken =
   | '{core.typography.12_bold.fontWeight}'
   | '{typography.12_bold.fontWeight}';
 
-declare module '@juxio/react-styled/tokens' {
+declare module '@juxio/css/tokens' {
   export interface Tokens {
     color: ColorToken;
     typography: TypographyToken;
