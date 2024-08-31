@@ -38,6 +38,7 @@ export default class Init extends JuxCommand<typeof Init> {
   private dependencies = [
     '@juxio/cli',
     '@juxio/postcss',
+    '@juxio/css',
     '@juxio/react-styled',
   ];
 
