@@ -1,10 +1,16 @@
 import { Flags } from '@oclif/core';
+import { prompt } from 'enquirer';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import ora from 'ora';
 
 import { JuxCommand } from '../baseCommand';
-import { setupJuxConfig, getPackageManager, logger } from '@juxio/core';
+import {
+  setupJuxConfig,
+  getPackageManager,
+  logger,
+  generatePostCSSConfig,
+} from '@juxio/core';
 
 export default class Init extends JuxCommand<typeof Init> {
   static description = 'initialize your project and install dependencies';
@@ -25,6 +31,13 @@ export default class Init extends JuxCommand<typeof Init> {
       char: 'f',
       default: false,
       description: 'Force overwrite of existing configuration',
+      required: false,
+    }),
+
+    postcss: Flags.boolean({
+      char: 'p',
+      default: false,
+      description: 'Whether to initialize with PostCSS',
       required: false,
     }),
 
@@ -54,6 +67,23 @@ export default class Init extends JuxCommand<typeof Init> {
 
     if (!(await setupJuxConfig(cwd, flags.force))) {
       return false;
+    }
+
+    if (flags.postcss) {
+      let answer = true;
+      if (existsSync(resolve(cwd, 'postcss.config.js'))) {
+        answer = (
+          await prompt<{ confirm: boolean }>({
+            type: 'confirm',
+            name: 'confirm',
+            message: 'A postcss.config.js file already exists. Overwrite?',
+          })
+        ).confirm;
+      }
+
+      if (answer) {
+        generatePostCSSConfig(cwd);
+      }
     }
 
     if (flags['skip-deps']) {
