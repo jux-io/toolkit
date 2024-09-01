@@ -1,16 +1,19 @@
-import { css } from '@juxio/react-styled';
+import { css } from '@juxio/css';
 
-export default function MyComponent() {
+function App() {
   return (
     <div
       className={css({
         color: 'violet',
+        fontSize: '2rem',
         '&:hover': {
           color: 'darkviolet',
         },
       })}
     >
-      Hello from Jux 🤖
+      Hello from Jux in Vite! 🚀
     </div>
   );
 }
+
+export default App;

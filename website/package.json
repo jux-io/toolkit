@@ -25,6 +25,7 @@
   "devDependencies": {
     "@juxio/cli": "workspace:*",
     "@juxio/postcss": "workspace:*",
-    "@types/react": "^18.3.4"
+    "@types/react": "^18.3.4",
+    "eslint-plugin-astro": "^1.2.3"
   }
 }

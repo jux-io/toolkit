@@ -3,66 +3,63 @@ title: Integrating Jux with Next.js
 description: Integrate Jux with Next.js
 
 tableOfContents:
-    minHeadingLevel: 2
-    maxHeadingLevel: 6
+  minHeadingLevel: 2
+  maxHeadingLevel: 6
 ---
 
-import {Code, Steps, TabItem, Tabs} from '@astrojs/starlight/components';
+import { Code, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
-import juxConfig from '../../quickstart/samples/jux.config.ts?raw'
-import MyComponent from './samples/MyComponent.tsx.sample?raw'
-import layoutTsx from './samples/layout.tsx.sample?raw'
-import postcssConfig from './samples/postcss.config.js.nextjs.sample?raw'
+import juxConfig from '../../quickstart/samples/jux.config.ts?raw';
+import MyComponent from './samples/MyComponent.jsx?raw';
+import layoutTsx from './samples/layout.tsx.sample?raw';
+import postcssConfig from './samples/postcss.config.js.nextjs.sample?raw';
 
 This guide will walk you through setting up Jux in a Next.js project, from creating a new Next.js app to configuring Jux as a PostCSS plugin.
-
 
 <Steps>
     1. ###### Create a new Next.js project
         First, let's create a new Next.js project using create-next-app:
 
-        <Code code={`npx create-next-app@latest my-jux-nextjs-app\r\ncd my-jux-nextjs-app`} title={'Terminal'} frame={'terminal'} />
+        <Code code={`npx create-next-app@latest my-jux-nextjs-app\r\ncd my-jux-nextjs-app`} title={'Terminal'} lang={'shellscript'} />
 
     2. ###### Install Jux CLI
         <Tabs>
             <TabItem label={'npm'}>
-                <Code code={`npm install -D @juxio/cli postcss autoprefixer`} title={'Terminal'} frame={'terminal'} />
+                <Code code={`npm install -D @juxio/cli postcss autoprefixer`} title={'Terminal'} lang={'shellscript'} />
             </TabItem>
             <TabItem label={'pnpm'}>
-                <Code code={`pnpm add -D @juxio/cli postcss autoprefixer`} title={'Terminal'} frame={'terminal'} />
+                <Code code={`pnpm add -D @juxio/cli postcss autoprefixer`} title={'Terminal'} lang={'shellscript'} />
             </TabItem>
             <TabItem label={'yarn'}>
-                <Code code={`yarn add -D @juxio/cli postcss autoprefixer`} title={'Terminal'} frame={'terminal'} />
+                <Code code={`yarn add -D @juxio/cli postcss autoprefixer`} title={'Terminal'} lang={'shellscript'} />
             </TabItem>
         </Tabs>
 
 
     3. ###### Initialize a new project
 
-        <Code code={`npx jux init --postcss`} lang="ts" title={'Terminal'} frame={'terminal'} />
+        <Code code={`npx jux init --postcss`} title={'Terminal'} lang={'shellscript'} />
 
         This will install the necessary dependencies, and create `jux.config.ts` and `postcss.config.js` files in your project root.
 
-        <Code code={postcssConfig} lang="ts" title={'postcss.config.js'} />
+        <Code code={postcssConfig} title={'postcss.config.js'} lang="js" />
 
     4. ###### Configure your include files
 
-        Add the path to your source files in `jux.config.ts`. Jux will scan these files to generate the CSS file.
-        <Code code={juxConfig} lang="ts" title={'jux.config.ts'} mark={3} />
+        Add the path to your source files in `jux.config.ts`. During the build process, Jux will scan these files to generate the CSS file.
+        <Code code={juxConfig} title={'jux.config.ts'} mark={3} lang="ts" />
 
     5. ###### Add Jux's @layer directive to your main CSS file.
 
-        <Code code={`@layer juxbase, juxtokens, juxutilities;`} title={'main.css'} />
+        <Code code={`@layer juxbase, juxtokens, juxutilities;`} title={'main.css'} lang={'css'} />
 
         In your `app/layout.tsx` or `pages/_app.tsx` (depending on whether you're using the App Router or Pages Router), import your <a href="https://nextjs.org/docs/app/building-your-application/styling/css#global-styles" target="_blank">global CSS</a>:
 
-        <Code code={layoutTsx} lang="ts" title={'app/layout.tsx'} mark={1} />
+        <Code code={layoutTsx} lang="tsx" title={'app/layout.tsx'} mark={4} />
 
     6. ##### Start using Jux in your project
 
-        Include the generated CSS file in your project and start using Jux to style your components.
-        <Code code={MyComponent} lang="ts" title={'index.tsx'} mark={1} />
-
+        <Code code={MyComponent} lang="tsx" title={'index.tsx'} />
 
 </Steps>
 

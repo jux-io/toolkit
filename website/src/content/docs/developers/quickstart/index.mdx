@@ -3,16 +3,31 @@ title: Quickstart
 description: Get started with Jux toolkit.
 
 tableOfContents:
-    minHeadingLevel: 2
-    maxHeadingLevel: 6
+  minHeadingLevel: 2
+  maxHeadingLevel: 6
 ---
 
-import {CardGrid, Code, LinkCard, Steps, TabItem, Tabs} from '@astrojs/starlight/components';
+import { frameworkGridStyle } from './styles';
+import { FrameworkCard } from '../../../../components/FrameworkCard/index.js';
+import { Image } from 'astro:assets';
+import nextjsLogo from '../../../../assets/frameworks/nextjs.svg';
+import reactLogo from '../../../../assets/frameworks/react.svg';
+import astroLogo from '../../../../assets/frameworks/astro_color.svg';
+import viteLogo from '../../../../assets/frameworks/vitejs.svg';
+import {
+  Aside,
+  CardGrid,
+  Code,
+  LinkCard,
+  Steps,
+  TabItem,
+  Tabs,
+} from '@astrojs/starlight/components';
 
-import juxConfig from './samples/jux.config.ts?raw'
-import mainTsx from './samples/main.tsx.sample?raw'
+import juxConfig from './samples/jux.config.ts?raw';
+import mainTsx from './samples/main.tsx.sample?raw';
 
-This guide will walk you through the basics of setting up and using Jux in your project. Jux is a type-safe, zero-runtime CSS-in-JS solution with full interpolation capabilities that leverages PostCSS to generate optimized stylesheets during build time.
+This guide will walk you through the basics of setting up and using Jux in your project. Jux is a type-safe, zero-runtime CSS-in-JS solution with full interpolation capabilities. It leverages PostCSS to generate optimized stylesheets during build time, combining the flexibility of CSS-in-JS with the performance of traditional CSS.
 
 Let's dive in and get Jux set up in your project!
 
@@ -34,35 +49,80 @@ The fastest way to get started with Jux is to use the Jux CLI. The CLI will help
             </TabItem>
         </Tabs>
 
-
     2. ###### Initialize a new project
 
         This will install the necessary dependencies and create a `jux.config.ts` file in your project root.
 
-        <Code code={`npx jux init`} lang="ts" title={'Terminal'} frame={'terminal'} />
+        <Code code={`npx jux init`} title={'Terminal'} frame={'terminal'} lang={'shellscript'} />
 
-    3. ###### Configure your include files
-        Add the path to your source files in `jux.config.ts`. Jux will scan these files to generate the CSS file.
+        <Aside type="tip">Use the `--skip-deps` flag to skip dependency installation if you're using an integrated monorepo with a centralized package.json (e.g. Nx). In this case, don't forget to manually add Jux to your root package.json: `npm install @juxio/postcss @juxio/css`</Aside>
+
+    3. ###### Configure source files
+        In `jux.config.ts`, specify the paths to your source files. Jux will scan and parse these files to generate the CSS file.
         <Code code={juxConfig} lang="ts" title={'jux.config.ts'} mark={3} />
 
-    4. ###### Start Jux build process
+    4. ###### Generate CSS
 
-        Jux CLI will scan your source files and generate a CSS file containing all the styles used in your project, along with tokens and themes configuration.
+        Run the Jux build process to generate your CSS file. This file will include all styles used in your project, along with tokens and themes configurations.
         <Code code={`npx jux generate -o ./src/jux.css`} title={'terminal'} frame={'terminal'} />
 
     5. ##### Start using Jux in your project
 
         Include the generated CSS file in your project and start using Jux to style your components.
-        <Code code={mainTsx} lang="ts" title={'index.tsx'} mark={1} />
+        <Code code={mainTsx} lang="tsx" title={'index.tsx'} mark={1} />
+
 </Steps>
+
+## Framework Guides
+
+<div className={frameworkGridStyle}>
+  <FrameworkCard title="React" href={'/developers/getting-started/react'}>
+    <Image src={reactLogo} alt="react_logo" width="30" height="30" />
+  </FrameworkCard>
+  <FrameworkCard title="Next.js" href={'/developers/getting-started/nextjs'}>
+    <Image
+      src={nextjsLogo}
+      alt="nextjs_logo"
+      width="30"
+      height="30"
+      style={{
+        backgroundColor: 'white',
+        borderRadius: '50%',
+        padding: '1px',
+      }}
+    />
+  </FrameworkCard>
+  <FrameworkCard title="Astro" href={'/developers/getting-started/astro'}>
+    <Image src={astroLogo} alt="astro_logo" width="30" height="30" />
+  </FrameworkCard>
+  <FrameworkCard title="Vite" href={'/developers/getting-started/vite'}>
+    <Image src={viteLogo} alt="vitejs_logo" width="30" height="30" />
+  </FrameworkCard>
+</div>
 
 ## Next steps
 
 Get familiar with some of the core concepts that make Jux different compared to other styling solutions.
 
 <CardGrid>
-    <LinkCard title="Using with PostCSS" description="Learn how to setup Jux as a PostCSS plugin." href={'/developers/getting-started/postcss'} />
-    <LinkCard title="Create a Theme System" description="Learn how to build a flexible theme system using Jux's features to easily manage and switch between different themes in your application." href={'/developers/design-tokens'}/>
-    <LinkCard title="Integrate with Your Favorite Framework" description="Check out our guides on integrating Jux with popular frameworks like Next.js, Storybook or Astro." href={'/developers/technical-overview'} />
-    <LinkCard title="Technical Overview" description="Get familiar with how Jux is working." href={'/developers/technical-overview'} />
+  <LinkCard
+    title="Using with PostCSS"
+    description="Learn how to setup Jux as a PostCSS plugin."
+    href={'/developers/getting-started/postcss'}
+  />
+  <LinkCard
+    title="Create a Theme System"
+    description="Learn how to build a flexible theme system using Jux's features to easily manage and switch between different themes in your application."
+    href={'/developers/design-tokens'}
+  />
+  <LinkCard
+    title="Integrate with Your Favorite Framework"
+    description="Check out our guides on integrating Jux with popular frameworks like Next.js, Storybook or Astro."
+    href={'/developers/technical-overview'}
+  />
+  <LinkCard
+    title="Technical Overview"
+    description="Get familiar with how Jux is working."
+    href={'/developers/technical-overview'}
+  />
 </CardGrid>
