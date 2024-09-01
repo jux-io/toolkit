@@ -7,7 +7,7 @@ export default defineConfig({
   /* A list of glob file patterns to watch for styling configurations */
   include: ['./src/**/*.{ts,tsx,js,jsx,astro}'],
 
-  exclude: [],
+  exclude: ['./src/**/samples/**/*.{ts,tsx,js,jsx,astro}'],
 
   builtInFonts: {
     google: ['Inter'],

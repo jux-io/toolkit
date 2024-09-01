@@ -1,0 +1,87 @@
+---
+title: Integrating Jux with Astro
+description: Integrate Jux with Astro
+
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 6
+---
+
+import {
+  Aside,
+  Code,
+  Steps,
+  TabItem,
+  Tabs,
+} from '@astrojs/starlight/components';
+
+import juxConfig from '../../quickstart/samples/jux.config.ts?raw';
+import myReactComponent from './samples/MyStyledComponent.jsx?raw';
+import astroComponent from './samples/Component.astro?raw';
+import astroLayout from './samples/Layout.astro.sample?raw';
+import postcssConfig from './samples/postcss.config.js.nextjs.sample?raw';
+
+This guide will walk you through setting up Jux in a Next.js project, from creating a new Next.js app to configuring Jux as a PostCSS plugin.
+
+<Steps>
+    1. ###### Create a new Astro project
+        First, let's create a new Astro project using create-next-app:
+
+        <Tabs syncKey="environment">
+            <TabItem label={'npm'}>
+                <Code code={`npm create astro@latest -- --template my-jux-astro-app\r\ncd my-jux-astro-app`} title={'Terminal'} lang={'shellscript'} />
+            </TabItem>
+            <TabItem label={'pnpm'}>
+                <Code code={`pnpm create astro@latest -- --template my-jux-astro-app\r\ncd my-jux-astro-app`} title={'Terminal'} lang={'shellscript'} />
+            </TabItem>
+            <TabItem label={'yarn'}>
+                <Code code={`yarn create astro@latest -- --template my-jux-astro-app\r\ncd my-jux-astro-app`} title={'Terminal'} lang={'shellscript'} />
+            </TabItem>
+        </Tabs>
+
+    2. ###### Install Jux CLI
+        <Tabs syncKey="environment">
+            <TabItem label={'npm'}>
+                <Code code={`npm install -D @juxio/cli postcss`} title={'Terminal'} lang={'shellscript'} />
+            </TabItem>
+            <TabItem label={'pnpm'}>
+                <Code code={`pnpm add -D @juxio/cli postcss`} title={'Terminal'} lang={'shellscript'} />
+            </TabItem>
+            <TabItem label={'yarn'}>
+                <Code code={`yarn add -D @juxio/cli postcss`} title={'Terminal'} lang={'shellscript'} />
+            </TabItem>
+        </Tabs>
+
+
+    3. ###### Initialize a new project
+
+        <Code code={`npx jux init --postcss`} title={'Terminal'} lang={'shellscript'} />
+
+        This will install the necessary dependencies, and create `jux.config.ts` and `postcss.config.js` files in your project root.
+
+        <Code code={postcssConfig} title={'postcss.config.js'} lang={'js'}/>
+
+    4. ###### Configure your include files
+
+        Add the path to your source files in `jux.config.ts`. During the build process, Jux will scan these files to generate the CSS file.
+        <Code code={juxConfig} lang="ts" title={'jux.config.ts'} mark={3} />
+
+    5. ###### Add Jux's @layer directive to your main CSS file.
+
+        <Code code={`@layer juxbase, juxtokens, juxutilities;`} title={'main.css'} />
+
+        In your `src/layouts/Layout.astro` or a similar global layout file, import your <a href="https://docs.astro.build/en/guides/styling/#import-a-local-stylesheet" target="_blank">global CSS</a>:
+
+        <Code code={astroLayout} lang="astro" title={'src/layout/Layout.astro'} mark={2} />
+
+    6. ##### Start using Jux in your project
+        <Aside>Currently, Jux can only be used when the css / component function is called from an external file and cannot be used directly in .astro files. We are aware of this limitation and working on a solution.</Aside>
+
+        <Code code={myReactComponent} lang="tsx" title={'src/components/MyStyledComponent.tsx'} />
+
+        Import your component or style into your Astro component:
+        <Code code={astroComponent} lang="astro" title={'src/components/Component.astro'} />
+
+</Steps>
+
+Your Astro app is now set up with Jux! You can start building your components using Jux's CSS-in-JS capabilities while leveraging Astro's powerful features. Remember to define your styles in separate .ts or .js files for now, and import them into your Astro components.

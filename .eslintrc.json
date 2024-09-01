@@ -1,6 +1,6 @@
 {
   "root": true,
-  "ignorePatterns": ["node_modules/**/*", "dist/**/*"],
+  "ignorePatterns": ["node_modules/**/*", "dist/**/*", "**/*.mdx"],
   "plugins": [
     "@typescript-eslint"
   ],

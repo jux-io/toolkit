@@ -12,58 +12,59 @@ import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
  * Render the `Search` component if Pagefind is enabled or the default search component has been overridden.
  */
 const shouldRenderSearch =
-    config.pagefind || config.components?.Search !== '@astrojs/starlight/components/Search.astro';
+  config.pagefind ||
+  config.components?.Search !== '@astrojs/starlight/components/Search.astro';
 ---
 
 <div class="header sl-flex">
-    <div class="title-wrapper sl-flex flex-grow-1" style="flex-grow: 1">
-        <SiteTitle {...Astro.props} />
+  <div class="title-wrapper sl-flex flex-grow-1" style="flex-grow: 1">
+    <SiteTitle {...Astro.props} />
+  </div>
+  <div class="sl-flex">
+    {shouldRenderSearch && <Search {...Astro.props} />}
+  </div>
+  <div class="sl-hidden md:sl-flex right-group">
+    <div class="sl-flex social-icons">
+      <SocialIcons {...Astro.props} />
     </div>
-    <div class="sl-flex">
-        {shouldRenderSearch && <Search {...Astro.props} />}
-    </div>
-    <div class="sl-hidden md:sl-flex right-group">
-        <div class="sl-flex social-icons">
-            <SocialIcons {...Astro.props} />
-        </div>
-        <ThemeSelect {...Astro.props} />
-        <LanguageSelect {...Astro.props} />
-    </div>
+    <ThemeSelect {...Astro.props} />
+    <LanguageSelect {...Astro.props} />
+  </div>
 </div>
 
 <style>
+  .header {
+    gap: var(--sl-nav-gap);
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+
+  .title-wrapper {
+    /* Prevent long titles overflowing and covering the search and menu buttons on narrow viewports. */
+    overflow: hidden;
+  }
+
+  .right-group,
+  .social-icons {
+    gap: 1rem;
+    align-items: center;
+  }
+  .social-icons::after {
+    content: '';
+    height: 2rem;
+    border-inline-end: 1px solid var(--sl-color-gray-5);
+  }
+
+  @media (min-width: 50rem) {
+    :global(:root[data-has-sidebar]) {
+      --__sidebar-pad: calc(2 * var(--sl-nav-pad-x));
+    }
+    :global(:root:not([data-has-toc])) {
+      --__toc-width: 0rem;
+    }
     .header {
-        gap: var(--sl-nav-gap);
-        justify-content: space-between;
-        align-items: center;
-        height: 100%;
+      display: flex;
     }
-
-    .title-wrapper {
-        /* Prevent long titles overflowing and covering the search and menu buttons on narrow viewports. */
-        overflow: hidden;
-    }
-
-    .right-group,
-    .social-icons {
-        gap: 1rem;
-        align-items: center;
-    }
-    .social-icons::after {
-        content: '';
-        height: 2rem;
-        border-inline-end: 1px solid var(--sl-color-gray-5);
-    }
-
-    @media (min-width: 50rem) {
-        :global(:root[data-has-sidebar]) {
-            --__sidebar-pad: calc(2 * var(--sl-nav-pad-x));
-        }
-        :global(:root:not([data-has-toc])) {
-            --__toc-width: 0rem;
-        }
-        .header {
-            display: flex
-        }
-    }
+  }
 </style>

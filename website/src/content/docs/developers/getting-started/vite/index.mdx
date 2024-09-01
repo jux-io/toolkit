@@ -1,0 +1,80 @@
+---
+title: Integrating Jux with Vite
+description: Integrate Jux with Vite
+
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 6
+---
+
+import { Code, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+
+import juxConfig from './samples/jux.config.ts?raw';
+import appTsx from './samples/App.js?raw';
+import postcssConfig from './samples/postcss.config.js.sample?raw';
+import mainTsx from './samples/main.tsx.sample?raw';
+
+This guide will walk you through the process of setting up Jux in a Vite project. Vite is a modern build tool that provides a faster and leaner development experience for modern web projects.
+
+<Steps>
+    1. ###### Create a New Vite Project (Skip if using an existing project)
+        If you're starting from scratch, create a new Vite project:
+
+        <Tabs syncKey="environment">
+            <TabItem label={'npm'}>
+                <Code code={`npm create vite@latest my-jux-vite-app --template react-ts\r\ncd my-jux-vite-app`} title={'Terminal'} lang={'shellscript'} />
+            </TabItem>
+            <TabItem label={'pnpm'}>
+                <Code code={`pnpm create vite@latest my-jux-vite-app --template react-ts\r\ncd my-jux-vite-app`} title={'Terminal'} lang={'shellscript'} />
+            </TabItem>
+            <TabItem label={'yarn'}>
+                <Code code={`yarn create vite@latest my-jux-vite-app --template react-ts\r\ncd my-jux-vite-app`} title={'Terminal'} lang={'shellscript'} />
+            </TabItem>
+        </Tabs>
+
+    2. ###### Install Jux CLI
+        <Tabs syncKey="environment">
+            <TabItem label={'npm'}>
+                <Code code={`npm install -D @juxio/cli postcss`} title={'Terminal'} lang={'shellscript'} />
+            </TabItem>
+            <TabItem label={'pnpm'}>
+                <Code code={`pnpm add -D @juxio/cli postcss`} title={'Terminal'} lang={'shellscript'} />
+            </TabItem>
+            <TabItem label={'yarn'}>
+                <Code code={`yarn add -D @juxio/cli postcss`} title={'Terminal'} lang={'shellscript'} />
+            </TabItem>
+        </Tabs>
+
+    3. ###### Initialize Jux in your project
+
+        Run the Jux CLI to initialize Jux in your project. This will install the necessary dependencies and create the `jux.config.ts` file in your project root.
+
+        <Code code={`npx jux init --postcss`} title={'Terminal'} lang={'shellscript'} />
+
+        This will install the necessary dependencies, and create `jux.config.ts` and `postcss.config.js` files in your project root.
+
+        <Code code={postcssConfig} title={'postcss.config.js'} lang={'js'}/>
+
+    4. ###### Configure Jux
+
+        Open `jux.config.ts` and update the `include` paths to match your Vite project structure:
+        <Code code={juxConfig} lang="ts" title={'jux.config.ts'} mark={3} />
+
+    5. ###### Add Jux's @layer directive to your main CSS file.
+
+        Create or update your global CSS file (e.g., `src/index.css`) to include Jux layers:
+
+        <Code code={`@layer juxbase, juxtokens, juxutilities;`} title={'main.css'} lang={'css'} />
+
+    6. ###### Import Global CSS in your Vite project
+
+        In your main entry point (usually `src/main.tsx` or `src/main.js`), import your global CSS:
+
+        <Code code={`import './index.css';\r\n// ... rest of your imports and app initialization`} title={'main.tsx'} lang={'tsx'} mark={1} />
+
+    7. ##### Start using Jux in your project
+
+        Now you can start using Jux in your Vite components:
+        <Code code={appTsx} lang="tsx" title={'index.tsx'} mark={1} />
+
+</Steps>

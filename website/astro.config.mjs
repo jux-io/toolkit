@@ -35,6 +35,10 @@ export default defineConfig({
           link: '/developers/technical-overview',
         },
         {
+          label: 'TypeScript',
+          link: '/developers/technical-overview',
+        },
+        {
           label: 'Getting Started',
           items: [
             {
@@ -48,6 +52,10 @@ export default defineConfig({
             {
               label: 'Astro',
               link: '/developers/getting-started/astro',
+            },
+            {
+              label: 'Vite',
+              link: '/developers/getting-started/vite',
             },
           ],
         },
@@ -68,11 +76,11 @@ export default defineConfig({
           label: 'References',
           items: [
             {
-              label: 'Configuration reference',
+              label: 'Config',
               link: '/developers/reference/config',
             },
             {
-              label: 'CLI Reference',
+              label: 'CLI',
               link: '/developers/reference/cli',
             },
           ],
