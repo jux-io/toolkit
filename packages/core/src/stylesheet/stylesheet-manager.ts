@@ -78,6 +78,18 @@ export class StylesheetManager {
       existingClass.push({ className, cssText: beautifiedCss });
       this.layers[layer].append(beautifiedCss);
       return;
+    } else {
+      // Check if the cssText has changed
+      if (classInfo.cssText !== cssText) {
+        // Remove the old class and append the new one
+        this.layers[layer].walkAtRules((atRule) => {
+          if (atRule.params === className) {
+            atRule.remove();
+          }
+        });
+        classInfo.cssText = beautifiedCss;
+        this.layers[layer].append(beautifiedCss);
+      }
     }
   }
 
