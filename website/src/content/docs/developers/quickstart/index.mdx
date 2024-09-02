@@ -27,7 +27,7 @@ import {
 import juxConfig from './samples/jux.config.ts?raw';
 import mainTsx from './samples/main.tsx.sample?raw';
 
-This guide will walk you through the basics of setting up and using Jux in your project. Jux is a type-safe, zero-runtime CSS-in-JS solution with full interpolation capabilities. It leverages PostCSS to generate optimized stylesheets during build time, combining the flexibility of CSS-in-JS with the performance of traditional CSS.
+This guide will walk you through the basics of setting up and using Jux toolkit in your project. Jux is a type-safe, zero-runtime CSS-in-JS solution with full interpolation capabilities. It leverages PostCSS to generate optimized stylesheets during build time, combining the flexibility of CSS-in-JS with the performance of traditional CSS.
 
 Let's dive in and get Jux set up in your project!
 
@@ -39,13 +39,13 @@ The fastest way to get started with Jux is to use the Jux CLI. The CLI will help
     1. ###### Install Jux CLI
         <Tabs>
             <TabItem label={'npm'}>
-                <Code code={`npm install -D @juxio/cli`} title={'Terminal'} frame={'terminal'} />
+                <Code code={`npm install -D @juxio/cli`} title={'Terminal'} frame={'terminal'} lang={'shellscript'} />
             </TabItem>
             <TabItem label={'pnpm'}>
-                <Code code={`pnpm add -D @juxio/cli`} title={'Terminal'} frame={'terminal'} />
+                <Code code={`pnpm add -D @juxio/cli`} title={'Terminal'} frame={'terminal'} lang={'shellscript'} />
             </TabItem>
             <TabItem label={'yarn'}>
-                <Code code={`yarn add -D @juxio/cli`} title={'Terminal'} frame={'terminal'} />
+                <Code code={`yarn add -D @juxio/cli`} title={'Terminal'} frame={'terminal'} lang={'shellscript'} />
             </TabItem>
         </Tabs>
 
@@ -111,6 +111,11 @@ Get familiar with some of the core concepts that make Jux different compared to 
     href={'/developers/getting-started/postcss'}
   />
   <LinkCard
+    title="Integrate with Jux Editor"
+    description="Pull design tokens and components from Jux Editor to your project."
+    href={'/developers/jux-editor'}
+  />
+  <LinkCard
     title="Create a Theme System"
     description="Learn how to build a flexible theme system using Jux's features to easily manage and switch between different themes in your application."
     href={'/developers/design-tokens'}
@@ -118,11 +123,6 @@ Get familiar with some of the core concepts that make Jux different compared to 
   <LinkCard
     title="Integrate with Your Favorite Framework"
     description="Check out our guides on integrating Jux with popular frameworks like Next.js, Storybook or Astro."
-    href={'/developers/technical-overview'}
-  />
-  <LinkCard
-    title="Technical Overview"
-    description="Get familiar with how Jux is working."
     href={'/developers/technical-overview'}
   />
 </CardGrid>
