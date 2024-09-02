@@ -1,9 +1,7 @@
 import { TokensManager } from '../tokens';
 import { transform, TransformCacheCollection } from '@wyw-in-js/transform';
 import { asyncResolveFallback } from '@wyw-in-js/shared';
-import { transformAstro } from '../transformers/astro';
 import { TextEncoder, TextDecoder } from 'util';
-import { unlinkSync } from 'node:fs';
 
 interface InJsTransformOptions {
   code: string;
@@ -15,24 +13,9 @@ interface InJsTransformOptions {
 const cache = new TransformCacheCollection();
 
 export async function inJsTransform(options: InJsTransformOptions) {
-  let filename = options.filePath;
-  let code = options.code;
-  let isJuxTransform = false;
-  if (options.filePath.endsWith('.astro')) {
-    const astroResult = await transformAstro(
-      options.code,
-      options.filePath,
-      options.cwd
-    );
-
-    code = astroResult.code;
-    filename = astroResult.filePath;
-    isJuxTransform = true;
-  }
-
   const transformService = {
     options: {
-      filename,
+      filename: options.filePath,
       root: options.cwd,
       pluginOptions: {
         tokens: options.tokens,
@@ -65,15 +48,12 @@ export async function inJsTransform(options: InJsTransformOptions) {
     cache,
   };
 
-  return transform(transformService, code, async (what, importer, stack) => {
-    // TODO: Implement import resolver
-    return asyncResolveFallback(what, importer, stack);
-  }).then((result) => {
-    // We only create files for unique frameworks (like Astro) which requires additional transpile step,
-    // so delete the .ts file we created previously
-    if (isJuxTransform) {
-      unlinkSync(filename);
+  return transform(
+    transformService,
+    options.code,
+    async (what, importer, stack) => {
+      // TODO: Implement import resolver
+      return asyncResolveFallback(what, importer, stack);
     }
-    return result;
-  });
+  );
 }
