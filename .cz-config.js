@@ -53,6 +53,7 @@ module.exports = {
     '@juxio/core',
     '@juxio/design-tokens',
     '@juxio/postcss',
+    '@juxio/css',
     '@juxio/react-styled',
   ],
   allowCustomScopes: true,

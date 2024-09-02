@@ -1,5 +1,5 @@
-import crypto from 'node:crypto';
+import sha256 from 'crypto-js/sha256';
 
 export function calculateHash(str: string) {
-  return crypto.createHash('sha256').update(str).digest('hex');
+  return sha256(str).toString();
 }
