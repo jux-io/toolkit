@@ -1,5 +1,14 @@
 # @juxio/postcss
 
+## 0.6.12
+
+### Patch Changes
+
+- [#65](https://github.com/jux-io/toolkit/pull/65) [`47a8d7a`](https://github.com/jux-io/toolkit/commit/47a8d7aa311fae032198551ef31fd3ee6dd6a183) Thanks [@tnipri](https://github.com/tnipri)! - fixed an issue where postcss plugin caused a warning on vite
+
+- Updated dependencies [[`cf9eae0`](https://github.com/jux-io/toolkit/commit/cf9eae02e5bd56d5b719b0e5e087aacdd6368c08)]:
+  - @juxio/core@0.6.12
+
 ## 0.6.11
 
 ### Patch Changes
