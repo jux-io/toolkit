@@ -21,7 +21,7 @@ const BASE_CONFIG: Options = {
 export default defineConfig([
   {
     ...BASE_CONFIG,
-    entry: ['./src/index.ts', './src/tokens.ts'],
+    entry: ['./src/index.ts'],
   },
   {
     ...BASE_CONFIG,
