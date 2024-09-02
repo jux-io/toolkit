@@ -1,4 +1,4 @@
-import type { PluginCreator } from 'postcss';
+import postcss, { type PluginCreator } from 'postcss';
 import { logger, type PluginOptions, PostcssManager } from '@juxio/core';
 import * as util from 'node:util';
 import path from 'node:path';
@@ -37,7 +37,9 @@ const juxtacss: PluginCreator<PluginOptions> = (options = {}) => {
 
           await postcssManager.parseFiles();
 
-          await postcssManager.injectStyles(root);
+          const css = await postcssManager.getCSS(root);
+
+          root.append(postcss.parse(css, result.opts));
 
           // Register the dependencies for this css file
           postcssManager.registerDependencies((dependency) => {
