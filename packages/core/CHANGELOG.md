@@ -1,5 +1,14 @@
 # @juxio/core
 
+## 0.6.12
+
+### Patch Changes
+
+- [#63](https://github.com/jux-io/toolkit/pull/63) [`cf9eae0`](https://github.com/jux-io/toolkit/commit/cf9eae02e5bd56d5b719b0e5e087aacdd6368c08) Thanks [@tnipri](https://github.com/tnipri)! - fixed an issue with astro and css function
+
+- Updated dependencies []:
+  - @juxio/design-tokens@0.6.12
+
 ## 0.6.11
 
 ### Patch Changes
