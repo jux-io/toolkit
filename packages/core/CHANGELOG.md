@@ -1,5 +1,14 @@
 # @juxio/core
 
+## 0.6.11
+
+### Patch Changes
+
+- [#61](https://github.com/jux-io/toolkit/pull/61) [`1ac8024`](https://github.com/jux-io/toolkit/commit/1ac80247606a2cd334359b042e2a6eb2ef909fbf) Thanks [@tnipri](https://github.com/tnipri)! - added native support for astro files
+
+- Updated dependencies []:
+  - @juxio/design-tokens@0.6.11
+
 ## 0.6.10
 
 ### Patch Changes
