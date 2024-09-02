@@ -1,4 +1,6 @@
-@import "https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin,latin-ext,vietnamese";@layer juxbase {
+@import "https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin,latin-ext,vietnamese";
+
+@layer juxbase {
   *, :before, :after, ::backdrop, ::file-selector-button {
     box-sizing: border-box;
     border-style: solid;
@@ -192,7 +194,9 @@
     margin: 0;
     padding: 0;
   }
-}@layer juxtokens {
+}
+
+@layer juxtokens {
   :where(:root, :host) {
     --core-color-brand_100: #0070f3;
     --core-color-brand_200: #ff0080;
@@ -215,4 +219,6 @@
     --color-secondary: var(--color-primary);
     --dimension-specific-button_radius: var(--core-dimension-spacing_100);
   }
-}@layer juxutilities;
+}
+
+@layer juxutilities;
