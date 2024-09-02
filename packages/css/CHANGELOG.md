@@ -1,5 +1,14 @@
 # @juxio/react-styled
 
+## 0.6.10
+
+### Patch Changes
+
+- [#58](https://github.com/jux-io/toolkit/pull/58) [`e99ec15`](https://github.com/jux-io/toolkit/commit/e99ec15c5b83cfc9200a7c162aa49b3a8747ea80) Thanks [@tnipri](https://github.com/tnipri)! - css is now using crypto-js instead of node crypto
+
+- Updated dependencies [[`2d5011c`](https://github.com/jux-io/toolkit/commit/2d5011ce3fb7393bacc17b35ce01bc3f7c8a3296)]:
+  - @juxio/core@0.6.10
+
 ## 0.6.9
 
 ### Patch Changes
