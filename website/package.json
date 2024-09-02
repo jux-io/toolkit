@@ -13,6 +13,7 @@
     "@astrojs/check": "^0.9.3",
     "@astrojs/react": "^3.6.2",
     "@astrojs/starlight": "^0.26.1",
+    "@expressive-code/plugin-collapsible-sections": "^0.36.1",
     "@juxio/css": "workspace:*",
     "@juxio/react-styled": "workspace:*",
     "@types/react-dom": "^18.3.0",

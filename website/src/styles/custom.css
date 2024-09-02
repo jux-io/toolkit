@@ -31,6 +31,10 @@
   }
 }
 
+a.large {
+  font-weight: normal;
+}
+
 /* Light mode colors. */
 :root[data-theme='light'] {
   --sl-color-accent-low: #c7d6ff;

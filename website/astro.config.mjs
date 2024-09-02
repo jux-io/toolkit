@@ -35,8 +35,16 @@ export default defineConfig({
           link: '/developers/technical-overview',
         },
         {
+          label: 'Working with Jux Editor',
+          link: '/developers/jux-editor/',
+        },
+        {
           label: 'TypeScript',
           link: '/developers/technical-overview',
+        },
+        {
+          label: 'Benchmarks',
+          link: '/developers/benchmarks',
         },
         {
           label: 'Getting Started',
@@ -60,25 +68,50 @@ export default defineConfig({
           ],
         },
         {
-          label: 'Working with Jux Editor',
+          label: 'Jux concepts',
           items: [
             {
-              label: 'Pull tokens and themes',
+              label: 'Styling',
+              link: '/developers/reference/cli',
+            },
+            {
+              label: 'Variants and compound variants',
               link: '/developers/editor/tokens',
             },
             {
-              label: 'Pull Components',
+              label: 'Responsive design',
+              link: '/developers/editor/tokens',
+            },
+            {
+              label: 'Nested selectors',
+              link: '/developers/editor/tokens',
+            },
+          ],
+        },
+        {
+          label: 'Customization',
+          items: [
+            {
+              label: 'Configuration',
               link: '/developers/reference/cli',
+            },
+            {
+              label: 'Tokens & Themes',
+              link: '/developers/reference/cli',
+            },
+            {
+              label: 'Screens',
+              link: '/developers/reference/cli',
+            },
+            {
+              label: 'Presets',
+              link: '/developers/editor/tokens',
             },
           ],
         },
         {
           label: 'References',
           items: [
-            {
-              label: 'Config',
-              link: '/developers/reference/config',
-            },
             {
               label: 'CLI',
               link: '/developers/reference/cli',

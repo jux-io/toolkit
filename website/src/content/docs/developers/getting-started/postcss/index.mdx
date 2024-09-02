@@ -11,6 +11,7 @@ import { Code, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
 import juxConfig from '../../quickstart/samples/jux.config.ts?raw';
 import postcssConfig from './samples/postcss.config.js.sample?raw';
+import postcssUseApi from './samples/postcss.use-api.js?raw';
 import mainTsx from './samples/main.tsx.sample?raw';
 
 Installing Jux as PostCSS plugin is the recommended way to seamlessly use Jux in your project. This guide will walk you through the steps to set up Jux as a PostCSS plugin in your project.
@@ -19,13 +20,13 @@ Installing Jux as PostCSS plugin is the recommended way to seamlessly use Jux in
     1. ###### Install Jux CLI
         <Tabs>
             <TabItem label={'npm'}>
-                <Code code={`npm install -D @juxio/cli postcss`} title={'Terminal'} frame={'code'} />
+                <Code code={`npm install -D @juxio/cli postcss`} title={'Terminal'} frame={'code'} lang={'shellscript'} />
             </TabItem>
             <TabItem label={'pnpm'}>
-                <Code code={`pnpm add -D @juxio/cli postcss`} title={'Terminal'} frame={'terminal'} />
+                <Code code={`pnpm add -D @juxio/cli postcss`} title={'Terminal'} frame={'terminal'} lang={'shellscript'} />
             </TabItem>
             <TabItem label={'yarn'}>
-                <Code code={`yarn add -D @juxio/cli postcss`} title={'Terminal'} frame={'terminal'} />
+                <Code code={`yarn add -D @juxio/cli postcss`} title={'Terminal'} frame={'terminal'} lang={'shellscript'} />
             </TabItem>
         </Tabs>
 
@@ -42,16 +43,29 @@ Installing Jux as PostCSS plugin is the recommended way to seamlessly use Jux in
         Add the path to your source files in `jux.config.ts`. Jux will scan these files to generate the CSS file.
         <Code code={juxConfig} lang="ts" title={'jux.config.ts'} mark={3} />
 
-    4. ###### Add Jux's @layer directive to your main CSS file.
+    4. ###### Add Jux's @layer directive to your main CSS file
 
         <Code code={`@layer juxbase, juxtokens, juxutilities;`} title={'main.css'} lang={'css'} />
 
+    5. ##### Start your build process
 
-
-    5. ##### Start using Jux in your project
+        <Tabs>
+            <TabItem label={'PostCSS CLI'}>
+                <Code code={`postcss src/main.css -o output.css`} title={'Terminal'} frame={'terminal'} lang={'shellscript'} />
+            </TabItem>
+            <TabItem label={'PostCSS API'}>
+                <Code code={postcssUseApi} title={'postcss-use-api.js'} lang={'js'} />
+            </TabItem>
+        </Tabs>
 
         Include the generated CSS file in your project and start using Jux to style your components.
         <Code code={mainTsx} lang="tsx" title={'index.tsx'} mark={1} />
+
+    6. ###### Use Jux in your project
+
+            Start using Jux to style your components.
+
+            <Code code={mainTsx} lang="ts" title={'index.tsx'} mark={1} />
 
 </Steps>
 

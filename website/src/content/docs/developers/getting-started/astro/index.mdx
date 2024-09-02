@@ -24,8 +24,8 @@ import postcssConfig from './samples/postcss.config.js.nextjs.sample?raw';
 This guide will walk you through setting up Jux in a Next.js project, from creating a new Next.js app to configuring Jux as a PostCSS plugin.
 
 <Steps>
-    1. ###### Create a new Astro project
-        First, let's create a new Astro project using create-next-app:
+    1. ###### Create a new Astro project (Skip if using an existing project)
+        First, let's create a new Astro project using astro create template:
 
         <Tabs syncKey="environment">
             <TabItem label={'npm'}>
@@ -66,7 +66,7 @@ This guide will walk you through setting up Jux in a Next.js project, from creat
         Add the path to your source files in `jux.config.ts`. During the build process, Jux will scan these files to generate the CSS file.
         <Code code={juxConfig} lang="ts" title={'jux.config.ts'} mark={3} />
 
-    5. ###### Add Jux's @layer directive to your main CSS file.
+    5. ###### Add Jux's @layer directive to your main CSS file
 
         <Code code={`@layer juxbase, juxtokens, juxutilities;`} title={'main.css'} />
 

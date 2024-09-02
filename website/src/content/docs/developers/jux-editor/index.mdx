@@ -1,0 +1,121 @@
+---
+title: Pulling Tokens, Themes, and Components
+description: Learn how to use Jux CLI to pull design tokens, themes, and React components created by product designers from your Jux editor for immediate use in your development environment.
+
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 6
+---
+
+import {
+  Tabs,
+  TabItem,
+  Aside,
+  Steps,
+  FileTree,
+} from '@astrojs/starlight/components';
+import { Code } from '@astrojs/starlight/components';
+import juxConfigRaw from './samples/jux.config.ts?raw';
+
+As a code-based product design tool, Jux empowers product designers to design real, web-based applications, complete with themes and design tokens, that you can immediately use in your project. This guide will show you how to use the Jux CLI to pull these designer-created elements from your Jux account into your development environment, facilitating a seamless workflow between you and your design team.
+
+<Aside>
+  Jux currently supports React exclusively. The components and styles generated
+  by Jux are built using the Jux toolkit and Jux UI primitives, ensuring a
+  consistent and efficient development experience when working with Jux editor.
+</Aside>
+
+## Configurations
+
+<Steps>
+    1. ###### Logging into Jux
+        Before you can pull tokens, themes, or components, you need to authenticate with your Jux account using the CLI. If you don't have an account yet, please visit <a href="https://www.jux.io" target={"_blank"}>Jux.io</a> to sign up.
+
+        <Code code="npx jux login" lang={'shellscript'} title={'Terminal'} />
+
+        This command will open a browser window for authentication and prompt you to enter your Jux credentials.
+
+    2. ###### Configuring Jux config file
+
+        Before you can start pulling any assets, you need to configure Jux for your project. This is done through a configuration file named `jux.config.ts` in your project root:
+
+        <Code code={juxConfigRaw} lang={'ts'} title={'jux.config.ts'} />
+
+        - `tokens_directory`: Specifies where to pull design tokens. If not provided, Jux will use a default location (```./src/jux/tokens```).
+        - `components_directory`: Specifies where to pull generated components. If not provided, Jux will use a default location (```./src/jux/components```).
+        - `definitions_directory`: Specifies the directory where [type definitions](/developers/typescript) will be generated. If not provided, Jux will use a default location (```./src/jux/types```).
+        - `core_tokens`: Defines your core design tokens.
+        - `themes`: Defines your theme-specific tokens (e.g., light and dark themes).
+
+        Make sure to adjust these paths and imports according to your project structure.
+
+</Steps>
+
+## Pull Tokens and Themes
+
+Jux allows product designers to define and manage design tokens and themes in your organization account. You can easily pull these into your development environment using the Jux CLI, ensuring that you're always working with the latest design system elements.
+
+Once you've configured Jux and logged in, you can pull the tokens and themes defined by your design team. The CLI will use the directories specified in your `jux.config.ts` file:
+
+<Code
+  code="npx jux pull tokens [OPTIONS]"
+  lang={'shellscript'}
+  title={'Terminal'}
+/>
+
+This command will retrieve the design tokens and themes from your Jux editor and save them in your project, making them available for immediate use in your development process.
+
+##### Options
+
+- `-d, --definitions`: Generate token definitions after pull.
+
+After running the `jux pull tokens` command, your project structure will be updated to include the pulled design tokens and generated type definitions. Here's what you can expect:
+
+<FileTree>
+  - jux.config.ts - src - jux - tokens - core.ts All core tokens, shared across
+  themes - light.ts - dark.ts - index.ts A helper file that exports all tokens -
+  types - tokens.d.ts - …
+</FileTree>
+
+## Pull Components
+
+Jux enables designers to create reusable components that you can directly pull into your development environment and use immediately. Here's how to use the Jux CLI to pull these components:
+
+To pull components from your Jux account, use the following command:
+
+<Code
+  code="npx jux pull components [OPTIONS]"
+  lang={'shellscript'}
+  title={'Terminal'}
+/>
+
+### Options
+
+- `-c, --components <value>...`: Pull specific components. You can specify multiple components by separating them with a space.
+
+### Examples
+
+<Tabs>
+  <TabItem label="Pull specific components">
+    <Code
+      code="npx jux pull -c navbar footer dialog"
+      lang={'shellscript'}
+      title={'Terminal'}
+    />
+  </TabItem>
+  <TabItem label="Pull all components">
+    <Code code="npx jux pull --all" lang={'shellscript'} title={'Terminal'} />
+  </TabItem>
+</Tabs>
+
+This command will retrieve the specified components (or all components if `--all` is used) from your Jux editor and save them in your project.
+
+## Next Steps
+
+After pulling your tokens, themes, and React components, you can start using them in your project right away. Here are some suggestions for next steps:
+
+1. Review the pulled tokens and themes in your project's configuration files.
+2. Integrate the pulled React components into your application's component library.
+3. Use the Jux-generated styles and React components in your application, ensuring consistency between design and implementation.
+
+By using these Jux CLI commands, you can maintain a seamless workflow between design and development, ensuring that your React application always reflects the latest designs from your Jux editor, ready for immediate use.
