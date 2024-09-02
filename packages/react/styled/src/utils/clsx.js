@@ -3,7 +3,7 @@ function toVal(mix) {
     y,
     str = '';
 
-  if (typeof mix === 'string' || typeof mix === 'number') {
+  if (typeof mix === 'number' || typeof mix === 'string') {
     str += mix;
   } else if (typeof mix === 'object') {
     if (Array.isArray(mix)) {
