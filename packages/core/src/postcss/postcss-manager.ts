@@ -208,7 +208,7 @@ export class PostcssManager {
     this.hasConfigChanged = false;
   }
 
-  async injectStyles(root: Root) {
+  async getCSS(root: Root) {
     const css: string[] = [];
     this.context.stylesheetManager.layers.juxbase.removeAll();
     this.context.stylesheetManager.layers.juxtokens.removeAll();
@@ -246,7 +246,7 @@ export class PostcssManager {
     css.push(this.context.stylesheetManager.layers.juxtokens.toString());
     css.push(this.context.stylesheetManager.layers.juxutilities.toString());
 
-    root.append(this.context.stylesheetManager.transformCss(css.join('\r\n')));
+    return this.context.stylesheetManager.transformCss(css.join('\r\n'));
   }
 
   registerDependencies(register: (dependency: Message) => void) {
