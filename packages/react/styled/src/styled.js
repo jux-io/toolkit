@@ -1,5 +1,5 @@
 import React from 'react';
-import { calculateHash } from './utils/calculate-hash';
+import { calculateHash } from '@juxio/css';
 import clsx from './utils/clsx';
 
 function getVariantClasses(props, variants) {
