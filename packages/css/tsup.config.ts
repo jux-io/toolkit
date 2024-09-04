@@ -7,7 +7,7 @@ const BASE_CONFIG: Options = {
   tsconfig: './tsconfig.json',
   format: ['cjs', 'esm'],
   splitting: true,
-  sourcemap: true,
+  sourcemap: false,
   treeshake: true,
   cjsInterop: true,
   dts: true,

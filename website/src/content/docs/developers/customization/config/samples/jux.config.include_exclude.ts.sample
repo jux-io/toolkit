@@ -1,0 +1,7 @@
+import { defineConfig } from '@juxio/cli';
+
+export default defineConfig({
+  /* ... */
+  include: ['./src/**/*.{js,jsx,ts,tsx}'],
+  exclude: ['./src/components/jux/not_for_watch_page.tsx'],
+});

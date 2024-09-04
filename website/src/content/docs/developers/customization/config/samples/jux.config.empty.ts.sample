@@ -1,0 +1,5 @@
+import { defineConfig } from '@juxio/cli';
+
+export default defineConfig({
+  /* Your configuration goes here */
+});

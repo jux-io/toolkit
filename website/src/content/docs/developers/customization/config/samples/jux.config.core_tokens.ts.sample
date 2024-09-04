@@ -1,0 +1,23 @@
+import { defineConfig } from '@juxio/cli';
+
+export default defineConfig({
+  /* ... */
+  core_tokens: {
+    color: {
+      brand_100: {
+        $value: '#0070f3',
+        $description: 'Primary brand color',
+      },
+      brand_200: {
+        $value: '#ff0080',
+        $description: 'Secondary brand color',
+      },
+    },
+    dimension: {
+      spacing_100: {
+        $value: '8px',
+        $description: 'Base spacing unit',
+      },
+    },
+  },
+});

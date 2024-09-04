@@ -1,0 +1,269 @@
+---
+title: Tokens & Themes
+description: A guide to using design tokens and themes in Jux
+
+tableOfContents:
+    minHeadingLevel: 1
+    maxHeadingLevel: 5
+---
+
+import {Aside, Code} from "@astrojs/starlight/components";
+import juxConfigWithTokens from './samples/jux.config.core_tokens.ts?raw'
+
+Jux provides a powerful system for managing design tokens and themes, allowing you to create consistent and flexible designs across your application. This guide will show you how to set up tokens and themes in your Jux configuration and how to use them in your project.
+
+## Configuring Design Tokens
+
+Design tokens are a platform-agnostic way to define your design system and ensure consistency across your application. It's key-value pairs that define the visual properties of your application, such as colors, typography, spacing, and more.
+
+### Core Tokens
+
+Core tokens are the foundation of your design system. They define the basic design elements that are shared across all themes.
+
+Core tokens are defined in the `core_tokens` section of your `jux.config.ts` file:
+
+```typescript
+import { defineConfig } from '@juxio/cli';
+
+export default defineConfig({
+  core_tokens: {
+    color: {
+      primary: { $value: '#007bff', $description: 'Primary brand color' },
+      secondary: { $value: '#6c757d', $description: 'Secondary brand color' },
+      i_am_nested: {
+        nested: { $value: '#6c757d' }
+      }
+    },
+    dimension: {
+      small: { $value: '8px' },
+      medium: { $value: '16px' },
+    },
+    typography: {
+      body: {
+        $value: {
+          fontSize: '16px',
+          fontFamily: 'Inter, sans-serif',
+          fontWeight: '400',
+          lineHeight: '1.5',
+          letterSpacing: 'normal',
+        },
+        $description: 'Body text style',
+      },
+    }
+  }
+});
+```
+
+#### Token Structure
+
+Core tokens can be nested to any depth, allowing for a hierarchical organization of your design tokens. Each token can have the following properties:
+
+- `$value`: The actual value of the token. This can be any valid CSS value or an object for [composite tokens](#composite-tokens).
+- `$description`: A description of the token (optional).
+
+#### CSS Output
+
+Jux automatically converts your design tokens into CSS custom properties, making them easy to use in your styles. The name of the CSS custom property is derived from the token's path in the design token object. All core token variables are prefixed with `--core` to distinguish them from theme-specific variables.
+
+For example, the core tokens defined above will be converted to the following CSS variables:
+
+```css
+:where(:root, :host) {
+    --core-color-primary: #007bff;
+    --core-color-secondary: #6c757d;
+    --core-color-i_am_nested-nested: #6c757d;
+    --core-dimension-small: 8px;
+    --core-dimension-medium: 16px;
+    --core-typography-body-fontSize: 12px;
+    --core-typography-body-fontFamily: Inter, sans-serif;
+    --core-typography-body-fontWeight: 400;
+    --core-typography-body-lineHeight: 16;
+    --core-typography-body-letterSpacing: normal;
+}
+```
+
+<Aside type="tip">
+    You can use `cssVarsRoot` in your `jux.config.ts` to change the root element where CSS variables are applied. By default, Jux applies CSS variables to the `:root` and `:host` element.
+</Aside>
+
+### Themes
+
+Themes in Jux allow you to create multiple variations of your design system, such as light and dark modes, while leveraging your core tokens.
+
+Themes are defined in the themes section of your jux.config.ts file. Here's an example configuration that builds upon our previous core tokens setup:
+
+```typescript
+import { defineConfig } from '@juxio/cli';
+
+export default defineConfig({
+  core_tokens: {
+    // ... core tokens configuration
+  },
+  themes: {
+    light: {
+      color: {
+        semantic: {
+          background: { $value: '#ffffff' },
+          text: { $value: '{core.color.secondary}' },
+          accent: { $value: '{core.color.primary}' },
+        },
+      },
+      dimension: {
+        semantic: {
+          bodyPadding: { $value: '{core.dimension.medium}' },
+        },
+      },
+    },
+    dark: {
+      color: {
+        semantic: {
+          background: { $value: '#000000' },
+          text: { $value: '#ffffff' },
+          accent: { $value: '{core.color.primary}' },
+        },
+      },
+      dimension: {
+        semantic: {
+          bodyPadding: { $value: '{core.dimension.medium}' },
+        },
+      },
+    },
+  },
+});
+```
+
+To apply a theme to your application, you need to add the `data-jux-theme` attribute to your HTML. Here's an example of how to do this and how to switch themes:
+
+```jsx
+import React, { useState } from 'react';
+import { Button } from './components';
+
+function App() {
+  const [theme, setTheme] = useState('light');
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
+
+  return (
+    <html data-jux-theme={theme}>
+      <body>
+        <h1>Welcome to my Jux App</h1>
+        <Button onClick={toggleTheme}>
+          Switch to {theme === 'light' ? 'Dark' : 'Light'} Theme
+        </Button>
+      </body>
+    </html>
+  );
+}
+
+export default App;
+```
+
+#### CSS Output
+
+Jux generates CSS for themes by wrapping theme-specific styles with the appropriate data attribute selector. This allows for easy theme switching using CSS selectors.
+
+```css
+:where(:root, :host) {
+    /* Core tokens... */
+}
+
+[data-jux-theme="light"] {
+  --color-semantic-background: #ffffff;
+  --color-semantic-text: var(--core-color-secondary);
+  --color-semantic-accent: var(--core-color-primary);
+  --dimension-semantic-bodyPadding: var(--core-dimension-medium);
+}
+
+[data-jux-theme="dark"] {
+  --color-semantic-background: #000000;
+  --color-semantic-text: #ffffff;
+  --color-semantic-accent: var(--core-color-primary);
+  --dimension-semantic-bodyPadding: var(--core-dimension-medium);
+}
+```
+
+## Using Tokens in Your Styles
+
+Jux provides multiple ways to use tokens in your styles, from direct references to utility-based approaches. Let's explore these methods:
+
+### Direct Token References
+
+To use tokens in your styles, wrap the token name with curly braces `{}`. Jux will replace these with the corresponding CSS custom property at build time.
+
+```typescript
+import { styled } from '@juxio/react-styled';
+
+const MyButton = styled('button', {
+  backgroundColor: '{core.color.primary}', // => var(--core-color-primary)
+  color: 'white',
+  padding: '{dimension.semantic.bodyPadding}', // => var(--dimension-semantic-bodyPadding)
+  border: 'none',
+  borderRadius: '4px',
+  margin: '{non.existent.token}'
+});
+```
+
+During development, if you use a non-existent token, Jux will display a warning in the console, making it easy to catch typos and errors.
+
+```bash title=Terminal
+[warn] [styles.ts]: Token value margin: "{non.existent.token}" was not found in MyButton function
+```
+
+### Using Tokens Groups as Utilities
+
+For certain groups of tokens, such as typography, Jux provides a utility feature that allows for more concise and consistent usage:
+
+```typescript
+import { styled } from '@juxio/react';
+
+// Before: Manually applying typography tokens
+const TextBefore = styled('p', {
+  fontSize: '{core.typography.body.fontSize}',
+  fontFamily: '{core.typography.body.fontFamily}',
+  fontWeight: '{core.typography.body.fontWeight}',
+  lineHeight: '{core.typography.body.lineHeight}',
+  letterSpacing: '{core.typography.body.letterSpacing}',
+});
+
+// After: Using typography as a utility
+const TextAfter = styled('p', {
+  typography: '{core.typography.body}'
+});
+````
+
+This utility approach automatically applies all the properties defined in the core.typography.body token group.
+
+<Aside>
+    This feature is currently for typography tokens only, but we plan to expand it to other token groups in the future.
+</Aside>
+
+
+## Theme-Aware Components
+
+Jux components automatically respond to theme changes. When you switch themes by changing the `data-jux-theme` attribute, all Jux components will update to use the new theme's tokens.
+
+For example, our `Button` component from earlier will automatically use the correct `primary` color for the current theme, without any additional code.
+
+## Best Practices
+
+1. **Use Semantic Names**: When defining tokens, use semantic names like 'primary' or 'accent' instead of specific color names. This makes it easier to maintain consistency across themes.
+
+2. **Leverage Core Tokens**: Use core tokens for values that don't change between themes, and theme-specific tokens for values that do.
+
+3. **Theme Variations**: Consider creating variations of your themes for different purposes, such as a 'high-contrast' version of your light and dark themes.
+
+4. **Testing**: Always test your application in all defined themes to ensure components look and function correctly in each.
+
+By leveraging Jux's theming system, you can create flexible, consistent designs that are easy to maintain and update across your entire application.
+
+## TypeScript Support
+
+Both `css` and `styled` functions in Jux are fully typed, providing several benefits:
+
+- Autocomplete suggestions for token paths
+- Type checking to prevent usage of non-existent tokens
+- IntelliSense support for exploring available tokens
+
+Refer to the [TypeScript Guide](/docs/developers/reference/typescript) for more information on TypeScript support in Jux.
