@@ -1,0 +1,31 @@
+{
+  "version": 3,
+  "routes": [
+    {
+      "src": "^/assets/(.*)$",
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable"
+      },
+      "continue": true
+    },
+    {
+      "src": "^/_astro/(.*)$",
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable"
+      },
+      "continue": true
+    },
+    {
+      "handle": "error"
+    },
+    {
+      "status": 404,
+      "src": "^(?!/api).*$",
+      "dest": "/404.html"
+    }
+  ],
+  "framework": {
+    "version": "4.15.2"
+  },
+  "crons": []
+}
