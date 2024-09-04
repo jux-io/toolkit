@@ -1,0 +1,142 @@
+---
+title: Jux Configuration File
+description: A guide to configuring Jux in your project
+
+tableOfContents:
+    minHeadingLevel: 1
+    maxHeadingLevel: 5
+---
+import {Code} from "@astrojs/starlight/components";
+import juxConfigEmpty from "./samples/jux.config.empty.ts.sample?raw";
+import juxConfigCoreTokens from "./samples/jux.config.core_tokens.ts.sample?raw";
+import juxConfigThemes from "./samples/jux.config.themes.ts.sample?raw";
+import juxConfigIncludeExclude from "./samples/jux.config.include_exclude.ts.sample?raw";
+import juxConfigPresets from "./samples/jux.config.presets.ts.sample?raw";
+import juxConfigGlobalCss from "./samples/jux.config.global_styles.ts.sample?raw";
+import juxConfigBrowsersList from "./samples/jux.config.browserslist.ts.sample?raw";
+import juxConfigBuiltinFonts from "./samples/jux.config.builtin_fonts.ts.sample?raw";
+import cssImports from './samples/cssimports.css.sample?raw'
+
+Configuring Jux allows you to customize its behavior to fit your project's needs. By default, Jux uses a configuration file named `jux.config.ts` in the root of your project.
+
+A valid Jux config file exports its configuration using the default export. Using `defineConfig` is recommended for automatic type hints in your IDE, but not required.
+
+<Code code={juxConfigEmpty} title={'jux.config.ts'} lang={'ts'} meta={'asdf'} />
+
+#### `preflight`
+
+- **Type**: `boolean`
+- **Default**: `true`
+
+Whether to apply css reset styles. Preflight styles are a set of base styles that normalize the appearance of HTML elements across browsers.
+
+You can check the default styles in the [Preflight](/developers/reference/preflight) section of the documentation.
+
+
+#### `include`
+
+- **Type**: `string[]`
+- **Default**: `[]`
+
+<Code code={juxConfigIncludeExclude} lang={'ts'} />
+
+An array of glob patterns that specify which files Jux should watch for changes. Jux will only parse files that match these patterns.
+
+#### `exclude`
+
+- **Type**: `string[]`
+- **Default**: `['**/*.d.ts']`
+
+An array of glob patterns that specify which files Jux should ignore.
+
+#### `globalCss`
+
+- **Type**: `Record<string, CSSProperties>`
+- **Default**: `{}`
+
+Apply global CSS styles to your project:
+
+<Code code={juxConfigGlobalCss} lang={'ts'} />
+
+#### `core_tokens`
+
+- **Type**: `Tokens`
+- **Default**: `{}`
+
+Define your design system's core token:
+
+<Code code={juxConfigCoreTokens} lang={'ts'} />
+
+Learn more about defining tokens and the different categories you can use in the [Tokens & Themes](/developers/customization/tokens-and-themes) section of the documentation.
+
+#### `themes`
+
+- **Type**: `Record<string, Tokens>`
+- **Default**: `{}`
+
+Define your design system's themes:
+
+<Code code={juxConfigThemes} lang={'ts'} />
+
+Learn more about defining themes and the different categories you can use in the [Tokens & Themes](/developers/customization/tokens-and-themes) section of the documentation.
+
+#### `presets`
+
+- **Type**: `PresetConfig[]`
+- **Default**: `[]`
+
+Use configuration presets to share settings across projects. Any preset will be merged with the rest of the configuration, acting as a set of overrides / extensions.
+
+<Code code={juxConfigPresets} lang={'ts'} />
+
+Learn more about presets in the [Presets](/developers/customization/presets) section of the documentation.
+
+#### `cssVarsRoot`
+
+- **Type**: `string`
+- **Default**: `:where(:root, :host)`
+
+Specify the root pseudo-class for CSS variables.
+
+#### `builtInFonts`
+
+- **Type**: `BuiltInFonts`
+- **Default**: `{}`
+
+A helper object to specify fonts to use in your project (currently supports Google Fonts only).
+
+<Code code={juxConfigBuiltinFonts} lang={'ts'} />
+
+This will automatically add the following import to Jux CSS file:
+
+<Code code={cssImports} lang="css" />
+
+#### `browserslist`
+
+- **Type**: `string[]`
+- **Default**: `[]`
+
+Specify browser targets for compatibility.
+
+<Code code={juxConfigBrowsersList} lang={'ts'} />
+
+#### `components_directory`
+
+- **Type**: `string`
+- **Default**: `./src/jux/components`
+
+Specifies where to pull generated components when working with [Jux editor](/developers/jux-editor).
+
+#### `tokens_directory`
+
+- **Type**: `string`
+- **Default**: `./src/jux/components`
+
+Specifies where to pull design tokens when working with [Jux editor](/developers/jux-editor).
+
+#### `definitions_directory`
+
+- **Type**: `string`
+- **Default**: `./src/jux/types`
+
+Specifies where to pull generated type definitions when working with [Jux editor](/developers/jux-editor).

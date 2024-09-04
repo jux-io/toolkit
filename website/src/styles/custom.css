@@ -15,6 +15,8 @@
   --sl-color-gray-6: #24272f;
   --sl-color-black: #17181c;
   --sl-color-bg-nav: #000;
+
+  --sl-color-bg-sidebar: var(--sl-color-bg);
 }
 
 @media (min-width: 72rem) {
@@ -33,6 +35,10 @@
 
 a.large {
   font-weight: normal;
+}
+
+.sidebar-content {
+  border-inline-end: 1px solid var(--sl-color-gray-6);
 }
 
 /* Light mode colors. */

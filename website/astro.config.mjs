@@ -40,7 +40,7 @@ export default defineConfig({
         },
         {
           label: 'TypeScript',
-          link: '/developers/technical-overview',
+          link: '/developers/typescript',
         },
         {
           label: 'Benchmarks',
@@ -72,19 +72,19 @@ export default defineConfig({
           items: [
             {
               label: 'Styling',
-              link: '/developers/reference/cli',
+              link: '/developers/jux-concepts/styling',
             },
             {
               label: 'Variants and compound variants',
-              link: '/developers/editor/tokens',
+              link: '/developers/jux-concepts/variants',
             },
             {
               label: 'Responsive design',
-              link: '/developers/editor/tokens',
+              link: '/developers/jux-concepts/responsive-design',
             },
             {
               label: 'Nested selectors',
-              link: '/developers/editor/tokens',
+              link: '/developers/jux-concepts/nested-selectors',
             },
           ],
         },
@@ -93,19 +93,28 @@ export default defineConfig({
           items: [
             {
               label: 'Configuration',
-              link: '/developers/reference/cli',
+              link: '/developers/customization/config',
             },
             {
               label: 'Tokens & Themes',
-              link: '/developers/reference/cli',
+              link: '/developers/customization/tokens-and-themes',
             },
             {
-              label: 'Screens',
-              link: '/developers/reference/cli',
+              label: 'Screens (Responsive Design)',
+              link: '/developers/customization/responsive-design',
             },
             {
               label: 'Presets',
-              link: '/developers/editor/tokens',
+              link: '/developers/customization/presets',
+            },
+          ],
+        },
+        {
+          label: 'Recipes',
+          items: [
+            {
+              label: 'Multi-projects environment',
+              link: '/developers/recipes/monorepo',
             },
           ],
         },
@@ -115,6 +124,14 @@ export default defineConfig({
             {
               label: 'CLI',
               link: '/developers/reference/cli',
+            },
+            {
+              label: 'Preflight Styles',
+              link: '/developers/reference/preflight-styles',
+            },
+            {
+              label: 'Design Tokens Parser',
+              link: '/developers/reference/design-tokens',
             },
           ],
         },

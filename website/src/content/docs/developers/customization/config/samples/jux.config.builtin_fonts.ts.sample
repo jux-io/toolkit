@@ -1,0 +1,8 @@
+import { defineConfig } from '@juxio/cli';
+
+export default defineConfig({
+  /* ... */
+  builtInFonts: {
+    google: ['Inter', 'Poppins'],
+  },
+});

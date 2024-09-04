@@ -1,0 +1,13 @@
+import { defineConfig } from '@juxio/cli';
+
+export default defineConfig({
+  /* ... */
+  globalCss: {
+    'html, body': {
+      fontFamily: 'Inter, sans-serif',
+      margin: 0,
+      padding: 0,
+      boxSizing: 'border-box',
+    },
+  },
+});

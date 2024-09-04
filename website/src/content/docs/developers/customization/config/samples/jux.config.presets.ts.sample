@@ -1,0 +1,17 @@
+import { defineConfig } from '@juxio/cli';
+import baseConfig from '@acmecorp/base-jux-config';
+
+export default defineConfig({
+  /* ... */
+  presets: [baseConfig],
+
+  // Will be merged with the base config
+  core_tokens: {
+    color: {
+      brand_100: {
+        $value: '#0070f3',
+        $description: 'Primary brand color',
+      },
+    },
+  },
+});

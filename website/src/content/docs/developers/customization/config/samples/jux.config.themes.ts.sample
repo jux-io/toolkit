@@ -1,0 +1,40 @@
+import { defineConfig } from '@juxio/cli';
+
+export default defineConfig({
+  /* ... */
+  core_tokens: {
+    color: {
+      brand_100: {
+        $value: '#0070f3',
+        $description: 'Primary brand color',
+      },
+    },
+  },
+
+  themes: {
+    light: {
+      color: {
+        primary: {
+          $value: '{core.color.brand_100}',
+          $description: 'Primary color',
+        },
+        secondary: {
+          $value: '#f1f1f1',
+          $description: 'Primary color',
+        },
+      },
+    },
+    dark: {
+      color: {
+        primary: {
+          $value: '{core.color.brand_200}',
+          $description: 'Primary color',
+        },
+        secondary: {
+          $value: '#333',
+          $description: 'Primary color',
+        },
+      },
+    },
+  },
+});

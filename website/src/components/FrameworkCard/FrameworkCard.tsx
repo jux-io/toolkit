@@ -48,7 +48,6 @@ export const FrameworkCard = React.forwardRef<HTMLAnchorElement, Props>(
   function Card(props, ref) {
     return (
       <StyledCard href={props.href} ref={ref}>
-        {/*<span>{props.title}</span>*/}
         <div className={logoContainer}>{props.children}</div>
         <span>{props.title}</span>
       </StyledCard>

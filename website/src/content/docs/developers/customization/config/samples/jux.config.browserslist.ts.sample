@@ -1,0 +1,6 @@
+import { defineConfig } from '@juxio/cli';
+
+export default defineConfig({
+  /* ... */
+  browserslist: ['> 5%', 'last 2 versions', 'not dead'],
+});
