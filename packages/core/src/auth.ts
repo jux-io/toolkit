@@ -2,7 +2,7 @@ import clc from 'cli-color';
 import { errors, Issuer, TokenSet } from 'openid-client';
 import open from 'open';
 import * as util from 'util';
-import { prompt } from 'enquirer';
+import enquirer from 'enquirer';
 import { logger } from './utils';
 import type { UserTokens } from './config';
 import { getCliConfigEnv } from './config';
@@ -57,7 +57,7 @@ export const auth = async (): Promise<UserTokens | null> => {
   const { verification_uri_complete, user_code, expires_in } = handle;
 
   // User Interaction - https://tools.ietf.org/html/rfc8628#section-3.3
-  await prompt([
+  await enquirer.prompt([
     {
       type: 'invisible',
       name: 'prompt',

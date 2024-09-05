@@ -10,7 +10,7 @@ import { type TokenInfo, TokenParser, TokenTypes } from './token-parser';
 import { underscore } from '../utils';
 import { getCategoryByCssProperty } from '../utils/get-category-by-css-property';
 import camelCase from 'lodash/camelCase';
-import { groupBy } from 'lodash';
+import lodash from 'lodash';
 
 export interface TokensView {
   cssVars: Map<string, Map<string, DesignTokenValue>>;
@@ -101,7 +101,7 @@ export class TokensManager {
     const byCategory = new Map<keyof Tokens, TokenParser[]>();
     // Add to category map
     Object.entries(
-      groupBy<TokenParser>(
+      lodash.groupBy<TokenParser>(
         Array.from(this.tokensMap.values()).filter((t) => t.category),
         (t) => t.category
       )
@@ -134,7 +134,7 @@ export class TokensManager {
     const view: Record<string, Record<string, DesignTokenValue>> = {};
 
     Object.entries(
-      groupBy(
+      lodash.groupBy(
         Array.from(this.tokensMap.values()).filter((t) => !t.isCore),
         // In non-core tokens, the first path is the theme name
         (t) => t.path[0]
@@ -184,7 +184,7 @@ export class TokensManager {
     const view: Record<string, Record<string, DesignTokenValue>> = {};
 
     Object.entries(
-      groupBy(
+      lodash.groupBy(
         Array.from(this.tokensMap.values()).filter(
           (t) => !t.isCore && t.isComposite
         ),
@@ -214,7 +214,7 @@ export class TokensManager {
     const byCategory = new Map<keyof Tokens, TokenParser[]>();
     // Add to category map
     Object.entries(
-      groupBy<TokenParser>(
+      lodash.groupBy<TokenParser>(
         Array.from(this.tokensMap.values()).filter(
           (t) => t.isComposite && t.category
         ),

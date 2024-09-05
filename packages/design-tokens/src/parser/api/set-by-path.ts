@@ -1,4 +1,4 @@
-import { set } from 'lodash';
+import lodash from 'lodash';
 import { DesignToken, DesignTokens, DesignTokenValue } from '../../types';
 
 export const setByPath = ({
@@ -9,4 +9,4 @@ export const setByPath = ({
   readonly tokenSet: DesignTokens;
   tokenOrGroupPath: string;
   value: DesignTokens | DesignToken | DesignTokenValue;
-}) => set(tokenSet, tokenOrGroupPath, value);
+}) => lodash.set(tokenSet, tokenOrGroupPath, value);
