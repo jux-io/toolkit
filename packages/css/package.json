@@ -1,6 +1,6 @@
 {
   "name": "@juxio/css",
-  "version": "0.6.13",
+  "version": "0.6.12",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
