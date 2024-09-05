@@ -1,5 +1,5 @@
-import { flatten } from 'flat';
-import { get } from 'lodash';
+import flat from 'flat';
+import lodash from 'lodash';
 import {
   DesignToken,
   DesignTokenPrimitive,
@@ -194,7 +194,10 @@ export class DesignTokensParser {
    * @description Parses the raw tokens into a {@link ParsedTokenSet}.
    */
   private _parseRawTokens() {
-    const flatTokens = flatten<DesignTokens, Record<string, DesignTokenValue>>(
+    const flatTokens = flat.flatten<
+      DesignTokens,
+      Record<string, DesignTokenValue>
+    >(
       this._raw,
       // Using `safe: true` to preserve arrays and their contents https://github.com/hughsk/flat#safe
       { safe: true }
@@ -282,7 +285,7 @@ export class DesignTokensParser {
    */
   getTokenRawValue(path: string, recursive?: boolean): DesignTokenValue {
     const getRawValue = (p: string) =>
-      get(this._raw, p)?.$value as DesignTokenValue;
+      lodash.get(this._raw, p)?.$value as DesignTokenValue;
 
     let currentPath = path;
     let result;

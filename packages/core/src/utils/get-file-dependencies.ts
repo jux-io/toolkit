@@ -2,7 +2,7 @@ import { TSConfig } from 'pkg-types';
 import fs from 'fs';
 import path, { posix, sep } from 'path';
 import ts from 'typescript';
-import { omit } from 'lodash';
+import lodash from 'lodash';
 
 // adapted from
 
@@ -105,7 +105,7 @@ function resolveWithExtension(file: string, extensions: string[]) {
 function getDependencies(options: GetDependenciesOptions, fromAlias?: string) {
   const { filename, seen } = options;
 
-  const compilerOptions = omit(options.compilerOptions ?? {}, [
+  const compilerOptions = lodash.omit(options.compilerOptions ?? {}, [
     'moduleResolution',
   ]);
 

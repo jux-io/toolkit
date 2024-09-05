@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import lodash from 'lodash';
 import { DesignTokens } from '../../types';
 
 export const getByPath = ({
@@ -7,4 +7,4 @@ export const getByPath = ({
 }: {
   readonly tokenSet: DesignTokens;
   tokenOrGroupPath?: string;
-}) => (tokenOrGroupPath ? get(tokenSet, tokenOrGroupPath) : tokenSet);
+}) => (tokenOrGroupPath ? lodash.get(tokenSet, tokenOrGroupPath) : tokenSet);

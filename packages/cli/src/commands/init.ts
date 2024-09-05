@@ -1,5 +1,5 @@
 import { Flags } from '@oclif/core';
-import { prompt } from 'enquirer';
+import enquirer from 'enquirer';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import ora from 'ora';
@@ -73,7 +73,7 @@ export default class Init extends JuxCommand<typeof Init> {
       let answer = true;
       if (existsSync(resolve(cwd, 'postcss.config.js'))) {
         answer = (
-          await prompt<{ confirm: boolean }>({
+          await enquirer.prompt<{ confirm: boolean }>({
             type: 'confirm',
             name: 'confirm',
             message: 'A postcss.config.js file already exists. Overwrite?',
