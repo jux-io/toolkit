@@ -1,4 +1,4 @@
-import { type DesignTokenValue } from '@juxio/design-tokens';
+import { CORE, type DesignTokenValue } from '@juxio/design-tokens';
 import { type Tokens } from '../config';
 import { getCssVariableName } from './get-css-variable-name';
 import { transformDesignTokenValueToCss } from './transform-design-token-value-to-css';
@@ -20,7 +20,7 @@ export enum TokenTypes {
   COMPOSITE = 'composite',
 }
 
-export const CORE_TOKEN_IDENTIFIER = 'core';
+export const CORE_TOKEN_IDENTIFIER = CORE;
 
 export class TokenParser {
   name: TokenInfo['name'];
