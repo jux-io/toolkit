@@ -1,5 +1,11 @@
 # @juxio/design-tokens
 
+## 0.6.13
+
+### Patch Changes
+
+- [#67](https://github.com/jux-io/toolkit/pull/67) [`cd778ee`](https://github.com/jux-io/toolkit/commit/cd778ee04bcee5bbaae05d3e87e900e5aba77d78) Thanks [@tnipri](https://github.com/tnipri)! - added a function to generate default structured token set
+
 ## 0.6.12
 
 ## 0.6.11
