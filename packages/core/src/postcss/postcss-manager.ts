@@ -8,7 +8,7 @@ import {
   getFileDependencies,
 } from '../utils/get-file-dependencies';
 import { convertTsPathsToRegexes } from '../utils/ts-config-paths';
-import { findConfig } from '../config/find-config';
+import { findConfig } from '../config';
 import { parseDependencies } from '../utils/parse-dependencies.ts';
 import { LAYERS } from '../stylesheet';
 import { inJsTransform } from '../utils/in-js-transform.ts';

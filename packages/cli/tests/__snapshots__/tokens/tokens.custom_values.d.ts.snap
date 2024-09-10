@@ -1,4 +1,4 @@
-import '@juxio/css/tokens';
+import '@juxio/css/types';
 
 export type ColorToken = '{core.color.brand_100}' | '{color.+1}';
 
@@ -22,12 +22,21 @@ export type FontWeightToken =
   | '{core.typography.12_bold.fontWeight}'
   | '{typography.12_bold.fontWeight}';
 
-declare module '@juxio/css/tokens' {
+declare module '@juxio/css/types' {
   export interface Tokens {
     color: ColorToken;
     typography: TypographyToken;
     dimension: DimensionToken;
     fontFamily: FontFamilyToken;
     fontWeight: FontWeightToken;
+  }
+
+  export interface Utilities {
+    typography?: TypographyToken;
+    my_custom_css?: 'some_value' | 'another_value';
+  }
+
+  export interface Conditions {
+    screens: ['sm', 'md', 'lg', 'xl'];
   }
 }

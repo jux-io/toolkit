@@ -36,13 +36,11 @@ export default class PullComponents extends JuxCommand<typeof PullComponents> {
 
     const internalConfig = getAndVerifyInternalConfig(this.config.configDir);
 
-    const ctx = await getConfigContext(
-      {
-        cwd: flags.cwd,
-      },
-      this.config,
-      internalConfig
-    );
+    const ctx = await getConfigContext({
+      cwd: flags.cwd,
+      oclifConfig: this.config,
+      internalConfig,
+    });
 
     if (!ctx.cliConfig.components_directory) {
       throw new Error(

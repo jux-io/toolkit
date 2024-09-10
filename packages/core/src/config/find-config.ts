@@ -1,10 +1,10 @@
 import findUp from 'escalade/sync';
-import { LoadConfigOptions } from './load-config';
+import { GetConfigContextOptions } from './load-config';
 
 const configFiles = new Set(['jux.config.ts', 'jux.config.js']);
 
 export function findConfig(
-  options: LoadConfigOptions = {
+  options: GetConfigContextOptions = {
     cwd: process.cwd(),
   }
 ) {

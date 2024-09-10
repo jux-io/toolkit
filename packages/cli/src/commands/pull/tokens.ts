@@ -37,13 +37,11 @@ export default class PullTokens extends JuxCommand<typeof PullTokens> {
 
     const internalConfig = getAndVerifyInternalConfig(this.config.configDir);
 
-    const ctx = await getConfigContext(
-      {
-        cwd: flags.cwd,
-      },
-      this.config,
-      internalConfig
-    );
+    const ctx = await getConfigContext({
+      cwd: flags.cwd,
+      oclifConfig: this.config,
+      internalConfig,
+    });
 
     if (!ctx.cliConfig.tokens_directory) {
       throw new Error('tokens_directory should be defined in jux.config');

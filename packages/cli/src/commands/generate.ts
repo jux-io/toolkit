@@ -21,12 +21,10 @@ export default class Generate extends JuxCommand<typeof Generate> {
   async run() {
     const { flags } = await this.parse(Generate);
 
-    const ctx = await getConfigContext(
-      {
-        cwd: flags.cwd,
-      },
-      this.config
-    );
+    const ctx = await getConfigContext({
+      cwd: flags.cwd,
+      oclifConfig: this.config,
+    });
 
     const assets = await ctx.generateAssets();
 

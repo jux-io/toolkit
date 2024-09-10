@@ -8,6 +8,3 @@ export * from './auth';
 export * from './postcss';
 
 export { AxiosError } from 'axios';
-
-export { default as webpackPlugin } from './plugin/webpack';
-export { default as vitePlugin } from './plugin/vite';

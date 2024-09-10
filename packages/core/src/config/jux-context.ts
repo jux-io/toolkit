@@ -16,6 +16,8 @@ import { TSConfig } from 'pkg-types';
 import fastDeepEqual from 'fast-deep-equal';
 import { ConfigNotFoundError } from '../utils/exceptions';
 import { loadCliConfig } from './load-cli-config.ts';
+import { UtilitiesManager } from '../utilities/utilities-manager.ts';
+import { ConditionsManager } from '../conditions/conditions-manager.ts';
 
 interface PullAssetsOptions {
   components: string[];
@@ -26,6 +28,16 @@ export class JuxContext {
    * Responsible for parsing and managing tokens
    */
   public tokens: TokensManager;
+
+  /**
+   * Responsible for managing utilities functions (custom css properties)
+   */
+  public utilities: UtilitiesManager;
+
+  /**
+   * Responsible for managing conditions as css properties
+   */
+  public conditions: ConditionsManager;
 
   /**
    * For reading and writing files
@@ -45,7 +57,7 @@ export class JuxContext {
   /**
    * The path to the config file
    */
-  private readonly configPath: string;
+  public readonly configPath: string;
 
   /**
    * The working directory. It's the directory where jux.config.ts is located
@@ -70,6 +82,16 @@ export class JuxContext {
       core: config.cliConfig.core_tokens ?? {},
       ...config.cliConfig.themes,
     });
+
+    this.utilities = new UtilitiesManager({
+      utilities: config.cliConfig.utilities ?? {},
+      tokens: this.tokens,
+    });
+
+    this.conditions = new ConditionsManager({
+      screens: config.cliConfig.screens ?? {},
+    });
+
     this.cliConfig = config.cliConfig;
     this.configPath = config.configPath;
     this.environmentConfig = config.environmentConfig;
@@ -114,7 +136,7 @@ export class JuxContext {
 
     const set = new Set<string>();
 
-    set.add(`import '@juxio/css/tokens';`);
+    set.add(`import '@juxio/css/types';`);
 
     for (const [name, token] of this.tokens.getTokensByCategory()) {
       set.add(
@@ -125,14 +147,20 @@ export class JuxContext {
       );
     }
 
-    set.add(`declare module '@juxio/css/tokens' {
+    const tokenTypes = Array.from(this.tokens.getTokensByCategory().keys())
+      .map((name) => {
+        return `${camelCase(name)}: ${capitalize(name)}Token;`;
+      })
+      .join('\n');
+
+    set.add(`declare module '@juxio/css/types' {
           export interface Tokens {
-              ${Array.from(this.tokens.getTokensByCategory().keys())
-                .map((name) => {
-                  return `${camelCase(name)}: ${capitalize(name)}Token;`;
-                })
-                .join('\n')}
-      }
+              ${tokenTypes}
+          }
+          
+          ${this.utilities.isEmpty ? '' : this.utilities.getUtilitiesTypeDeclaration()}
+          
+          ${this.conditions.isEmpty ? '' : this.conditions.getConditionsTypeDeclaration()}
     }`);
 
     return [

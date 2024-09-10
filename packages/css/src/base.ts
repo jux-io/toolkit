@@ -37,6 +37,11 @@ export type CSSProperties = CSS.PropertiesFallback<number | string>;
 
 export type BaseProps = Record<string, any>;
 
+export type FlattenArrays<T> = {
+  [K in keyof T]: T[K] extends readonly (infer U)[] ? U : never;
+}[keyof T] &
+  (string | number | symbol);
+
 /**
  * Represents a type that omits properties of type `U` from type `T`.
  *
@@ -155,6 +160,12 @@ export type Prefix<
   T,
 > = `${K}${Extract<T, boolean | number | string>}`;
 
+type AnySelector =
+  | `${string}&`
+  | `&${string}`
+  | `[${string}]`
+  | `${CSS.AtRules}${string}`;
+
 /**
  * Represents a type that extends CSS properties with custom values and functions.
  * This type is useful for defining CSS properties that can accept custom token values and
@@ -163,23 +174,29 @@ export type Prefix<
  * @returns A type that includes CSS properties with custom values, pseudo-classes, and additional custom types.
  */
 export type CSSPropertiesWithCustomValues<
-  Props extends BaseProps = EmptyObject,
-  CustomTokensValues extends CSSProperties = object,
-  CustomTypes = object,
+  BaseStyles extends CSSProperties = CSSProperties,
+  Utilities extends BaseProps = EmptyObject,
+  Conditions extends BaseProps = EmptyObject,
 > = {
-  [K in keyof CSSProperties]: CustomTokensValues[K];
-} & {
-  [K in Prefix<'&', CSS.Pseudos>]?: CSSPropertiesWithCustomValues<
-    Props,
-    CustomTokensValues,
-    CustomTypes
-  >;
-} & CustomTypes & {
-    [K: string]:
-      | number
-      | string
-      | CSSPropertiesWithCustomValues<Props, CustomTokensValues, CustomTypes>
-      | undefined;
+  [K in keyof CSSProperties]: BaseStyles[K];
+} & Utilities & {
+    [K in Prefix<'&', CSS.Pseudos>]?: CSSPropertiesWithCustomValues<
+      BaseStyles,
+      Utilities,
+      Conditions
+    >;
+  } & {
+    [K in AnySelector]?: CSSPropertiesWithCustomValues<
+      BaseStyles,
+      Utilities,
+      Conditions
+    >;
+  } & {
+    [K in FlattenArrays<Conditions>]?: CSSPropertiesWithCustomValues<
+      BaseStyles,
+      Utilities,
+      Conditions
+    >;
   };
 
 export type StyleArguments = {

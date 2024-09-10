@@ -6,7 +6,7 @@
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
-    "tokens",
+    "types",
     "processors",
     "package.json"
   ],
@@ -27,10 +27,10 @@
       "require": "./dist/index.js"
     },
     "./package.json": "./package.json",
-    "./tokens": {
-      "types": "./tokens/index.d.ts",
-      "require": "./tokens/index.js",
-      "import": "./tokens/index.mjs"
+    "./types": {
+      "types": "./types/index.d.ts",
+      "require": "./types/index.js",
+      "import": "./types/index.mjs"
     },
     "./processor": {
       "require": "./processors/css.js",

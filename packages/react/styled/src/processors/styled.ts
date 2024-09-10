@@ -16,7 +16,7 @@ import { CSSPropertiesWithCustomValues, css } from '@juxio/css';
 import path from 'node:path';
 import { TokensManager } from '@juxio/core';
 
-// TODO: Duplicate type definition
+// TODO: Duplicate type definition with css processor
 export type ExtendedOptions = IOptions & {
   tokens: TokensManager;
 };
