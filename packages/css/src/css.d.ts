@@ -1,27 +1,21 @@
-/**
- * CSS function that returns a string of class name.
- */
-
 import {
   CSSPropertiesWithCustomValues,
   CSSProperties,
   CustomTokensValues,
-  CustomTypes,
   Merge,
 } from './base';
 
-import { Tokens } from './tokens';
+import type { Conditions, Tokens, Utilities } from '@juxio/css/types';
 
-export interface CSS {
-  (
-    styles: CSSPropertiesWithCustomValues<
-      object,
-      Merge<CSSProperties, CustomTokensValues<Tokens>>,
-      CustomTypes<Tokens>
-    >
-  ): string;
+export type CSS = (
+  styles: CSSPropertiesWithCustomValues<
+    Merge<CSSProperties, CustomTokensValues<Tokens>>,
+    Utilities,
+    Conditions
+  >
+) => string;
 
-  (styles: CSSPropertiesWithCustomValues): string;
-}
-
+/**
+ * CSS function that returns a string of class name.
+ */
 export declare const css: CSS;

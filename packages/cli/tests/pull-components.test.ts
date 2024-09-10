@@ -19,7 +19,7 @@ describe('jux pull components', () => {
     fs.mkdirSync(testsOutputDir, { recursive: true });
 
     fs.copySync(
-      join(root, 'tests', '__snapshots__', 'jux.config.pull.ts.snap'),
+      join(root, 'tests', '__snapshots__', 'jux.config.pull.ts.sample'),
       join(testsOutputDir, 'jux.config.ts')
     );
 

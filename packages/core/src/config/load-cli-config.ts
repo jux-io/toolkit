@@ -4,7 +4,7 @@ import { bundleRequire } from 'bundle-require';
 import type { JuxCLIConfig, PresetConfig } from './config.types.ts';
 import { colorScheme, logger } from '../utils';
 import {
-  LoadConfigOptions,
+  GetConfigContextOptions,
   LoadConfigRes,
   rawConfigSchema,
 } from './load-config.ts';
@@ -27,7 +27,7 @@ async function require<T>(options: {
  */
 export async function resolveFinalConfig(
   config: JuxCLIConfig,
-  options: LoadConfigOptions & { tsConfig?: TSConfig }
+  options: GetConfigContextOptions & { tsConfig?: TSConfig }
 ): Promise<JuxCLIConfig> {
   const stack: JuxCLIConfig[] = [config];
   const configs: JuxCLIConfig[] = [];
@@ -69,7 +69,7 @@ export async function resolveFinalConfig(
 }
 
 export async function loadCliConfig(
-  options: LoadConfigOptions & { tsConfig?: TSConfig }
+  options: GetConfigContextOptions & { tsConfig?: TSConfig }
 ): Promise<Pick<LoadConfigRes, 'cliConfig' | 'configPath'> | undefined> {
   const configPath = findConfig(options);
 

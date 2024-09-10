@@ -52,7 +52,7 @@ export function parseRawStyleObject(
     }
 
     // This is not a composite token, so we need to transform the value to CSS
-    // Check if the value contains an alias token path, and check if it exist so we can give warning to user
+    // Check if the value contains an alias token path, and check if it exists so we can give warning to user
     if (typeof value === 'string') {
       const resolved = resolveTokenValue(value, (valuePath) => {
         const parsedToken = Array.from(tokensManager.tokensMap.values()).find(

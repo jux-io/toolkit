@@ -1,3 +1,5 @@
+// This is the configuration file being used in the test
+
 import { defineConfig } from '@juxio/cli';
 
 export default defineConfig({
@@ -15,6 +17,34 @@ export default defineConfig({
       padding: 0,
       boxSizing: 'border-box',
     },
+  },
+
+  screens: {
+    sm: '640px',
+    md: '768px',
+    lg: '1024px',
+    xl: '1280px',
+  },
+
+  utilities: {
+    typography: {
+      acceptedValues: {
+        category: 'typography'
+      },
+      transform: (value) => {
+        return {
+          color: value
+        }
+      }
+    },
+    my_custom_css: {
+      acceptedValues: ['some_value', 'another_value'],
+      transform: (value) => {
+        return {
+          color: value
+        }
+      }
+    }
   },
 
   components_directory: './src/jux/components',

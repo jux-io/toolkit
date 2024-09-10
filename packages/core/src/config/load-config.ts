@@ -28,8 +28,11 @@ export interface LoadConfigRes {
   apiConfig: APIConfig;
 }
 
-export interface LoadConfigOptions {
+export interface GetConfigContextOptions {
   cwd: string; // The current directory to load the config from
+  cliConfig?: JuxCLIConfig; // The CLI config object
+  oclifConfig?: Config; // The oclif config object
+  internalConfig?: JuxInternalCliConfig; // The internal config object (authentication info, in case context should communicate with Jux APIs)
 }
 
 export interface LoadTsConfigRes {
@@ -66,11 +69,7 @@ export const rawConfigSchema = z.object({
   themes: z.record(z.string(), tokensSchema),
 });
 
-export async function getConfigContext(
-  options: LoadConfigOptions,
-  oclifConfig?: Config,
-  internalConfig?: JuxInternalCliConfig
-) {
+export async function getConfigContext(options: GetConfigContextOptions) {
   const tsConfigRes: LoadTsConfigRes | null = loadTsConfig(options.cwd);
 
   const loadConfigRes = await loadCliConfig({
@@ -86,8 +85,8 @@ export async function getConfigContext(
 
   const result: LoadConfigRes = {
     ...loadConfigRes,
-    environmentConfig: oclifConfig,
-    internalConfig,
+    environmentConfig: options.oclifConfig,
+    internalConfig: options.internalConfig,
     tsconfig: tsConfigRes
       ? {
           data: tsConfigRes.data,

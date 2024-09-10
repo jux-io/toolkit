@@ -47,11 +47,35 @@ export interface APIConfig {
 
 export type Themes = Record<string, Tokens>;
 
+export type Utilities = Record<
+  string,
+  {
+    acceptedValues: string[] | { category: DesignTokenType };
+    transform: (value: string) => CSS.Properties;
+  }
+>;
+
+export type Screen =
+  | { raw: string }
+  | { min: string }
+  | { max: string }
+  | { min: string; max: string };
+
 export interface PresetCore {
   /**
    * Global CSS styles to apply
    */
   globalCss?: GlobalCssStyles;
+
+  /**
+   * An object of breakpoints to use
+   */
+  screens?: Record<string, string | Screen>;
+
+  /**
+   * Utilities to use as custom CSS properties
+   */
+  utilities?: Utilities;
 
   /**
    * Built in fonts to use. Currently only supports Google Fonts
