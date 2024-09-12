@@ -1,5 +1,21 @@
 # @juxio/cli
 
+## 0.7.0
+
+### Patch Changes
+
+- [#73](https://github.com/jux-io/toolkit/pull/73) [`6c0bffe`](https://github.com/jux-io/toolkit/commit/6c0bffec652473d385a40fc4ce27733290c6c96e) Thanks [@tnipri](https://github.com/tnipri)! - Added option to generate css files through CLI
+
+  `npx jux generate css -o ./dist/file.css`
+
+- [#73](https://github.com/jux-io/toolkit/pull/73) [`6c0bffe`](https://github.com/jux-io/toolkit/commit/6c0bffec652473d385a40fc4ce27733290c6c96e) Thanks [@tnipri](https://github.com/tnipri)! - added an option to generate type definitions to a specific directory
+
+  `npx jux generate --directory=./types`
+
+- Updated dependencies [[`6c0bffe`](https://github.com/jux-io/toolkit/commit/6c0bffec652473d385a40fc4ce27733290c6c96e), [`6c0bffe`](https://github.com/jux-io/toolkit/commit/6c0bffec652473d385a40fc4ce27733290c6c96e)]:
+  - @juxio/core@0.7.0
+  - @juxio/design-tokens@0.7.0
+
 ## 0.6.13
 
 ### Patch Changes
