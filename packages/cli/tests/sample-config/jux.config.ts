@@ -1,8 +1,6 @@
 // This is the configuration file being used in the test
 
-import { defineConfig } from '@juxio/cli';
-
-export default defineConfig({
+export default {
   /* Whether to apply preflight styles */
   preflight: true,
 
@@ -27,24 +25,22 @@ export default defineConfig({
   },
 
   utilities: {
-    typography: {
-      acceptedValues: {
-        category: 'typography'
-      },
-      transform: (value) => {
-        return {
-          color: value
-        }
-      }
-    },
-    my_custom_css: {
+    fixed_values: {
       acceptedValues: ['some_value', 'another_value'],
       transform: (value) => {
         return {
-          color: value
-        }
-      }
-    }
+          color: value,
+        };
+      },
+    },
+    token_category: {
+      acceptedValues: { category: 'border' },
+      transform: (value) => {
+        return {
+          color: value,
+        };
+      },
+    },
   },
 
   components_directory: './src/jux/components',
@@ -108,4 +104,4 @@ export default defineConfig({
       },
     },
   },
-});
+};

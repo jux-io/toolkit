@@ -2,13 +2,9 @@ import type { TSConfig } from 'pkg-types';
 import { findConfig } from './find-config.ts';
 import { bundleRequire } from 'bundle-require';
 import type { JuxCLIConfig, PresetConfig } from './config.types.ts';
-import { colorScheme, logger } from '../utils';
-import {
-  GetConfigContextOptions,
-  LoadConfigRes,
-  rawConfigSchema,
-} from './load-config.ts';
+import { GetConfigContextOptions, LoadConfigRes } from './load-config.ts';
 import deepmerge from 'deepmerge';
+import { baseUtilities } from '../utilities/base-utilities';
 
 async function require<T>(options: {
   filepath: string;
@@ -65,6 +61,12 @@ export async function resolveFinalConfig(
   finalConfig.themes = finalConfig.themes ?? {};
   finalConfig.include = finalConfig.include ?? [];
 
+  // Add default utility values
+  finalConfig.utilities = {
+    ...baseUtilities,
+    ...finalConfig.utilities,
+  };
+
   return finalConfig;
 }
 
@@ -92,18 +94,6 @@ export async function loadCliConfig(
   }
 
   const cliConfig = await resolveFinalConfig(mod.default, options);
-
-  const parseResult = rawConfigSchema.safeParse(cliConfig);
-
-  if (!parseResult.success) {
-    parseResult.error.errors.forEach((error) => {
-      logger.error(
-        `Config error in ${colorScheme.debug(error.path.join('.'))}: ${error.message}`
-      );
-    });
-
-    throw new Error('Invalid config file');
-  }
 
   return {
     cliConfig,

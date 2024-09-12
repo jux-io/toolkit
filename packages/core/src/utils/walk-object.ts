@@ -1,21 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-interface REPLACE_VALUE {
+export interface REPLACE_VALUE {
   type: 'replace';
   value: any;
   key?: string;
 }
 
-interface REMOVE_VALUE {
+export interface REMOVE_VALUE {
   type: 'remove';
 }
 
-interface MERGE_WITH_PARENT {
+export interface MERGE_WITH_PARENT {
   type: 'merge_with_parent';
   value: any;
 }
 
-interface ADD_VALUES {
+export interface ADD_VALUES {
   type: 'add_values';
   value: any;
 }

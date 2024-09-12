@@ -8,17 +8,25 @@ import {
   ValueCache,
 } from '@wyw-in-js/processor-utils';
 import { Expression } from '@babel/types';
-import { colorScheme, logger, stringifyCssObject } from '@juxio/core';
 import { Rules, ValueType } from '@wyw-in-js/shared';
 import { StylesDefinition } from '../styled';
-import { parseRawStyleObject } from '@juxio/core';
 import { CSSPropertiesWithCustomValues, css } from '@juxio/css';
 import path from 'node:path';
-import { TokensManager } from '@juxio/core';
+import {
+  logger,
+  colorScheme,
+  ConditionsManager,
+  parseRawStyleObject,
+  stringifyCssObject,
+  TokensManager,
+  UtilitiesManager,
+} from '@juxio/core';
 
 // TODO: Duplicate type definition with css processor
 export type ExtendedOptions = IOptions & {
   tokens: TokensManager;
+  utilities: UtilitiesManager;
+  conditions: ConditionsManager;
 };
 
 export class StyledProcessor extends BaseProcessor {
@@ -107,18 +115,25 @@ export class StyledProcessor extends BaseProcessor {
     className: string,
     styleObject: CSSPropertiesWithCustomValues
   ) {
-    const { tokens } = this.options as ExtendedOptions;
+    const { tokens, utilities, conditions } = this.options as ExtendedOptions;
 
     return {
-      [`${className}`]: parseRawStyleObject(
+      [`${className}`]: parseRawStyleObject({
         tokens,
-        styleObject,
-        (cssKey, value) => {
+        utilities,
+        conditions,
+        baseStyles: styleObject,
+        onTokenNotFound: (cssKey, value, valuePath) => {
           logger.warn(
-            `[${colorScheme.debug(path.basename(this.context.filename!))}]: Token value ${colorScheme.input(cssKey)}: "${colorScheme.input(value)}" was not found in ${colorScheme.debug(this.displayName)} function`
+            `[${colorScheme.debug(`${path.basename(this.context.filename!)} > ${this.displayName}`)}]: Token value ${colorScheme.debug(valuePath)} was not found in ${colorScheme.input(cssKey)}: "${colorScheme.input(value)}"`
           );
-        }
-      ),
+        },
+        onError: (msg) => {
+          logger.warn(
+            `[${colorScheme.debug(`${path.basename(this.context.filename!)} > ${this.displayName}`)}]: ${msg}`
+          );
+        },
+      }),
     };
   }
 

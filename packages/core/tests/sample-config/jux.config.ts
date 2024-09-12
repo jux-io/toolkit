@@ -1,3 +1,5 @@
+import { JuxCLIConfig } from '../../src';
+
 export default {
   /* Whether to apply preflight styles */
   preflight: true,
@@ -6,6 +8,32 @@ export default {
   include: ['./src/**/*.{js,jsx,ts,tsx}', './pages/**/*.{ts,tsx}'],
 
   exclude: [],
+
+  screens: {
+    desktop: {
+      min: '768px',
+      max: '1024px',
+    },
+    mobile: {
+      max: '767px',
+    },
+    tablet: '40rem',
+    custom_screen: {
+      raw: '@media (orientation: landscape)',
+    },
+  },
+
+  utilities: {
+    mx: {
+      transform: (value: string[]) => {
+        const [val] = value;
+        return {
+          marginLeft: val,
+          marginRight: val,
+        };
+      },
+    },
+  },
 
   globalCss: {
     '*': {
@@ -22,6 +50,25 @@ export default {
       fontSize: '16px',
       color: '#111827',
       backgroundColor: '#FFF',
+    },
+    body: {
+      tablet: {
+        backgroundColor: 'red',
+      },
+      desktop: {
+        backgroundColor: '{core.color.brand_200}',
+        mx: '12px',
+      },
+      mobile: {
+        backgroundColor: '{core.color.brand_100}',
+        typography: '{core.typography.12_bold}',
+        mx: '{core.dimension.spacing_100}',
+      },
+      custom_screen: {
+        margin: '{color.primary}',
+        typography: '{typography.header}',
+        mx: '{non-existent}',
+      },
     },
   },
 
@@ -66,6 +113,17 @@ export default {
   /* The tokens and themes for the design system */
   themes: {
     light: {
+      typography: {
+        header: {
+          $value: {
+            fontSize: '{core.dimension.spacing_100}',
+            fontFamily: 'Inter',
+            fontWeight: '700',
+            lineHeight: '16px',
+            letterSpacing: '12px',
+          },
+        },
+      },
       color: {
         primary: {
           $value: '{core.color.brand_100}',
@@ -85,6 +143,17 @@ export default {
       },
     },
     dark: {
+      typography: {
+        header: {
+          $value: {
+            fontSize: '{core.dimension.spacing_100}',
+            fontFamily: 'Inter',
+            fontWeight: '700',
+            lineHeight: '16px',
+            letterSpacing: '12px',
+          },
+        },
+      },
       color: {
         primary: {
           $value: '{core.color.brand_200}',
@@ -105,4 +174,4 @@ export default {
       },
     },
   },
-};
+} satisfies JuxCLIConfig;

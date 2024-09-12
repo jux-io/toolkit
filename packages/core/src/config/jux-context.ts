@@ -7,11 +7,9 @@ import { Config } from '@oclif/core';
 import path from 'path';
 import { FileManager } from '../fs';
 import { TokensManager } from '../tokens';
-import { arrayToUnionType, capitalize } from '../utils';
 import { outdent } from 'outdent';
 import { StylesheetManager } from '../stylesheet';
 import { parseRawTokenSets } from '../utils/parse-raw-token-sets';
-import camelCase from 'lodash/camelCase';
 import { TSConfig } from 'pkg-types';
 import fastDeepEqual from 'fast-deep-equal';
 import { ConfigNotFoundError } from '../utils/exceptions';
@@ -114,6 +112,8 @@ export class JuxContext {
       tokensManager: this.tokens,
       preflight: !!this.cliConfig.preflight,
       globalCss: this.cliConfig.globalCss,
+      utilitiesManager: this.utilities,
+      conditionsManager: this.conditions,
     });
   }
 
@@ -129,8 +129,8 @@ export class JuxContext {
     this.tokens = new TokensManager(tokens);
   }
 
-  public async generateTokensDefinitions(): Promise<Asset[]> {
-    if (!this.cliConfig.definitions_directory) {
+  public async generateTokensDefinitions(directory?: string): Promise<Asset[]> {
+    if (!directory && !this.cliConfig.definitions_directory) {
       throw new Error('definitions_directory is not defined in jux.config.ts');
     }
 
@@ -138,25 +138,12 @@ export class JuxContext {
 
     set.add(`import '@juxio/css/types';`);
 
-    for (const [name, token] of this.tokens.getTokensByCategory()) {
-      set.add(
-        `export type ${capitalize(name)}Token = ${arrayToUnionType(
-          // Remove duplicates
-          Array.from(new Set(token.map((t) => `{${t.finalizedTokenName}}`)))
-        )};`
-      );
-    }
+    const tokensDefinitions = this.tokens.getTokensDeclaration();
 
-    const tokenTypes = Array.from(this.tokens.getTokensByCategory().keys())
-      .map((name) => {
-        return `${camelCase(name)}: ${capitalize(name)}Token;`;
-      })
-      .join('\n');
+    set.add(tokensDefinitions.designTokenDefinitions);
 
     set.add(`declare module '@juxio/css/types' {
-          export interface Tokens {
-              ${tokenTypes}
-          }
+          ${this.tokens.isEmpty ? '' : tokensDefinitions.tokenTypes}
           
           ${this.utilities.isEmpty ? '' : this.utilities.getUtilitiesTypeDeclaration()}
           
@@ -165,7 +152,9 @@ export class JuxContext {
 
     return [
       {
-        directory: path.join(this.cwd, this.cliConfig.definitions_directory),
+        directory:
+          directory ??
+          path.join(this.cwd, this.cliConfig.definitions_directory!),
         files: [
           {
             name: 'tokens.d.ts',
@@ -247,8 +236,8 @@ export class JuxContext {
     ];
   }
 
-  public async generateAssets(): Promise<Asset[]> {
-    return [...(await this.generateTokensDefinitions())];
+  public async generateAssets(directory?: string): Promise<Asset[]> {
+    return [...(await this.generateTokensDefinitions(directory))];
   }
 
   public async pullAssets(options: PullAssetsOptions): Promise<Asset[]> {

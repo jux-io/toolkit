@@ -9,10 +9,16 @@ interface UtilitiesManagerOptions {
 }
 
 export class UtilitiesManager {
-  private utilities: Utilities;
+  public utilitiesConfig: Utilities;
+  public utilities = new Map<string, Utilities[string]>();
   private tokens: TokensManager;
   constructor(options: UtilitiesManagerOptions) {
-    this.utilities = options.utilities;
+    this.utilitiesConfig = options.utilities;
+
+    for (const [key, value] of Object.entries(this.utilitiesConfig)) {
+      this.utilities.set(key, value);
+    }
+
     this.tokens = options.tokens;
   }
 
@@ -20,26 +26,28 @@ export class UtilitiesManager {
    * Get the type declaration for the utilities
    */
   public getUtilitiesTypeDeclaration(): string {
-    const values = Object.entries(this.utilities)
+    const values = Object.entries(this.utilitiesConfig)
       .map(([key, value]) => {
         if (Array.isArray(value.acceptedValues)) {
           return `${key}?: ${value.acceptedValues.map((v) => `'${v}'`).join(' | ')};`;
         }
 
-        if (value.acceptedValues.category) {
+        if (value.acceptedValues?.category) {
           return `${key}?: ${capitalize(value.acceptedValues.category)}Token;`;
         }
+
+        return `${key}?: string`;
       })
       .join('\n');
 
     return outdent`
         export interface Utilities {
-        ${values}
+            ${values}
         }
       `;
   }
 
   get isEmpty(): boolean {
-    return Object.keys(this.utilities).length === 0;
+    return Object.keys(this.utilitiesConfig).length === 0;
   }
 }

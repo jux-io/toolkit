@@ -14,4 +14,8 @@ declare module '@juxio/css/types' {
     color: ColorToken;
     dimension: DimensionToken;
   }
+
+  export interface Utilities {
+    typography?: TypographyToken;
+  }
 }

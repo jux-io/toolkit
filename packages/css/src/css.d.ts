@@ -5,7 +5,7 @@ import {
   Merge,
 } from './base';
 
-import type { Conditions, Tokens, Utilities } from '@juxio/css/types';
+import { Conditions, Tokens, Utilities } from '@juxio/css/types';
 
 export type CSS = (
   styles: CSSPropertiesWithCustomValues<

@@ -1,4 +1,5 @@
 import {
+  DesignTokenValue,
   getAliasMatches,
   isAliasPattern,
   isMultiValues,
@@ -6,7 +7,7 @@ import {
 
 export const resolveTokenValue = (
   value: string,
-  resolveFn: (valuePath: string) => string
+  resolveFn: (valuePath: string) => string | DesignTokenValue[]
 ) => {
   // if value is a combination of multiple values, return a function that uses the theme
   // to resolve each value and returns the combined string

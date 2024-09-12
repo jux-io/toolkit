@@ -1,54 +1,56 @@
-import { BEFORE_PARENT, getCssVariableName, TokensManager } from '../tokens';
+import { getCssVariableName, TokensManager } from '../tokens';
 import { walkObject } from './walk-object';
-import { Tokens } from '../config';
-import { getAliasMatches } from '@juxio/design-tokens';
 import { transformDesignTokenValueToCss } from '../tokens/transform-design-token-value-to-css';
 import { resolveTokenValue } from './resolve-token-value';
+import { ConditionsManager } from '../conditions';
+import { UtilitiesManager } from '../utilities';
+import { getConditionValue } from './get-condition-value.ts';
+import { getUtilityValue } from './get-utility-value.ts';
+
+export interface ParseRawStyleObjectOptions {
+  tokens: TokensManager;
+  conditions: ConditionsManager;
+  utilities: UtilitiesManager;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  baseStyles: Record<string, any>;
+  onTokenNotFound?: (cssKey: string, value: string, valuePath: string) => void;
+  onError?: (msg: string) => void;
+}
 
 /**
- * Parses the styles given to css / styled function
+ * Parses the styles given to css / styled function and returns a valid CSS object
  */
-export function parseRawStyleObject(
-  tokensManager: TokensManager,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  baseStyles: Record<string, any>,
-  onTokenNotFound: (cssKey: string, value: string) => void
-) {
-  // We're creating classes for each composite tokens, so collect all composite tokens by category
-  const compositeTokens = tokensManager.getCompositeTokensByCategory();
-
+export function parseRawStyleObject({
+  tokens: tokensManager,
+  conditions: conditionsManager,
+  utilities: utilitiesManager,
+  baseStyles,
+  onTokenNotFound,
+  onError,
+}: ParseRawStyleObjectOptions) {
   return walkObject(baseStyles, (key, value) => {
-    if (compositeTokens.has(key as keyof Tokens)) {
-      const { valuePath } = getAliasMatches(value);
-      if (!valuePath) {
-        // if valuePath cannot be found, it means it does not contain any design token (required for composite tokens)
-        return { type: 'remove' };
-      }
+    const conditionValue = getConditionValue(
+      conditionsManager,
+      key,
+      value,
+      onError
+    );
 
-      const compositeToken = compositeTokens
-        .get(key as keyof Tokens)!
-        .filter((t) => t.finalizedTokenName === valuePath);
+    if (conditionValue) {
+      return conditionValue;
+    }
 
-      if (compositeToken.length === 0) {
-        // User used non-existing composite token
+    const utilityValue = getUtilityValue(
+      utilitiesManager,
+      tokensManager,
+      key,
+      value,
+      onError,
+      onTokenNotFound
+    );
 
-        onTokenNotFound?.(key, value);
-
-        return { type: 'remove' };
-      }
-
-      return {
-        type: 'merge_with_parent',
-        value:
-          compositeToken.length > 1
-            ? compositeToken
-                .map((t) => ({
-                  [`${BEFORE_PARENT}[data-jux-theme="${t.themeName}"]`]:
-                    t.cssVarValue,
-                }))
-                .reduce((acc, val) => ({ ...acc, ...val }), {})
-            : compositeToken[0].cssVarValue,
-      };
+    if (utilityValue) {
+      return utilityValue;
     }
 
     // This is not a composite token, so we need to transform the value to CSS
@@ -59,10 +61,10 @@ export function parseRawStyleObject(
           (t) => t.finalizedTokenName === valuePath
         );
         if (!parsedToken) {
-          onTokenNotFound?.(key, value);
+          onTokenNotFound?.(key, value, valuePath);
 
           // Token was not found, so just convert it to plain css variable
-          return `var(${getCssVariableName(value)})`;
+          return `var(${getCssVariableName(valuePath)})`;
         }
         return `var(${parsedToken.cssVar})`;
       });

@@ -2,7 +2,6 @@ import { Config } from '@oclif/core';
 import { type TSConfig } from 'pkg-types';
 // @ts-expect-error load-tsconfig is not typed
 import { loadTsConfig } from 'load-tsconfig';
-import { z } from 'zod';
 import { logger } from '../utils';
 import {
   type APIConfig,
@@ -12,9 +11,9 @@ import {
 import { validateConfig } from './validate-config';
 import { JuxContext } from './jux-context';
 import { getCliConfigEnv } from './get-and-verify-internal-config';
-import { DesignTokenTypeEnum } from '@juxio/design-tokens';
 import { ConfigNotFoundError } from '../utils/exceptions';
 import { loadCliConfig } from './load-cli-config.ts';
+import { getFullPath } from '../utils/get-full-path.ts';
 
 export interface LoadConfigRes {
   cliConfig: JuxCLIConfig;
@@ -40,45 +39,19 @@ export interface LoadTsConfigRes {
   data: TSConfig;
 }
 
-export const tokensSchema = z.object({
-  ...Object.values(DesignTokenTypeEnum).reduce(
-    (acc, curr) => {
-      acc[curr] = z.object({}).passthrough().optional();
-      return acc;
-    },
-    {} as Record<string, z.ZodType>
-  ),
-  $description: z.string().optional(),
-});
-
-export const rawConfigSchema = z.object({
-  preflight: z.boolean().optional().default(true),
-  globalCss: z.record(z.string(), z.any()).optional(),
-  builtInFonts: z
-    .object({
-      google: z.array(z.string()),
-    })
-    .optional(),
-  cssVarsRoot: z.string().optional(),
-  include: z.array(z.string()),
-  exclude: z.array(z.string()).optional(),
-  components_directory: z.string().optional(),
-  tokens_directory: z.string().optional(),
-  definitions_directory: z.string().optional(),
-  core_tokens: tokensSchema,
-  themes: z.record(z.string(), tokensSchema),
-});
-
 export async function getConfigContext(options: GetConfigContextOptions) {
-  const tsConfigRes: LoadTsConfigRes | null = loadTsConfig(options.cwd);
+  const cwd = getFullPath(options.cwd);
+
+  const tsConfigRes: LoadTsConfigRes | null = loadTsConfig(cwd);
 
   const loadConfigRes = await loadCliConfig({
     ...options,
+    cwd,
     tsConfig: tsConfigRes?.data,
   });
 
   if (!loadConfigRes) {
-    throw new ConfigNotFoundError(options.cwd!);
+    throw new ConfigNotFoundError(cwd);
   }
 
   const apiConfig = getCliConfigEnv();

@@ -33,7 +33,8 @@ declare module '@juxio/css/types' {
 
   export interface Utilities {
     typography?: TypographyToken;
-    my_custom_css?: 'some_value' | 'another_value';
+    fixed_values?: 'some_value' | 'another_value';
+    token_category?: BorderToken;
   }
 
   export interface Conditions {
