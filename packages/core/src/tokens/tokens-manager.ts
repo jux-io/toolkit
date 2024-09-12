@@ -7,10 +7,11 @@ import {
   isAlias,
 } from '@juxio/design-tokens';
 import { type TokenInfo, TokenParser, TokenTypes } from './token-parser';
-import { underscore } from '../utils';
+import { arrayToUnionType, underscore } from '../utils';
 import { getCategoryByCssProperty } from '../utils/get-category-by-css-property';
 import camelCase from 'lodash/camelCase';
 import lodash from 'lodash';
+import { outdent } from 'outdent';
 
 export interface TokensView {
   cssVars: Map<string, Map<string, DesignTokenValue>>;
@@ -40,11 +41,11 @@ export class TokensManager {
 
       // Get the raw, original value of the token (an alias or a value)
       // in case it's an alias, it can point to either a value or a composite token
-      let originalValue = rawValuesMap[token];
+      let rawValue = rawValuesMap[token];
 
-      if (isAlias(originalValue)) {
+      if (isAlias(rawValue)) {
         const rawTokenValue = this.parsedTokens.getTokenRawValue(
-          getAliasMatches(originalValue).valuePath,
+          getAliasMatches(rawValue).valuePath,
           true
         );
 
@@ -52,7 +53,7 @@ export class TokensManager {
           // We do this because in composite tokens (like typography), the value is an object and does not represent a single value
           // we can reference using var(--token-name), so we need to create a class for it. To do it properly, we need to keep the
           // original value of the token (recursively)
-          originalValue = rawTokenValue;
+          rawValue = rawTokenValue;
         }
       }
 
@@ -64,7 +65,7 @@ export class TokensManager {
             : TokenTypes.COMPOSITE,
         path,
         value: parsedTokens[token],
-        originalValue: originalValue,
+        rawValue: rawValue,
         category,
       };
 
@@ -73,13 +74,17 @@ export class TokensManager {
       // add tokens for individual values in composite tokens
       if (tokenInfo.type === TokenTypes.COMPOSITE) {
         Object.entries(parsedTokens[token] as DesignTokenComposite).forEach(
-          ([key, value]) => {
+          ([key]) => {
             const compositeTokenInfo: TokenInfo = {
               name: `${token}.${key}`,
               type: TokenTypes.VALUE,
               path: [...path, key],
-              value,
-              originalValue: (rawValuesMap[token] as DesignTokenComposite)[key],
+              value: (this.tokensMap.get(token)!.value as DesignTokenComposite)[
+                key
+              ],
+              rawValue: (
+                this.tokensMap.get(token)!.rawValue as DesignTokenComposite
+              )[key],
               category: getCategoryByCssProperty(key),
             };
 
@@ -119,7 +124,7 @@ export class TokensManager {
     for (const [key, token] of this.tokensMap.entries()) {
       if (token.isCore && !token.isComposite) {
         parsers.set(key, token);
-        view.set(token.cssVar, token.cssVarValue);
+        view.set(token.cssVar, token.value);
       }
     }
 
@@ -141,61 +146,11 @@ export class TokensManager {
       )
     ).forEach(([key, value]) => {
       if (!view[key]) view[key] = {};
-      view[key] = (value as TokenParser[]).reduce(
+      view[key] = value.reduce(
         (acc, t) => {
           if (!t.isComposite) {
-            acc[t.cssVar] = t.cssVarValue;
+            acc[t.cssVar] = t.value;
           }
-          return acc;
-        },
-        {} as Record<string, DesignTokenValue>
-      );
-
-      parsers.set(key, value as TokenParser[]);
-    });
-
-    return {
-      parsers,
-      view,
-    };
-  }
-
-  getCoreCompositeTokens() {
-    const parsers = new Map<string, TokenParser>();
-    const view: Record<string, DesignTokenValue> = {};
-
-    for (const [key, token] of this.tokensMap.entries()) {
-      if (token.isCore && token.isComposite) {
-        parsers.set(key, token);
-        if (!view[token.compositeClassName]) {
-          view[token.compositeClassName] = token.cssVarValue;
-        }
-      }
-    }
-
-    return {
-      parsers,
-      view,
-    };
-  }
-
-  getThemesCompositeTokens() {
-    const parsers = new Map<string, TokenParser[]>();
-    const view: Record<string, Record<string, DesignTokenValue>> = {};
-
-    Object.entries(
-      lodash.groupBy(
-        Array.from(this.tokensMap.values()).filter(
-          (t) => !t.isCore && t.isComposite
-        ),
-        // In non-core tokens, the first path is the theme name
-        (t) => t.path[0]
-      )
-    ).forEach(([key, value]) => {
-      if (!view[key]) view[key] = {};
-      view[key] = (value as TokenParser[]).reduce(
-        (acc, t) => {
-          acc[t.compositeClassName] = t.cssVarValue;
           return acc;
         },
         {} as Record<string, DesignTokenValue>
@@ -229,5 +184,36 @@ export class TokensManager {
 
   getTokenByName(name: string) {
     return this.tokensMap.get(name);
+  }
+
+  /**
+   * Get the type declaration for the utilities
+   */
+  public getTokensDeclaration() {
+    const designTokenDefinitions = new Set<string>();
+
+    for (const [name, token] of this.getTokensByCategory()) {
+      designTokenDefinitions.add(
+        `export type ${lodash.upperFirst(name)}Token = ${arrayToUnionType(
+          // Remove duplicates
+          Array.from(new Set(token.map((t) => `{${t.finalizedTokenName}}`)))
+        )};`
+      );
+    }
+
+    const tokenTypes = Array.from(this.getTokensByCategory().keys())
+      .map((name) => {
+        return `${camelCase(name)}: ${lodash.upperFirst(name)}Token;`;
+      })
+      .join('\n');
+
+    return {
+      designTokenDefinitions: Array.from(designTokenDefinitions).join('\n\n'),
+      tokenTypes: outdent`
+        export interface Tokens {
+            ${tokenTypes}
+        }
+      `,
+    };
   }
 }

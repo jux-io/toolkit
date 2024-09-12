@@ -173,6 +173,8 @@ export class PostcssManager {
         filePath,
         cwd: this.context.cwd,
         tokens: this.context.tokens,
+        conditions: this.context.conditions,
+        utilities: this.context.utilities,
       });
 
       for (const key of Object.keys(result.rules ?? {})) {
@@ -208,14 +210,14 @@ export class PostcssManager {
     this.hasConfigChanged = false;
   }
 
-  async getCSS(root: Root) {
+  async getCSS(root?: Root) {
     const css: string[] = [];
     this.context.stylesheetManager.layers.juxbase.removeAll();
     this.context.stylesheetManager.layers.juxtokens.removeAll();
     await this.context.stylesheetManager.appendBaseStyles();
 
     // Clear all the previous layers
-    root.walkAtRules('layer', (atRule) => {
+    root?.walkAtRules('layer', (atRule) => {
       if (
         VALID_LAYER_NAMES.every((name) =>
           atRule.params

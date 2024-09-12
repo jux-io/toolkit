@@ -19,7 +19,7 @@ function parseScreenValue(value: string | Screen): string {
   }
 
   if ('raw' in value) {
-    return `@media ${value.raw}`;
+    return `${value.raw}`;
   }
 
   const conditions: string[] = [];

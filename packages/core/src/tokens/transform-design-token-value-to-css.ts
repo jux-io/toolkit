@@ -3,14 +3,16 @@ import { formatTokenValue } from './format-token-value';
 import { walkObject } from '../utils';
 
 /**
- * Transforms a design token value to a CSS value.
- * @example
+ * Replaces all references in the raw design token value with css variables
+ * ```
+ * const modifiedObject = transformDesignTokenValueToCss({
+ *  token: '{core.color.brand_100}',
+ * });
+ * // Returns { token: 'var(--core-color-brand-100)' }
+ *
+ * const modifiedObject = transformDesignTokenValueToCss('{core.color.brand_100}')
  * // Returns 'var(--core-color-brand-100)'
- * transformDesignTokenValueToCss('{core.color.brand_100}')
- *
- * // Returns { fontSize: 'var(--core-dimension-sm)', color: 'red' }
- * transformDesignTokenValueToCss({ fontSize: '{core.dimension.sm}', color: 'red' })
- *
+ * ```
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function transformDesignTokenValueToCss(value: any) {

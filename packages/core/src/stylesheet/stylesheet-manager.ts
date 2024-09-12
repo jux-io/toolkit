@@ -1,12 +1,12 @@
 import postcss from 'postcss';
 import { browserslistToTargets, transform } from 'lightningcss';
 import { generateResetStyles } from './generate-reset-styles';
-import { convertObjectToCSS } from './style-object-to-css-string';
-import { formatTokenValue, stringifyCssObject, TokensManager } from '../tokens';
+import { stringifyCssObject, TokensManager } from '../tokens';
 import { GoogleFont, googleFonts } from '../config';
 import { JuxCLIConfig } from '../config';
-import { colorScheme, logger, walkObject } from '../utils';
-import { getAliasMatches, isAlias } from '@juxio/design-tokens';
+import { colorScheme, logger, parseRawStyleObject } from '../utils';
+import { UtilitiesManager } from '../utilities';
+import { ConditionsManager } from '../conditions';
 
 export const LAYERS = ['juxbase', 'juxtokens', 'juxutilities'] as const;
 
@@ -15,6 +15,8 @@ type Layers = Record<(typeof LAYERS)[number], postcss.AtRule>;
 interface StylesheetManagerOptions {
   cssVarsRoot?: string;
   tokensManager: TokensManager;
+  utilitiesManager: UtilitiesManager;
+  conditionsManager: ConditionsManager;
   preflight: boolean;
   globalCss?: JuxCLIConfig['globalCss'];
   browserlist?: JuxCLIConfig['browserlist'];
@@ -26,7 +28,9 @@ export class StylesheetManager {
   private readonly globalCss: JuxCLIConfig['globalCss'];
   private readonly browserlist: JuxCLIConfig['browserlist'];
   public readonly layers: Layers = {} as Layers;
-  public readonly tokensManager: TokensManager;
+  private readonly tokensManager: TokensManager;
+  private readonly utilitiesManager: UtilitiesManager;
+  private readonly conditionsManager: ConditionsManager;
 
   private fileClasses = new Map<
     string,
@@ -40,6 +44,8 @@ export class StylesheetManager {
     this.cssVarsRoot = options.cssVarsRoot ?? ':where(:root, :host)';
     this.preflight = options.preflight ?? true;
     this.tokensManager = options.tokensManager;
+    this.utilitiesManager = options.utilitiesManager;
+    this.conditionsManager = options.conditionsManager;
     this.globalCss = options.globalCss;
     this.browserlist = options.browserlist;
 
@@ -158,56 +164,38 @@ export class StylesheetManager {
   }
 
   processGlobalStyles() {
-    return walkObject(this.globalCss, (key, value) => {
-      if (typeof value === 'string' && isAlias(value)) {
-        const { valuePath } = getAliasMatches(value);
-        const token = this.tokensManager.tokensMap.get(valuePath);
-
-        if (!token) {
-          logger.warn(
-            `Token value "${colorScheme.input(value)}" was not found in global styles configuration. Skipping...`
-          );
-          // Token was not found, so just convert it to plain css variable
-          return {
-            type: 'replace',
-            value: formatTokenValue(valuePath),
-          };
-        }
-
-        if (token.isComposite) {
-          logger.warn(
-            `Token value "${colorScheme.input(value)}" is a composite token and cannot be used in global styles configuration. Skipping...`
-          );
-          return {
-            type: 'remove',
-          };
-        }
-
-        return {
-          type: 'replace',
-          key,
-          value: formatTokenValue(valuePath),
-        };
-      }
-
-      return { type: 'replace', value };
+    return parseRawStyleObject({
+      tokens: this.tokensManager,
+      utilities: this.utilitiesManager,
+      conditions: this.conditionsManager,
+      baseStyles: this.globalCss || {},
+      onTokenNotFound: (cssKey, value, valuePath) => {
+        logger.warn(
+          `[${colorScheme.debug(`globalCss > ${cssKey}`)}]: Token value ${colorScheme.debug(valuePath)} was not found in ${colorScheme.input(cssKey)}: "${colorScheme.input(value)}"`
+        );
+      },
+      onError: (msg) => {
+        logger.warn(`[${colorScheme.debug(`globalCss`)}]: ${msg}`);
+      },
     });
   }
 
   toCss() {
-    return Object.values(this.layers)
-      .map((layer) => layer.toString())
-      .join('\n');
+    return this.transformCss(
+      Object.values(this.layers)
+        .map((layer) => layer.toString())
+        .join('\n')
+    );
   }
 
   async appendBaseStyles() {
     if (this.preflight) {
-      this.layers.juxbase.append(convertObjectToCSS(generateResetStyles()));
+      this.layers.juxbase.append(stringifyCssObject(generateResetStyles()));
     }
 
     if (this.globalCss) {
       this.layers.juxbase.append(
-        convertObjectToCSS(this.processGlobalStyles())
+        stringifyCssObject(this.processGlobalStyles())
       );
     }
 

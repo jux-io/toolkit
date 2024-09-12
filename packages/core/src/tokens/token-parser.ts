@@ -10,7 +10,7 @@ export interface TokenInfo {
   path: string[];
   value: DesignTokenValue;
   /* The calculated value of this token, in case of semantic token */
-  originalValue: DesignTokenValue;
+  rawValue: DesignTokenValue;
   category: keyof Tokens | undefined | null;
   description?: string;
 }
@@ -23,15 +23,48 @@ export enum TokenTypes {
 export const CORE_TOKEN_IDENTIFIER = CORE;
 
 export class TokenParser {
+  /**
+   * The original name of the token
+   */
   name: TokenInfo['name'];
+
+  /**
+   * The formatted name of the token (underscored)
+   */
   formattedName: TokenInfo['name'];
+
+  /**
+   * The type of the token (value or composite)
+   */
   type: TokenTypes;
+
+  /**
+   * Whether the token is a core token
+   */
   isCore: boolean;
 
+  /**
+   * The theme name this token belongs to
+   */
   themeName?: string;
 
+  /**
+   * The value of the token (the final value that will be used in the CSS)
+   */
   value: TokenInfo['value'];
-  originalValue: TokenInfo['originalValue'];
+
+  /**
+   * The raw value of the token (the original value from the design tokens)
+   */
+  rawValue: TokenInfo['rawValue'];
+
+  /**
+   * CSS variable name for the token. Undefined if the token is a composite token.
+   *
+   * @throws {Error} If the token is a composite token.
+   * @returns {string} The CSS variable name.
+   */
+  cssVar: string;
 
   path: TokenInfo['path'];
   category: TokenInfo['category'];
@@ -41,11 +74,12 @@ export class TokenParser {
     this.name = tokenInfo.name;
     this.formattedName = underscore(tokenInfo.name);
     this.isCore = tokenInfo.name.startsWith(CORE_TOKEN_IDENTIFIER);
-    this.value = tokenInfo.value;
     this.type = tokenInfo.type;
-    this.originalValue = tokenInfo.originalValue;
+    this.rawValue = tokenInfo.rawValue;
+    this.value = transformDesignTokenValueToCss(tokenInfo.rawValue);
     this.path = tokenInfo.path;
     this.themeName = this.isCore ? undefined : tokenInfo.path.at(0);
+    this.cssVar = this.isComposite ? '' : this.cssVariable;
     this.category = tokenInfo.category;
     this.description = tokenInfo.description;
   }
@@ -54,7 +88,13 @@ export class TokenParser {
     return this.type === 'composite';
   }
 
-  get cssVar() {
+  /**
+   * Gets the CSS variable name for the token.
+   *
+   * @throws {Error} If the token is a composite token.
+   * @returns {string} The CSS variable name.
+   */
+  get cssVariable(): string {
     if (this.isComposite) {
       throw new Error('Cannot get css variable name for composite token');
     }
@@ -64,18 +104,6 @@ export class TokenParser {
       : getCssVariableName(
           this.path.filter((p) => p !== this.themeName).join('.')
         );
-  }
-
-  get compositeClassName() {
-    if (!this.isComposite) {
-      throw new Error(
-        'Cannot get composite class name for non-composite token'
-      );
-    }
-
-    return this.isCore
-      ? `.${this.formattedName.replace(/\./g, '-')}`
-      : `.${this.path.filter((p) => p !== this.themeName).join('-')}`;
   }
 
   /**
@@ -92,7 +120,7 @@ export class TokenParser {
    *   type: TokenTypes.VALUE,
    *   path: ['theme', 'color', 'primary'],
    *   value: 'someValue',
-   *   originalValue: 'someOriginalValue',
+   *   rawValue: 'someOriginalValue',
    *   category: 'color',
    * });
    * // Returns 'color.primary'
@@ -101,21 +129,5 @@ export class TokenParser {
   get finalizedTokenName() {
     // Remove the first part of the token name in case it's not a core value, as it's the theme name
     return this.isCore ? this.name : this.name.split('.').slice(1).join('.');
-  }
-
-  /**
-   * Replaces all references in the object with css variables
-   * ```
-   * const modifiedObject = replaceReferences({
-   *  token: '{core.color.brand_100}',
-   * });
-   * // Returns { token: 'var(--core-color-brand-100)' }
-   *
-   * const modifiedObject = replaceReferences('{core.color.brand_100}')
-   * // Returns 'var(--core-color-brand-100)'
-   * ```
-   */
-  get cssVarValue(): DesignTokenValue {
-    return transformDesignTokenValueToCss(this.originalValue);
   }
 }

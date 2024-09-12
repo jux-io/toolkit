@@ -6,7 +6,8 @@ import {
   DesignTokenValue,
 } from '@juxio/design-tokens';
 import { GoogleFont } from './builtin-fonts';
-import * as CSS from 'csstype';
+import { TokenParser, TokensManager } from '../tokens';
+import { CSSObject } from './plain-css-types.ts';
 
 export interface UserTokens {
   access_token: string;
@@ -36,7 +37,7 @@ export interface BuiltInFonts {
   google: GoogleFont['family'][];
 }
 
-export type GlobalCssStyles = Record<string, CSS.Properties>;
+export type GlobalCssStyles = Record<string, CSSObject>;
 
 export interface APIConfig {
   API_SERVER: string;
@@ -47,13 +48,20 @@ export interface APIConfig {
 
 export type Themes = Record<string, Tokens>;
 
-export type Utilities = Record<
-  string,
-  {
-    acceptedValues: string[] | { category: DesignTokenType };
-    transform: (value: string) => CSS.Properties;
-  }
->;
+export interface UtilitiesConfig {
+  acceptedValues?: string[] | { category: DesignTokenType };
+  transform: (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    value: any,
+    args: {
+      tokensManager: TokensManager;
+      tokens: TokenParser[];
+      rawValue: DesignTokenValue;
+    }
+  ) => CSSObject | undefined;
+}
+
+export type Utilities = Record<string, UtilitiesConfig>;
 
 export type Screen =
   | { raw: string }

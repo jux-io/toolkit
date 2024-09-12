@@ -12,12 +12,21 @@ import { Rules, ValueType } from '@wyw-in-js/shared';
 import merge from 'lodash/merge';
 import { CSSPropertiesWithCustomValues } from '../base';
 import { css } from '../css';
-import { logger, stringifyCssObject, type TokensManager } from '@juxio/core';
-import { parseRawStyleObject, colorScheme } from '@juxio/core';
 import path from 'node:path';
+import {
+  colorScheme,
+  logger,
+  parseRawStyleObject,
+  stringifyCssObject,
+  TokensManager,
+  UtilitiesManager,
+  ConditionsManager,
+} from '@juxio/core';
 
 export type ExtendedOptions = IOptions & {
   tokens: TokensManager;
+  utilities: UtilitiesManager;
+  conditions: ConditionsManager;
 };
 
 export class CssProcessor extends BaseProcessor {
@@ -73,17 +82,24 @@ export class CssProcessor extends BaseProcessor {
   generateAssets(styleObject: CSSPropertiesWithCustomValues) {
     const cssClassName = css(styleObject);
 
-    const { tokens } = this.options as ExtendedOptions;
+    const { tokens, utilities, conditions } = this.options as ExtendedOptions;
 
-    const parsedStyle = parseRawStyleObject(
+    const parsedStyle = parseRawStyleObject({
       tokens,
-      styleObject,
-      (cssKey, value) => {
+      utilities,
+      conditions,
+      baseStyles: styleObject,
+      onTokenNotFound: (cssKey, value, valuePath) => {
         logger.warn(
-          `[${colorScheme.debug(path.basename(this.context.filename!))}]: Token value ${colorScheme.input(cssKey)}: "${colorScheme.input(value)}" was not found in ${colorScheme.debug(this.displayName)} function`
+          `[${colorScheme.debug(`${path.basename(this.context.filename!)} > ${this.displayName}`)}]: Token value ${colorScheme.debug(valuePath)} was not found in ${colorScheme.input(cssKey)}: "${colorScheme.input(value)}"`
         );
-      }
-    );
+      },
+      onError: (msg) => {
+        logger.warn(
+          `[${colorScheme.debug(`${path.basename(this.context.filename!)} > ${this.displayName}`)}]: ${msg}`
+        );
+      },
+    });
 
     const cssText = stringifyCssObject({
       [`.${cssClassName}`]: parsedStyle,

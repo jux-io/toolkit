@@ -1,22 +1,22 @@
 // Token types
-export enum DesignTokenTypeEnum {
+export const DesignTokenTypeEnum = {
   // this is a string enum - keys must equal values
-  color = 'color',
-  dimension = 'dimension',
-  fontFamily = 'fontFamily',
-  fontWeight = 'fontWeight',
-  duration = 'duration',
-  cubicBezier = 'cubicBezier',
-  number = 'number',
-  strokeStyle = 'strokeStyle',
-  border = 'border',
-  transition = 'transition',
-  shadow = 'shadow',
-  gradient = 'gradient',
-  typography = 'typography',
-  fontStyle = 'fontStyle',
-  textDecoration = 'textDecoration',
-}
+  color: 'color',
+  dimension: 'dimension',
+  fontFamily: 'fontFamily',
+  fontWeight: 'fontWeight',
+  duration: 'duration',
+  cubicBezier: 'cubicBezier',
+  number: 'number',
+  strokeStyle: 'strokeStyle',
+  border: 'border',
+  transition: 'transition',
+  shadow: 'shadow',
+  gradient: 'gradient',
+  typography: 'typography',
+  fontStyle: 'fontStyle',
+  textDecoration: 'textDecoration',
+} as const;
 
 // this is so that we can do either of the following:
 // 1. `token.type = DesignTokenTypeEnum.color`

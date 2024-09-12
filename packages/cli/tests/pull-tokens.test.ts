@@ -104,7 +104,7 @@ describe('jux pull tokens', () => {
     fs.mkdirSync(testsOutputDir, { recursive: true });
 
     fs.copySync(
-      join(root, 'tests', '__snapshots__', 'jux.config.pull.ts.sample'),
+      join(root, 'tests', 'sample-config', 'jux.config.ts'),
       join(testsOutputDir, 'jux.config.ts')
     );
 
@@ -207,8 +207,6 @@ describe('jux pull tokens', () => {
         join(testsOutputDir, 'src', 'jux', 'types', 'tokens.d.ts'),
         'utf-8'
       )
-    ).toMatchFileSnapshot(
-      './__snapshots__/tokens/tokens.custom_values.d.ts.snap'
-    );
+    ).toMatchFileSnapshot('./__snapshots__/tokens/tokens.d.ts.snap');
   });
 });

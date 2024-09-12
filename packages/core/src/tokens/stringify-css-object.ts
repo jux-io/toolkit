@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { hypenateProperty, unitlessProperties } from './unitless-properties';
+import { hypenateProperty } from './unitless-properties';
 
 export type Dict<T = any> = Record<string, T>;
 
@@ -56,16 +56,20 @@ export function stringifyCssObject(
 
     let value = data;
 
-    if (typeof value === 'number') {
-      const shouldAddPx = !(
-        value === 0 ||
-        unitlessProperties.has(name) ||
-        isVariableLike
-      );
-      if (shouldAddPx) {
-        value = `${value}px`;
-      }
+    if (value === '') {
+      value = 'unset';
     }
+
+    // if (typeof value === 'number') {
+    //   const shouldAddPx = !(
+    //     value === 0 ||
+    //     unitlessProperties.has(name) ||
+    //     isVariableLike
+    //   );
+    //   if (shouldAddPx) {
+    //     value = `${value}px`;
+    //   }
+    // }
 
     // Format property
     if (isAtRuleLike) {
@@ -245,13 +249,15 @@ const getResolvedSelectors = (
           return selector.replace(BEFORE_PARENT, '') + ' ' + parentSelector;
         if (!selector.includes('&')) return parentSelector + ' ' + selector;
 
-        return selector.replace(
-          parentSelectorRegex,
-          descendantSelectorRegex.test(parentSelector) &&
-            surroundedRegex.test(selector)
-            ? `:is(${parentSelector})`
-            : parentSelector
-        );
+        return selector
+          .replace(
+            parentSelectorRegex,
+            descendantSelectorRegex.test(parentSelector) &&
+              surroundedRegex.test(selector)
+              ? `:is(${parentSelector})`
+              : parentSelector
+          )
+          .trim();
       })
     );
   });

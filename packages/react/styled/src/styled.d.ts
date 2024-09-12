@@ -3,18 +3,17 @@ import {
   CSSProperties,
   CSSPropertiesWithCustomValues,
   CustomTokensValues,
-  CustomTypes,
   EmptyObject,
   Merge,
 } from '@juxio/css';
-import { Conditions, Tokens } from '@juxio/css/types';
+import { Conditions, Tokens, Utilities } from '@juxio/css/types';
 import * as React from 'react';
 
 export interface StyledVariants<Props extends BaseProps> {
   props: Partial<Props> | ((props: Props) => boolean);
   style: CSSPropertiesWithCustomValues<
     Merge<CSSProperties, CustomTokensValues<Tokens>>,
-    CustomTypes<Tokens>,
+    Utilities,
     Conditions
   >;
 }
@@ -24,7 +23,7 @@ export interface StylesDefinition<
 > {
   root: CSSPropertiesWithCustomValues<
     Merge<CSSProperties, CustomTokensValues<Tokens>>,
-    CustomTypes<Tokens>,
+    Utilities,
     Conditions
   >;
   variants?: StyledVariants<Props>[];
