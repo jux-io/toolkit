@@ -1,5 +1,47 @@
 # @juxio/core
 
+## 0.7.0
+
+### Minor Changes
+
+- [#73](https://github.com/jux-io/toolkit/pull/73) [`6c0bffe`](https://github.com/jux-io/toolkit/commit/6c0bffec652473d385a40fc4ce27733290c6c96e) Thanks [@tnipri](https://github.com/tnipri)! - added utilities field to cli config
+
+  ```
+  export default defineConfig({
+      // ...
+      utilities: {
+          mx: {
+              transform(value) => {
+                  return {
+                      marginLeft: value[0],
+                      marginRight: value[0],
+                  }
+              }
+          }
+      }
+  })
+  ```
+
+- [#73](https://github.com/jux-io/toolkit/pull/73) [`6c0bffe`](https://github.com/jux-io/toolkit/commit/6c0bffec652473d385a40fc4ce27733290c6c96e) Thanks [@tnipri](https://github.com/tnipri)! - added screens field to cli config
+
+  ```typescript
+  export default defineConfig({
+    // ...
+    screens: {
+      desktop: {
+        max: '1920px',
+        min: '1024px',
+      }, // => @media (min-width: 1024px) and (max-width: 1920px)
+      mobile: '1024px', // => @media (min-width: 1024px)
+    },
+  });
+  ```
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @juxio/design-tokens@0.7.0
+
 ## 0.6.13
 
 ### Patch Changes
