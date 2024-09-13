@@ -54,6 +54,8 @@ const styled = (tag, styles, options = {}) => {
     }
   );
 
+  StyledComponent.toString = () => `.${baseClassName}`;
+
   return StyledComponent;
 };
 

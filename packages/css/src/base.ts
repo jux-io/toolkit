@@ -160,11 +160,7 @@ export type Prefix<
   T,
 > = `${K}${Extract<T, boolean | number | string>}`;
 
-type AnySelector =
-  | `${string}&`
-  | `&${string}`
-  | `[${string}]`
-  | `${CSS.AtRules}${string}`;
+type AnySelector = `&${string}` | `[${string}]` | `${CSS.AtRules}${string}`;
 
 /**
  * Represents a type that extends CSS properties with custom values and functions.
@@ -186,11 +182,9 @@ export type CSSPropertiesWithCustomValues<
       Conditions
     >;
   } & {
-    [K in AnySelector]?: CSSPropertiesWithCustomValues<
-      BaseStyles,
-      Utilities,
-      Conditions
-    >;
+    [K in AnySelector]?:
+      | CSSPropertiesWithCustomValues<BaseStyles, Utilities, Conditions>
+      | string;
   } & {
     [K in FlattenArrays<Conditions>]?: CSSPropertiesWithCustomValues<
       BaseStyles,

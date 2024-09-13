@@ -209,4 +209,41 @@ describe('jux pull tokens', () => {
       )
     ).toMatchFileSnapshot('./__snapshots__/tokens/tokens.d.ts.snap');
   });
+
+  it('Pull tokens with generate definitions flag to specific folder', async () => {
+    nock(API_URL)
+      .get('/themes/token-sets')
+      .query(true)
+      .reply(200, TOKENS_RESPONSE);
+
+    await runCommand(
+      [
+        `pull tokens --definitions --cwd=${testsOutputDir} --directory=./folder`,
+      ],
+      {
+        root,
+        configDir: testsOutputDir,
+      }
+    );
+
+    await expect(
+      fs.readFileSync(join(testsOutputDir, 'folder', 'index.ts'), 'utf-8')
+    ).toMatchFileSnapshot('./__snapshots__/tokens/index.ts.snap');
+
+    await expect(
+      fs.readFileSync(join(testsOutputDir, 'folder', 'dark.ts'), 'utf-8')
+    ).toMatchFileSnapshot('./__snapshots__/tokens/dark.ts.snap');
+
+    await expect(
+      fs.readFileSync(join(testsOutputDir, 'folder', 'light.ts'), 'utf-8')
+    ).toMatchFileSnapshot('./__snapshots__/tokens/light.ts.snap');
+
+    await expect(
+      fs.readFileSync(join(testsOutputDir, 'folder', 'core.ts'), 'utf-8')
+    ).toMatchFileSnapshot('./__snapshots__/tokens/core.ts.snap');
+
+    await expect(
+      fs.readFileSync(join(testsOutputDir, 'folder', 'tokens.d.ts'), 'utf-8')
+    ).toMatchFileSnapshot('./__snapshots__/tokens/tokens.d.ts.snap');
+  });
 });

@@ -1,7 +1,12 @@
 import findUp from 'escalade/sync';
 import { GetConfigContextOptions } from './load-config';
 
-const configFiles = new Set(['jux.config.ts', 'jux.config.js']);
+const configFiles = new Set([
+  'jux.config.ts',
+  'jux.config.js',
+  'jux.config.cjs',
+  'jux.config.mjs',
+]);
 
 export function findConfig(
   options: GetConfigContextOptions = {

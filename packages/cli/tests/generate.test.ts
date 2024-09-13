@@ -34,4 +34,39 @@ describe('jux generate', () => {
       )
     ).toMatchFileSnapshot('./__snapshots__/tokens.d.ts.snap');
   });
+
+  it('generate token type definitions to specific directory [absolute path]', async () => {
+    const { result } = await runCommand(
+      [
+        `generate --cwd=${testsOutputDir} --directory=${join(testsOutputDir, 'types')}`,
+      ],
+      {
+        root,
+      }
+    );
+
+    expect(result).toBe(true);
+
+    await expect(
+      fs.readFileSync(join(testsOutputDir, 'types', 'tokens.d.ts'), 'utf-8')
+    ).toMatchFileSnapshot('./__snapshots__/tokens.d.ts.snap');
+  });
+
+  it('generate token type definitions to specific directory [relative path]', async () => {
+    const { result } = await runCommand(
+      [`generate --cwd=${testsOutputDir} --directory=./src/jux/folder`],
+      {
+        root,
+      }
+    );
+
+    expect(result).toBe(true);
+
+    await expect(
+      fs.readFileSync(
+        join(testsOutputDir, 'src', 'jux', 'folder', 'tokens.d.ts'),
+        'utf-8'
+      )
+    ).toMatchFileSnapshot('./__snapshots__/tokens.d.ts.snap');
+  });
 });

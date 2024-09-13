@@ -11,11 +11,11 @@ import { outdent } from 'outdent';
 import { StylesheetManager } from '../stylesheet';
 import { parseRawTokenSets } from '../utils/parse-raw-token-sets';
 import { TSConfig } from 'pkg-types';
-import fastDeepEqual from 'fast-deep-equal';
 import { ConfigNotFoundError } from '../utils/exceptions';
 import { loadCliConfig } from './load-cli-config.ts';
-import { UtilitiesManager } from '../utilities/utilities-manager.ts';
-import { ConditionsManager } from '../conditions/conditions-manager.ts';
+import { UtilitiesManager } from '../utilities';
+import { ConditionsManager } from '../conditions';
+import hash from 'object-hash';
 
 interface PullAssetsOptions {
   components: string[];
@@ -130,10 +130,6 @@ export class JuxContext {
   }
 
   public async generateTokensDefinitions(directory?: string): Promise<Asset[]> {
-    if (!directory && !this.cliConfig.definitions_directory) {
-      throw new Error('definitions_directory is not defined in jux.config.ts');
-    }
-
     const set = new Set<string>();
 
     set.add(`import '@juxio/css/types';`);
@@ -153,6 +149,9 @@ export class JuxContext {
     return [
       {
         directory:
+          /**
+           * It's safe to cast here because we are sure that components_directory is defined {@link resolveFinalConfig}
+           */
           directory ??
           path.join(this.cwd, this.cliConfig.definitions_directory!),
         files: [
@@ -168,12 +167,9 @@ export class JuxContext {
   }
 
   public async pullGeneratedComponentsCode(
-    components: string[]
+    components: string[],
+    directory?: string
   ): Promise<Asset[]> {
-    if (!this.cliConfig.components_directory) {
-      throw new Error('components_directory is not defined in jux.config.ts');
-    }
-
     const generatedFiles =
       await this.api.pullGeneratedComponentsCode(components);
 
@@ -181,21 +177,21 @@ export class JuxContext {
       f.file.name = `${f.file.name}.tsx`;
       f.file.content = await this.fs.prettierFormat(f.file.content);
       return {
-        directory: path.join(
-          this.cwd,
-          // @ts-expect-error - we checked above if this.cliConfig.components_directory is defined
-          this.cliConfig.components_directory
-        ),
+        /**
+         * It's safe to cast here because we are sure that components_directory is defined {@link resolveFinalConfig}
+         */
+        directory:
+          directory ??
+          path.join(this.cwd, this.cliConfig.components_directory!),
         files: [f.file],
       };
     });
   }
 
-  public async pullDesignTokens(reload = false): Promise<Asset[]> {
-    if (!this.cliConfig.tokens_directory) {
-      throw new Error('tokens_directory is not defined in jux.config.ts');
-    }
-
+  public async pullDesignTokens(
+    reload = false,
+    directory?: string
+  ): Promise<Asset[]> {
     const tokens = await this.api.pullDesignTokens();
 
     const parsedTokenSets = parseRawTokenSets(tokens);
@@ -206,7 +202,8 @@ export class JuxContext {
 
     return [
       {
-        directory: path.join(this.cwd, this.cliConfig.tokens_directory),
+        directory:
+          directory ?? path.join(this.cwd, this.cliConfig.tokens_directory!),
         files: [
           ...(await bluebird.map(
             Object.keys(parsedTokenSets),
@@ -248,13 +245,15 @@ export class JuxContext {
   }
 
   async reloadConfigFile(cb: () => Promise<void>): Promise<boolean> {
-    const config = await loadCliConfig({ cwd: this.cwd });
+    const config = await loadCliConfig({
+      cwd: this.cwd,
+    });
 
     if (!config) {
       throw new ConfigNotFoundError(this.cwd);
     }
 
-    if (fastDeepEqual(config.cliConfig, this.cliConfig)) {
+    if (hash(config.cliConfig) === hash(this.cliConfig)) {
       // No need to reload
       return false;
     }

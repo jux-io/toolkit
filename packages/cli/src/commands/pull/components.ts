@@ -6,6 +6,7 @@ import {
   AxiosError,
 } from '@juxio/core';
 import ora from 'ora';
+import { getFullPath } from '@juxio/core';
 
 export default class PullComponents extends JuxCommand<typeof PullComponents> {
   static description = 'Pull components from Jux editor';
@@ -21,6 +22,13 @@ export default class PullComponents extends JuxCommand<typeof PullComponents> {
         'Pull specific components. Separate multiple components with a space.',
       required: false,
       multiple: true,
+    }),
+
+    directory: Flags.string({
+      description: 'Output directory for generated files',
+      char: 'd',
+      noCacheDefault: false,
+      required: false,
     }),
 
     cwd: Flags.string({
@@ -42,17 +50,16 @@ export default class PullComponents extends JuxCommand<typeof PullComponents> {
       internalConfig,
     });
 
-    if (!ctx.cliConfig.components_directory) {
-      throw new Error(
-        'components_directory and tokens_directory should be defined in jux.config'
-      );
-    }
-
     const spinner = ora(`Generating assets...\n`).start();
+
+    const directory = flags.directory
+      ? getFullPath(flags.directory, flags.cwd)
+      : undefined;
 
     try {
       const components = await ctx.pullGeneratedComponentsCode(
-        flags.components || []
+        flags.components || [],
+        directory
       );
 
       components.map((a) => ctx.fs.writeAsset(a));

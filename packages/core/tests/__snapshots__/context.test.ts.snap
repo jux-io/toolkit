@@ -239,7 +239,7 @@ exports[`Context > Context loads the right styling configurations 1`] = `
       margin: var(--color-primary);
     }
 
-    [data-jux-theme="light"] body, [data-jux-theme="dark"] body {
+    :where([data-jux-theme="light"]) body, :where([data-jux-theme="dark"]) body {
       font-size: var(--core-dimension-spacing_100);
       letter-spacing: 12px;
       font-family: Inter;

@@ -32,16 +32,16 @@ export default class Generate extends JuxCommand<typeof Generate> {
       oclifConfig: this.config,
     });
 
-    // TODO: Add directory
+    const directory = flags.directory
+      ? getFullPath(flags.directory, flags.cwd)
+      : undefined;
 
-    const assets = await ctx.generateAssets(flags.directory);
+    const assets = await ctx.generateAssets(directory);
 
     assets.forEach((a) => {
       ctx.fs.writeAsset({
         ...a,
-        directory: flags.directory
-          ? getFullPath(flags.directory, flags.cwd)
-          : a.directory,
+        directory: directory ?? a.directory,
       });
     });
 

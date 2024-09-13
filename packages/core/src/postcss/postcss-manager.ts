@@ -14,7 +14,7 @@ import { LAYERS } from '../stylesheet';
 import { inJsTransform } from '../utils/in-js-transform.ts';
 
 // A map of files to their last modified time.
-const fileModifiedMap = new Map<string, number>();
+export const fileModifiedMap = new Map<string, number>();
 
 export interface FileMeta {
   modifiedMs: number;
@@ -84,6 +84,10 @@ export class PostcssManager {
       this.juxContext = await getConfigContext({
         cwd,
       });
+      fileModifiedMap.set(
+        configPath,
+        this.juxContext.fs.getFileModifiedTime(configPath)
+      );
       this.hasConfigChanged = true;
       return;
     }

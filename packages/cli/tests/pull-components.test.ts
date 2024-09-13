@@ -51,6 +51,14 @@ describe('jux pull components', () => {
             content: 'export const Button = () => <button>Button</button>',
           },
         },
+        {
+          name: 'Div',
+          dependencies: [],
+          file: {
+            name: 'Div',
+            content: 'export const Div = () => <div>Button</div>',
+          },
+        },
       ] as ComponentFileStructure[]);
 
     await runCommand([`pull components --cwd=${testsOutputDir}`], {
@@ -64,6 +72,107 @@ describe('jux pull components', () => {
         'utf-8'
       )
     ).toMatchFileSnapshot('./__snapshots__/Button.tsx.snap');
+
+    await expect(
+      fs.readFileSync(
+        join(testsOutputDir, 'src', 'jux', 'components', 'Div.tsx'),
+        'utf-8'
+      )
+    ).toMatchFileSnapshot('./__snapshots__/Div.tsx.snap');
+  });
+
+  it('Pull all components to specific folder [relative path]', async () => {
+    nock(API_URL)
+      .get('/library/generate')
+      .query(true)
+      .reply(200, [
+        {
+          name: 'Button',
+          dependencies: [],
+          file: {
+            name: 'Button',
+            content: 'export const Button = () => <button>Button</button>',
+          },
+        },
+        {
+          name: 'Div',
+          dependencies: [],
+          file: {
+            name: 'Div',
+            content: 'export const Div = () => <div>Button</div>',
+          },
+        },
+      ] as ComponentFileStructure[]);
+
+    await runCommand(
+      [`pull components --cwd=${testsOutputDir} --directory=./src/jux/folder`],
+      {
+        root,
+        configDir: testsOutputDir,
+      }
+    );
+
+    await expect(
+      fs.readFileSync(
+        join(testsOutputDir, 'src', 'jux', 'folder', 'Button.tsx'),
+        'utf-8'
+      )
+    ).toMatchFileSnapshot('./__snapshots__/Button.tsx.snap');
+
+    await expect(
+      fs.readFileSync(
+        join(testsOutputDir, 'src', 'jux', 'folder', 'Div.tsx'),
+        'utf-8'
+      )
+    ).toMatchFileSnapshot('./__snapshots__/Div.tsx.snap');
+  });
+
+  it('Pull all components to specific folder [absolute path]', async () => {
+    nock(API_URL)
+      .get('/library/generate')
+      .query(true)
+      .reply(200, [
+        {
+          name: 'Button',
+          dependencies: [],
+          file: {
+            name: 'Button',
+            content: 'export const Button = () => <button>Button</button>',
+          },
+        },
+        {
+          name: 'Div',
+          dependencies: [],
+          file: {
+            name: 'Div',
+            content: 'export const Div = () => <div>Button</div>',
+          },
+        },
+      ] as ComponentFileStructure[]);
+
+    await runCommand(
+      [
+        `pull components --cwd=${testsOutputDir} --directory=${join(testsOutputDir, 'src', 'jux', 'folder')}`,
+      ],
+      {
+        root,
+        configDir: testsOutputDir,
+      }
+    );
+
+    await expect(
+      fs.readFileSync(
+        join(testsOutputDir, 'src', 'jux', 'folder', 'Button.tsx'),
+        'utf-8'
+      )
+    ).toMatchFileSnapshot('./__snapshots__/Button.tsx.snap');
+
+    await expect(
+      fs.readFileSync(
+        join(testsOutputDir, 'src', 'jux', 'folder', 'Div.tsx'),
+        'utf-8'
+      )
+    ).toMatchFileSnapshot('./__snapshots__/Div.tsx.snap');
   });
 
   it('Pull specific component', async () => {
