@@ -9,6 +9,7 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "preserveSymlinks": true,
     "moduleResolution": "node",
     "declaration": true,
     "allowJs": true
