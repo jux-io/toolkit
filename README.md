@@ -16,7 +16,7 @@ A utility first, zero runtime CSS-in-JS framework with full design tokens and th
 ## Features
 - Write CSS in JS, with **zero** runtime - all styles are extracted and calculated at build time
 - Full support for design tokens and themes, using [@juxio/design-tokens](packages/design-tokens/README.md)
-- Utility first - write utilities which can then be used when you style your components
+- Utility first - write utilities which can then be used to style your components
 - CLI for easy management of your design tokens, themes, utilities and styles
 - Type-safe - autocompletion for your design tokens, breakpoints, and utilities
 - Full interpolation support when generating styles
@@ -27,9 +27,9 @@ For documentation, visit [docs.jux.io](https://docs.jux.io).
 
 ## Quickstart
 
-Jux is a PostCSS plugin, so you can use it with any build tool that supports PostCSS:
+Jux is a PostCSS plugin, so you can use it with any build tool that supports PostCSS.
 
-Install Jux CLI
+Install Jux CLI:
 ```
 npm install -D @juxio/cli postcss
 ```
@@ -54,17 +54,17 @@ export default {
 };
 ```
    
-Add Jux’s `@layer` directive to your main CSS file
+Add Jux’s `@layer` directive to your main CSS file:
 ```css
 @layer juxbase, juxtokens, juxutilities;
 ```
    
-Start your build process and generate your CSS
+Start your build process and generate your CSS:
 ```
 npx jux generate css -o styles.css
 ```
    
-Include the generated CSS in your project
+Include the generated CSS in your project:
 ```tsx
 import './styles.css';
 

@@ -19,14 +19,14 @@ interface StylesheetManagerOptions {
   conditionsManager: ConditionsManager;
   preflight: boolean;
   globalCss?: JuxCLIConfig['globalCss'];
-  browserlist?: JuxCLIConfig['browserlist'];
+  browserslist?: JuxCLIConfig['browserslist'];
 }
 
 export class StylesheetManager {
   public readonly cssVarsRoot: string;
   public readonly preflight: boolean;
   private readonly globalCss: JuxCLIConfig['globalCss'];
-  private readonly browserlist: JuxCLIConfig['browserlist'];
+  private readonly browserslist: JuxCLIConfig['browserslist'];
   public readonly layers: Layers = {} as Layers;
   private readonly tokensManager: TokensManager;
   private readonly utilitiesManager: UtilitiesManager;
@@ -47,7 +47,7 @@ export class StylesheetManager {
     this.utilitiesManager = options.utilitiesManager;
     this.conditionsManager = options.conditionsManager;
     this.globalCss = options.globalCss;
-    this.browserlist = options.browserlist;
+    this.browserslist = options.browserslist;
 
     LAYERS.forEach((layer) => {
       this.layers[layer] = postcss.atRule({
@@ -105,8 +105,8 @@ export class StylesheetManager {
       code: Buffer.from(css),
       sourceMap: false,
       minify: process.env.NODE_ENV === 'production',
-      targets: this.browserlist
-        ? browserslistToTargets(this.browserlist)
+      targets: this.browserslist
+        ? browserslistToTargets(this.browserslist)
         : undefined,
     }).code.toString();
   }

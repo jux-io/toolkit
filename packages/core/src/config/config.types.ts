@@ -69,7 +69,7 @@ export type Screen =
   | { max: string }
   | { min: string; max: string };
 
-export interface PresetCore {
+export interface PresetConfig {
   /**
    * Global CSS styles to apply
    */
@@ -97,11 +97,7 @@ export interface PresetCore {
   themes?: Themes;
 }
 
-export interface PresetConfig extends PresetCore {
-  name: string;
-}
-
-export interface JuxCLIConfig extends PresetCore {
+export interface JuxCLIConfig extends PresetConfig {
   /**
    * Whether to apply preflight styles
    * @default true
@@ -111,7 +107,7 @@ export interface JuxCLIConfig extends PresetCore {
   /**
    * Used to create config presets to be shared across projects
    */
-  presets?: (PresetConfig | string)[];
+  presets?: PresetConfig[];
 
   /**
    * The root pseudo class to apply CSS variables to
@@ -142,5 +138,5 @@ export interface JuxCLIConfig extends PresetCore {
   definitions_directory?: string;
 
   /** An array of browserslist targets */
-  browserlist?: string[];
+  browserslist?: string[];
 }

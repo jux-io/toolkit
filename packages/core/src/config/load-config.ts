@@ -1,7 +1,5 @@
 import { Config } from '@oclif/core';
 import { type TSConfig } from 'pkg-types';
-// @ts-expect-error load-tsconfig is not typed
-import { loadTsConfig } from 'load-tsconfig';
 import { logger } from '../utils';
 import {
   type APIConfig,
@@ -13,7 +11,7 @@ import { JuxContext } from './jux-context';
 import { getCliConfigEnv } from './get-and-verify-internal-config';
 import { ConfigNotFoundError } from '../utils/exceptions';
 import { loadCliConfig } from './load-cli-config.ts';
-import { getFullPath } from '../utils/get-full-path.ts';
+import { getFullPath } from '../utils';
 
 export interface LoadConfigRes {
   cliConfig: JuxCLIConfig;
@@ -34,20 +32,12 @@ export interface GetConfigContextOptions {
   internalConfig?: JuxInternalCliConfig; // The internal config object (authentication info, in case context should communicate with Jux APIs)
 }
 
-export interface LoadTsConfigRes {
-  path: string;
-  data: TSConfig;
-}
-
 export async function getConfigContext(options: GetConfigContextOptions) {
   const cwd = getFullPath(options.cwd);
-
-  const tsConfigRes: LoadTsConfigRes | null = loadTsConfig(cwd);
 
   const loadConfigRes = await loadCliConfig({
     ...options,
     cwd,
-    tsConfig: tsConfigRes?.data,
   });
 
   if (!loadConfigRes) {
@@ -60,12 +50,6 @@ export async function getConfigContext(options: GetConfigContextOptions) {
     ...loadConfigRes,
     environmentConfig: options.oclifConfig,
     internalConfig: options.internalConfig,
-    tsconfig: tsConfigRes
-      ? {
-          data: tsConfigRes.data,
-          path: tsConfigRes.path,
-        }
-      : undefined,
     apiConfig,
   };
 

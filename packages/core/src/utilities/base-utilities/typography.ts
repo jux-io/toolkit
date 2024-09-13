@@ -42,7 +42,7 @@ export const typography: UtilitiesConfig = {
       compositeToken.length > 1
         ? compositeToken
             .map((t) => ({
-              [`[data-jux-theme="${t.themeName}"] &`]: t.value,
+              [`:where([data-jux-theme="${t.themeName}"]) &`]: t.value,
             }))
             .reduce((acc, val) => ({ ...acc, ...val }), {})
         : compositeToken[0].value
