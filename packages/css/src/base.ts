@@ -94,6 +94,7 @@ export interface CustomTokensValues<
   backgroundColor?:
     | TokenValue<Tokens, 'color'>
     | CSSProperties['backgroundColor'];
+  borderColor?: TokenValue<Tokens, 'color'> | CSSProperties['backgroundColor'];
   gap?: TokenValue<Tokens, 'dimension'> | CSSProperties['gap'];
   borderRadius?:
     | TokenValue<Tokens, 'dimension'>

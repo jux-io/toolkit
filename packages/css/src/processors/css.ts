@@ -11,7 +11,7 @@ import type { Expression } from '@babel/types';
 import { Rules, ValueType } from '@wyw-in-js/shared';
 import merge from 'lodash/merge';
 import { CSSPropertiesWithCustomValues } from '../base';
-import { css } from '../css';
+import css from '../css';
 import path from 'node:path';
 import {
   colorScheme,
