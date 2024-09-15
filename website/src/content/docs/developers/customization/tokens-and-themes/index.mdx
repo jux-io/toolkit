@@ -90,7 +90,7 @@ For example, the core tokens defined above will be converted to the following CS
 
 Themes in Jux allow you to create multiple variations of your design system, such as light and dark modes, while leveraging your core tokens.
 
-Themes are defined in the themes section of your jux.config.ts file. Here's an example configuration that builds upon our previous core tokens setup:
+Themes are defined in the themes section of your `jux.config.ts` file. Here's an example configuration that builds upon our previous core tokens setup:
 
 ```typescript
 import { defineConfig } from '@juxio/cli';
@@ -186,9 +186,7 @@ Jux generates CSS for themes by wrapping theme-specific styles with the appropri
 
 ## Using Tokens in Your Styles
 
-Jux provides multiple ways to use tokens in your styles, from direct references to utility-based approaches. Let's explore these methods:
-
-### Direct Token References
+Jux provides multiple ways to use tokens in your styles, from direct references to [utility-based](/developers/customization/utilities) approaches.
 
 To use tokens in your styles, wrap the token name with curly braces `{}`. Jux will replace these with the corresponding CSS custom property at build time.
 
@@ -197,11 +195,9 @@ import { styled } from '@juxio/react-styled';
 
 const MyButton = styled('button', {
   backgroundColor: '{core.color.primary}', // => var(--core-color-primary)
-  color: 'white',
   padding: '{dimension.semantic.bodyPadding}', // => var(--dimension-semantic-bodyPadding)
-  border: 'none',
-  borderRadius: '4px',
-  margin: '{non.existent.token}'
+  margin: '{non.existent.token}',
+  // ...
 });
 ```
 
@@ -210,53 +206,6 @@ During development, if you use a non-existent token, Jux will display a warning 
 ```bash title=Terminal
 [warn] [styles.ts]: Token value margin: "{non.existent.token}" was not found in MyButton function
 ```
-
-### Using Tokens Groups as Utilities
-
-For certain groups of tokens, such as typography, Jux provides a utility feature that allows for more concise and consistent usage:
-
-```typescript
-import { styled } from '@juxio/react';
-
-// Before: Manually applying typography tokens
-const TextBefore = styled('p', {
-  fontSize: '{core.typography.body.fontSize}',
-  fontFamily: '{core.typography.body.fontFamily}',
-  fontWeight: '{core.typography.body.fontWeight}',
-  lineHeight: '{core.typography.body.lineHeight}',
-  letterSpacing: '{core.typography.body.letterSpacing}',
-});
-
-// After: Using typography as a utility
-const TextAfter = styled('p', {
-  typography: '{core.typography.body}'
-});
-````
-
-This utility approach automatically applies all the properties defined in the core.typography.body token group.
-
-<Aside>
-    This feature is currently for typography tokens only, but we plan to expand it to other token groups in the future.
-</Aside>
-
-
-## Theme-Aware Components
-
-Jux components automatically respond to theme changes. When you switch themes by changing the `data-jux-theme` attribute, all Jux components will update to use the new theme's tokens.
-
-For example, our `Button` component from earlier will automatically use the correct `primary` color for the current theme, without any additional code.
-
-## Best Practices
-
-1. **Use Semantic Names**: When defining tokens, use semantic names like 'primary' or 'accent' instead of specific color names. This makes it easier to maintain consistency across themes.
-
-2. **Leverage Core Tokens**: Use core tokens for values that don't change between themes, and theme-specific tokens for values that do.
-
-3. **Theme Variations**: Consider creating variations of your themes for different purposes, such as a 'high-contrast' version of your light and dark themes.
-
-4. **Testing**: Always test your application in all defined themes to ensure components look and function correctly in each.
-
-By leveraging Jux's theming system, you can create flexible, consistent designs that are easy to maintain and update across your entire application.
 
 ## TypeScript Support
 

@@ -75,12 +75,8 @@ export default defineConfig({
               link: '/developers/jux-concepts/styling',
             },
             {
-              label: 'Variants and compound variants',
-              link: '/developers/jux-concepts/variants',
-            },
-            {
-              label: 'Responsive design',
-              link: '/developers/jux-concepts/responsive-design',
+              label: 'Compositions',
+              link: '/developers/jux-concepts/compositions',
             },
             {
               label: 'Nested selectors',
@@ -102,6 +98,10 @@ export default defineConfig({
             {
               label: 'Screens (Responsive Design)',
               link: '/developers/customization/responsive-design',
+            },
+            {
+              label: 'Utilities',
+              link: '/developers/customization/utilities',
             },
             {
               label: 'Presets',

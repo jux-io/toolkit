@@ -18,13 +18,13 @@ export const getDisplayName = (Component) => {
 };
 
 const styled = (tag, styles, options = {}) => {
-  const baseClassName = `jux-${calculateHash(JSON.stringify(styles.root)).slice(0, 6)}`;
+  const baseClassName = `j${calculateHash(JSON.stringify(styles.root)).slice(0, 6)}`;
 
   const { shouldForwardProp = () => true } = options;
 
   const StyledComponent = React.forwardRef(
     function StyledComponent(props, ref) {
-      const { className, style, ...restProps } = props;
+      const { className, style, as, ...restProps } = props;
 
       // Represents the current variants we should apply
       const matchedVariants = getVariantClasses(props, styles.variants ?? []);
@@ -33,7 +33,7 @@ const styled = (tag, styles, options = {}) => {
         className,
         baseClassName,
         ...matchedVariants.map(
-          (v) => `jux-${calculateHash(JSON.stringify(v.style)).slice(0, 6)}`
+          (v) => `j${calculateHash(JSON.stringify(v.style)).slice(0, 6)}`
         )
       );
 
@@ -45,8 +45,9 @@ const styled = (tag, styles, options = {}) => {
         }
       }
 
-      return React.createElement(tag, {
+      return React.createElement(as || tag, {
         ref,
+        ...restProps,
         className: finalClassName,
         style,
         ...newProps,

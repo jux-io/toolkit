@@ -54,7 +54,7 @@ An array of glob patterns that specify which files Jux should ignore.
 - **Type**: `Record<string, CSSProperties>`
 - **Default**: `{}`
 
-Apply global CSS styles to your project:
+Apply global CSS styles to your project. Global CSS are inserted at the top of the generated CSS file and are scoped to `@layer base` cascade layer.
 
 <Code code={juxConfigGlobalCss} lang={'ts'} />
 

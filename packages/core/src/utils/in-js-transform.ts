@@ -2,8 +2,8 @@ import { TokensManager } from '../tokens';
 import { transform, TransformCacheCollection } from '@wyw-in-js/transform';
 import { syncResolve } from '@wyw-in-js/shared';
 import { TextEncoder, TextDecoder } from 'util';
-import { ConditionsManager } from '../conditions/conditions-manager.ts';
-import { UtilitiesManager } from '../utilities/utilities-manager.ts';
+import { ConditionsManager } from '../conditions';
+import { UtilitiesManager } from '../utilities';
 
 interface InJsTransformOptions {
   code: string;

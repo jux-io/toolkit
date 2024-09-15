@@ -1,0 +1,17 @@
+---
+import { Code } from '@astrojs/starlight/components';
+import { PreviewComponent } from './PreviewComponent';
+
+const { code } = Astro.props;
+---
+
+<div
+  class="not-content"
+  style={{
+    display: 'flex',
+    flexDirection: 'column',
+  }}
+>
+  <PreviewComponent><slot /></PreviewComponent>
+  <Code code={code.toString()} frame="none" lang={'tsx'} />
+</div>
