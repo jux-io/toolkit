@@ -1,5 +1,5 @@
 ---
-'@juxio/cli': minor
+'@juxio/cli': patch
 ---
 
 added --directory folder to both pull and components commands, for custom output directory
