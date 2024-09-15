@@ -138,11 +138,11 @@ export class StyledProcessor extends BaseProcessor {
   }
 
   doEvaltimeReplacement() {
-    this.replacer(this.astService.stringLiteral(this.asSelector), false);
+    return;
   }
 
   doRuntimeReplacement() {
-    return;
+    this.doEvaltimeReplacement();
   }
 
   public override get asSelector(): string {

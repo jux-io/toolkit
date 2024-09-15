@@ -5,7 +5,7 @@ export default defineConfig({
   preflight: false,
 
   /* A list of glob file patterns to watch for styling configurations */
-  include: ['./src/**/*.{ts,tsx,js,jsx,astro}'],
+  include: ['./src/**/*.{ts,tsx,js,jsx}', '**/styling/index.mdx'],
 
   exclude: ['./src/**/samples/**/*.{ts,tsx,js,jsx,astro}'],
 

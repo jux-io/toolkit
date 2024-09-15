@@ -1,0 +1,29 @@
+---
+title: Compositions
+description: Learn how to use compositions in Jux
+tableOfContents: false
+---
+import StyledCompositions from './examples/StyledCompositions'
+import styledCompositionsRaw from "./examples/StyledCompositions.tsx?raw";
+
+import CodePreview from '../../../../../components/CodePreview/CodePreview.astro'
+
+Jux allows you to easily compose and extend styled components. This feature enables you to create specialized versions of components while maintaining a consistent styling base.
+
+When you compose a component which has variants, they will be inherited by the composed component.
+
+<CodePreview code={styledCompositionsRaw}><StyledCompositions /></CodePreview>
+
+Jux `styled` function will work perfectly on all of your own or any other component, as long as they attach a `className` prop to a DOM element.
+
+```tsx
+const Button = ({ className, children }) => (
+  <button className={className}>
+    {children}
+  </button>
+);
+
+const StyledButton = styled(Button, {
+  color: 'violet'
+})
+```

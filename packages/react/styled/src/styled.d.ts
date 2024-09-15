@@ -10,12 +10,13 @@ import { Conditions, Tokens, Utilities } from '@juxio/css/types';
 import * as React from 'react';
 
 export interface StyledVariants<Props extends BaseProps> {
-  props: Partial<Props> | ((props: Props) => boolean);
+  props: Props | ((props: Props) => boolean);
   style: CSSPropertiesWithCustomValues<
     Merge<CSSProperties, CustomTokensValues<Tokens>>,
     Utilities,
     Conditions
   >;
+  test?: Props;
 }
 
 export interface StylesDefinition<

@@ -1,6 +1,101 @@
 ---
 title: Styling
 description: Learn how to style your components with Jux
----
 
-asdf
+tableOfContents:
+  minHeadingLevel: 3
+  maxHeadingLevel: 6
+---
+import {Aside} from "@astrojs/starlight/components";
+import CSSFunction from './examples/CSSFunction.tsx'
+import cssFunctionRaw from "./examples/CSSFunction.tsx?raw";
+
+import StyledBasic from './examples/StyledBasic'
+import styledBasicRaw from "./examples/StyledBasic.tsx?raw";
+
+import StyledVariants from './examples/StyledVariants'
+import styledVariantsRaw from "./examples/StyledVariants.tsx?raw";
+
+import CodePreview from '../../../../../components/CodePreview/CodePreview.astro'
+
+Jux can be used with any framework, with a `styled` function helper for React.
+
+### Use the `css` function
+
+Jux's `css` function can be used in any component or element that accepts a `className` prop. The call to the css function is replaced with a unique string that represents the CSS class name for the generated styles.
+
+<CodePreview code={cssFunctionRaw}><CSSFunction /></CodePreview>
+
+### Use the `styled` function
+
+If you're using React, you can use the `styled` function which makes it easier to write React components with variants and dynamic styles.
+
+<CodePreview code={styledBasicRaw}><StyledBasic /></CodePreview>
+
+#### Variants / Compound Variants
+
+Jux's styled system allows you to create dynamic styles using variants. This enables you to define different style variations based on props, creating flexible and reusable components.
+
+Variants allow you to define style variations based on component props. Each variant is defined by a `props` object and a `style` object. The `props` object specifies the conditions under which the variant's styles should be applied.
+
+Variants in Jux can be defined to respond to single prop conditions or multiple prop conditions (compound variants). All variants are defined within the same variants array. Here's an example demonstrating both basic and compound variants:
+
+<CodePreview code={styledVariantsRaw}><StyledVariants /></CodePreview>
+
+You can also pass a function to the props object. If the function returns true, the styles are applied.
+
+```tsx
+import styled from '@juxio/react-styled';
+
+const Button = styled('button', {
+  root: {
+    // styles...
+  },
+  variants: [
+    {
+      props: (props) => props.type === 'danger',
+      style: {
+        color: '#d13333',
+      },
+    },
+  ],
+});
+```
+
+##### Multiple matching variants
+
+It's possible for multiple variants (including compound variants) to match the component's props simultaneously. In this case, all matching variant styles are applied. The order of application follows the order in which the variants are defined, with later variants potentially overriding styles from earlier ones.
+
+### Working with tokens
+
+Both the css and styled functions in Jux can receive tokens as values. To use a token, simply wrap the token name with curly braces `{}`. This allows you to easily incorporate your design system tokens into your styles. Here's an example:
+
+```tsx
+import { styled } from '@juxio/react-styled';
+
+const Box = styled('div', {
+  backgroundColor: '{core.color.background}',
+  padding: '{core.dimension.medium}',
+  mx: '{core.spacing.large}', // Custom utility using a token
+  typography: '{core.typography.body}',
+});
+```
+
+<Aside type="tip">
+  Both styled and css functions are fully typed, providing autocomplete and type checking for your CSS properties, including tokens. Refer to the [TypeScript Guide](/docs/developers/reference/typescript) for more information on TypeScript support in Jux.
+</Aside>
+
+### Custom CSS properties and Utilities
+
+Jux allows you to define custom CSS properties and utilities, enhancing your styling capabilities and enabling you to create shorthand properties tailored to your project needs. For example:
+
+```tsx
+import { styled } from '@juxio/react-styled';
+
+const Box = styled('div', {
+  mx: '20px', // Custom utility for horizontal margin
+});
+```
+
+These custom properties and utilities can significantly streamline your styling process and enforce consistency across your application.
+For a detailed explanation of how to define and use custom CSS properties and utilities, please refer to the [Utilities section](/developers/customization/utilities) of the documentation.
