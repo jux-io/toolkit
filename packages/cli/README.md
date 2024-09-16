@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://www.jux.io" target="_blank">
-    <img alt="Jux" src="/website/src/assets/JuxButtonWhite.png" width="350">
+    <img alt="Jux" src="https://cdn.jux.io/brand/JuxButtonWhite.png" width="350">
   </a>
 </p>
 
@@ -8,14 +8,10 @@
 A utility first, zero runtime CSS-in-JS framework with full design tokens and themes support.
 </p>
 
-<p align="center">
-    <a href="https://github.com/jux-io/toolkit/actions"><img src="https://github.com/jux-io/toolkit/actions/workflows/release.yml/badge.svg" alt="Build Status"></a>
-</p>
-
 ## Features
 
 - Write CSS in JS, with **zero** runtime - all styles are extracted and calculated at build time
-- Full support for design tokens and themes, powered by [@juxio/design-tokens](/packages/@juxio/design-tokens)
+- Full support for design tokens and themes, powered by [@juxio/design-tokens](https://www.npmjs.com/package/@juxio/design-tokens)
 - Utility first - write utilities (custom css properties) which can then be used to style your components
 - CLI for easy management of your design tokens, themes, utilities and styles
 - Type-safe - autocompletion for your design tokens, breakpoints, and utilities
