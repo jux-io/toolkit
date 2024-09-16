@@ -1,7 +1,7 @@
 {
   "name": "@juxio/postcss",
   "description": "PostCSS plugin for Jux",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -13,7 +13,13 @@
     },
     "./package.json": "./package.json"
   },
-  "keywords": ["jux", "react", "css-in-js", "css", "styled"],
+  "keywords": [
+    "jux",
+    "react",
+    "css-in-js",
+    "css",
+    "styled"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jux-io/toolkit.git",
