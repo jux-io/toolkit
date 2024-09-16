@@ -3,9 +3,7 @@
 @layer juxbase {
   *, :before, :after, ::backdrop, ::file-selector-button {
     box-sizing: border-box;
-    border-style: solid;
-    border-width: 0;
-    border-color: var(--global-color-border, currentColor);
+    border: 0 solid;
   }
 
   html, :host {
@@ -14,11 +12,11 @@
     -moz-osx-font-smoothing: grayscale;
     -moz-tab-size: 4;
     tab-size: 4;
-    line-height: 1.5;
-    font-family: var(--global-font-body, "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'");
-    font-feature-settings: var(--global-font-feature-settings, normal);
-    font-variation-settings: var(--global-font-variation-settings, normal);
+    font-feature-settings: normal;
+    font-variation-settings: normal;
     -webkit-tap-highlight-color: transparent;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    line-height: 1.5;
   }
 
   body {
@@ -51,9 +49,9 @@
   }
 
   code, kbd, samp, pre {
-    font-family: var(--global-font-mono, "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New'");
-    font-feature-settings: var(--global-font-feature-settings, "normal");
-    font-variation-settings: var(--global-font-variation-settings, "normal");
+    font-feature-settings: normal;
+    font-variation-settings: normal;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New;
     font-size: 1em;
   }
 
@@ -163,7 +161,7 @@
   }
 
   input::placeholder, textarea::placeholder {
-    color: var(--global-color-placeholder, "color-mix(in srgb, currentColor 50%, transparent)");
+    color: color-mix(in srgb, currentColor 50%, transparent);
     opacity: 1;
   }
 
