@@ -1,5 +1,13 @@
 # @juxio/react-styled
 
+## 0.7.4
+
+### Patch Changes
+
+- Updated dependencies [[`b668db8`](https://github.com/jux-io/toolkit/commit/b668db8835fcf3800eee95126bc937bff244480e)]:
+  - @juxio/css@0.7.4
+  - @juxio/core@0.7.4
+
 ## 0.7.3
 
 ### Patch Changes
