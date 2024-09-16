@@ -1,5 +1,14 @@
 # @juxio/react-styled
 
+## 0.7.4
+
+### Patch Changes
+
+- [#85](https://github.com/jux-io/toolkit/pull/85) [`b668db8`](https://github.com/jux-io/toolkit/commit/b668db8835fcf3800eee95126bc937bff244480e) Thanks [@tnipri](https://github.com/tnipri)! - fixed an issue with css function and ESM
+
+- Updated dependencies []:
+  - @juxio/core@0.7.4
+
 ## 0.7.3
 
 ### Patch Changes
