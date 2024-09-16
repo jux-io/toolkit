@@ -38,7 +38,7 @@
   ],
   "homepage": "https://github.com/jux-io/toolkit",
   "keywords": [
-    "jux"
+    "jux", "react", "css-in-js", "css", "styled"
   ],
   "license": "MIT",
   "oclif": {
@@ -104,5 +104,8 @@
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -13,6 +13,7 @@
     },
     "./package.json": "./package.json"
   },
+  "keywords": ["jux", "react", "css-in-js", "css", "styled"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jux-io/toolkit.git",
@@ -31,5 +32,8 @@
     "@juxio/core": "workspace:*",
     "fs-extra": "^11.2.0",
     "postcss": "^8.4.39"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

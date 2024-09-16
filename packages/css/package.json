@@ -15,6 +15,7 @@
     "url": "git+https://github.com/jux-io/toolkit.git",
     "directory": "packages/css"
   },
+  "keywords": ["jux", "react", "css-in-js", "css", "styled"],
   "homepage": "https://github.com/jux-io/toolkit",
   "sideEffects": false,
   "exports": {
@@ -61,5 +62,8 @@
     "@babel/types": "^7.25.2",
     "@types/crypto-js": "^4.2.2",
     "@types/lodash": "^4.17.7"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

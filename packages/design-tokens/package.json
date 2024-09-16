@@ -8,6 +8,7 @@
     "/dist"
   ],
   "homepage": "https://github.com/jux-io/toolkit",
+  "keywords": ["jux", "react", "css-in-js", "css", "styled"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jux-io/toolkit.git",
@@ -27,5 +28,8 @@
   "devDependencies": {
     "@types/flat": "^5.0.5",
     "@types/lodash": "^4.17.7"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

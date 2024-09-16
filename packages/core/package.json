@@ -15,6 +15,7 @@
   "files": [
     "dist"
   ],
+  "keywords": ["jux", "react", "css-in-js", "css", "styled"],
   "scripts": {
     "build": "tsup",
     "dev": "pnpm build --watch src",
@@ -76,5 +77,8 @@
     "@types/memoizee": "^0.4.11",
     "@types/object-hash": "^3.0.6",
     "dotenv": "^16.4.5"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
