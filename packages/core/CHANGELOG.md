@@ -1,5 +1,14 @@
 # @juxio/core
 
+## 0.7.2
+
+### Patch Changes
+
+- [#81](https://github.com/jux-io/toolkit/pull/81) [`e5aa102`](https://github.com/jux-io/toolkit/commit/e5aa10295da345f7c3e812e52e9948ab1ad75664) Thanks [@tnipri](https://github.com/tnipri)! - bump version
+
+- Updated dependencies []:
+  - @juxio/design-tokens@0.7.2
+
 ## 0.7.1
 
 ### Patch Changes
