@@ -1,5 +1,23 @@
 # @juxio/cli
 
+## 0.7.1
+
+### Patch Changes
+
+- [#77](https://github.com/jux-io/toolkit/pull/77) [`f886abf`](https://github.com/jux-io/toolkit/commit/f886abf7f41c5f4fe41f3c008fe952ed1633f01b) Thanks [@tnipri](https://github.com/tnipri)! - added --directory folder to both pull and components commands, for custom output directory
+
+  ```
+  npx jux pull components --directory ./my-components -c my-component
+  ```
+
+  ```
+  npx jux pull tokens --directory ./my-components -c my-component
+  ```
+
+- Updated dependencies [[`f886abf`](https://github.com/jux-io/toolkit/commit/f886abf7f41c5f4fe41f3c008fe952ed1633f01b)]:
+  - @juxio/core@0.7.1
+  - @juxio/design-tokens@0.7.1
+
 ## 0.7.0
 
 ### Patch Changes
