@@ -3,4 +3,149 @@ title: TypeScript
 description: Learn how to use TypeScript with Jux
 ---
 
-asdf
+Jux provides robust TypeScript support, automatically generating type definitions for your tokens, utilities, and screen conditions. This ensures type safety and enables autocompletion in your development environment.
+
+## Generating Type Definitions
+
+To generate TypeScript definitions for your Jux configuration, use the following CLI command:
+
+```shell frame=none
+npx jux generate
+```
+
+This command will create a `types.d.ts` file containing definitions based on your Jux configuration. The output directory can be customized using the `definitions_directory` option in your Jux configuration.
+
+Generate types to specific directory:
+
+```shell frame=none
+npx jux generate --directory ./src/types
+```
+
+## Sample Jux Configuration
+
+```typescript
+import { defineConfig } from '@juxio/cli';
+
+export default defineConfig({
+  definitions_directory: './src/types', // The directory where the type definitions will be generated
+  core_tokens: {
+    color: {
+      primary: { $value: '#0070f3' },
+      secondary: { $value: '#ff4081' },
+    },
+    dimension: {
+      spacing: {
+        small: { $value: '4px' },
+        medium: { $value: '8px' },
+        large: { $value: '16px' },
+      },
+    },
+    typography: {
+      body: {
+        $value: {
+          fontSize: '16px',
+          lineHeight: '1.5',
+          fontFamily: 'Inter, sans-serif',
+        },
+      },
+      heading: {
+        $value: {
+          fontSize: '24px',
+          lineHeight: '1.3',
+          fontFamily: 'Roboto, sans-serif',
+          fontWeight: '700',
+        },
+      },
+    },
+  },
+  utilities: {
+    acceptedValues: 'dimension',
+    mx: {
+      transform: (value) => ({
+        marginLeft: value,
+        marginRight: value,
+      }),
+    },
+  },
+  screens: {
+    mobile: { max: '767px' },
+    tablet: { min: '768px', max: '1023px' },
+    desktop: '1024px',
+  },
+});
+```
+
+### Generated Type Definitions
+
+Based on this configuration, Jux would generate a types.d.ts file that looks like this:
+
+```typescript
+import '@juxio/css/types';
+
+export type ColorToken =
+  | '{color.primary}'
+  | '{color.secondary}';
+
+export type DimensionToken =
+  | '{dimension.spacing.small}'
+  | '{dimension.spacing.medium}'
+  | '{dimension.spacing.large}';
+
+export type TypographyToken =
+  | '{typography.body}'
+  | '{typography.heading}';
+
+export type TypographyPropertyToken =
+  | '{typography.body.fontSize}'
+  | '{typography.body.lineHeight}'
+  | '{typography.body.fontFamily}'
+  | '{typography.heading.fontSize}'
+  | '{typography.heading.lineHeight}'
+  | '{typography.heading.fontFamily}'
+  | '{typography.heading.fontWeight}';
+
+declare module '@juxio/css/types' {
+  export interface Tokens {
+    color: ColorToken;
+    dimension: DimensionToken;
+    typography: TypographyToken;
+  }
+
+  export interface Utilities {
+    mx?: DimensionToken;
+  }
+
+  export interface Conditions {
+    screens: ['mobile', 'tablet', 'desktop'];
+  }
+}
+```
+
+### Using the Generated Types
+
+To use the generated types in your project, add the path to the `types.d.ts` file in your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "types": ["./src/types/types.d.ts"]
+  }
+}
+```
+
+Now you can use Jux with full TypeScript support in your project:
+
+```typescript
+import { css } from '@juxio/css';
+
+const styles = css({
+  color: '{color.primary}', // TypeScript will autocomplete this token
+  typography: '{typography.body}', // And this one
+  mx: '{dimension.spacing.medium}', // And this utility
+  tablet: { // TypeScript knows about this screen condition
+    fontSize: '{typography.body.fontSize}', // And this nested token 🤖
+  },
+});
+```
+
+Your IDE will provide autocompletion for token names, utility names, and screen conditions, and validate their usage, helping prevent errors and improve the development experience.

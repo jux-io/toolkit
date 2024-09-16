@@ -43,10 +43,6 @@ export default defineConfig({
           link: '/developers/typescript',
         },
         {
-          label: 'Benchmarks',
-          link: '/developers/benchmarks',
-        },
-        {
           label: 'Getting Started',
           items: [
             {
