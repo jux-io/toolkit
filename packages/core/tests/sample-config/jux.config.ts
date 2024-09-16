@@ -26,10 +26,9 @@ export default {
   utilities: {
     mx: {
       transform: (value: string[]) => {
-        const [val] = value;
         return {
-          marginLeft: val,
-          marginRight: val,
+          marginLeft: value,
+          marginRight: value,
         };
       },
     },

@@ -26,7 +26,7 @@ function getResolvedTokenValue(
 
     foundTokens.push(...parsedTokens);
 
-    // For multi-theme tokens, it doesn't matter which token we use here, as cssVar will be identical for both
+    // For multi-theme tokens, it doesn't matter which token we use here, as cssVar will be identical for both, so just take the first one
     return parsedTokens[0].isComposite
       ? parsedTokens.map((t) => t.value)
       : `var(${parsedTokens[0].cssVar})`;
@@ -66,11 +66,14 @@ export function getUtilityValue(
         onTokenNotFound
       );
 
-      const transformedValue = utility.transform(resolved, {
-        tokensManager,
-        tokens: foundTokens,
-        rawValue: value,
-      });
+      const transformedValue = utility.transform(
+        resolved.length === 1 ? resolved[0] : resolved,
+        {
+          tokensManager,
+          tokens: foundTokens,
+          rawValue: value,
+        }
+      );
 
       return transformedValue
         ? {

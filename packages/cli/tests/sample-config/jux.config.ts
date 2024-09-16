@@ -34,7 +34,7 @@ export default {
       },
     },
     token_category: {
-      acceptedValues: { category: 'border' },
+      acceptedValues: 'border',
       transform: (value) => {
         return {
           color: value,

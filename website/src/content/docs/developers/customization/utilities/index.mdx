@@ -1,6 +1,148 @@
 ---
 title: Utilities
-description: Learn how to use utilities in your jux components.
----
+description: Learn how to use variants in Jux
 
-asdf
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 6
+---
+import {Aside} from "@astrojs/starlight/components";
+
+Utilities in Jux provide a way to create custom CSS properties that can be used in your styled components. These utilities allow you to define reusable, complex style transformations that can significantly simplify your styling code and enhance its readability.
+
+Jux comes with a set of built-in utilities that you can use out of the box. However, you can also define your own custom utilities to suit your specific needs.
+
+### What are Utilities?
+
+Utilities are custom functions that transform a given value into one or more CSS properties. They are defined in your `jux.config` file and can be used in your styled and css function calls.
+
+Each utility can be configured using the following properties:
+
+- `acceptedValues`: The values that the utility accepts. This is used for type definition generation and intellisense. This can be a string representing [token category](/developers/reference/token-categories) or an array of strings representing specific tokens.
+- `transform`: A function that transforms the given value into one or more CSS properties.
+
+```tsx
+export default defineConfig({
+  /* ... other configurations ... */
+  utilities: {
+    mx: {
+      acceptedValues: 'dimension', // Can also be ['my_value', 'my_other_value']
+      transform: (value) => {
+        return {
+          marginLeft: value,
+          marginRight: value,
+        };
+      },
+    },
+  },
+});
+```
+
+
+### Using Utilities
+
+Once defined, you can use your custom utilities in your styled components or css function calls:
+
+```tsx
+const Box = styled('div', {
+  root: {
+    mx: '12px',
+    // This is equivalent to:
+    // marginLeft: '12px',
+    // marginRight: '12px',
+  },
+});
+
+// Or with the css function and tokens:
+const styles = css({
+  mx: '{core.dimension.spacing.2}',
+});
+```
+
+### The `transform` function
+
+The transform function in a utility is the core of its functionality. It receives two parameters:
+
+- `value`: The resolved value of the utility.
+- `args`: An object containing additional information and utilities.
+
+#### value parameter
+
+The value parameter contains the resolved value of the utility. If a token is used, this will be the CSS variable representation of that token. For example:
+
+- Direct value:
+
+  ```tsx
+  css({ mx: '12px' })
+  // value = '12px'
+    ```
+
+- Single token value:
+
+  ```tsx
+  css({ mx: '{dimension.core.spacing.2}' })
+  // value = 'var(--dimension-core-spacing-2)'
+  ```
+
+- Multiple token values:
+
+    ```tsx
+    css({ mx: '{dimension.core.spacing.2} {dimension.core.spacing.3}' })
+    // value = ['var(--dimension-core-spacing-2)', 'var(--dimension-core-spacing-3)']
+    ```
+
+- Combination of tokens and direct values:
+
+    ```tsx
+    css({ mx: '{dimension.core.spacing.2} 12px' })
+    // value = ['var(--dimension-core-spacing-2)', '12px']
+    ```
+
+- For [composite tokens](/developers/customization/tokens-and-themes#composite-tokens) that are **not** scoped to themes (core tokens), the value will be an object:
+
+    ```tsx
+    css({ typography: '{core.typography.body1}' })
+    // value = { fontFamily: 'var(--font_family-core-base)', ... }
+    ```
+
+- For [composite tokens](/developers/customization/tokens-and-themes#composite-tokens) that are scoped to themes, the value will be an array of objects, one for each theme:
+
+      ```tsx
+      css({ typography: '{typography.body1}' })
+      // value = [{ fontFamily: 'var(--font_family-theme-base)', ... }]
+      ```
+
+#### Additional helpers
+
+The second parameter to the `transform` function is an object that provides access to the token system and raw input. It contains:
+
+- `tokensManager`: A class representing the available tokens in the system. This can be used to interact with or query the token system.
+- `tokens`: An array of `TokenParser` objects representing the tokens in question. This is populated when a token value is provided. For themed tokens, this array will contain multiple TokenParser objects, one for each theme defined in the system.
+- `rawValue`: The original, unresolved value provided to the utility.
+
+Here's an example of a utility that uses this to access the token system:
+
+```tsx
+export default defineConfig({
+  utilities: {
+    customSpacing: {
+      transform: (value, { rawValue, tokens, tokensManager }) => {
+        console.log('Resolved value:', value);
+        console.log('Raw value:', rawValue);
+
+        // Access token information if needed
+        console.log('Resolved tokens:', tokens);
+
+        return {
+          borderColor: tokensManager.getTokenByName('core.color.primary').tokenVariable
+          // ... Other CSS properties
+        }
+      },
+    },
+  },
+});
+```
+
+### Built-in Utilities
+
+TODO

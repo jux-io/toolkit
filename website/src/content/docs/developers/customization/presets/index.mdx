@@ -3,4 +3,78 @@ title: Presets
 description: Learn how to use presets in Jux
 ---
 
-asdf
+Presets in Jux allow you to create and share configuration settings across multiple projects. This feature is particularly useful for maintaining consistency in design systems across different applications or for creating base configurations that can be extended for specific projects.
+
+### What are Presets ?
+
+Presets are pre-defined configuration objects that can include various aspects of your Jux setup, such as core tokens, themes, utilities, and global styles. They can be imported and used in your project's Jux configuration.
+
+### Creating a Preset
+
+Presets are Jux configuration objects, taking the configuration you use in your `jux.config` file.
+
+```tsx
+// my-preset.ts
+import { definePreset } from '@juxio/cli';
+
+export default definePreset({
+  core_tokens: {
+    color: {
+      primary: { $value: '#007bff' },
+      secondary: { $value: '#6c757d' },
+    },
+  },
+  utilities: {
+    mx: {
+      transform: (value) => ({
+        marginLeft: value,
+        marginRight: value,
+      }),
+    },
+  },
+  // ... other configuration options
+});
+```
+
+### Using Presets
+
+To use a preset in your Jux configuration, you can import it and add it to the presets array in your `jux.config` file:
+
+```tsx
+import preset from '@acme/shared-jux-config'
+import { defineConfig } from '@juxio/cli';
+
+export default defineConfig({
+  presets: [preset],
+  // ... other configuration options
+});
+```
+
+You can use multiple presets by adding them to the presets array:
+
+```tsx
+export default defineConfig({
+  presets: [preset1, preset2, preset3],
+  // ... other configuration options
+});
+```
+
+### Preset Configuration Options
+
+A preset can include the following configuration options:
+
+- `globalCss`: Global CSS styles to apply across your application.
+- `screens`: An object defining breakpoints for responsive design.
+- `builtInFonts`: Specification of built-in fonts (currently supports Google Fonts).
+- `core_tokens`: The core design tokens for your design system.
+- `themes`: Theme definitions for your design system.
+- `utilities`: Custom CSS properties (as described in the Utilities section).
+
+
+### Preset Merging Behavior
+
+When using presets, it's important to understand how they interact with your main configuration:
+
+1. Presets are merged with the rest of your configuration.
+2. They act as a set of base settings that can be overridden or extended.
+3. If a preset defines a value (e.g., a core token) that is also defined in the main config, the main config's value will take precedence.

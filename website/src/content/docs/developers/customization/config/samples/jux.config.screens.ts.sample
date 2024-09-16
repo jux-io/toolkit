@@ -1,0 +1,22 @@
+import { defineConfig } from '@juxio/cli';
+
+export default defineConfig({
+  /* ... */
+  screens: {
+    xs: {
+      max: '639px', // => @media (max-width: 639px) { }
+    },
+    sm: '640px', // => @media (min-width: 640px) { }
+    md: {
+      min: '768px',
+      max: '1024px',
+      // => @media (min-width: 768px) and (max-width: 1024px) { }
+    },
+    lg: {
+      min: '1025px', // => @media (min-width: 1025px) { }
+    },
+    custom: {
+      raw: '(orientation: landscape)', // => @media (orientation: landscape) { }
+    },
+  },
+});

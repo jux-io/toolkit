@@ -1,0 +1,17 @@
+import { defineConfig } from '@juxio/cli';
+
+export default defineConfig({
+  /* ... */
+  utilities: {
+    mx: {
+      transform: (value) => {
+        return {
+          marginLeft: value,
+          marginRight: value,
+        };
+      },
+    },
+  },
+});
+
+// css({ mx: '12px' }) => { marginLeft: '12px', marginRight: '12px' }

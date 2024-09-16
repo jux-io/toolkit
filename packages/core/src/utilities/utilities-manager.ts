@@ -32,8 +32,8 @@ export class UtilitiesManager {
           return `${key}?: ${value.acceptedValues.map((v) => `'${v}'`).join(' | ')};`;
         }
 
-        if (value.acceptedValues?.category) {
-          return `${key}?: ${capitalize(value.acceptedValues.category)}Token;`;
+        if (typeof value.acceptedValues === 'string') {
+          return `${key}?: ${capitalize(value.acceptedValues)}Token;`;
         }
 
         return `${key}?: string`;
