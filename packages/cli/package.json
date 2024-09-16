@@ -1,7 +1,7 @@
 {
   "name": "@juxio/cli",
   "description": "Jux CLI to generate design tokens and components",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "author": "jux",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -38,7 +38,11 @@
   ],
   "homepage": "https://github.com/jux-io/toolkit",
   "keywords": [
-    "jux", "react", "css-in-js", "css", "styled"
+    "jux",
+    "react",
+    "css-in-js",
+    "css",
+    "styled"
   ],
   "license": "MIT",
   "oclif": {
