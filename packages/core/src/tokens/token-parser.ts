@@ -130,4 +130,12 @@ export class TokenParser {
     // Remove the first part of the token name in case it's not a core value, as it's the theme name
     return this.isCore ? this.name : this.name.split('.').slice(1).join('.');
   }
+
+  get tokenVariable() {
+    if (this.isComposite) {
+      throw new Error('Cannot format composite token value');
+    }
+
+    return `var(${this.cssVar})`;
+  }
 }

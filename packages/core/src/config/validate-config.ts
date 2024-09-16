@@ -52,11 +52,7 @@ const UtilitiesSchema = z.record(
     acceptedValues: z
       .union([
         z.array(z.string()),
-        z.object({
-          category: z.enum(
-            Object.keys(DesignTokenTypeEnum) as [string, ...string[]]
-          ),
-        }),
+        z.enum(Object.keys(DesignTokenTypeEnum) as [string, ...string[]]),
       ])
       .optional(),
     transform: z.function(),

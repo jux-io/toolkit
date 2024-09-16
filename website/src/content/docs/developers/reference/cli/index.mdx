@@ -1,49 +1,49 @@
 ---
-title: Test
-description: asdf
+title: CLI Reference
+description: Learn how to use the Jux CLI to generate type definitions, pull components and tokens, and more.
+
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 6
 ---
 
-# @juxio/cli
+## Usage
 
-Jux CLI to generate design tokens and components from Jux editor
 
-- [Usage](#usage)
-- [Commands](#commands)
-
-# Usage
-
-```sh-session
+```shell
 $ npm install -g @juxio/cli
 $ jux COMMAND
 running command...
-$ jux (--version)
-@juxio/cli/0.0.0 darwin-arm64 node-v21.6.2
+$ jux (--version|-v|version)
+@juxio/cli/0.7.0 darwin-arm64 node-v21.6.2
 $ jux --help [COMMAND]
 USAGE
   $ jux COMMAND
 ...
 ```
 
-# Commands
+## Commands
 
-- [`jux generate`](#jux-generate)
-- [`jux help [COMMAND]`](#jux-help-command)
-- [`jux init`](#jux-init)
-- [`jux login`](#jux-login)
-- [`jux pull`](#jux-pull)
-- [`jux tokens`](#jux-tokens)
+* [`jux generate`](#jux-generate)
+* [`jux generate css`](#jux-generate-css)
+* [`jux help [COMMAND]`](#jux-help-command)
+* [`jux init`](#jux-init)
+* [`jux login`](#jux-login)
+* [`jux pull components`](#jux-pull-components)
+* [`jux pull tokens`](#jux-pull-tokens)
+* [`jux version`](#jux-version)
 
-## `jux generate`
+### `jux generate`
 
 Generate type definitions
 
-```
+```shell
 USAGE
-  $ jux generate [--tokensOnly] [--cwd <value>]
+  $ jux generate [--cwd <value>] [-d <value>]
 
 FLAGS
-  --cwd=<value>  [default: process.cwd()] The current working directory for the command
-  --tokensOnly   Generate tokens definitions only
+  -d, --directory=<value>  Output directory for generated files
+      --cwd=<value>        The current working directory for the command
 
 DESCRIPTION
   Generate type definitions
@@ -51,16 +51,33 @@ DESCRIPTION
 EXAMPLES
   $ jux generate
 
-  $ jux generate --tokens-only
+  $ jux generate --directory=./src/jux/types
 ```
 
-_See code: [src/commands/generate.ts](https://github.com/packages/cli/blob/v0.0.0/src/commands/generate.ts)_
+### `jux generate css`
 
-## `jux help [COMMAND]`
+Generate type definitions
+
+```shell
+USAGE
+  $ jux generate css -o <value> [--cwd <value>]
+
+FLAGS
+  -o, --output=<value>  (required) Output file for generated CSS
+      --cwd=<value>     The current working directory for the command
+
+DESCRIPTION
+  Generate type definitions
+
+EXAMPLES
+  $ jux generate css --output=./src/styles.css
+```
+
+### `jux help [COMMAND]`
 
 Display help for jux.
 
-```
+```shell
 USAGE
   $ jux help [COMMAND...] [-n]
 
@@ -74,41 +91,39 @@ DESCRIPTION
   Display help for jux.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.2.6/src/commands/help.ts)_
-
-## `jux init`
+### `jux init`
 
 initialize your project and install dependencies
 
-```
+```shell
 USAGE
-  $ jux init [--cwd <value>] [-f] [-i]
+  $ jux init [--cwd <value>] [-f] [-p] [--skip-deps]
 
 FLAGS
   -f, --force        Force overwrite of existing configuration
-  -i, --interactive  Run in interactive mode
-      --cwd=<value>  [default: process.cwd()] The directory to initialize the project in
+  -p, --postcss      Whether to initialize with PostCSS
+      --cwd=<value>  The directory to initialize the project in
+      --skip-deps    Do not install dependencies
 
 DESCRIPTION
   initialize your project and install dependencies
 
 EXAMPLES
-  $ jux init -d
+  $ jux init
+
+  $ jux init --force
 ```
 
-_See code: [src/commands/init.ts](https://github.com/packages/cli/blob/v0.0.0/src/commands/init.ts)_
-
-## `jux login`
+### `jux login`
 
 Authenticate CLI with a Jux account
 
-```
+```shell
 USAGE
-  $ jux login [-d] [-c <value>]
+  $ jux login [-c <value>]
 
 FLAGS
-  -c, --cwd=<value>  [default: process.cwd()] The directory to initialize the project in
-  -d, --defaults     Use defaults configurations
+  -c, --cwd=<value>  The directory to initialize the project in
 
 DESCRIPTION
   Authenticate CLI with a Jux account
@@ -117,50 +132,65 @@ EXAMPLES
   $ jux login -d
 ```
 
-_See code: [src/commands/login.ts](https://github.com/packages/cli/blob/v0.0.0/src/commands/login.ts)_
-
-## `jux pull`
+### `jux pull components`
 
 Pull components from Jux editor
 
-```
+```shell
 USAGE
-  $ jux pull [-c <value>...] [--cwd <value>]
+  $ jux pull components [-c <value>...] [-d <value>] [--cwd <value>]
 
 FLAGS
   -c, --components=<value>...  Pull specific components. Separate multiple components with a space.
-      --cwd=<value>            [default: process.cwd()] The current working directory for the command
+  -d, --directory=<value>      Output directory for generated files
+      --cwd=<value>            The current working directory for the command
 
 DESCRIPTION
   Pull components from Jux editor
 
 EXAMPLES
-  $ jux pull -c component1 component2 component3
+  $ jux pull components -c component1 component2 component3
 
-  $ jux pull --all
+  $ jux pull components --all
 ```
 
-_See code: [src/commands/pull.ts](https://github.com/packages/cli/blob/v0.0.0/src/commands/pull.ts)_
-
-## `jux tokens`
+### `jux pull tokens`
 
 Pull tokens from Jux editor
 
-```
+```shell
 USAGE
-  $ jux tokens [-c <value>...] [-c <value>]
+  $ jux pull tokens [-d] [-d <value>] [-c <value>]
 
 FLAGS
-  -c, --components=<value>...  Pull specific components. Separate multiple components with a space.
-  -c, --cwd=<value>            [default: process.cwd()] The current working directory for the command
+  -c, --cwd=<value>        The current working directory for the command
+  -d, --definitions        Generate token definitions after pull
+  -d, --directory=<value>  Output directory for generated files
 
 DESCRIPTION
   Pull tokens from Jux editor
 
 EXAMPLES
-  $ jux tokens -c component1 component2 component3
+  $ jux pull tokens
 
-  $ jux tokens --all
+  $ jux pull tokens -d
 ```
 
-_See code: [src/commands/tokens.ts](https://github.com/packages/cli/blob/v0.0.0/src/commands/tokens.ts)_
+
+### `jux version`
+
+```shell
+USAGE
+  $ jux version [--json] [--verbose]
+
+FLAGS
+  --verbose  Show additional information about the CLI.
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+FLAG DESCRIPTIONS
+  --verbose  Show additional information about the CLI.
+
+    Additionally shows the architecture, node version, operating system, and versions of plugins that the CLI is using.
+```

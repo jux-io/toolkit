@@ -19,7 +19,7 @@ export default defineConfig({
       },
       social: {
         github: 'https://github.com/jux-io/toolkit',
-        discord: 'https://www.discord.com',
+        discord: 'https://discord.gg/xa4PR7T9',
       },
       sidebar: [
         {
@@ -97,7 +97,7 @@ export default defineConfig({
             },
             {
               label: 'Screens (Responsive Design)',
-              link: '/developers/customization/responsive-design',
+              link: '/developers/customization/screens',
             },
             {
               label: 'Utilities',
@@ -128,10 +128,6 @@ export default defineConfig({
             {
               label: 'Preflight Styles',
               link: '/developers/reference/preflight-styles',
-            },
-            {
-              label: 'Design Tokens Parser',
-              link: '/developers/reference/design-tokens',
             },
           ],
         },

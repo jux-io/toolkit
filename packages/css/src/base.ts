@@ -121,6 +121,8 @@ export interface CustomTokensValues<
     | TokenValue<Tokens, 'dimension'>
     | CSSProperties['marginBottom'];
   marginLeft?: TokenValue<Tokens, 'dimension'> | CSSProperties['marginLeft'];
+  fill?: TokenValue<Tokens, 'color'> | CSSProperties['fill'];
+  stroke?: TokenValue<Tokens, 'color'> | CSSProperties['stroke'];
 }
 
 /**

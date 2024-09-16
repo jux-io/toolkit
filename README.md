@@ -10,7 +10,7 @@ A utility first, zero runtime CSS-in-JS framework with full design tokens and th
 
 <p align="center">
     <a href="https://github.com/jux-io/toolkit/actions"><img src="https://github.com/jux-io/toolkit/actions/workflows/release.yml/badge.svg" alt="Build Status"></a>
-    <a href="https://www.npmjs.com/package/@juxio/cli"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="npm version"></a>
+    <a href="https://www.npmjs.com/package/@juxio/cli"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="commitizen friendly"></a>
 </p>
 
 ## Features
@@ -88,5 +88,5 @@ export default function Home() {
 
 ## Community
 
-Love the project? ♥️ Need help or have a question? Join our [Discord](https://discord.gg) community or email us at [squad@jux.io](mailto:squad@jux.io) and say hi!
+Love the project? ♥️ Need help or have a question? Join our [Discord](https://discord.gg/xa4PR7T9) community or email us at [squad@jux.io](mailto:squad@jux.io) and say hi!
 

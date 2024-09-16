@@ -3,26 +3,33 @@ title: Tokens & Themes
 description: A guide to using design tokens and themes in Jux
 
 tableOfContents:
-    minHeadingLevel: 1
-    maxHeadingLevel: 5
+    minHeadingLevel: 2
+    maxHeadingLevel: 4
 ---
 
 import {Aside, Code} from "@astrojs/starlight/components";
 import juxConfigWithTokens from './samples/jux.config.core_tokens.ts?raw'
 
-Jux provides a powerful system for managing design tokens and themes, allowing you to create consistent and flexible designs across your application. This guide will show you how to set up tokens and themes in your Jux configuration and how to use them in your project.
+Jux provides a system for managing design tokens and themes, allowing you to create consistent and flexible designs across your application. This guide will show you how to set up tokens and themes in your Jux configuration and how to use them in your project.
 
-## Configuring Design Tokens
+### Configuring Design Tokens
 
 Design tokens are a platform-agnostic way to define your design system and ensure consistency across your application. It's key-value pairs that define the visual properties of your application, such as colors, typography, spacing, and more.
 
-### Core Tokens
+#### Token Structure
+
+Tokens can be nested to any depth, allowing for a hierarchical organization of your design tokens. Each token can have the following properties:
+
+- `$value`: The actual value of the token. This can be any valid CSS value or an object for [composite tokens](#composite-tokens).
+- `$description`: A description of the token (optional).
+
+#### Core Tokens
 
 Core tokens are the foundation of your design system. They define the basic design elements that are shared across all themes.
 
-Core tokens are defined in the `core_tokens` section of your `jux.config.ts` file:
+Core tokens are defined in the `core_tokens` section of your `jux.config` file:
 
-```typescript
+```typescript title="jux.config.ts"
 import { defineConfig } from '@juxio/cli';
 
 export default defineConfig({
@@ -54,14 +61,7 @@ export default defineConfig({
 });
 ```
 
-#### Token Structure
-
-Core tokens can be nested to any depth, allowing for a hierarchical organization of your design tokens. Each token can have the following properties:
-
-- `$value`: The actual value of the token. This can be any valid CSS value or an object for [composite tokens](#composite-tokens).
-- `$description`: A description of the token (optional).
-
-#### CSS Output
+##### CSS Output
 
 Jux automatically converts your design tokens into CSS custom properties, making them easy to use in your styles. The name of the CSS custom property is derived from the token's path in the design token object. All core token variables are prefixed with `--core` to distinguish them from theme-specific variables.
 
@@ -83,10 +83,10 @@ For example, the core tokens defined above will be converted to the following CS
 ```
 
 <Aside type="tip">
-    You can use `cssVarsRoot` in your `jux.config.ts` to change the root element where CSS variables are applied. By default, Jux applies CSS variables to the `:root` and `:host` element.
+    You can use `cssVarsRoot` in your `jux.config` file to change the root element where CSS variables are applied. By default, Jux applies CSS variables to the `:root` and `:host` element.
 </Aside>
 
-### Themes
+#### Themes
 
 Themes in Jux allow you to create multiple variations of your design system, such as light and dark modes, while leveraging your core tokens.
 
@@ -136,7 +136,6 @@ To apply a theme to your application, you need to add the `data-jux-theme` attri
 
 ```jsx
 import React, { useState } from 'react';
-import { Button } from './components';
 
 function App() {
   const [theme, setTheme] = useState('light');
@@ -149,9 +148,9 @@ function App() {
     <html data-jux-theme={theme}>
       <body>
         <h1>Welcome to my Jux App</h1>
-        <Button onClick={toggleTheme}>
+        <button onClick={toggleTheme}>
           Switch to {theme === 'light' ? 'Dark' : 'Light'} Theme
-        </Button>
+        </button>
       </body>
     </html>
   );
@@ -160,7 +159,7 @@ function App() {
 export default App;
 ```
 
-#### CSS Output
+##### CSS Output
 
 Jux generates CSS for themes by wrapping theme-specific styles with the appropriate data attribute selector. This allows for easy theme switching using CSS selectors.
 
@@ -184,7 +183,7 @@ Jux generates CSS for themes by wrapping theme-specific styles with the appropri
 }
 ```
 
-## Using Tokens in Your Styles
+### Using Tokens in Your Styles
 
 Jux provides multiple ways to use tokens in your styles, from direct references to [utility-based](/developers/customization/utilities) approaches.
 
@@ -203,11 +202,415 @@ const MyButton = styled('button', {
 
 During development, if you use a non-existent token, Jux will display a warning in the console, making it easy to catch typos and errors.
 
-```bash title=Terminal
+```shell title=Terminal
 [warn] [styles.ts]: Token value margin: "{non.existent.token}" was not found in MyButton function
 ```
 
-## TypeScript Support
+### Single-Value / Composite Tokens
+
+In Jux, tokens can be defined in two primary ways: as single-value tokens or composite tokens. Understanding the difference between these types is crucial for effectively managing your design system and applying styles.
+
+#### Single-value tokens
+
+Single-value tokens contain one specific value and are typically used for individual CSS properties.
+
+```typescript title="jux.config.ts"
+export default defineConfig({
+  core_tokens: {
+    color: {
+      brand_100: {
+        $value: '#0070f3',
+        $description: 'Primary brand color',
+      },
+    }
+  }
+});
+```
+
+When you use a single-value token in your styles, Jux converts it to a CSS custom property (variable) syntax:
+
+```tsx title="component.tsx"
+const Button = styled('button', {
+  root: {
+    backgroundColor: '{core.color.brand_100}',
+  },
+});
+```
+
+will be converted to:
+
+```css
+.generated_class {
+  background-color: var(--core-color-brand_100);
+}
+```
+
+#### Composite tokens
+
+Composite tokens are collections of related values, often used for complex styles like typography or shadows.
+
+```typescript title="jux.config.ts"
+export default defineConfig({
+  core_tokens: {
+    fontFamily: {
+      base: {
+        $value: 'Inter',
+        $description: 'Base font family'
+      }
+    },
+    typography: {
+      bold: {
+        $value: {
+          fontSize: '12px',
+          fontFamily: '{core.fontFamily.base}', // You can also reference other tokens
+          fontWeight: '700',
+          lineHeight: '16px',
+          letterSpacing: 'normal',
+        },
+        $description: 'Bold text style',
+      },
+    },
+    // ... other tokens
+  }
+});
+```
+
+When you use a composite token, Jux merges its values directly into the final CSS:
+
+```tsx title="component.tsx"
+const Text = styled('p', {
+  root: {
+    color: '{core.color.brand_100}',
+    typography: '{core.typography.bold}',
+  },
+});
+```
+
+Will be processed to:
+
+```css
+.generated_class {
+  color: var(--core-color-brand_100);
+  font-size: 12px;
+  font-family: var(--core-fontFamily-base);
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: normal;
+}
+```
+
+### Token Types
+
+Jux provides a set of predefined token types to help you categorize and structure your design tokens effectively. Each token type is designed to handle specific aspects of your design system. This guide will walk you through each type, providing explanations and examples.
+
+#### Color
+
+##### Description
+The `color` token type is used for defining all color values in your design system.
+
+##### Example
+
+```typescript title="jux.config.ts"
+export default defineConfig({
+  core_tokens: {
+    color: {
+      primary: { $value: '#0070f3' },
+      secondary: { $value: 'rgb(0, 112, 243)' },
+      textDark: { $value: 'hsl(0, 0%, 20%)' },
+    }
+  }
+})
+```
+
+#### Dimension
+
+##### Description
+The `dimension` token type is used for sizes, spacing, and any other measurement values.
+
+##### Example
+
+```typescript title="jux.config.ts"
+export default defineConfig({
+  core_tokens: {
+    dimension: {
+      spacing: {
+        small: { $value: '4px' },
+        medium: { $value: '8px' },
+        large: { $value: '16px' },
+      },
+      borderRadius: {
+        default: { $value: '4px' },
+        circle: { $value: '50%' },
+      }
+    }
+  }
+})
+```
+
+#### FontFamily
+
+##### Description
+The `fontFamily` token type defines the font families used in your design system.
+
+##### Example
+
+```typescript title="jux.config.ts"
+export default defineConfig({
+  core_tokens: {
+    fontFamily: {
+      primary: { $value: 'Inter, sans-serif' },
+      secondary: { $value: 'Georgia, serif' },
+      monospace: { $value: 'Consolas, monospace' },
+    }
+  }
+})
+```
+
+#### FontWeight
+
+##### Description
+The `fontWeight` token type defines the various font weights used in your typography.
+
+##### Example
+
+```typescript title="jux.config.ts"
+export default defineConfig({
+  core_tokens: {
+    fontWeight: {
+      regular: { $value: '400' },
+      medium: { $value: '500' },
+      bold: { $value: '700' },
+    }
+  }
+})
+```
+
+#### Duration
+
+##### Description
+The `duration` token type is used for defining timing values, often used in animations and transitions.
+
+##### Example
+
+```typescript title="jux.config.ts"
+export default defineConfig({
+  core_tokens: {
+    duration: {
+      fast: { $value: '100ms' },
+      medium: { $value: '300ms' },
+      slow: { $value: '500ms' },
+    }
+  }
+})
+```
+
+#### CubicBezier
+
+##### Description
+The `cubicBezier` token type defines easing functions for animations and transitions.
+
+##### Example
+
+```typescript title="jux.config.ts"
+export default defineConfig({
+  core_tokens: {
+    cubicBezier: {
+      easeIn: { $value: [0.4, 0, 1, 1] },
+      easeOut: { $value: [0, 0, 0.2, 1] },
+      easeInOut: { $value: [0.4, 0, 0.2, 1] },
+    }
+  }
+})
+```
+
+#### Number
+
+##### Description
+The `number` token type is used for unitless numeric values.
+
+##### Example
+
+```typescript title="jux.config.ts"
+export default defineConfig({
+  core_tokens: {
+    number: {
+      opacity: {
+        light: { $value: 0.5 },
+        medium: { $value: 0.7 },
+        high: { $value: 0.9 },
+      },
+      lineHeight: {
+        tight: { $value: 1.2 },
+        normal: { $value: 1.5 },
+        loose: { $value: 1.8 },
+      }
+    }
+  }
+})
+```
+
+#### StrokeStyle
+
+##### Description
+The `strokeStyle` token type is used to define styles for strokes, often used in SVGs or borders.
+
+##### Example
+
+```typescript title="jux.config.ts"
+export default defineConfig({
+  core_tokens: {
+    strokeStyle: {
+      dashed: { $value: '5,5' },
+      dotted: { $value: '1,3' },
+      dashedLong: { $value: '10,5,5,5' },
+    }
+  }
+})
+```
+
+#### Border
+
+##### Description
+The `border` token type is used to define complete border styles.
+
+##### Example
+
+```typescript title="jux.config.ts"
+export default defineConfig({
+  core_tokens: {
+    border: {
+      default: { $value: '1px solid {color.gray.300}' },
+      thick: { $value: '2px dashed {color.primary}' },
+    }
+  }
+})
+```
+
+#### Transition
+
+##### Description
+The `transition` token type defines complete transition properties.
+
+##### Example
+
+```typescript title="jux.config.ts"
+export default defineConfig({
+  core_tokens: {
+    transition: {
+      default: { $value: 'all {duration.medium} {cubicBezier.easeInOut}' },
+      fast: { $value: 'opacity {duration.fast} {cubicBezier.easeIn}' },
+    }
+  }
+})
+```
+
+#### Shadow
+
+##### Description
+The `shadow` token type is used to define box shadows and text shadows.
+
+##### Example
+
+```typescript title="jux.config.ts"
+export default defineConfig({
+  core_tokens: {
+    shadow: {
+      small: { $value: '0 1px 3px rgba(0,0,0,0.12)' },
+      medium: { $value: '0 4px 6px rgba(0,0,0,0.1)' },
+      large: { $value: '0 10px 20px rgba(0,0,0,0.15)' },
+    }
+  }
+})
+```
+
+#### Gradient
+
+##### Description
+The `gradient` token type defines gradient styles.
+
+##### Example
+
+```typescript title="jux.config.ts"
+export default defineConfig({
+  core_tokens: {
+    gradient: {
+      primary: { $value: 'linear-gradient(45deg, {color.primary}, {color.secondary})' },
+      fade: { $value: 'radial-gradient(circle, {color.white} 0%, {color.transparent} 100%)' },
+    }
+  }
+})
+```
+
+#### Typography
+
+##### Description
+The `typography` token type is used to define complete typography styles.
+
+##### Example
+
+```typescript title="jux.config.ts"
+export default defineConfig({
+  core_tokens: {
+    typography: {
+      body: {
+        $value: {
+          fontSize: '{dimension.fontSize.medium}',
+          fontFamily: '{fontFamily.primary}',
+          fontWeight: '{fontWeight.regular}',
+          lineHeight: '{number.lineHeight.normal}',
+        }
+      },
+      heading1: {
+        $value: {
+          fontSize: '{dimension.fontSize.large}',
+          fontFamily: '{fontFamily.secondary}',
+          fontWeight: '{fontWeight.bold}',
+          lineHeight: '{number.lineHeight.tight}',
+        }
+      },
+    }
+  }
+})
+```
+
+#### FontStyle
+
+##### Description
+The `fontStyle` token type defines font styles such as italic or normal.
+
+##### Example
+
+```typescript title="jux.config.ts"
+export default defineConfig({
+  core_tokens: {
+    fontStyle: {
+      normal: { $value: 'normal' },
+      italic: { $value: 'italic' },
+    }
+  }
+})
+```
+
+#### TextDecoration
+
+##### Description
+The `textDecoration` token type defines text decoration styles.
+
+##### Example
+
+```typescript title="jux.config.ts"
+export default defineConfig({
+  core_tokens: {
+    textDecoration: {
+      none: { $value: 'none' },
+      underline: { $value: 'underline' },
+      lineThrough: { $value: 'line-through' },
+    }
+  }
+})
+```
+
+### TypeScript Support
 
 Both `css` and `styled` functions in Jux are fully typed, providing several benefits:
 

@@ -15,6 +15,8 @@ import juxConfigPresets from "./samples/jux.config.presets.ts.sample?raw";
 import juxConfigGlobalCss from "./samples/jux.config.global_styles.ts.sample?raw";
 import juxConfigBrowsersList from "./samples/jux.config.browserslist.ts.sample?raw";
 import juxConfigBuiltinFonts from "./samples/jux.config.builtin_fonts.ts.sample?raw";
+import juxConfigUtilities from "./samples/jux.config.utilities.ts.sample?raw";
+import juxConfigScreens from "./samples/jux.config.screens.ts.sample?raw";
 import cssImports from './samples/cssimports.css.sample?raw'
 
 Configuring Jux allows you to customize its behavior to fit your project's needs. By default, Jux uses a configuration file named `jux.config.ts` in the root of your project.
@@ -25,7 +27,6 @@ A valid Jux config file exports its configuration using the default export. Usin
 
 #### `preflight`
 
-- **Type**: `boolean`
 - **Default**: `true`
 
 Whether to apply css reset styles. Preflight styles are a set of base styles that normalize the appearance of HTML elements across browsers.
@@ -35,7 +36,6 @@ You can check the default styles in the [Preflight](/developers/reference/prefli
 
 #### `include`
 
-- **Type**: `string[]`
 - **Default**: `[]`
 
 <Code code={juxConfigIncludeExclude} lang={'ts'} />
@@ -44,14 +44,12 @@ An array of glob patterns that specify which files Jux should watch for changes.
 
 #### `exclude`
 
-- **Type**: `string[]`
 - **Default**: `['**/*.d.ts']`
 
 An array of glob patterns that specify which files Jux should ignore.
 
 #### `globalCss`
 
-- **Type**: `Record<string, CSSProperties>`
 - **Default**: `{}`
 
 Apply global CSS styles to your project. Global CSS are inserted at the top of the generated CSS file and are scoped to `@layer base` cascade layer.
@@ -60,7 +58,6 @@ Apply global CSS styles to your project. Global CSS are inserted at the top of t
 
 #### `core_tokens`
 
-- **Type**: `Tokens`
 - **Default**: `{}`
 
 Define your design system's core token:
@@ -71,7 +68,6 @@ Learn more about defining tokens and the different categories you can use in the
 
 #### `themes`
 
-- **Type**: `Record<string, Tokens>`
 - **Default**: `{}`
 
 Define your design system's themes:
@@ -82,7 +78,6 @@ Learn more about defining themes and the different categories you can use in the
 
 #### `presets`
 
-- **Type**: `PresetConfig[]`
 - **Default**: `[]`
 
 Use configuration presets to share settings across projects. Any preset will be merged with the rest of the configuration, acting as a set of overrides / extensions.
@@ -90,6 +85,24 @@ Use configuration presets to share settings across projects. Any preset will be 
 <Code code={juxConfigPresets} lang={'ts'} />
 
 Learn more about presets in the [Presets](/developers/customization/presets) section of the documentation.
+
+#### `utilities`
+
+- **Default**: `JuxUtilitiesBase`
+
+Create custom CSS properties that can be used when you style your components.
+
+<Code code={juxConfigUtilities} lang={'ts'} />
+
+#### `screens`
+
+- **Default**: `{}`
+
+Customize the breakpoints used in your project.
+
+<Code code={juxConfigScreens} lang={'ts'} />
+
+Learn more about utilities in the [Utilities section](/developers/customization/utilities) of the documentation.
 
 #### `cssVarsRoot`
 

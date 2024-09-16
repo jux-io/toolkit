@@ -57,3 +57,7 @@ a.large {
   --sl-color-gray-7: #f5f6f8;
   --sl-color-black: #ffffff;
 }
+
+.expressive-code .frame {
+  --ec-brdRad: 8px;
+}

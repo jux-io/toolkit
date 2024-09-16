@@ -49,7 +49,7 @@ export interface APIConfig {
 export type Themes = Record<string, Tokens>;
 
 export interface UtilitiesConfig {
-  acceptedValues?: string[] | { category: DesignTokenType };
+  acceptedValues?: string[] | DesignTokenType;
   transform: (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     value: any,

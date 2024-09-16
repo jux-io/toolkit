@@ -6,7 +6,7 @@ export function generateResetStyles(): Record<string, CSS.Properties> {
       boxSizing: 'border-box',
       borderWidth: 0,
       borderStyle: 'solid',
-      borderColor: 'var(--global-color-border, currentColor)',
+      borderColor: 'currentcolor',
     },
     'html, :host': {
       lineHeight: 1.5,
@@ -16,9 +16,9 @@ export function generateResetStyles(): Record<string, CSS.Properties> {
       MozTabSize: 4,
       tabSize: 4,
       fontFamily:
-        "var(--global-font-body, \"ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'\")",
-      fontFeatureSettings: 'var(--global-font-feature-settings, normal)',
-      fontVariationSettings: 'var(--global-font-variation-settings, normal)',
+        "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
+      fontFeatureSettings: 'normal',
+      fontVariationSettings: 'normal',
       WebkitTapHighlightColor: 'transparent',
     },
     body: {
@@ -46,9 +46,9 @@ export function generateResetStyles(): Record<string, CSS.Properties> {
     },
     'code, kbd, samp, pre': {
       fontFamily:
-        "var(--global-font-mono, \"ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New'\")",
-      fontFeatureSettings: "var(--global-font-feature-settings, 'normal')",
-      fontVariationSettings: "var(--global-font-variation-settings, 'normal')",
+        "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New'",
+      fontFeatureSettings: 'normal',
+      fontVariationSettings: 'normal',
       fontSize: '1em',
     },
     small: {
@@ -136,8 +136,7 @@ export function generateResetStyles(): Record<string, CSS.Properties> {
       resize: 'vertical',
     },
     'input::placeholder, textarea::placeholder': {
-      color:
-        "var(--global-color-placeholder, 'color-mix(in srgb, currentColor 50%, transparent)')",
+      color: 'color-mix(in srgb, currentColor 50%, transparent)',
       opacity: 1,
     },
     ':disabled': {

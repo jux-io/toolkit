@@ -3,4 +3,89 @@ title: Screens
 description: Learn how to customize breakpoints in Jux
 ---
 
-asdf
+Jux provides a flexible system for creating responsive designs through the use of customizable screen breakpoints. This feature allows you to easily apply styles conditionally based on screen sizes or other media queries.
+
+### Defining screens
+
+You can define your custom screen breakpoints in the `jux.config` file. The screens property allows you to set up various breakpoints and media queries that you can then use throughout your styling.
+
+```tsx title="jux.config.ts"
+export default defineConfig({
+  screens: {
+    xs: '640px', // @media (min-width: 640px)
+    sm: '768px', // @media (min-width: 768px)
+    md: '1024px', // @media (min-width: 1024px)
+    lg: '1280px', // @media (min-width: 1280px)
+    // ... other screen definitions
+  },
+  // ... rest of configuration
+});
+```
+
+### Custom screen names
+
+You can use any name for your screens, and they don't have to follow the `xs`, `sm`, `md`, `lg` convention. You can define as many screens as you need, and they can be named anything you like.
+
+```tsx title="jux.config.ts"
+export default defineConfig({
+  screens: {
+    mobile: '640px', // @media (min-width: 640px)
+    tablet: '768px', // @media (min-width: 768px)
+    desktop: '1024px', // @media (min-width: 1024px)
+    wide: '1280px', // @media (min-width: 1280px)
+  },
+});
+```
+
+### Using screens in your styles
+
+Once you've defined your screens, you can use them in your `css` and `styled` function calls to apply responsive styles.
+
+```tsx title="example.tsx"
+const styles = css({
+  color: 'black',
+  mobile: {
+    color: 'blue',
+  },
+});
+```
+
+Will generate the following CSS:
+
+```css
+.class_name {
+  color: black;
+}
+
+@media (min-width: 640px) {
+  .class_name {
+    color: blue;
+  }
+}
+```
+
+### Advanced configuration
+
+By default, Jux uses the `min-width` media query for screen definitions. However, if you're looking for more control over your media queries, you can use the `min`, `max` or `raw` properties to define custom media queries.
+
+```tsx title="jux.config.ts"
+export default defineConfig({
+  screens: {
+    xs: {
+      max: '640px', // @media (max-width: 640px)
+    },
+    md: {
+      min: '768px',
+      max: '1024px',
+      // @media (min-width: 768px) and (max-width: 1024px)
+    },
+    lg: {
+      min: '1024px', // @media (min-width: 1024px)
+    },
+    custom: {
+      raw: '@media (orientation: landscape)',
+    },
+  },
+  // ... other configuration options
+});
+```

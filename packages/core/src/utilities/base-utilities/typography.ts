@@ -4,18 +4,16 @@ import { logger } from '../../utils';
 import { CSSObject } from '../../config/plain-css-types.ts';
 
 export const typography: UtilitiesConfig = {
-  acceptedValues: {
-    category: 'typography',
-  },
-  transform: (value: TypographyTokenValue[], args) => {
+  acceptedValues: 'typography',
+  transform: (value: TypographyTokenValue[] | TypographyTokenValue, args) => {
     // Typogrphy must have a token
     if (args.tokens.length === 0) {
       return;
     }
 
     // If we have more than one value, it means this token is theme based and should be scoped to the theme
-    if (value.length === 1) {
-      return value[0];
+    if (!Array.isArray(value)) {
+      return value;
     }
 
     const compositeTokens = args.tokensManager.getCompositeTokensByCategory();
