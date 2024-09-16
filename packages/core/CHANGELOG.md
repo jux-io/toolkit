@@ -1,5 +1,14 @@
 # @juxio/core
 
+## 0.7.1
+
+### Patch Changes
+
+- [#77](https://github.com/jux-io/toolkit/pull/77) [`f886abf`](https://github.com/jux-io/toolkit/commit/f886abf7f41c5f4fe41f3c008fe952ed1633f01b) Thanks [@tnipri](https://github.com/tnipri)! - added support for cjs and mjs config files
+
+- Updated dependencies []:
+  - @juxio/design-tokens@0.7.1
+
 ## 0.7.0
 
 ### Minor Changes
