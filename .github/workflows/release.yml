@@ -2,9 +2,7 @@ name: Release
 
 on:
   push:
-    paths:
-      - '.changeset/**'
-      - 'packages/**'
+
     branches:
       - master
 
@@ -31,6 +29,12 @@ jobs:
 
       - name: Build packages
         run: pnpm build
+
+      - name: Creating .npmrc
+        run: |
+          cat << EOF > "$HOME/.npmrc"
+            //${{ vars.NPM_REGISTRY }}/:_authToken=${{ secrets.NPM_TOKEN }}
+          EOF
 
       - name: Create Release PR or publish to npm
         id: changesets
