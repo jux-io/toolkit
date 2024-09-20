@@ -1,0 +1,44 @@
+---
+title: Div Element
+description: Learn how to use the Div element in JUX.
+
+tableOfContents:
+  minHeadingLevel: 3
+  maxHeadingLevel: 6
+---
+import { Image } from 'astro:assets';
+import Figcaption from "../../../../components/Figcaption";
+
+import divElement from '../../../../assets/editor/elements/div.png'
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={divElement} alt="Div Element" />
+    <Figcaption>Div Element on Jux Canvas</Figcaption>
+  </picture>
+</div>
+
+### What is it?
+The Div Element is your versatile container in Jux. Think of it as a flexible box that can hold and organize other design elements.
+
+### How does it work?
+
+- Container: Use it to group related elements together.
+- Layout Tool: Arrange your design elements within the Div for structured layouts.
+
+### Key Features
+
+1. Pre-built Content Property: Each Text Element comes with a built-in content area, ready for your words.
+2. Customizable: Style your text using the Dynamic Design Panel - change fonts, sizes, colors, and more.
+3. Stucture-Aware: Behind the scenes, Jux understands the structure of your text (like headings or paragraphs), making it developer-friendly.
+
+### Live Mode
+In live mode, the Div behaves like any other web element:
+
+- It maintains the structure and layout you've designed.
+- Interactive states (like hover or focus) that you've designed can be viewed and tested.
+- If you've added any interactivity or nested interactive elements within the Div, these behaviors will be fully functional and visible.
+
+This real-world representation allows you to experience and refine how users will interact with your layouts and components in the final product.
+
+While the Jux Div Element doesn't have default props, once you make it a component, you'll have the option to add and edit props and states.

@@ -1,0 +1,54 @@
+---
+title: Juxync - Figma to Jux
+description: Learn how to use Juxync to sync your Figma designs to Jux.
+---
+import { Image } from 'astro:assets';
+import copySecretKey from '../../../../assets/editor/juxync/copy_secret_key.png'
+import juxSyncWelcome from '../../../../assets/editor/juxync/juxync_welcome.png'
+import moveTokensPage from '../../../../assets/editor/juxync/move_tokens_page.png'
+import reviewPage from '../../../../assets/editor/juxync/review_page.png'
+
+Building a solid color token system can be challenging. If you’ve already set up Figma variables, you can use **Juxync** to seamlessly import them into Jux as design tokens.
+
+Juxync converts your Figma token collections, groups, and modes into organized token sets, preserving all their relationships.
+
+🔗 [Get the plugin here](https://www.figma.com/community/plugin/1401995002002640291)
+
+## How does Juxync work?
+
+1. Scan Figma Variables: Juxync scans the color variables in your selected Figma file.
+2. Auto-Mapping of Tokens: The plugin automatically maps tokens into core and other semantic sets. (See the tutorial below for more details.)
+3. Sync Tokens into Jux: Sync your tokens into Jux’s token management system, allowing developers to access them via our [CLI](/developers/jux-editor).
+
+### Tutorial
+
+1. Log in to Jux: Open your Jux account and copy the Secret Key from the Jux editor. You’ll find it in the top-right context menu in the navigation bar.
+    <Image src={copySecretKey} alt="Copy Secret Key" width={400} />
+
+2. Open the Figma file with your color variables, run the plugin, and paste your Secret Key into the plugin screen.
+    <Image src={juxSyncWelcome} alt="Juxync Welcome Screen" />
+
+3. Automatic Mapping: The plugin will automatically map your collections to token sets. In Jux, [token management](/editor/tokens) is organized into sets:
+
+      - Core: A mandatory set.
+      - Semantic Sets: Reference the core tokens (e.g., light/dark themes or specific tokens).
+      - Collections with one mode are recognized as part of the Core set, while those with multiple modes are mapped to semantic sets, keeping their reference to the core. Groups will be exported to Jux exactly as they are organized in Figma.
+
+    **Make sure each collection / group / mode of variables are mapped correctly to the target sets in Jux.**
+
+    <Image src={moveTokensPage} alt="Move Tokens Page" />
+
+4. Review and Confirm: Ensure that each collection, group, and mode of variables is correctly mapped to the target sets in Jux.
+
+    <Image src={reviewPage} alt="Review Page" />
+
+:::note
+Currently, Juxync does not support multi-mode core collections, such as multi brand variables system.
+:::
+
+### Planned Features
+
+- Sync assets (SVGs, images, etc.)
+- Dimension tokens
+- Typography styles
+- Looking for more? [Let us know](mailto:squad@jux.io)!

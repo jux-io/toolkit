@@ -1,5 +1,20 @@
 @layer juxbase, juxtokens, juxutilities;
 
+.sl-markdown-content :is(img) {
+  border: 1px solid var(--sl-color-gray-6);
+  border-radius: 8px;
+}
+
+.sl-markdown-content :is(ul) {
+  margin-top: 4px !important;
+}
+
+starlight-image-zoom-zoomable {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Dark mode colors. */
 :root {
   --sl-color-accent-low: #131e4f;
@@ -45,7 +60,7 @@ a.large {
 :root[data-theme='light'] {
   --sl-color-accent-low: #c7d6ff;
   --sl-color-accent: #364bff;
-  --sl-color-text-accent: #000;
+  --sl-color-text-accent: var(--sl-color-gray-1);
   --sl-color-accent-high: #182775;
   --sl-color-white: #17181c;
   --sl-color-gray-1: #24272f;
@@ -56,8 +71,17 @@ a.large {
   --sl-color-gray-6: #eceef2;
   --sl-color-gray-7: #f5f6f8;
   --sl-color-black: #ffffff;
+
+  --sl-badge-default-bg: var(--sl-color-text-accent);
+  --sl-color-text-badge: var(--sl-color-text-accent);
+  --sl-color-blue-low: #e3ebfa;
 }
 
-.expressive-code .frame {
-  --ec-brdRad: 8px;
+.code-preview > .expressive-code pre {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+.no-border {
+  border: none !important;
 }

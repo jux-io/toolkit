@@ -1,0 +1,23 @@
+---
+title: Opacity
+description: The Opacity module controls the opacity of an object.
+
+tableOfContents: false
+---
+import {Badge} from "@astrojs/starlight/components";
+import { Image } from 'astro:assets';
+import Figcaption from "../../../../components/Figcaption";
+
+import opacity from '../../../../assets/editor/dynamic-design-panel/opacity/opacity.png'
+
+The opacity module controls the opacity of an object. It consists of a single field that accepts a value between 0 and 1, where 0 is fully transparent and 100 is fully opaque.
+
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={opacity} alt="Opacity Submodule" width={563} />
+    <Figcaption>Opacity property</Figcaption>
+  </picture>
+</div>
+
+<Badge text='Coming soon' />: The ability to tokenize the opacity field is coming soon.

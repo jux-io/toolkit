@@ -8,7 +8,6 @@ tableOfContents:
 ---
 
 import {
-  Aside,
   Code,
   Steps,
   TabItem,
@@ -75,7 +74,9 @@ This guide will walk you through setting up Jux in a Next.js project, from creat
         <Code code={astroLayout} lang="astro" title={'src/layout/Layout.astro'} mark={2} />
 
     6. ##### Start using Jux in your project
-        <Aside>Currently, Jux can only be used when the css / component function is called from an external file and cannot be used directly in .astro files. We are aware of this limitation and working on a solution.</Aside>
+        :::note
+        Currently, Jux can only be used when the css / component function is called from an external file and cannot be used directly in .astro files. We are aware of this limitation and working on a solution.
+        :::
 
         <Code code={myReactComponent} lang="tsx" title={'src/components/MyStyledComponent.tsx'} />
 

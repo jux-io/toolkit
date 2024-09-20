@@ -7,9 +7,6 @@ tableOfContents:
     maxHeadingLevel: 4
 ---
 
-import {Aside, Code} from "@astrojs/starlight/components";
-import juxConfigWithTokens from './samples/jux.config.core_tokens.ts?raw'
-
 Jux provides a system for managing design tokens and themes, allowing you to create consistent and flexible designs across your application. This guide will show you how to set up tokens and themes in your Jux configuration and how to use them in your project.
 
 ### Configuring Design Tokens
@@ -82,9 +79,9 @@ For example, the core tokens defined above will be converted to the following CS
 }
 ```
 
-<Aside type="tip">
+:::tip
     You can use `cssVarsRoot` in your `jux.config` file to change the root element where CSS variables are applied. By default, Jux applies CSS variables to the `:root` and `:host` element.
-</Aside>
+:::
 
 #### Themes
 
@@ -132,7 +129,7 @@ export default defineConfig({
 });
 ```
 
-To apply a theme to your application, you need to add the `data-jux-theme` attribute to your HTML. Here's an example of how to do this and how to switch themes:
+To apply a theme to your application, you need to add the `data-theme` attribute to your HTML. Here's an example of how to do this and how to switch themes:
 
 ```jsx
 import React, { useState } from 'react';
@@ -145,7 +142,7 @@ function App() {
   };
 
   return (
-    <html data-jux-theme={theme}>
+    <html data-theme={theme}>
       <body>
         <h1>Welcome to my Jux App</h1>
         <button onClick={toggleTheme}>
@@ -168,14 +165,14 @@ Jux generates CSS for themes by wrapping theme-specific styles with the appropri
     /* Core tokens... */
 }
 
-[data-jux-theme="light"] {
+[data-theme="light"] {
   --color-semantic-background: #ffffff;
   --color-semantic-text: var(--core-color-secondary);
   --color-semantic-accent: var(--core-color-primary);
   --dimension-semantic-bodyPadding: var(--core-dimension-medium);
 }
 
-[data-jux-theme="dark"] {
+[data-theme="dark"] {
   --color-semantic-background: #000000;
   --color-semantic-text: #ffffff;
   --color-semantic-accent: var(--core-color-primary);
@@ -618,4 +615,4 @@ Both `css` and `styled` functions in Jux are fully typed, providing several bene
 - Type checking to prevent usage of non-existent tokens
 - IntelliSense support for exploring available tokens
 
-Refer to the [TypeScript Guide](/docs/developers/reference/typescript) for more information on TypeScript support in Jux.
+Refer to the [TypeScript Guide](/developers/typescript) for more information on TypeScript support in Jux.

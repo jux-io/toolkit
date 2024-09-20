@@ -6,7 +6,6 @@ tableOfContents:
   minHeadingLevel: 3
   maxHeadingLevel: 6
 ---
-import {Aside} from "@astrojs/starlight/components";
 import CSSFunction from './examples/CSSFunction.tsx'
 import cssFunctionRaw from "./examples/CSSFunction.tsx?raw";
 
@@ -81,9 +80,9 @@ const Box = styled('div', {
 });
 ```
 
-<Aside type="tip">
-  Both styled and css functions are fully typed, providing autocomplete and type checking for your CSS properties, including tokens. Refer to the [TypeScript Guide](/docs/developers/reference/typescript) for more information on TypeScript support in Jux.
-</Aside>
+:::tip
+  Both styled and css functions are fully typed, providing autocomplete and type checking for your CSS properties, including tokens. Refer to the [TypeScript Guide](/developers/typescript) for more information on TypeScript support in Jux.
+:::
 
 ### Custom CSS properties and Utilities
 

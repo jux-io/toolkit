@@ -1,0 +1,29 @@
+---
+title: Effects (Shadow)
+description: Learn how to use the effects module in JUX.
+
+tableOfContents: false
+---
+import { Image } from 'astro:assets';
+import Figcaption from "../../../../components/Figcaption";
+
+import shadowField from '../../../../assets/editor/dynamic-design-panel/shadow-field/shadow_field.png'
+
+The Effects module currently features one submodule focused on shadow properties. This submodule contains a composite field for shadow customization, which includes:
+
+1. X-direction
+2. Y-direction
+3. Spread
+4. Blur
+5. Shadow color
+
+All of these fields support tokenization for consistent design system implementation.
+Additionally, the submodule includes a toggle button to switch between drop shadow and inner shadow effects.
+
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={shadowField} alt="Shadow Property" />
+    <Figcaption>Shadow Submodule</Figcaption>
+  </picture>
+</div>

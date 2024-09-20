@@ -1,0 +1,46 @@
+---
+title: Text
+description: Learn how to use the text module in the dynamic design panel.
+
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 6
+---
+
+import { Image } from 'astro:assets';
+import Figcaption from "../../../../components/Figcaption";
+
+import typography from '../../../../assets/editor/dynamic-design-panel/text/typography.png'
+
+The text module consists of the following submodules:
+
+## Typography Submodule
+
+The typography submodule allows you to customize the text style of your components.
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={typography} alt="Typography" width={563} />
+    <Figcaption>Typography</Figcaption>
+  </picture>
+</div>
+
+Within the typography submodule, you can customize the following properties:
+
+1. **Font Family**: The font family property allows you to customize the font family of your text. You can choose from a list of font families. This property can be tokenized with font family tokens.
+
+2. **Font Weight**: The font weight property allows you to customize the font weight of your text. You can choose from a list of font weights. Currently, Font Weights do not support tokenization.
+
+3. **Font Size**: The font size property allows you to customize the font size of your text. This property can be tokenized with font size tokens.
+
+4. **Line Height**: The line height property allows you to customize the line height of your text. This property can be tokenized with line height tokens.
+
+5. **Letter Spacing**: The letter spacing property allows you to customize the letter spacing of your text. This property can be tokenized with letter spacing tokens.
+
+## Text Color Submodule
+
+The text color submodule allows you to customize the color of your text.
+
+## Align / Direction Submodule
+
+The align / direction submodule allows you to customize the alignment and direction of your text.

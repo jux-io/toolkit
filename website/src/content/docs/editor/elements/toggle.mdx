@@ -1,0 +1,85 @@
+---
+title: Toggle Element
+description: Learn how to use the Toggle element in JUX.
+
+tableOfContents:
+  minHeadingLevel: 3
+  maxHeadingLevel: 6
+---
+import { Image } from 'astro:assets';
+import Figcaption from "../../../../components/Figcaption";
+
+import toggleElement from '../../../../assets/editor/elements/toggle.png'
+import toggleAnatomy from '../../../../assets/editor/elements/toggle_anatomy.png'
+import toggleMatrix from '../../../../assets/editor/elements/toggle_matrix.png'
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={toggleElement} alt="Toggle Element" />
+    <Figcaption>Toggle Element Icon</Figcaption>
+  </picture>
+</div>
+
+### Technical Definition
+The toggle element in Jux represents an interactive control that allows users to switch between two states. It's typically used in settings, preferences, and other UI components where binary options are available.
+
+### Anatony and Styling
+
+The checkbox element consists of two main parts:
+
+- A box with assets for 'checked', 'unchecked', and 'indeterminate' states
+- A text wrapper containing a label and helper text (which can be removed if not needed)
+
+You can:
+
+- Style each part independently based on the checkbox's state and properties using the [parent context module](/editor/dynamic-design-panel/props-and-variants)
+- Hide specific elements in certain states
+- Modify SVG assets for check and indeterminate icons via the 'asset content' property
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={toggleAnatomy} alt="Toggle Anatomy" />
+    <Figcaption>Toggle Anatomy</Figcaption>
+  </picture>
+</div>
+
+### Props and States
+
+Toggle properties include:
+
+1. Interactive state:
+    - Default
+    - Hover
+    - Active
+
+2. Checked state (special):
+    - checked
+    - unchecked
+    - indeterminate
+
+Toggle properties can be extended based on your design needs, allowing for custom properties to enhance functionality and design variations. However, core properties like 'disabled' can't be removed to ensure proper web behavior.
+
+### Matrix
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={toggleMatrix} alt="Toggle Matrix" />
+    <Figcaption>Toggle Matrix</Figcaption>
+  </picture>
+</div>
+
+### Special Mechanics
+
+The toggle includes two logical slots:
+
+- Toggle primitive: Contains the visual 'toggle' of the element. This slot must not be empty for proper functionality.
+- Trigger (hit area): Allows objects inside to change the toggle state. Can be empty or contain other objects.
+
+### Live Mode
+
+In live mode, you can:
+
+- Test and visualize all interactive states of the toggle
+- Change the toggle state by clicking on the primitive or anything in the trigger logical slot
+
+While Jux provides a foundational toggle element, you have the flexibility to style and customize its appearance to match your specific design requirements.

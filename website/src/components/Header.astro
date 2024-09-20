@@ -1,12 +1,21 @@
 ---
 import config from 'virtual:starlight/user-config';
 import type { Props } from '@astrojs/starlight/props';
+import SpeedInsights from '@vercel/speed-insights/astro';
 
 import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
 import Search from '@astrojs/starlight/components/Search.astro';
 import SiteTitle from '@astrojs/starlight/components/SiteTitle.astro';
 import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
 import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
+import HeaderButtons from './HeaderButtons';
+
+let current = '';
+if (Astro.props.slug.startsWith('developers')) {
+  current = 'developers';
+} else if (Astro.props.slug.startsWith('editor')) {
+  current = 'editor';
+}
 
 /**
  * Render the `Search` component if Pagefind is enabled or the default search component has been overridden.
@@ -17,17 +26,21 @@ const shouldRenderSearch =
 ---
 
 <div class="header sl-flex">
+  <SpeedInsights />
   <div class="title-wrapper sl-flex flex-grow-1" style="flex-grow: 1">
     <SiteTitle {...Astro.props} />
   </div>
   <div class="sl-flex">
     {shouldRenderSearch && <Search {...Astro.props} />}
   </div>
+  <HeaderButtons client:load current={current} />
   <div class="sl-hidden md:sl-flex right-group">
-    <div class="sl-flex social-icons">
+    <div class="sl-flex social-icons sl-hidden">
       <SocialIcons {...Astro.props} />
     </div>
-    <ThemeSelect {...Astro.props} />
+    <div class="theme-select sl-hidden">
+      <ThemeSelect {...Astro.props} />
+    </div>
     <LanguageSelect {...Astro.props} />
   </div>
 </div>
@@ -65,6 +78,12 @@ const shouldRenderSearch =
     }
     .header {
       display: flex;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .theme-select {
+      display: inherit;
     }
   }
 </style>

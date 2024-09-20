@@ -149,3 +149,72 @@ const styles = css({
 ```
 
 Your IDE will provide autocompletion for token names, utility names, and screen conditions, and validate their usage, helping prevent errors and improve the development experience.
+
+## The `styled` Function in TypeScript
+
+Jux's `styled` function is fully typed, providing TypeScript support. This enables type-safe styling, autocompletion for props and variants, and proper typing for HTML attributes.
+
+### Basic Usage
+
+Here's an example of using the `styled` function with TypeScript:
+
+```typescript
+import { styled } from '@juxio/react-styled';
+
+interface ButtonProps {
+  selected: boolean;
+  disabled: boolean;
+  type: 'primary' | 'secondary';
+}
+
+const Button = styled<'button', ButtonProps>('button', {
+  root: {
+    backgroundColor: 'transparent',
+    border: 'none',
+  },
+  variants: [
+    {
+      props: { selected: true },
+      style: {
+        backgroundColor: 'blue',
+        color: 'white',
+      },
+    },
+    {
+      props: { type: 'primary' },
+      style: {
+        backgroundColor: 'blue',
+        color: 'white',
+      },
+    },
+    // ... other variants
+  ],
+});
+```
+
+In this example:
+- We define a `ButtonProps` interface to specify the custom props for our button.
+- We specify the HTML element type (`button`)
+
+### Using the `styled` component
+
+When you use the styled component in your React code, you'll get full TypeScript support:
+
+```tsx
+function MyComponent() {
+  return (
+    <div>
+      <Button selected={true} disabled={false} type="primary">Primary Button</Button>
+      <Button selected={false} disabled={true} type="secondary">Disabled Secondary Button</Button>
+      {/* TypeScript error: Type '"tertiary"' is not assignable to type '"primary" | "secondary"'. */}
+      <Button selected={false} disabled={false} type="tertiary">Error Button</Button>
+    </div>
+  );
+}
+```
+
+You'll get:
+
+- Autocompletion for the custom props (selected, disabled, and type).
+- Type checking for the prop values (e.g., ensuring type is either 'primary' or 'secondary').
+- Autocompletion and type checking for all standard HTML button attributes.

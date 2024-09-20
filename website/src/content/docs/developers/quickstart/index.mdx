@@ -12,10 +12,9 @@ import { FrameworkCard } from '../../../../components/FrameworkCard/index.js';
 import { Image } from 'astro:assets';
 import nextjsLogo from '../../../../assets/frameworks/nextjs.svg';
 import reactLogo from '../../../../assets/frameworks/react.svg';
-import astroLogo from '../../../../assets/frameworks/astro_color.svg';
+import astroLogo from '../../../../assets/frameworks/astro-framework.svg';
 import viteLogo from '../../../../assets/frameworks/vitejs.svg';
 import {
-  Aside,
   CardGrid,
   Code,
   LinkCard,
@@ -55,7 +54,9 @@ The fastest way to get started with Jux is to use the Jux CLI. The CLI will help
 
         <Code code={`npx jux init`} title={'Terminal'} frame={'terminal'} lang={'shellscript'} />
 
-        <Aside type="tip">Use the `--skip-deps` flag to skip dependency installation if you're using an integrated monorepo with a centralized package.json (e.g. Nx). In this case, don't forget to manually add Jux to your root package.json: `npm install @juxio/postcss @juxio/css`</Aside>
+        :::tip
+        Use the `--skip-deps` flag to skip dependency installation if you're using an integrated monorepo with a centralized package.json (e.g. Nx). In this case, don't forget to manually add Jux to your root package.json: `npm install @juxio/postcss @juxio/css`
+        :::
 
     3. ###### Configure source files
         In `jux.config.ts`, specify the paths to your source files. Jux will scan and parse these files to generate the CSS file.
@@ -77,11 +78,11 @@ The fastest way to get started with Jux is to use the Jux CLI. The CLI will help
 
 <div className={frameworkGridStyle}>
   <FrameworkCard title="React" href={'/developers/getting-started/react'}>
-    <Image src={reactLogo} alt="react_logo" width="30" height="30" />
+    <Image class={'no-border'}  src={reactLogo} alt="react_logo" width="30" height="30" />
   </FrameworkCard>
   <FrameworkCard title="Next.js" href={'/developers/getting-started/nextjs'}>
     <Image
-      src={nextjsLogo}
+      src={nextjsLogo} class={'no-border'}
       alt="nextjs_logo"
       width="30"
       height="30"
@@ -93,10 +94,10 @@ The fastest way to get started with Jux is to use the Jux CLI. The CLI will help
     />
   </FrameworkCard>
   <FrameworkCard title="Astro" href={'/developers/getting-started/astro'}>
-    <Image src={astroLogo} alt="astro_logo" width="30" height="30" />
+    <Image class={'no-border'} src={astroLogo} alt="astro_logo" width="30" height="30" />
   </FrameworkCard>
   <FrameworkCard title="Vite" href={'/developers/getting-started/vite'}>
-    <Image src={viteLogo} alt="vitejs_logo" width="30" height="30" />
+    <Image class={'no-border'} src={viteLogo} alt="vitejs_logo" width="30" height="30" />
   </FrameworkCard>
 </div>
 
@@ -118,11 +119,11 @@ Get familiar with some of the core concepts that make Jux different compared to 
   <LinkCard
     title="Create a Theme System"
     description="Learn how to build a flexible theme system using Jux's features to easily manage and switch between different themes in your application."
-    href={'/developers/design-tokens'}
+    href={'/developers/customization/tokens-and-themes'}
   />
   <LinkCard
-    title="Integrate with Your Favorite Framework"
-    description="Check out our guides on integrating Jux with popular frameworks like Next.js, Storybook or Astro."
-    href={'/developers/technical-overview'}
+    title="Learn how to style components with Jux"
+    description="Check out our guides on using Jux functions to style your components."
+    href={'/developers/jux-concepts/styling'}
   />
 </CardGrid>

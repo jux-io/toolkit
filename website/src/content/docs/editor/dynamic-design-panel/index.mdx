@@ -1,0 +1,188 @@
+---
+title: Dynamic Design Panel
+description: Learn how to use the Dynamic Design Panel in Jux.
+
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 6
+---
+import { Image } from 'astro:assets';
+import Figcaption from "../../../../components/Figcaption";
+
+import dynamicDesignPanel from '../../../../assets/editor/dynamic-design-panel/ddp/ddp.png'
+import ddpAnatomy from '../../../../assets/editor/dynamic-design-panel/ddp/ddp_anatomy.png'
+import ddpHierarchy from '../../../../assets/editor/dynamic-design-panel/ddp/ddp_hierarchy.png'
+import ddpInputFieldsSimple from '../../../../assets/editor/dynamic-design-panel/ddp/ddp_input_fields_simple.png'
+import ddpTokenized from '../../../../assets/editor/dynamic-design-panel/ddp/ddp_tokenized.png'
+import tokenizeField from '../../../../assets/editor/dynamic-design-panel/ddp/tokenize_field.png'
+import dimensionField from '../../../../assets/editor/dynamic-design-panel/ddp/dimension_field.png'
+import colorField from '../../../../assets/editor/dynamic-design-panel/ddp/color_field.png'
+import typographyField from '../../../../assets/editor/dynamic-design-panel/ddp/typography_field.png'
+import borderField from '../../../../assets/editor/dynamic-design-panel/ddp/border_field.png'
+import shadowField from '../../../../assets/editor/dynamic-design-panel/shadow-field/shadow_field.png'
+
+## What is it?
+
+The Dynamic Design Panel (DDP) is a crucial interface element in Jux:
+
+- Location: Right side of the screen
+- Purpose: Primary input area for all visual properties of an object
+- Functionality: Dynamically adapts to the type of object selected on the canvas or in the layers panel
+
+The DDP serves as your control center for customizing the appearance and behavior of design elements, providing a responsive and context-sensitive interface for efficient design work.
+
+<Image src={dynamicDesignPanel} alt="Dynamic Design Panel" width={563} />
+
+## Anatomy of the Dynamic Design Panel
+The Dynamic Design Panel comprises two main parts:
+
+1. Selector Module:
+    - Contains all the properties a component or element possesses
+    - Determines which options are available in the visual modules
+
+2. Visual Modules:
+    - Display all the visual choices available for the selected object
+    - Options in these modules are influenced by the state of the selector module
+    - Allow for detailed customization of the object's appearance and behavior
+
+This two-part structure ensures that you always have access to the most relevant design options for the currently selected element.
+
+<Image src={ddpAnatomy} alt="Anatomy of the Dynamic Design Panel" width={563} />
+
+## Hierarchical Organization
+
+The Dynamic Design Panel follows a hierarchical structure to organize design options:
+
+1. **Modules**
+    - Affect broad categories of visual choices (e.g., size, layout, typography, background, border, effects)
+    - Feature an expand/contract switcher for easy navigation
+    - Appear only when relevant to the selected object
+
+2. **Submodules**
+    - More specific partitions within a module
+    - Group related fields targeting specific visual properties
+    - May include configuration buttons for additional options
+
+3. **Input Fields / Input Buttons**
+    - The most granular level of visual control
+    - Examples include text color, top padding, flex direction, row gap, line height, etc.
+    - Most input fields can be tokenized for consistent design system implementation
+
+This hierarchical structure allows for intuitive navigation and precise control over your design elements, from broad categories down to specific details.
+
+<Image src={ddpHierarchy} alt="Hierarchical Organization of the Dynamic Design Panel" width={563} />
+
+## Input Fields
+
+The Dynamic Design Panel offers two main types of input fields:
+
+1. **Simple Fields**
+    - Control a single value
+    - Example: text color
+
+2. **Composite Fields**
+    - Combine multiple simple value fields into a unified set
+    - Example: typography composite input (as shown in the image)
+
+<Image src={ddpInputFieldsSimple} alt="Simple Input Fields in the Dynamic Design Panel" width={563} />
+
+DDP field values can exist in one of three states:
+
+### Inherited
+
+Value is either the browser default, inherited from a parent element, or 'none' (indicating no selection, e.g., no background color for a div)
+
+### Hard-coded
+
+Value is inserted in its raw form (not tokenized) for the specific selection shown in the selector module
+
+### Tokenized
+
+Value is represented by a token chosen from the token list, which refers to a raw final value
+
+<Image src={ddpTokenized} alt="Tokenized Input Fields in the Dynamic Design Panel" width={563} />
+
+To tokenize a field, simply hover over the field, click the 'token icon button', and select from the expanded list of possible tokens for that field. To detach a token (revert to hard-coded value), click the 'detach icon button'.
+
+<Image src={tokenizeField} alt="Tokenize Field in the Dynamic Design Panel" width={400} />
+
+### Simple Fields
+
+Simple fields control a single value and are tokenized with specific tokens.
+
+#### Dimension
+
+- Accepts: Numerical value and unit selection
+- Can be tokenized with dimension tokens
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={dimensionField} alt="Dimension Field" width={352} />
+    <Figcaption>Dimension Field</Figcaption>
+  </picture>
+</div>
+
+#### Color
+
+- Accepts: Hex value for color and percentage for opacity
+- Can be tokenized with color tokens
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={colorField} alt="Color Field" width={352} />
+    <Figcaption>Color Field</Figcaption>
+  </picture>
+</div>
+
+### Composite Fields
+
+Composite fields have a hierarchical structure. When tokenized, all subsidiary values are pre-defined and appear in a disabled state.
+
+#### Typography
+
+Comprises:
+- Font family
+- Font weight
+- Font size (dimension)
+- Line height (dimension)
+- Letter spacing (dimension)
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={typographyField} alt="Typography Field" width={563} />
+    <Figcaption>Typography Field</Figcaption>
+  </picture>
+</div>
+
+#### Border
+
+All 3 fields can be applied independently if needed
+
+- Border width (dimension)
+- Border color (color)
+- Border style
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={borderField} alt="Border Field" width={563} />
+    <Figcaption>Border Field</Figcaption>
+  </picture>
+</div>
+
+#### Shadow
+
+Comprises:
+
+- X-direction
+- Y-direction
+- Spread
+- Blur
+- Shadow color
+- Drop/inner shadow selector
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={shadowField} alt="Shadow Field" width={563} />
+    <Figcaption>Shadow Field</Figcaption>
+  </picture>
+</div>

@@ -1,0 +1,86 @@
+---
+title: Size and Position
+description: Learn how to adjust the size and position of elements in the dynamic design panel.
+---
+
+import { Image } from 'astro:assets';
+import Figcaption from "../../../../components/Figcaption";
+
+import widthHeightPanel from '../../../../assets/editor/dynamic-design-panel/size-and-position/width_height_panel.png'
+import positionTypes from '../../../../assets/editor/dynamic-design-panel/size-and-position/position_types.png'
+import positionRelative from '../../../../assets/editor/dynamic-design-panel/size-and-position/position_relative.png'
+import positionAbsolute from '../../../../assets/editor/dynamic-design-panel/size-and-position/position_absolute.png'
+
+Size and position are crucial aspects of design. The size and position module in the dynamic design panel allows you to adjust the width, height, and position of elements in your design.
+
+All width and height fields are of the dimension type and can be tokenized. They accept the following units: PX, VW, VH, EM, REM, and the strings 'auto' or 'none' (which don't have a unit).
+
+The size and position module consists of the following submodules:
+
+## Width Submodule
+
+1. Width field: Can also accept 'auto' string. 'auto' sets the width to be determined by the content's width (including padding and border, if present)
+2. Max/Min width fields - Can also accept 'auto' string.
+
+## Height Submodule
+
+1. Height field: Can also accept 'auto' string. 'auto' sets the height to be determined by the content's height (including padding and border, if present)
+2. Max/Min height fields: Can also accept 'None' string
+
+<div style={{ textAlign: 'center'}}>
+  <picture>
+    <Image src={widthHeightPanel} alt="Width and Height panel" />
+    <Figcaption>Allowing width, height and also min/max</Figcaption>
+  </picture>
+</div>
+
+## Position Submodule
+
+The position submodule in the 'Size and Position' module allows you to switch between three main positioning methods for all canvas elements:
+
+1. Static (default)
+2. Relative
+3. Absolute
+
+For 'relative' and 'absolute' positions, the submodule allows setting a Z-index value to determine the stacking order of overlapped objects.
+
+<div style={{ textAlign: 'center'}}>
+  <picture>
+    <Image src={positionTypes} alt="Position types" />
+    <Figcaption>All types of position types</Figcaption>
+  </picture>
+</div>
+
+### Position: static
+
+Static positioning is the default for all elements and components, following the natural document flow without the ability to set a Z-index, and it doesn't open any additional DDP fields when selected.
+
+### Position: relative
+
+This position option allows you to visually 'move' the object in relation to its original 'static' position by a set amount of dimension units (PX/VW/VH/Auto) in any of 4 directions.
+
+<div style={{ textAlign: 'center'}}>
+  <picture>
+    <Image src={positionRelative} alt="Position relative" />
+    <Figcaption>Relative position example</Figcaption>
+  </picture>
+</div>
+
+Useful for:
+
+- Creating hover effects (e.g., card pop-up on hover)
+- Changing Z-index between states (e.g., overlapping avatars)
+- Note: Relative positioning with no values looks identical to static, useful for parents of absolute-positioned children
+
+### Position: absolute
+
+This position option allows you to visually 'move' the object in relation to its closest parent with a non-static position (relative, absolute, or fixed) by a set amount of dimension units (PX/VW/VH/Auto) in any of 4 directions.
+
+This is useful for elements that need to "break away" from the normal layout, such as badges over buttons, tooltips, or floating action buttons.
+
+<div style={{ textAlign: 'center'}}>
+  <picture>
+    <Image src={positionAbsolute} alt="Position absolute" />
+    <Figcaption>Absolute position example</Figcaption>
+  </picture>
+</div>

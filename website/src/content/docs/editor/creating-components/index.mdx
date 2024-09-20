@@ -1,0 +1,66 @@
+---
+title: Creating Components
+description: Learn how to create components in JUX.
+
+tableOfContents:
+  minHeadingLevel: 3
+  maxHeadingLevel: 6
+---
+import { Image } from 'astro:assets';
+
+import libraryComponents from '../../../../assets/editor/creating-components/library_components.png'
+import nestingComponents from '../../../../assets/editor/creating-components/nesting_components.png'
+
+### Components: The Reusable Building Blocks of Your UI
+
+Components in JUX are the reusable elements that form the foundation of your user interfaces. They come in two flavors: Local Components and Library Components. Both types are designed as source components that can be instantiated throughout your projects, with instances updating automatically to reflect changes in the source.
+
+Find and manage your components in the dedicated panel within the editor's top navigation.
+
+### Creating local components
+
+#### From elements
+
+JUX elements are the fundamental units of your design system, ensuring production-ready functionality. We recommend starting by styling [elements](/editor/elements) to align with your brand and product needs
+
+#### From scratch
+
+Build custom components and complex compositions:
+
+1. Wrap multiple objects on the canvas with a div (shortcut: Shift+D)
+2. Click "Create a component" in the top navigation
+3. Your custom creation joins the Local Library
+
+Once an object becomes a component:
+
+- Interactive states and editable properties appear in the [Dynamic Design Panel (DDP)](/editor/dynamic-design-panel)
+- Design child elements within the [context of their parent](/editor/dynamic-design-panel/props-and-variants) component
+
+### Library Components
+
+Elevate your Local Components to shared, organization-wide assets:
+
+1. Select a Local Component
+2. Click 'Add to library' in the top navigation
+3. Watch the component indicator change from grey to blue for easy identification
+
+Note: When you add a Local Component with nested instances to the library, those nested components automatically become new Library Components.
+
+<Image src={libraryComponents} alt="Library Components" />
+
+#### Sharing with developers
+
+Only Library Components, along with all tokens and assets, are shared with your development team as part of the organization's design system.
+
+### Nesting components
+
+- Components (both local and library) can only be placed directly on the canvas
+- When nesting a component inside a div or another component:
+  - It's replaced with its instance
+  - The source component appears on the left side of the parent object
+- Instances of Library Components can be inserted into both Library and Local Components
+- Instances of Local Components cannot be inserted into Library Components
+
+This structure allows for flexible, modular design while maintaining the integrity of your shared design system components.
+
+<Image src={nestingComponents} alt="Nesting Components" />

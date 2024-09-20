@@ -1,0 +1,64 @@
+---
+title: Dynamic Slots
+description: Learn how to use dynamic slots in Jux editor.
+---
+import { Image } from 'astro:assets';
+import dynamicSlotsSource from '../../../../assets/editor/editor-special-mechanics/dynamic_slots_source.png'
+import dynamicSlotsLayers from '../../../../assets/editor/editor-special-mechanics/dynamic_slots_layers.png'
+import dynamicSlotsCanvas from '../../../../assets/editor/editor-special-mechanics/dynamic_slots_canvas.png'
+import dynamicSlotsProps from '../../../../assets/editor/editor-special-mechanics/dynamic_slots_props.png'
+import dynamicSlotsInstances from '../../../../assets/editor/editor-special-mechanics/dynamic_slots_instances.png'
+import dynamicSlotsAllow from '../../../../assets/editor/editor-special-mechanics/dynamic_slots_allow.png'
+import dynamicSlotsAddText from '../../../../assets/editor/editor-special-mechanics/dynamic_slots_add_text.png'
+
+Dynamic slots are containers that allow content to be populated with different instances components. The ‘Dynamic slot’ in Jux operates in two stages:
+
+1. The source component phase: where the dynamic slot was created
+2. The instance of the component phase: where the dynamic slot is populated
+
+### Setting up a dynamic slot in source components
+
+To create a dynamic slot, click on the 'Settings' button in the top right corner of the Properties panel. From the dropdown menu, select the ‘Add Dynamic Slot’ option.
+
+<Image src={dynamicSlotsSource} alt="Creating dynamic slots in source component" />
+
+This action will add a purple dynamic slot layer to the Object Navigator on the left, positioned as the top-most layer in the layer stack. The dynamic slot is a draggable layer, just like layers of ordinary objects, so you can drag it to the correct place in the objects' hierarchy.
+
+<Image src={dynamicSlotsLayers} alt="Dynamic slot layer in the Object Navigator" />
+
+On the canvas itself, the dynamic slot will occupy the space allocated for it and will always be marked by a purple dashed border.
+
+<Image src={dynamicSlotsCanvas} alt="Dynamic slot on the canvas" />
+
+The dynamic slot does not have any stylistic properties. The only options in the DDP are the dynamic slot settings for its usage in component instance.
+
+The settings include 3 types:
+
+1. A multi-select list for allowed components
+2. A limit on the number of components
+3. The option to allow divs, text, and asset objects to be placed into the dynamic slot.
+
+If no options are selected in ‘allow components’ property, all components in the library can be placed in the dynamic slot. Selecting specific components will restrict the slot to only those components when populating the instance of the source component.
+
+<Image src={dynamicSlotsProps} alt="Dynamic slot properties" width={563} />
+
+### Using dynamic slots in component instances
+
+Once the source component has been configured with the appropriate dynamic slot settings, you can use the component instance and populate the dynamic slot with any number of other component instances, as permitted by the settings.
+
+<Image src={dynamicSlotsInstances} alt="Populating dynamic slots in component instance" />
+
+There are two ways to place allowed components into your dynamic slot:
+
+1. Drag the component into the dynamic slot on the canvas.
+2. Click on any of the tags in the "allowed components" area.
+
+When you drag a component into a dynamic slot, Jux will either allow or prevent its placement based on the dynamic slot settings defined in the source component.
+
+<Image src={dynamicSlotsAllow} alt="Allowing components in dynamic slots" />
+
+Depending on the source component's settings, you might also be able to place text, asset, or div objects in your dynamic slot.
+
+<Image src={dynamicSlotsAddText} alt="Adding text to dynamic slots" />
+
+Overall, the dynamic slot is a powerful feature that lets you make your source components both generic and versatile, while providing your instances with the flexibility and scalability you need.

@@ -6,7 +6,6 @@ tableOfContents:
   minHeadingLevel: 2
   maxHeadingLevel: 6
 ---
-import {Aside} from "@astrojs/starlight/components";
 
 Utilities in Jux provide a way to create custom CSS properties that can be used in your styled components. These utilities allow you to define reusable, complex style transformations that can significantly simplify your styling code and enhance its readability.
 
@@ -18,7 +17,7 @@ Utilities are custom functions that transform a given value into one or more CSS
 
 Each utility can be configured using the following properties:
 
-- `acceptedValues`: The values that the utility accepts. This is used for type definition generation and intellisense. This can be a string representing [token category](/developers/reference/token-categories) or an array of strings representing specific tokens.
+- `acceptedValues`: The values that the utility accepts. This is used for type definition generation and intellisense. This can be a string representing [token type](/developers/customization/tokens-and-themes#token-types) or an array of strings representing specific tokens.
 - `transform`: A function that transforms the given value into one or more CSS properties.
 
 ```tsx

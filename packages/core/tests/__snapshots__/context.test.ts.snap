@@ -237,7 +237,7 @@ exports[`Context > Context loads the right styling configurations 1`] = `
       margin: var(--color-primary);
     }
 
-    :where([data-jux-theme="light"]) body, :where([data-jux-theme="dark"]) body {
+    :where([data-theme="light"]) body, :where([data-theme="dark"]) body {
       font-size: var(--core-dimension-spacing_100);
       letter-spacing: 12px;
       font-family: Inter;
@@ -264,7 +264,7 @@ exports[`Context > Context loads the right styling configurations 1`] = `
     --core-dimension-spacing_100: 8px;
   }
 
-  [data-jux-theme="light"] {
+  [data-theme="light"] {
     --typography-header-fontsize: var(--core-dimension-spacing_100);
     --typography-header-fontfamily: Inter;
     --typography-header-fontweight: 700;
@@ -275,7 +275,7 @@ exports[`Context > Context loads the right styling configurations 1`] = `
     --dimension-specific-button_radius: var(--core-dimension-spacing_100);
   }
 
-  [data-jux-theme="dark"] {
+  [data-theme="dark"] {
     --typography-header-fontsize: var(--core-dimension-spacing_100);
     --typography-header-fontfamily: Inter;
     --typography-header-fontweight: 700;
