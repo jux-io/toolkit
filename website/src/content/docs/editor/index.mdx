@@ -1,0 +1,136 @@
+---
+title: Hello, we are Jux
+description: Get familiar with Jux editor
+
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 6
+---
+import Figcaption from "../../../components/Figcaption";
+import { Image } from 'astro:assets';
+
+import canvas from '../../../assets/editor/introduction/canvas.png'
+import elements from '../../../assets/editor/introduction/elements.png'
+import components from '../../../assets/editor/introduction/components.png'
+import assets from '../../../assets/editor/introduction/assets.png'
+import objectsNavigator from '../../../assets/editor/introduction/objects_navigator.png'
+import ddp from '../../../assets/editor/introduction/ddp.png'
+import invite from '../../../assets/editor/introduction/invite.png'
+
+Welcome to the Jux docs. If you can't find the information you're looking for or have questions about Jux, join us on [Dicord](https://discord.gg/xa4PR7T9) community, or email us at [squad@jux.io](mailto:squad@jux.io) and say hi!
+
+## Overview
+
+JUX consists of two primary interfaces: the token management screen and the editor screen. Each plays a crucial role in streamlining your design process.
+
+- Token Management: This is where you create, edit, and alias token sets. Tokens are the building blocks of your design system, ensuring consistency across your projects. [Learn more about token management]
+- Editor Screen: This is your primary workspace, where designs come to life. Let's explore its key components:
+
+## Canvas
+
+Our canvas sets JUX apart - it's not just a drawing board, it's a code-based design environment. Here's what makes it special:
+
+- Edit/Live toggle: Switch between editing and live view modes - see your designs come to life in real-time, as users will experience them
+- Real-time visualization: See your components come to life as you design
+- Interactive testing: Engage with your designs to ensure they function as intended
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={canvas} alt="Jux Canvas" />
+    <Figcaption>Jux Canvas</Figcaption>
+  </picture>
+</div>
+
+## Top Navigation
+
+The top navigation bar provides quick access to essential features and sections of JUX:
+
+#### Elements
+
+Elements are the fundamental building blocks of your design system. We recommend starting here to design according to your brand and product requirements. When you place an Element on the canvas, it automatically becomes a "local component".
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={elements} alt="Elements Section" />
+    <Figcaption>Elements Section</Figcaption>
+  </picture>
+</div>
+
+#### Components
+
+This section houses both Local and Library components. Components are reusable design elements that can be instantiated across your projects. Key points:
+
+- Source components serve as the original, editable versions
+- Instances automatically update when the source is modified
+- Instances cannot be directly edited, ensuring consistency
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={components} alt="Components Section" />
+    <Figcaption>Components Section</Figcaption>
+  </picture>
+</div>
+
+#### Assets
+
+The Assets section is your repository for SVGs, icons, and illustrations. Here's how it works:
+
+- Upload your SVG files
+- Drag and drop them onto the canvas or into source components
+- Each placed asset becomes a standalone element, ready for reuse in parent components
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={assets} alt="Assets Section" />
+    <Figcaption>Assets Section</Figcaption>
+  </picture>
+</div>
+
+## Objects Navigator
+
+Located on the left panel, the Objects Navigator is your guide through the canvas hierarchy. This powerful tool allows you to:
+
+- Explore nested layers with ease
+- Reorder objects via drag-and-drop functionality
+- Define the structure that will be handed off to your development team
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={objectsNavigator} alt="Objects Navigator" />
+    <Figcaption>Objects Navigator</Figcaption>
+  </picture>
+</div>
+
+## Dynamic Design Panel
+
+The Dynamic Design Panel, affectionately known as the DDP, is the command center for your design decisions. Key features include:
+
+- Context-sensitive activation: The DDP becomes active when you select an object on the canvas
+- Modular organization: Divided into collapsible sections for intuitive navigation
+- Token library integration: Seamlessly connected to your design system
+- Comprehensive control: Manage element and component states, properties, sizes, layouts, colors, typography, and more
+- Scrollable interface: Access additional values and options as you scroll
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={ddp} alt="Dynamic Design Panel" />
+    <Figcaption>Dynamic Design Panel</Figcaption>
+  </picture>
+</div>
+
+## Collaboration
+
+Teamwork is at the heart of great design. That's why we've made it easy to bring your colleagues into the JUX experience:
+
+- Look for the "Invite" button in the top right corner of the interface
+- Click to add team members to your project
+- Collaborate in real-time as you build and refine your designs
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={invite} alt="Invite Team Members" />
+    <Figcaption>Invite Team Members</Figcaption>
+  </picture>
+</div>
+
+We're continuously evolving Jux to meet the needs of designers like you. Your feedback is invaluable in shaping the future of our tool. We're eager to hear your thoughts and experiences as you explore Jux!

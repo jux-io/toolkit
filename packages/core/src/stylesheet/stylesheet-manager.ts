@@ -136,7 +136,7 @@ export class StylesheetManager {
       themeTokens.view
     )) {
       const css = stringifyCssObject({
-        [`& [data-jux-theme="${themeName}"]`]: themeTokensView,
+        [`& [data-theme="${themeName}"]`]: themeTokensView,
       });
       results.push(css);
     }

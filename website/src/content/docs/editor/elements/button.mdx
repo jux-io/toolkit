@@ -1,0 +1,68 @@
+---
+title: Button Element
+description: Learn how to use the Button element in JUX.
+
+tableOfContents:
+  minHeadingLevel: 3
+  maxHeadingLevel: 6
+---
+import { Image } from 'astro:assets';
+import Figcaption from "../../../../components/Figcaption";
+
+import buttonElement from '../../../../assets/editor/elements/button.png'
+import buttonAnatomy from '../../../../assets/editor/elements/button_anatomy.png'
+import buttonMatrix from '../../../../assets/editor/elements/button_matrix.webp'
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={buttonElement} alt="Button Element" />
+    <Figcaption>Button Element Icon</Figcaption>
+  </picture>
+</div>
+
+### Technical Definition
+The Button Element in Jux represents an interactive component that users can activate through various means (mouse, keyboard, touch, voice command, or assistive technology). When activated, it performs a specified action, such as submitting a form or opening a dialog.
+
+### Anatony and Styling
+
+While the button element comes preloaded with:
+
+- A leading icon
+- Text label
+- Trailing icon
+
+You have complete freedom to customize the button's appearance:
+
+- Remove or add any elements as needed
+- Style each child element independently
+- Modify styles based on the button's state and properties using the [parent context module](/editor/dynamic-design-panel/props-and-variants)
+- Hide specific children in certain states
+- Design the button from scratch if desired
+
+The preloaded structure serves as a starting point, but you're not limited by it.
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={buttonAnatomy} alt="Button Anatomy" />
+    <Figcaption>Button Anatomy</Figcaption>
+  </picture>
+</div>
+
+### Props and States
+
+Button properties can be extended based on your design needs. You have the flexibility to add custom properties to enhance functionality and design variations. However, core properties like 'disabled' can't be removed to ensure proper web behavior.
+
+### Matrix
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={buttonMatrix} alt="Button Matrix" />
+    <Figcaption>Button Matrix</Figcaption>
+  </picture>
+</div>
+
+### Live Mode
+In live mode, you can:
+- Test and visualize all interactive states of the button
+- Experience the button's behavior as it would appear in the final product
+- Verify visual feedback for each state to ensure clear communication of interactivity

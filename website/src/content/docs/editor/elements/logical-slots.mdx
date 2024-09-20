@@ -1,0 +1,51 @@
+---
+title: Logical Slots
+description: Learn how to create and manage logical slots in Jux.
+---
+import { Image } from 'astro:assets';
+import Figcaption from "../../../../components/Figcaption";
+
+import logicalSlots from '../../../../assets/editor/elements/logical_slots.png'
+import logicalSlotsTrigger from '../../../../assets/editor/elements/logical_slots_trigger.png'
+import logicalSlotsHover from '../../../../assets/editor/elements/logical_slots_hover.png'
+
+Logical slots are special containers in Jux elements that enhance functionality and precision without adding visual properties.
+
+## Key Features
+
+- Function Over Form: Logical slots have no styling or properties to choose from.
+- Layer Representation: Appear as distinct layers in the object navigator.
+- Functional Containers: Regular objects placed inside inherit specific functions.
+- Element-Specific: Exist only in Jux elements and cannot be manually created or deleted.
+
+## How Logical Slots Work
+
+Objects inside a logical slot inherit a tied function (e.g., 'trigger').
+
+Example: In a checkbox, only objects in the 'trigger' logical slot can change the checkbox state when clicked.
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={logicalSlots} alt="Logical Slots" />
+    <Figcaption>Logical Slots with Checkbox</Figcaption>
+  </picture>
+</div>
+
+In the following example, the right layer structure allows both the label and the helper text to trigger the checkbox state, while in the left layer structure, only the 'box' itself can do so. Clicking on the label or the helper text in the left structure will not change the state of the checkbox.
+
+<Image src={logicalSlotsTrigger} alt="Logical Slots Trigger" />
+
+By hovering over the logical slot layer in the object navigator, you can see a tooltip detailing the action tied to that particular logical slot.
+
+<Image src={logicalSlotsHover} alt="Logical Slots Hover" />
+
+## Limitations
+
+- Cannot be added or created if not already part of the element
+- Not targetable or selectable
+- Cannot be deleted
+- Some logical slots may have restrictions on what components can be placed inside
+
+## Design Considerations
+
+Understanding logical slots helps you create more functional and precise interfaces. By properly utilizing these slots, you can ensure that interactive elements behave as intended, enhancing the overall user experience of your design.

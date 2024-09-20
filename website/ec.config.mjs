@@ -2,4 +2,7 @@ import { pluginCollapsibleSections } from '@expressive-code/plugin-collapsible-s
 
 export default {
   plugins: [pluginCollapsibleSections()],
+  styleOverrides: {
+    borderRadius: '8px',
+  },
 };

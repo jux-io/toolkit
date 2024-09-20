@@ -1,0 +1,23 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+import Default from '@astrojs/starlight/components/Sidebar.astro';
+
+let { sidebar: sidebarEntries } = Astro.props;
+
+let current = '';
+if (Astro.props.slug.startsWith('developers')) {
+  current = 'developers';
+} else if (Astro.props.slug.startsWith('editor')) {
+  current = 'editor';
+}
+
+const sidebarItems: (typeof Astro.props)['sidebar'] = [];
+
+sidebarEntries.forEach((item) => {
+  if (item.label === current && item.type === 'group') {
+    sidebarItems.push(...item.entries);
+  }
+});
+---
+
+<Default {...Astro.props} sidebar={sidebarItems}><slot /></Default>

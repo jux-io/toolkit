@@ -228,7 +228,7 @@ const getResolvedSelectors = (
       ...nestedSelectors.map((selector) => {
         /** In some cases we need to add the nested selector before the parent, for example in theming:
          * ```
-         *    [data-jux-theme="light"] .jux-ca3901 {
+         *    [data-theme="light"] .jux-ca3901 {
          *         font-size: var(--core-dimension-spacing_30);
          *         font-family: Arial;
          *         font-weight: 200;
@@ -236,7 +236,7 @@ const getResolvedSelectors = (
          *         letter-spacing: 0;
          *     }
          *
-         *     [data-jux-theme="dark"] .jux-ca3901 {
+         *     [data-theme="dark"] .jux-ca3901 {
          *         font-size: var(--core-dimension-spacing_20);
          *         font-family: Arial;
          *         font-weight: 200;

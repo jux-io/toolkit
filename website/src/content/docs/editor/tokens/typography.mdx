@@ -1,0 +1,67 @@
+---
+title: Typography Token
+description: Learn how to create and manage typography tokens in JUX.
+
+tableOfContents: false
+---
+import { Image } from 'astro:assets';
+import { Badge } from '@astrojs/starlight/components';
+import Figcaption from "../../../../components/Figcaption";
+
+import typographyToken from '../../../../assets/editor/tokens/typography/typography_token.png'
+import typographyProps from '../../../../assets/editor/tokens/typography/typography_props.png'
+import ddpTypographyFields from '../../../../assets/editor/tokens/typography/ddp_typography_field.png'
+
+
+Jux supports typography tokens as composite tokens that combine the following properties:
+
+- Font family
+- Font size
+- Font weight
+- Line height
+- Letter spacing
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={typographyToken} alt="Typography Token" />
+    <Figcaption>Typography Token</Figcaption>
+  </picture>
+</div>
+
+Each field within a typography token can be individually tokenized by referencing another token of the relevant type:
+
+- Font family - references a font family token
+- Font size - references a dimension token
+- Font weight - references a font weight token <Badge text='Coming soon' />
+- Line height - references a dimension token
+- Letter spacing - references a dimension token
+
+Typography tokens consist of the following fields:
+
+- Name (e.g., "heading-1" or "body-text")
+- Folder path (e.g., "typography/core/heading-1")
+- Font family
+- Font size
+- Font weight
+- Alias to another token - `optional`
+- Optional: Line height - `optional`
+- Optional: Letter spacing - `optional`
+- Optional: Description - `optional`
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={typographyProps} alt="Typography Props" />
+    <Figcaption>Typography Props</Figcaption>
+  </picture>
+</div>
+
+Typography tokens can only be used in the text module.
+
+To tokenize any typography field, click on the 'token icon button' that appears on the right side of the field when you hover over it. When a typography field is tokenized, its five subfields are disabled. To enable these subfields again, the typography token must be detached.
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={ddpTypographyFields} alt="DDP Typography Field" />
+    <Figcaption>DDP Typography Field</Figcaption>
+  </picture>
+</div>

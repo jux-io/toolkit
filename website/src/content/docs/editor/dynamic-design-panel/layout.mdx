@@ -1,0 +1,296 @@
+---
+title: Layout
+description: Learn how to adjust layout properties in the dynamic design panel.
+
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 6
+---
+
+import { Image } from 'astro:assets';
+import Figcaption from "../../../../components/Figcaption";
+
+import padding from '../../../../assets/editor/dynamic-design-panel/layout/padding.png'
+import paddingSides from '../../../../assets/editor/dynamic-design-panel/layout/padding_sides.png'
+
+import margin from '../../../../assets/editor/dynamic-design-panel/layout/margin.png'
+import marginSides from '../../../../assets/editor/dynamic-design-panel/layout/margin_sides.png'
+
+import display from '../../../../assets/editor/dynamic-design-panel/layout/display/display.png'
+import displayBlock from '../../../../assets/editor/dynamic-design-panel/layout/display/display_block.png'
+import displayFlex from '../../../../assets/editor/dynamic-design-panel/layout/display/display_flex.png'
+import flexWrapping from '../../../../assets/editor/dynamic-design-panel/layout/flex_wrapping.png'
+import alignItems from '../../../../assets/editor/dynamic-design-panel/layout/align-items/align_items.png'
+import alignStart from '../../../../assets/editor/dynamic-design-panel/layout/align-items/align_start.png'
+import alignCenter from '../../../../assets/editor/dynamic-design-panel/layout/align-items/align_center.png'
+import alignEnd from '../../../../assets/editor/dynamic-design-panel/layout/align-items/align_end.png'
+import alignStretch from '../../../../assets/editor/dynamic-design-panel/layout/align-items/align_stretch.png'
+import alignBaseline from '../../../../assets/editor/dynamic-design-panel/layout/align-items/align_baseline.png'
+
+import justifyContent from '../../../../assets/editor/dynamic-design-panel/layout/justify-content/justify_content.png'
+import justifyStart from '../../../../assets/editor/dynamic-design-panel/layout/justify-content/justify_start.png'
+import justifyCenter from '../../../../assets/editor/dynamic-design-panel/layout/justify-content/justify_center.png'
+import justifyEnd from '../../../../assets/editor/dynamic-design-panel/layout/justify-content/justify_end.png'
+import justifyBetween from '../../../../assets/editor/dynamic-design-panel/layout/justify-content/justify_between.png'
+import justifyAround from '../../../../assets/editor/dynamic-design-panel/layout/justify-content/justify_around.png'
+
+import gap from '../../../../assets/editor/dynamic-design-panel/layout/gap.png'
+
+import displayInline from '../../../../assets/editor/dynamic-design-panel/layout/display/display_inline.png'
+import displayNone from '../../../../assets/editor/dynamic-design-panel/layout/display/display_none.png'
+
+The layout module consists of the following submodules:
+
+## Padding Submodule
+
+Padding is the internal spacing inside an element, surrounding the content and appearing before the border. Units can be set in PX, VW, VH, EM, or REM.
+
+<div style={{ textAlign: 'center'}}>
+  <picture>
+    <Image src={padding} alt="Padding" width={463} />
+    <Figcaption>Padding example</Figcaption>
+  </picture>
+</div>
+
+There are three control methods for padding:
+
+- Unified (same padding on all sides)
+- Pairs (top/bottom, left/right)
+- Custom (individual control for each side)
+
+<div style={{ textAlign: 'center'}}>
+  <picture>
+    <Image src={paddingSides} alt="Padding units" />
+    <Figcaption>Padding control methods</Figcaption>
+  </picture>
+</div>
+
+## Margin Submodule
+
+Margin is the external spacing outside an element, surrounding the border. Units can be set in PX, VW, VH, EM, or REM.
+
+<div style={{ textAlign: 'center'}}>
+  <picture>
+    <Image src={margin} alt="Margin" width={352} />
+    <Figcaption>Margin example</Figcaption>
+  </picture>
+</div>
+
+There are three control methods for margin:
+- Unified (same margin on all sides)
+- Pairs (top/bottom, left/right)
+- Custom (individual control for each side)
+
+<div style={{ textAlign: 'center'}}>
+  <picture>
+    <Image src={marginSides} alt="Margin units" />
+    <Figcaption>Margin control methods</Figcaption>
+  </picture>
+</div>
+
+## Display Submodule
+
+The display submodule controls the layout of an element.
+
+<div style={{ textAlign: 'center'}}>
+  <picture>
+    <Image src={display} alt="Display" width={352} />
+    <Figcaption>Display Submodules</Figcaption>
+  </picture>
+</div>
+
+Options include:
+
+### Block
+
+The element will take up the full width of the parent container and stack vertically.
+
+<div style={{ textAlign: 'center'}}>
+  <picture>
+    <Image src={displayBlock} alt="Display Block" width={352} />
+    <Figcaption>Display Block</Figcaption>
+  </picture>
+</div>
+
+### Flex
+
+The element will become a flex container, allowing you to control the layout of its children.
+
+<div style={{ textAlign: 'center'}}>
+  <picture>
+    <Image src={displayFlex} alt="Display Flex" width={352} />
+    <Figcaption>Display Flex</Figcaption>
+  </picture>
+</div>
+
+Flex properties include:
+
+#### Direction
+
+Sets how flex items are placed in the flex container, and the direction (normal / reversed).
+
+#### Wrapping
+
+Sets whether flex items are forced onto one line or can wrap onto multiple lines. If wrapping is allowed, it sets the direction that lines are stacked.
+
+<div style={{ textAlign: 'center'}}>
+  <picture>
+    <Image src={flexWrapping} alt="Flex Wrapping" width={452} />
+    <Figcaption>Flex Wrapping</Figcaption>
+  </picture>
+</div>
+
+#### Align Items
+
+Sets the alignment of items along the cross axis, depending on the flex direction.
+
+<div style={{ textAlign: 'center'}}>
+  <picture>
+    <Image src={alignItems} alt="Align Items" width={452} />
+    <Figcaption>Align Items</Figcaption>
+  </picture>
+</div>
+
+Align items can be set to 5 different options:
+
+1. Start - Aligns items to the start of the container.
+
+    <div style={{ textAlign: 'center'}}>
+      <picture>
+        <Image src={alignStart} alt="Align Start"  />
+        <Figcaption>Align Start</Figcaption>
+      </picture>
+    </div>
+
+2. Center - Aligns items to the center of the container.
+    <div style={{ textAlign: 'center'}}>
+      <picture>
+        <Image src={alignCenter} alt="Align Center"  />
+        <Figcaption>Align Center</Figcaption>
+      </picture>
+    </div>
+
+3. End - Aligns items to the end of the container.
+    <div style={{ textAlign: 'center'}}>
+      <picture>
+        <Image src={alignEnd} alt="Align End"  />
+        <Figcaption>Align End</Figcaption>
+      </picture>
+    </div>
+
+4. Stretch - Stretches items to fill the container.
+
+    <div style={{ textAlign: 'center'}}>
+      <picture>
+        <Image src={alignStretch} alt="Align Stretch"  />
+        <Figcaption>Align Stretch</Figcaption>
+      </picture>
+    </div>
+
+5. Baseline - Aligns items to the baseline of the container.
+
+    <div style={{ textAlign: 'center'}}>
+      <picture>
+        <Image src={alignBaseline} alt="Align Baseline" />
+        <Figcaption>Align Baseline</Figcaption>
+      </picture>
+    </div>
+
+
+#### Justify Content
+
+Sets the alignment of items along the main axis, depending on the flex direction.
+
+<div style={{ textAlign: 'center'}}>
+  <picture>
+    <Image src={justifyContent} alt="Justify Content" width={463} />
+    <Figcaption>Justify Content</Figcaption>
+  </picture>
+</div>
+
+Justify content can be set to 5 different options:
+
+1. Start - Aligns items to the start of the container in the main axis.
+    <div style={{ textAlign: 'center'}}>
+      <picture>
+        <Image src={justifyStart} alt="Justify Start" />
+        <Figcaption>Justify Content - Start</Figcaption>
+      </picture>
+    </div>
+
+2. Center - Aligns items to the center of the container in the main axis.
+    <div style={{ textAlign: 'center'}}>
+      <picture>
+        <Image src={justifyCenter} alt="Justify Center" />
+        <Figcaption>Justify Content - Center</Figcaption>
+      </picture>
+    </div>
+
+3. End - Aligns items to the end of the container in the main axis
+    <div style={{ textAlign: 'center'}}>
+      <picture>
+        <Image src={justifyEnd} alt="Justify End" />
+        <Figcaption>Justify Content - End</Figcaption>
+      </picture>
+    </div>
+
+4. Space between - Distributes items evenly, with the first item at the start and the last item at the end.
+    <div style={{ textAlign: 'center'}}>
+      <picture>
+        <Image src={justifyBetween} alt="Justify Between" />
+        <Figcaption>Justify Content - Space Between</Figcaption>
+      </picture>
+    </div>
+
+5. Space around - Distributes items evenly, with equal space around them.
+    <div style={{ textAlign: 'center'}}>
+      <picture>
+        <Image src={justifyAround} alt="Justify Around"  />
+        <Figcaption>Justify Content - Space Around</Figcaption>
+      </picture>
+    </div>
+
+#### Gap
+
+Sets the space between flex items.
+
+<div style={{ textAlign: 'center'}}>
+  <picture>
+    <Image src={gap} alt="Gap" width={452} />
+    <Figcaption>Gap</Figcaption>
+  </picture>
+</div>
+
+### Inline Flex
+
+The element will become an inline flex container, allowing you to control the layout of its children. Inline flex has the same properties as flex.
+
+### Inline
+
+The element generates an inline box that does not create line breaks before or after itself. In normal flow, if there is available space, the next element will appear on the same line.
+
+<div style={{ textAlign: 'center'}}>
+  <picture>
+    <Image src={displayInline} alt="Display Inline" />
+    <Figcaption>Display Inline</Figcaption>
+  </picture>
+</div>
+
+### None
+
+Turning off the display of an object removes its effect on layout (the document renders as if the object doesn't exist). This setting also hides all descendant objects.
+
+When an object is hidden:
+
+- It cannot be accessed from the canvas
+- It can only be accessed via the layers panel
+- The layers panel will show a special 'eye' indicator for hidden objects
+
+This feature allows for temporary removal of elements from the design without deleting them.
+
+<div style={{ textAlign: 'center'}}>
+  <picture>
+    <Image src={displayNone} alt="Display None" />
+    <Figcaption>Display None</Figcaption>
+  </picture>
+</div>

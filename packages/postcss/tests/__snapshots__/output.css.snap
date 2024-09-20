@@ -206,13 +206,13 @@
     --core-dimension-spacing_100: 8px;
   }
 
-  [data-jux-theme="light"] {
+  [data-theme="light"] {
     --color-primary: var(--core-color-brand_100);
     --color-secondary: #fff;
     --dimension-specific-button_radius: var(--core-dimension-spacing_100);
   }
 
-  [data-jux-theme="dark"] {
+  [data-theme="dark"] {
     --color-primary: var(--core-color-brand_200);
     --color-secondary: var(--color-primary);
     --dimension-specific-button_radius: var(--core-dimension-spacing_100);

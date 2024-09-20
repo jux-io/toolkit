@@ -1,0 +1,24 @@
+---
+title: Background
+description: Learn how to create and manage background tokens in JUX.
+
+tableOfContents: false
+---
+
+import { Image } from 'astro:assets';
+import Figcaption from "../../../../components/Figcaption";
+
+import background from '../../../../assets/editor/dynamic-design-panel/background/background.png'
+
+The Background module consists of a single submodule that currently offers one option: solid color. This background color setting has three possible states:
+
+1. A specific color selection
+2. `None` for no color (transparent background)
+3. `Mixed` for assets with multiple colors
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <Image src={background} alt="Background" width={563} />
+    <Figcaption>Background Submodule</Figcaption>
+  </picture>
+</div>
