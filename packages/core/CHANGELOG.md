@@ -1,5 +1,14 @@
 # @juxio/core
 
+## 0.7.5
+
+### Patch Changes
+
+- [#87](https://github.com/jux-io/toolkit/pull/87) [`f231136`](https://github.com/jux-io/toolkit/commit/f23113611dd0a9d0d256ee7cf500d652629975d0) Thanks [@tnipri](https://github.com/tnipri)! - modified data-jux-theme to data-jux and made it more generic
+
+- Updated dependencies []:
+  - @juxio/design-tokens@0.7.5
+
 ## 0.7.4
 
 ### Patch Changes
