@@ -9,8 +9,4 @@ export default defineConfig({
   dts: true,
   shims: true,
   clean: true,
-  // TODO: Add env vars instead of env.json file
-  env: {
-    HELLO: process.env.PWD,
-  },
 });

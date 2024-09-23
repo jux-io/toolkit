@@ -62,7 +62,7 @@ const AnimatedButtonGroup = ({ current }: { current: string }) => {
           onClick={() => handleClick('editor')}
           selected={selectedButton === 'editor'}
         >
-          Editor
+          Designers
         </Button>
       </div>
     </div>
