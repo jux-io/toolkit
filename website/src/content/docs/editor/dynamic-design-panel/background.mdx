@@ -6,7 +6,7 @@ tableOfContents: false
 ---
 
 import { Image } from 'astro:assets';
-import Figcaption from "../../../../components/Figcaption";
+import CaptionImage from "../../../../components/CaptionImage.astro";
 
 import background from '../../../../assets/editor/dynamic-design-panel/background/background.png'
 
@@ -16,9 +16,6 @@ The Background module consists of a single submodule that currently offers one o
 2. `None` for no color (transparent background)
 3. `Mixed` for assets with multiple colors
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={background} alt="Background" width={563} />
-    <Figcaption>Background Submodule</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Background Submodule">
+  <Image src={background} alt="Background Submodule" />
+</CaptionImage>

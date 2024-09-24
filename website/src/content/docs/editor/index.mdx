@@ -6,7 +6,7 @@ tableOfContents:
   minHeadingLevel: 2
   maxHeadingLevel: 6
 ---
-import Figcaption from "../../../components/Figcaption";
+import CaptionImage from "../../../components/CaptionImage.astro";
 import { Image } from 'astro:assets';
 
 import canvas from '../../../assets/editor/introduction/canvas.png'
@@ -17,7 +17,7 @@ import objectsNavigator from '../../../assets/editor/introduction/objects_naviga
 import ddp from '../../../assets/editor/introduction/ddp.png'
 import invite from '../../../assets/editor/introduction/invite.png'
 
-Welcome to the Jux docs. If you can't find the information you're looking for or have questions about Jux, join us on [Dicord](https://discord.gg/xa4PR7T9) community, or email us at [squad@jux.io](mailto:squad@jux.io) and say hi!
+Welcome to the Jux docs. If you can't find the information you're looking for or have questions about Jux, join us on [Discord](https://discord.gg/xa4PR7T9) community, or email us at [squad@jux.io](mailto:squad@jux.io) and say hi!
 
 ## Overview
 
@@ -34,12 +34,9 @@ Our canvas sets JUX apart - it's not just a drawing board, it's a code-based des
 - Real-time visualization: See your components come to life as you design
 - Interactive testing: Engage with your designs to ensure they function as intended
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={canvas} alt="Jux Canvas" />
-    <Figcaption>Jux Canvas</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Jux Canvas">
+  <Image src={canvas} alt="Jux Canvas" />
+</CaptionImage>
 
 ## Top Navigation
 
@@ -49,12 +46,9 @@ The top navigation bar provides quick access to essential features and sections 
 
 Elements are the fundamental building blocks of your design system. We recommend starting here to design according to your brand and product requirements. When you place an Element on the canvas, it automatically becomes a "local component".
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={elements} alt="Elements Section" />
-    <Figcaption>Elements Section</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Elements Section">
+  <Image src={elements} alt="Elements Section" />
+</CaptionImage>
 
 #### Components
 
@@ -64,12 +58,9 @@ This section houses both Local and Library components. Components are reusable d
 - Instances automatically update when the source is modified
 - Instances cannot be directly edited, ensuring consistency
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={components} alt="Components Section" />
-    <Figcaption>Components Section</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Components Section">
+  <Image src={components} alt="Components Section" />
+</CaptionImage>
 
 #### Assets
 
@@ -79,12 +70,9 @@ The Assets section is your repository for SVGs, icons, and illustrations. Here's
 - Drag and drop them onto the canvas or into source components
 - Each placed asset becomes a standalone element, ready for reuse in parent components
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={assets} alt="Assets Section" />
-    <Figcaption>Assets Section</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Assets Section">
+  <Image src={assets} alt="Assets Section" />
+</CaptionImage>
 
 ## Objects Navigator
 
@@ -94,12 +82,9 @@ Located on the left panel, the Objects Navigator is your guide through the canva
 - Reorder objects via drag-and-drop functionality
 - Define the structure that will be handed off to your development team
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={objectsNavigator} alt="Objects Navigator" />
-    <Figcaption>Objects Navigator</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Objects Navigator">
+  <Image src={objectsNavigator} alt="Objects Navigator" />
+</CaptionImage>
 
 ## Dynamic Design Panel
 
@@ -111,12 +96,9 @@ The Dynamic Design Panel, affectionately known as the DDP, is the command center
 - Comprehensive control: Manage element and component states, properties, sizes, layouts, colors, typography, and more
 - Scrollable interface: Access additional values and options as you scroll
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={ddp} alt="Dynamic Design Panel" />
-    <Figcaption>Dynamic Design Panel</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Dynamic Design Panel">
+  <Image src={ddp} alt="Dynamic Design Panel" />
+</CaptionImage>
 
 ## Collaboration
 
@@ -126,11 +108,8 @@ Teamwork is at the heart of great design. That's why we've made it easy to bring
 - Click to add team members to your project
 - Collaborate in real-time as you build and refine your designs
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={invite} alt="Invite Team Members" />
-    <Figcaption>Invite Team Members</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Invite Team Members">
+  <Image src={invite} alt="Invite Team Members" />
+</CaptionImage>
 
 We're continuously evolving Jux to meet the needs of designers like you. Your feedback is invaluable in shaping the future of our tool. We're eager to hear your thoughts and experiences as you explore Jux!

@@ -8,7 +8,7 @@ tableOfContents:
 ---
 
 import { Image } from 'astro:assets';
-import Figcaption from "../../../../components/Figcaption";
+import CaptionImage from "../../../../components/CaptionImage.astro";
 
 import typography from '../../../../assets/editor/dynamic-design-panel/text/typography.png'
 
@@ -18,12 +18,9 @@ The text module consists of the following submodules:
 
 The typography submodule allows you to customize the text style of your components.
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={typography} alt="Typography" width={563} />
-    <Figcaption>Typography</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Typography">
+  <Image src={typography} alt="Typography" width={563} />
+</CaptionImage>
 
 Within the typography submodule, you can customize the following properties:
 

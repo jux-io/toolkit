@@ -4,7 +4,7 @@ description: Learn how to create and manage props and variants in JUX.
 ---
 
 import { Image } from 'astro:assets';
-import Figcaption from "../../../../components/Figcaption";
+import CaptionImage from "../../../../components/CaptionImage.astro";
 
 import propsPanel from '../../../../assets/editor/dynamic-design-panel/props-and-variants/props_panel.png'
 import assetsSwap from '../../../../assets/editor/dynamic-design-panel/props-and-variants/assets_swap.png'
@@ -29,12 +29,9 @@ The module's anatomy comprises three main parts:
     - Add [dynamic slots](/editor/editor-special-mechanics)
     - Add visibility properties
 
-<div style={{ textAlign: 'center'}}>
-  <picture>
-    <Image src={propsPanel} alt="Props panel" />
-    <Figcaption>Top of the dynamic design panel holds props, variants and more</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Props panel">
+  <Image src={propsPanel} alt="Props panel" />
+</CaptionImage>
 
 The selector module is crucial as it sets the context for all other DDP changes in the modules below it.
 
@@ -48,9 +45,6 @@ Assets in your designs allow for separation between the SVG content and the DDP 
 
 This feature enables consistent styling across different asset variations within your design system.
 
-<div style={{ textAlign: 'center'}}>
-  <picture>
-    <Image src={assetsSwap} alt="Assets swap" width={563} />
-    <Figcaption>Swap assets ability</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Assets swap ability">
+  <Image src={assetsSwap} alt="Assets swap ability" />
+</CaptionImage>

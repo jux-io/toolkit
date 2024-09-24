@@ -271,6 +271,10 @@ export default defineConfig({
               label: 'Community',
               link: '/editor/people-of-jux',
             },
+            {
+              label: 'Changelog',
+              link: '/editor/changelog',
+            },
           ],
         },
       ],

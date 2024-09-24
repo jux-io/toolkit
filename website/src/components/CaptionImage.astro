@@ -1,0 +1,17 @@
+---
+import Figcaption from './Figcaption';
+
+interface Props {
+  src: string;
+  caption?: string;
+}
+
+const { caption } = Astro.props;
+---
+
+<div style={{ textAlign: 'center' }}>
+  <picture>
+    <slot />
+    <Figcaption>{caption}</Figcaption>
+  </picture>
+</div>

@@ -7,19 +7,16 @@ tableOfContents:
   maxHeadingLevel: 6
 ---
 import { Image } from 'astro:assets';
-import Figcaption from "../../../../components/Figcaption";
+import CaptionImage from "../../../../components/CaptionImage.astro";
 
 import inputElement from '../../../../assets/editor/elements/input.png'
 import inputAnatomy from '../../../../assets/editor/elements/input_anatomy.png'
 import inputProps from '../../../../assets/editor/elements/input_props.png'
 import inputMatrix from '../../../../assets/editor/elements/input_matrix.png'
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={inputElement} alt="Input Element" />
-    <Figcaption>Input Element Icon</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Input Element">
+  <Image src={inputElement} alt="Input Element" />
+</CaptionImage>
 
 ### Technical Definition
 The Input Element in Jux represents an interactive control for web-based forms, allowing users to input data. Currently, Jux supports a simple text input type, with more types planned for future releases.
@@ -32,12 +29,9 @@ The input element is a single layer:
 - You can style both the text value and placeholder directly on the input itself
 - To switch between styling the value and the placeholder, change the 'input mode' property in the Dynamic Design Panel
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={inputAnatomy} alt="Input Anatomy" />
-    <Figcaption>Input is a single layer</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Input Anatomy">
+  <Image src={inputAnatomy} alt="Input Anatomy" />
+</CaptionImage>
 
 ### Props and States
 
@@ -54,21 +48,15 @@ Input properties includes:
 
 Input properties can be extended based on your design needs, allowing for custom properties to enhance functionality and design variations. However, core properties like 'disabled' can't be removed to ensure proper web behavior.
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={inputProps} alt="Input Properties" />
-    <Figcaption>Input Properties</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Input Properties">
+  <Image src={inputProps} alt="Input Properties" />
+</CaptionImage>
 
 ### Matrix
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={inputMatrix} alt="Input Matrix" />
-    <Figcaption>Input Matrix</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Input Matrix">
+  <Image src={inputMatrix} alt="Input Matrix" />
+</CaptionImage>
 
 ### Special Mechanics
 The input has two key limitations:

@@ -6,7 +6,7 @@ tableOfContents: false
 ---
 import { Image } from 'astro:assets';
 import { Badge } from '@astrojs/starlight/components';
-import Figcaption from "../../../../components/Figcaption";
+import CaptionImage from "../../../../components/CaptionImage.astro";
 
 import typographyToken from '../../../../assets/editor/tokens/typography/typography_token.png'
 import typographyProps from '../../../../assets/editor/tokens/typography/typography_props.png'
@@ -21,12 +21,9 @@ Jux supports typography tokens as composite tokens that combine the following pr
 - Line height
 - Letter spacing
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={typographyToken} alt="Typography Token" />
-    <Figcaption>Typography Token</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Typography Token">
+  <Image src={typographyToken} alt="Typography Token" />
+</CaptionImage>
 
 Each field within a typography token can be individually tokenized by referencing another token of the relevant type:
 
@@ -48,20 +45,14 @@ Typography tokens consist of the following fields:
 - Optional: Letter spacing - `optional`
 - Optional: Description - `optional`
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={typographyProps} alt="Typography Props" />
-    <Figcaption>Typography Props</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Typography Props">
+  <Image src={typographyProps} alt="Typography Props" />
+</CaptionImage>
 
 Typography tokens can only be used in the text module.
 
-To tokenize any typography field, click on the 'token icon button' that appears on the right side of the field when you hover over it. When a typography field is tokenized, its five subfields are disabled. To enable these subfields again, the typography token must be detached.
+To tokenize any typography field, click on the 'token icon button' that appears on the right side of the field when you hover over it. When a typography field is tokenized, its five subfields are disabled. To enable these subfields again, the typography token must be detached
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={ddpTypographyFields} alt="DDP Typography Field" />
-    <Figcaption>DDP Typography Field</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="DDP Typography Field">
+  <Image src={ddpTypographyFields} alt="DDP Typography Field" />
+</CaptionImage>

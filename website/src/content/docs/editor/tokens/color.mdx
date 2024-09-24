@@ -5,7 +5,7 @@ description: Learn how to create and manage color tokens in JUX.
 tableOfContents: false
 ---
 import { Image } from 'astro:assets';
-import Figcaption from "../../../../components/Figcaption";
+import CaptionImage from "../../../../components/CaptionImage.astro";
 import colorTokenCard from '../../../../assets/editor/tokens/color/color_token_card.png'
 import transparentColorExample from '../../../../assets/editor/tokens/color/transparent_color_example.png'
 import colorProps from '../../../../assets/editor/tokens/color/color_props.png'
@@ -16,21 +16,15 @@ Jux provides a flexible and precise approach to color tokens: Color tokens combi
 
 The combination can be expressed as a single RGBA value, maintaining its status as a simple token.
 
-<div style={{ textAlign: 'center'}}>
-  <picture>
-    <Image src={colorTokenCard} alt="Color Token Card" />
-    <Figcaption>Color Token Card</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Color Token Card">
+  <Image src={colorTokenCard} alt="Color Token Card" />
+</CaptionImage>
 
 The color circular thumbnail will show both the HEX value and the unified opacity result if the opacity value is less than 100%.
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={transparentColorExample} alt="Transparent Color Example" />
-    <Figcaption>Transparent Color Example</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Transparent Color Example">
+  <Image src={transparentColorExample} alt="Transparent Color Example" />
+</CaptionImage>
 
 Color tokens consist of the following fields:
 
@@ -41,12 +35,9 @@ Color tokens consist of the following fields:
 - Alias to another token - `optional`
 - Description - `optional`
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={colorProps} alt="Color Props" />
-    <Figcaption>Color Props</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Color Props">
+  <Image src={colorProps} alt="Color Props" />
+</CaptionImage>
 
 Color tokens can be applied in the [Dynamic Design Panel (DDP)](/editor/dynamic-design-panel) within the following modules:
 
@@ -56,18 +47,12 @@ Color tokens can be applied in the [Dynamic Design Panel (DDP)](/editor/dynamic-
 - Shadow color
 - Asset color
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={ddpColorField} alt="DDP Color Field" />
-    <Figcaption>DDP Color Field</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="DDP Color Field">
+  <Image src={ddpColorField} alt="DDP Color Field" />
+</CaptionImage>
 
 To tokenize any color field, click on the 'token icon button' that appears on the right side of the field when you hover over it.
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={hoverForTokenSelection} alt="Hover for Token Selection" />
-    <Figcaption>Hover for Token Selection</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Hover for Token Selection">
+  <Image src={hoverForTokenSelection} alt="Hover for Token Selection" />
+</CaptionImage>

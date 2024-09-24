@@ -4,7 +4,7 @@ description: Learn how to adjust the size and position of elements in the dynami
 ---
 
 import { Image } from 'astro:assets';
-import Figcaption from "../../../../components/Figcaption";
+import CaptionImage from "../../../../components/CaptionImage.astro";
 
 import widthHeightPanel from '../../../../assets/editor/dynamic-design-panel/size-and-position/width_height_panel.png'
 import positionTypes from '../../../../assets/editor/dynamic-design-panel/size-and-position/position_types.png'
@@ -27,12 +27,9 @@ The size and position module consists of the following submodules:
 1. Height field: Can also accept 'auto' string. 'auto' sets the height to be determined by the content's height (including padding and border, if present)
 2. Max/Min height fields: Can also accept 'None' string
 
-<div style={{ textAlign: 'center'}}>
-  <picture>
-    <Image src={widthHeightPanel} alt="Width and Height panel" />
-    <Figcaption>Allowing width, height and also min/max</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Width and Height panel">
+  <Image src={widthHeightPanel} alt="Width and Height panel" />
+</CaptionImage>
 
 ## Position Submodule
 
@@ -44,12 +41,9 @@ The position submodule in the 'Size and Position' module allows you to switch be
 
 For 'relative' and 'absolute' positions, the submodule allows setting a Z-index value to determine the stacking order of overlapped objects.
 
-<div style={{ textAlign: 'center'}}>
-  <picture>
-    <Image src={positionTypes} alt="Position types" />
-    <Figcaption>All types of position types</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Position types">
+  <Image src={positionTypes} alt="Position types" />
+</CaptionImage>
 
 ### Position: static
 
@@ -59,12 +53,9 @@ Static positioning is the default for all elements and components, following the
 
 This position option allows you to visually 'move' the object in relation to its original 'static' position by a set amount of dimension units (PX/VW/VH/Auto) in any of 4 directions.
 
-<div style={{ textAlign: 'center'}}>
-  <picture>
-    <Image src={positionRelative} alt="Position relative" />
-    <Figcaption>Relative position example</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Position relative">
+  <Image src={positionRelative} alt="Position relative" />
+</CaptionImage>
 
 Useful for:
 
@@ -78,9 +69,6 @@ This position option allows you to visually 'move' the object in relation to its
 
 This is useful for elements that need to "break away" from the normal layout, such as badges over buttons, tooltips, or floating action buttons.
 
-<div style={{ textAlign: 'center'}}>
-  <picture>
-    <Image src={positionAbsolute} alt="Position absolute" />
-    <Figcaption>Absolute position example</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Position absolute">
+  <Image src={positionAbsolute} alt="Position absolute" />
+</CaptionImage>
