@@ -7,18 +7,15 @@ tableOfContents:
   maxHeadingLevel: 6
 ---
 import { Image } from 'astro:assets';
-import Figcaption from "../../../../components/Figcaption";
+import CaptionImage from "../../../../components/CaptionImage.astro";
 
 import toggleElement from '../../../../assets/editor/elements/toggle.png'
 import toggleAnatomy from '../../../../assets/editor/elements/toggle_anatomy.png'
 import toggleMatrix from '../../../../assets/editor/elements/toggle_matrix.png'
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={toggleElement} alt="Toggle Element" />
-    <Figcaption>Toggle Element Icon</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Toggle Element">
+  <Image src={toggleElement} alt="Toggle Element" />
+</CaptionImage>
 
 ### Technical Definition
 The toggle element in Jux represents an interactive control that allows users to switch between two states. It's typically used in settings, preferences, and other UI components where binary options are available.
@@ -36,12 +33,9 @@ You can:
 - Hide specific elements in certain states
 - Modify SVG assets for check and indeterminate icons via the 'asset content' property
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={toggleAnatomy} alt="Toggle Anatomy" />
-    <Figcaption>Toggle Anatomy</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Toggle Anatomy">
+  <Image src={toggleAnatomy} alt="Toggle Anatomy" />
+</CaptionImage>
 
 ### Props and States
 
@@ -61,12 +55,9 @@ Toggle properties can be extended based on your design needs, allowing for custo
 
 ### Matrix
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={toggleMatrix} alt="Toggle Matrix" />
-    <Figcaption>Toggle Matrix</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Toggle Matrix">
+  <Image src={toggleMatrix} alt="Toggle Matrix" />
+</CaptionImage>
 
 ### Special Mechanics
 

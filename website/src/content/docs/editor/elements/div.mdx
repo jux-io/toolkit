@@ -7,16 +7,13 @@ tableOfContents:
   maxHeadingLevel: 6
 ---
 import { Image } from 'astro:assets';
-import Figcaption from "../../../../components/Figcaption";
+import CaptionImage from "../../../../components/CaptionImage.astro";
 
 import divElement from '../../../../assets/editor/elements/div.png'
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={divElement} alt="Div Element" />
-    <Figcaption>Div Element on Jux Canvas</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Div Element on Jux Canvas">
+  <Image src={divElement} alt="Div Element" />
+</CaptionImage>
 
 ### What is it?
 The Div Element is your versatile container in Jux. Think of it as a flexible box that can hold and organize other design elements.

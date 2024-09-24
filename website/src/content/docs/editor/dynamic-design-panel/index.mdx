@@ -7,7 +7,7 @@ tableOfContents:
   maxHeadingLevel: 6
 ---
 import { Image } from 'astro:assets';
-import Figcaption from "../../../../components/Figcaption";
+import CaptionImage from "../../../../components/CaptionImage.astro";
 
 import dynamicDesignPanel from '../../../../assets/editor/dynamic-design-panel/ddp/ddp.png'
 import ddpAnatomy from '../../../../assets/editor/dynamic-design-panel/ddp/ddp_anatomy.png'
@@ -115,24 +115,18 @@ Simple fields control a single value and are tokenized with specific tokens.
 - Accepts: Numerical value and unit selection
 - Can be tokenized with dimension tokens
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={dimensionField} alt="Dimension Field" width={352} />
-    <Figcaption>Dimension Field</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Dimension Field">
+  <Image src={dimensionField} alt="Dimension Field" width={352} />
+</CaptionImage>
 
 #### Color
 
 - Accepts: Hex value for color and percentage for opacity
 - Can be tokenized with color tokens
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={colorField} alt="Color Field" width={352} />
-    <Figcaption>Color Field</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Color Field">
+  <Image src={colorField} alt="Color Field" width={352} />
+</CaptionImage>
 
 ### Composite Fields
 
@@ -147,12 +141,9 @@ Comprises:
 - Line height (dimension)
 - Letter spacing (dimension)
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={typographyField} alt="Typography Field" width={563} />
-    <Figcaption>Typography Field</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Typography Field">
+  <Image src={typographyField} alt="Typography Field" width={563} />
+</CaptionImage>
 
 #### Border
 
@@ -162,12 +153,9 @@ All 3 fields can be applied independently if needed
 - Border color (color)
 - Border style
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={borderField} alt="Border Field" width={563} />
-    <Figcaption>Border Field</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Border Field">
+  <Image src={borderField} alt="Border Field" width={563} />
+</CaptionImage>
 
 #### Shadow
 
@@ -180,9 +168,6 @@ Comprises:
 - Shadow color
 - Drop/inner shadow selector
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={shadowField} alt="Shadow Field" width={563} />
-    <Figcaption>Shadow Field</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Shadow Field">
+  <Image src={shadowField} alt="Shadow Field" width={563} />
+</CaptionImage>

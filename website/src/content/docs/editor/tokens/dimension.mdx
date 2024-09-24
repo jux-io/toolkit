@@ -6,7 +6,7 @@ tableOfContents: false
 ---
 import { Image } from 'astro:assets';
 import { Badge } from '@astrojs/starlight/components';
-import Figcaption from "../../../../components/Figcaption";
+import CaptionImage from "../../../../components/CaptionImage.astro";
 
 import dimensionToken from '../../../../assets/editor/tokens/dimension/dimension_token.png'
 import dimensionProps from '../../../../assets/editor/tokens/dimension/dimension_props.png'
@@ -16,12 +16,9 @@ import ddpHoverForSelection from '../../../../assets/editor/tokens/dimension/ddp
 
 Jux supports dimension tokens consisting of a positive number and a unit of measure. Currently, Jux supports the following units: PX, %, EM, REM, VH, and VW.
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={dimensionToken} alt="Dimension Token" />
-    <Figcaption>Dimension Token</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Dimension Token">
+  <Image src={dimensionToken} alt="Dimension Token"  />
+</CaptionImage>
 
 - Note: Dimension fields can accept entries like 'auto', which cannot be tokenized.
 
@@ -40,12 +37,9 @@ Dimension tokens consist of the following fields:
 - Alias to another token - `optional`
 - Description - `optional`
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={dimensionProps} alt="Dimension Props" width={563} />
-    <Figcaption>Dimension Props</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Dimension Props">
+  <Image src={dimensionProps} alt="Dimension Props" width={563} />
+</CaptionImage>
 
 Dimension tokens can be applied in the Dynamic Design Panel (DDP) within the following modules:
 
@@ -56,19 +50,12 @@ Dimension tokens can be applied in the Dynamic Design Panel (DDP) within the fol
 - Corner radius
 - Shadow measurements
 
-
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={ddpSizeModule} alt="DDP Size Module" width={563} />
-    <Figcaption>DDP Size Module</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="DDP Size Module">
+  <Image src={ddpSizeModule} alt="DDP Size Module" width={563} />
+</CaptionImage>
 
 To tokenize any dimension field, click on the 'token icon button' that appears on the right side of the field when you hover over it.
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={ddpHoverForSelection} alt="DDP Hover For Selection" width={563} />
-    <Figcaption>DDP Hover For Selection</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="DDP Hover For Selection">
+  <Image src={ddpHoverForSelection} alt="DDP Hover For Selection" width={563} />
+</CaptionImage>

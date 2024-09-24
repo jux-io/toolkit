@@ -7,18 +7,15 @@ tableOfContents:
   maxHeadingLevel: 6
 ---
 import { Image } from 'astro:assets';
-import Figcaption from "../../../../components/Figcaption";
+import CaptionImage from "../../../../components/CaptionImage.astro";
 
 import checkboxElement from '../../../../assets/editor/elements/checkbox.png'
 import checkboxAnatomy from '../../../../assets/editor/elements/checkbox_anatomy.png'
 import checkboxMatrix from '../../../../assets/editor/elements/checkbox_matrix.png'
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={checkboxElement} alt="Checkbox Element" />
-    <Figcaption>Checkbox Element Icon</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Checkbox Element">
+  <Image src={checkboxElement} alt="Checkbox Element" />
+</CaptionImage>
 
 ### Technical Definition
 The Checkbox Element in Jux represents an interactive control that allows users to select or deselect a single value. It's typically used in forms and can be in a checked, unchecked, or indeterminate state.
@@ -36,12 +33,9 @@ You can:
 - Hide specific elements in certain states
 - Modify SVG assets for check and indeterminate icons via the 'asset content' property
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={checkboxAnatomy} alt="Checkbox Anatomy" />
-    <Figcaption>Checkbox Anatomy</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Checkbox Anatomy">
+  <Image src={checkboxAnatomy} alt="Checkbox Anatomy" />
+</CaptionImage>
 
 ### Props and States
 
@@ -61,12 +55,9 @@ Checkbox properties can be extended based on your design needs, allowing for cus
 
 ### Matrix
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={checkboxMatrix} alt="Checkbox Matrix" />
-    <Figcaption>Checkbox Matrix</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Checkbox Matrix">
+  <Image src={checkboxMatrix} alt="Checkbox Matrix" />
+</CaptionImage>
 
 ### Special Mechanics
 

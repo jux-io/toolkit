@@ -5,7 +5,7 @@ description: Learn how to create and manage font family tokens in JUX.
 tableOfContents: false
 ---
 import { Image } from 'astro:assets';
-import Figcaption from "../../../../components/Figcaption";
+import CaptionImage from "../../../../components/CaptionImage.astro";
 import fontFamilyToken from '../../../../assets/editor/tokens/font_family/font_family_token.png'
 import fontFamilyAlias from '../../../../assets/editor/tokens/font_family/font_family_alias.png'
 import fontFamilyProps from '../../../../assets/editor/tokens/font_family/font_family_props.png'
@@ -14,19 +14,15 @@ import ddpTextTokens from '../../../../assets/editor/tokens/font_family/ddp_text
 
 Jux supports font family tokens from a list of available font families. If the font family you need isn't on the list, you can contact us on [Discord](https://discord.gg/xa4PR7T9) or email us at [squad@jux.io](mailto:squad@jux.io).
 
-<picture>
+<CaptionImage caption="Font Family Token">
   <Image src={fontFamilyToken} alt="Font Family Token" />
-  <Figcaption>Font Family Token</Figcaption>
-</picture>
+</CaptionImage>
 
 Font family tokens can be referenced by [Typography](/editor/tokens/typography) tokens in the font family field using aliases.
 
-<div style={{ textAlign: 'center'}}>
-  <picture>
-    <Image src={fontFamilyAlias} alt="Font Family Alias" width={400} />
-    <Figcaption>Font Family Alias</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Font Family Alias">
+  <Image src={fontFamilyAlias} alt="Font Family Alias" width={400} />
+</CaptionImage>
 
 Font family tokens consist of the following fields:
 
@@ -36,27 +32,18 @@ Font family tokens consist of the following fields:
 - Alias to another token - `optional`
 - Description - `optional`
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={fontFamilyProps} alt="Font Family Props" />
-    <Figcaption>Font Family Props</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Font Family Props">
+  <Image src={fontFamilyProps} alt="Font Family Props" width={563} />
+</CaptionImage>
 
 Font family tokens can only be used in the Typography module of the Dynamic Design Panel (DDP).
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={ddpTextModule} alt="DDP Text Module" width={563} />
-    <Figcaption>DDP Text Module</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="DDP Text Module">
+  <Image src={ddpTextModule} alt="DDP Text Module" width={563} />
+</CaptionImage>
 
 To tokenize the font family field, click on the 'token icon button' that appears on the right side of the field when you hover over it.
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={ddpTextTokens} alt="DDP Text Tokens" width={563} />
-    <Figcaption>DDP Text Tokens</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="DDP Text Tokens">
+  <Image src={ddpTextTokens} alt="DDP Text Tokens" width={563} />
+</CaptionImage>

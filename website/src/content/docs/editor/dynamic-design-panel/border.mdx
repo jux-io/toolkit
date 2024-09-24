@@ -8,7 +8,7 @@ tableOfContents:
 ---
 import {Badge} from "@astrojs/starlight/components";
 import { Image } from 'astro:assets';
-import Figcaption from "../../../../components/Figcaption";
+import CaptionImage from "../../../../components/CaptionImage.astro";
 
 import border from '../../../../assets/editor/dynamic-design-panel/border/border.png'
 
@@ -34,9 +34,6 @@ The stroke style field has a closed list - it accepts a selection from a pre-exi
 
 This submodule includes a switcher with options for [`all` | `top-left` | `top-right` | `bottom-right` | `bottom-left`], allowing precise control over each corner of the border.
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={border} alt="Border Radius" />
-    <Figcaption>Border module support flexible options</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Border Radius">
+  <Image src={border} alt="Border Radius" />
+</CaptionImage>

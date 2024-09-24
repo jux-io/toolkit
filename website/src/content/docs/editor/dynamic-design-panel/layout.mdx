@@ -6,9 +6,8 @@ tableOfContents:
   minHeadingLevel: 2
   maxHeadingLevel: 6
 ---
-
 import { Image } from 'astro:assets';
-import Figcaption from "../../../../components/Figcaption";
+import CaptionImage from "../../../../components/CaptionImage.astro";
 
 import padding from '../../../../assets/editor/dynamic-design-panel/layout/padding.png'
 import paddingSides from '../../../../assets/editor/dynamic-design-panel/layout/padding_sides.png'
@@ -45,12 +44,9 @@ The layout module consists of the following submodules:
 
 Padding is the internal spacing inside an element, surrounding the content and appearing before the border. Units can be set in PX, VW, VH, EM, or REM.
 
-<div style={{ textAlign: 'center'}}>
-  <picture>
-    <Image src={padding} alt="Padding" width={463} />
-    <Figcaption>Padding example</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Padding example">
+  <Image src={padding} alt="Padding" width={463} />
+</CaptionImage>
 
 There are three control methods for padding:
 
@@ -58,46 +54,34 @@ There are three control methods for padding:
 - Pairs (top/bottom, left/right)
 - Custom (individual control for each side)
 
-<div style={{ textAlign: 'center'}}>
-  <picture>
-    <Image src={paddingSides} alt="Padding units" />
-    <Figcaption>Padding control methods</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Padding control methods">
+  <Image src={paddingSides} alt="Padding units" />
+</CaptionImage>
 
 ## Margin Submodule
 
 Margin is the external spacing outside an element, surrounding the border. Units can be set in PX, VW, VH, EM, or REM.
 
-<div style={{ textAlign: 'center'}}>
-  <picture>
-    <Image src={margin} alt="Margin" width={352} />
-    <Figcaption>Margin example</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Margin example">
+  <Image src={margin} alt="Margin" width={352} />
+</CaptionImage>
 
 There are three control methods for margin:
 - Unified (same margin on all sides)
 - Pairs (top/bottom, left/right)
 - Custom (individual control for each side)
 
-<div style={{ textAlign: 'center'}}>
-  <picture>
-    <Image src={marginSides} alt="Margin units" />
-    <Figcaption>Margin control methods</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Margin control methods">
+  <Image src={marginSides} alt="Margin units" />
+</CaptionImage>
 
 ## Display Submodule
 
 The display submodule controls the layout of an element.
 
-<div style={{ textAlign: 'center'}}>
-  <picture>
-    <Image src={display} alt="Display" width={352} />
-    <Figcaption>Display Submodules</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Display Submodules">
+  <Image src={display} alt="Display" width={352} />
+</CaptionImage>
 
 Options include:
 
@@ -105,23 +89,17 @@ Options include:
 
 The element will take up the full width of the parent container and stack vertically.
 
-<div style={{ textAlign: 'center'}}>
-  <picture>
-    <Image src={displayBlock} alt="Display Block" width={352} />
-    <Figcaption>Display Block</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Display Block">
+  <Image src={displayBlock} alt="Display Block" width={352} />
+</CaptionImage>
 
 ### Flex
 
 The element will become a flex container, allowing you to control the layout of its children.
 
-<div style={{ textAlign: 'center'}}>
-  <picture>
-    <Image src={displayFlex} alt="Display Flex" width={352} />
-    <Figcaption>Display Flex</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Display Flex">
+  <Image src={displayFlex} alt="Display Flex" width={352} />
+</CaptionImage>
 
 Flex properties include:
 
@@ -133,133 +111,88 @@ Sets how flex items are placed in the flex container, and the direction (normal 
 
 Sets whether flex items are forced onto one line or can wrap onto multiple lines. If wrapping is allowed, it sets the direction that lines are stacked.
 
-<div style={{ textAlign: 'center'}}>
-  <picture>
-    <Image src={flexWrapping} alt="Flex Wrapping" width={452} />
-    <Figcaption>Flex Wrapping</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Flex Wrapping">
+  <Image src={flexWrapping} alt="Flex Wrapping" width={352} />
+</CaptionImage>
 
 #### Align Items
 
 Sets the alignment of items along the cross axis, depending on the flex direction.
 
-<div style={{ textAlign: 'center'}}>
-  <picture>
-    <Image src={alignItems} alt="Align Items" width={452} />
-    <Figcaption>Align Items</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Align Items">
+  <Image src={alignItems} alt="Align Items" width={452} />
+</CaptionImage>
 
 Align items can be set to 5 different options:
 
 1. Start - Aligns items to the start of the container.
-
-    <div style={{ textAlign: 'center'}}>
-      <picture>
-        <Image src={alignStart} alt="Align Start"  />
-        <Figcaption>Align Start</Figcaption>
-      </picture>
-    </div>
+    <CaptionImage caption="Align Start">
+      <Image src={alignStart} alt="Align Start" />
+    </CaptionImage>
 
 2. Center - Aligns items to the center of the container.
-    <div style={{ textAlign: 'center'}}>
-      <picture>
-        <Image src={alignCenter} alt="Align Center"  />
-        <Figcaption>Align Center</Figcaption>
-      </picture>
-    </div>
+    <CaptionImage caption="Align Center">
+      <Image src={alignCenter} alt="Align Center" />
+    </CaptionImage>
 
 3. End - Aligns items to the end of the container.
-    <div style={{ textAlign: 'center'}}>
-      <picture>
-        <Image src={alignEnd} alt="Align End"  />
-        <Figcaption>Align End</Figcaption>
-      </picture>
-    </div>
+    <CaptionImage caption="Align End">
+      <Image src={alignEnd} alt="Align End" />
+    </CaptionImage>
 
 4. Stretch - Stretches items to fill the container.
-
-    <div style={{ textAlign: 'center'}}>
-      <picture>
-        <Image src={alignStretch} alt="Align Stretch"  />
-        <Figcaption>Align Stretch</Figcaption>
-      </picture>
-    </div>
+    <CaptionImage caption="Align Stretch">
+      <Image src={alignStretch} alt="Align Stretch" />
+    </CaptionImage>
 
 5. Baseline - Aligns items to the baseline of the container.
-
-    <div style={{ textAlign: 'center'}}>
-      <picture>
-        <Image src={alignBaseline} alt="Align Baseline" />
-        <Figcaption>Align Baseline</Figcaption>
-      </picture>
-    </div>
+    <CaptionImage caption="Align Baseline">
+      <Image src={alignBaseline} alt="Align Baseline" />
+    </CaptionImage>
 
 
 #### Justify Content
 
 Sets the alignment of items along the main axis, depending on the flex direction.
 
-<div style={{ textAlign: 'center'}}>
-  <picture>
-    <Image src={justifyContent} alt="Justify Content" width={463} />
-    <Figcaption>Justify Content</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Justify Content">
+  <Image src={justifyContent} alt="Justify Content" width={463} />
+</CaptionImage>
 
 Justify content can be set to 5 different options:
 
 1. Start - Aligns items to the start of the container in the main axis.
-    <div style={{ textAlign: 'center'}}>
-      <picture>
-        <Image src={justifyStart} alt="Justify Start" />
-        <Figcaption>Justify Content - Start</Figcaption>
-      </picture>
-    </div>
+    <CaptionImage caption="Justify Start">
+      <Image src={justifyStart} alt="Justify Start" />
+    </CaptionImage>
 
 2. Center - Aligns items to the center of the container in the main axis.
-    <div style={{ textAlign: 'center'}}>
-      <picture>
-        <Image src={justifyCenter} alt="Justify Center" />
-        <Figcaption>Justify Content - Center</Figcaption>
-      </picture>
-    </div>
+    <CaptionImage caption="Justify Center">
+      <Image src={justifyCenter} alt="Justify Center" />
+    </CaptionImage>
 
 3. End - Aligns items to the end of the container in the main axis
-    <div style={{ textAlign: 'center'}}>
-      <picture>
-        <Image src={justifyEnd} alt="Justify End" />
-        <Figcaption>Justify Content - End</Figcaption>
-      </picture>
-    </div>
+    <CaptionImage caption="Justify End">
+      <Image src={justifyEnd} alt="Justify End" />
+    </CaptionImage>
 
 4. Space between - Distributes items evenly, with the first item at the start and the last item at the end.
-    <div style={{ textAlign: 'center'}}>
-      <picture>
-        <Image src={justifyBetween} alt="Justify Between" />
-        <Figcaption>Justify Content - Space Between</Figcaption>
-      </picture>
-    </div>
+    <CaptionImage caption="Justify Between">
+      <Image src={justifyBetween} alt="Justify Between" />
+    </CaptionImage>
 
 5. Space around - Distributes items evenly, with equal space around them.
-    <div style={{ textAlign: 'center'}}>
-      <picture>
-        <Image src={justifyAround} alt="Justify Around"  />
-        <Figcaption>Justify Content - Space Around</Figcaption>
-      </picture>
-    </div>
+    <CaptionImage caption="Justify Around">
+      <Image src={justifyAround} alt="Justify Around" />
+    </CaptionImage>
 
 #### Gap
 
 Sets the space between flex items.
 
-<div style={{ textAlign: 'center'}}>
-  <picture>
-    <Image src={gap} alt="Gap" width={452} />
-    <Figcaption>Gap</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Gap">
+  <Image src={gap} alt="Gap" width={452} />
+</CaptionImage>
 
 ### Inline Flex
 
@@ -269,12 +202,9 @@ The element will become an inline flex container, allowing you to control the la
 
 The element generates an inline box that does not create line breaks before or after itself. In normal flow, if there is available space, the next element will appear on the same line.
 
-<div style={{ textAlign: 'center'}}>
-  <picture>
-    <Image src={displayInline} alt="Display Inline" />
-    <Figcaption>Display Inline</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Display Inline">
+  <Image src={displayInline} alt="Display Inline" />
+</CaptionImage>
 
 ### None
 
@@ -288,9 +218,6 @@ When an object is hidden:
 
 This feature allows for temporary removal of elements from the design without deleting them.
 
-<div style={{ textAlign: 'center'}}>
-  <picture>
-    <Image src={displayNone} alt="Display None" />
-    <Figcaption>Display None</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Display None">
+  <Image src={displayNone} alt="Display None" />
+</CaptionImage>

@@ -9,6 +9,10 @@
   margin-top: 4px !important;
 }
 
+.sl-markdown-content li > :last-child {
+  margin-bottom: 0 !important;
+}
+
 starlight-image-zoom-zoomable {
   display: flex;
   justify-content: center;

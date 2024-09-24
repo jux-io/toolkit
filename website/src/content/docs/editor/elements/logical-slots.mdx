@@ -3,7 +3,7 @@ title: Logical Slots
 description: Learn how to create and manage logical slots in Jux.
 ---
 import { Image } from 'astro:assets';
-import Figcaption from "../../../../components/Figcaption";
+import CaptionImage from "../../../../components/CaptionImage.astro";
 
 import logicalSlots from '../../../../assets/editor/elements/logical_slots.png'
 import logicalSlotsTrigger from '../../../../assets/editor/elements/logical_slots_trigger.png'
@@ -24,12 +24,9 @@ Objects inside a logical slot inherit a tied function (e.g., 'trigger').
 
 Example: In a checkbox, only objects in the 'trigger' logical slot can change the checkbox state when clicked.
 
-<div style={{ textAlign: 'center' }}>
-  <picture>
-    <Image src={logicalSlots} alt="Logical Slots" />
-    <Figcaption>Logical Slots with Checkbox</Figcaption>
-  </picture>
-</div>
+<CaptionImage caption="Logical Slots with Checkbox">
+  <Image src={logicalSlots} alt="Logical Slots" />
+</CaptionImage>
 
 In the following example, the right layer structure allows both the label and the helper text to trigger the checkbox state, while in the left layer structure, only the 'box' itself can do so. Clicking on the label or the helper text in the left structure will not change the state of the checkbox.
 

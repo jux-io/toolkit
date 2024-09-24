@@ -1,0 +1,371 @@
+---
+title: Changelog
+description: Stay up-to-date with the latest features and improvements in Jux.
+---
+import { Image } from 'astro:assets';
+import CaptionImage from "../../../components/CaptionImage.astro";
+
+import keyboardShortcuts from '../../../assets/imported/keyboard_shortcuts.png'
+import feedbackModal from '../../../assets/imported/feedback_modal.png'
+import swapAssets from '../../../assets/imported/swap_assets.png'
+import editProps from '../../../assets/imported/edit_props.png'
+import searchFieldThumbnail from '../../../assets/imported/search_field_thumbnail.png'
+import inputThumbnail from '../../../assets/imported/input_thumbnail_current.png'
+
+## Version September 23, 2024
+
+**New Features**
+
+* **🎉 Generating a new canvas** - Every designer can generate a new canvas. We all want our workspace to be organized, you can now use multi canvas experience.
+* **Jux toolkit** - A new open source project for developers to build UI and UI kits. In part this is our new CLI, se more [here](https://docs.jux.io/developers/quickstart) and [here](https://github.com/jux-io/toolkit) - check our newsletter for more details
+* **Theme Switcher** - Change tokens from the canvas - Allowing to flip between light and dark modes. Assuming you have a multi theme, simply see your design on the canvas
+* **Swap asset** - during the design you can swap assets from the DDP
+
+
+<Image src={swapAssets} alt="Swap Assets" />
+* **Elements**
+  * Text Area Field- adding layers helper text and using the text-area
+  ![](../../../assets/imported/search_field_thumbnail-1.png)
+
+  * Text Field - adding layers helper text and using the simple Input
+
+  <Image src={inputThumbnail} alt="" />
+
+**Improvements**
+
+* 🍞 New toasters look in the editor - tell us what do you think - Can you develop this using Jux? If you can drop us a line in [#I\_build\_a\_thing](https://discord.gg/CMKpFAmP)
+* Elements
+* Checkbox field - improved checkbox with the new mechanics see more (link to the KB logical slot)
+
+<Image src={searchFieldThumbnail} alt="" />
+
+**Bug Fixes**
+
+* Resize panels and object on the canvas sometimes jumped felt wrong. It acts well now :smirk:
+* Small UI adjustments
+
+## Version August 19, 2024
+
+**New Features**
+
+* The multi-selection feature! It is now possible to select and move multiple objects at the same time. Our next release will allow mass design changes to selected items
+* We can now duplicate objects - using **"cmd+D"**
+* Figma [plugin](/editor/juxync) improvements
+* The properties panel is now sticky at the top of the [DDP](/editor/dynamic-design-panel). You may design while knowing what variant you are working on and what state it is in
+
+**Bug Fixes**
+
+* Duplicating/copying of source/dix/element glitches are now fixed
+* Creating tokens from editor is now fixed
+
+## Version August 4, 2024
+
+**New Features**
+
+* Elements:
+  * Divider - brand new!
+  * Icon Button - brand new!
+  * _Input_ has now the ability to change the text and the placeholder - see more under our Elements section
+* New Font - 'Source Sans 3' can be added as a typography, font family and in simple or complex tokens
+* New Token page - see our token page t review
+  * Add sub-groups and organise your tokens in ‘folder-like’ structure
+  * Support multi theme
+  * We are getting this screen ready to support our upcoming Figma Plugin
+
+**Fun updates**
+
+New Loader! let us know what you think 😎
+
+**Bug Fixes**
+
+* Allow rename objects from the kicker - fixed
+* Change height from the canvas would cause issues in the actual height - fixed
+* Some selection boxes displayed wrong - now fixed
+
+**Performance issues**
+
+* Some color selection fixes - you can now have a few instances and change the color of the source and the change is instant
+* Composite objects together is now faster and has less lag
+
+## Version July 2, 2024
+
+Redo → Undo → Redo → Undo → Redo → Undo → Redo → Undo → Redo → Undo → It’s working again 🎉
+
+And some overall bug fixes and performance issues.
+
+## Version June 26, 2024
+
+Introducing Keyboard shortcuts and sharing feedback - both built by Jux using Jux 🎉
+
+<CaptionImage caption={'Keyboard Shortcuts'}>
+  <Image src={keyboardShortcuts} alt="Keyboard Shortcuts" />
+</CaptionImage>
+
+<CaptionImage caption={'Feedback'}>
+  <Image src={feedbackModal} alt="Feedback" />
+</CaptionImage>
+
+- A new mechanic to place objects on canvas, 80px to the right of the selected object (see the designer docs for more)
+- Code generation - some small bug fixes
+
+## Version May 26, 2024
+
+<img src={'/version202406.gif'} alt={'Version - May 2024'} />
+
+**New Features**
+
+- Introducing **Local** and **Library** components 🎉 Once placing an element on the canvas it will automatically become a **local component**. Sharing components with developer is done only after adding that **local** component to the **library**. To add a component to the library, select it and click _‘Add to library’_ (from the top bar). Learn more about the differences and behaviors of both here.
+  - Local components and library components have different indication colors so it is easy to spot them on the canvas (Local are dark grey, Library are blue).
+  - When adding local components to the library, all the nested items that are local components will be added to the library as well.
+- All components (local and library) **are automatically updated.**
+- Wrap with a div - select an item and click shift + d.
+
+**Requested by the community**
+
+* Editing text on canvas for both components and instances
+* Rename object from the kicker  (yessss!)
+* Share feedback - top navigation in the action menu on the right
+
+**Improvements**
+
+* New navigation UI - text and div elements are now stand alone buttons
+  * Live-Edit moved to the top navigation
+  * Panels behavior
+  * New side navigation to switch between **Tokens** and **Editor**
+  * Token management now has a new screen (to support upcoming Figma plugin)
+* Assets panel item order by upload date
+* Copy paste improvements. Copy of instances, components and assets
+* Improved canvas performance (dragging elements & components smoothly)
+
+**Bug Fixes**
+
+1. Thumbnails preview bug, preview now shows the component with the default properties (first value of each property)
+2. Deleting instances nested object is now blocked correctly
+3. Dropping instances on the canvas with a click, now sets the instances on same location
+4. Renaming ‘props’ is now fixed and these ‘props’ reach the developers code correctly
+5. Delete object on canvas sometimes deletes other objects
+6. Fit view, some of you reported that it didn’t work constantly
+
+## Version April 10, 2024
+
+**New Features**
+
+**This one is for developers! 📣**&#x20;
+
+CLI improvements: Instances now receive the selected props for complex objects. So for example if the designer would design a button with the following:
+
+`hierarchy=‘primary’ disabled={false}`
+
+The code will reflect this just like you requested
+
+* Edit properties and values
+
+<CaptionImage caption={'Edit Props!'}>
+  <Image src={editProps} alt="Edit Props!" />
+</CaptionImage>
+
+* You can add props, values and rename them both!
+* These are also reflected in the CLI once the code is pulled
+
+:::note
+This is still not open for all users
+:::
+
+**Bugs Fixes**
+
+* We had an issue with line hight for text objects, you can now set the line hight as you wish and it would reflect the correct hight. 🎉
+* “Components Preview” if you press the components menu (on the top Navbar) you will see there are a few thumbs for the components you have created, we now show the correct size and there are no strange sizes you didn’t like.
+* Text styles are now saved and rendered even when changing the text in edit mode
+
+## Version April 4, 2024
+
+**Bugs Fixes**
+
+* Copy/Paste now copies all the tree of design attributes of elements
+* You can now change the value of the content of every texts everywhere 😇
+
+## Version March 27, 2024
+
+Its a small one, but wait to see what is cooking 🥘
+
+**New Features**
+
+* Add any element, asset and component with a click from the menu - requested many times
+* All elements now come fully with flex and auto so your design in much more responsive and intuitive
+* All decimal points are now trimmed and rounded to 1 or 2 digits after the decimal point
+* For the developers out there - there are new properties name for **checkbox** and **toggle**
+
+**Bugs Fixes**
+
+* Our DDP UI has been fine-tuned
+* Gaps are now working properly when setting pixel values
+
+## Version February 28, 2024
+
+**New features**
+
+1. **4 new elements to use off the shelf: (soon a page for each)**
+    - Checkbox
+    - Toggle
+    - Radio button
+    - Chip
+2. **Variants is evolving and will streamline the design process:**
+    - Elements and components can have now more than one property each.
+    - Every element has a new built-in property to indicate if it is Disabled or not. The property can be set to true/false and is by default set to false.
+    - Each Jux-element has its unique set of pre-built props (for example: Chip - Selected prop, Checkbox - Checked prop). These props are very common for developers to use and are used in our code once pulled.
+    - Creation and editing of new props are coming soon!
+3. **Parent-child context sub-module** - allowing to design the child while the parent is a specific variant with specific props values (for example: for checkbox, the parent, is unchecked and its child label needs to be in a different color. or if you want the button text to change color while the whole button component is in state - active)
+4. **Display None** - Turns off the display of the selected object so that it is not seen and has no effect on the layout. Learn more about layouts in Jux [here](/editor/dynamic-design-panel)
+5. **Finally**, we can **edit text on Canvas**! (We know the text box needs a few enhancements, we’re on it :)
+6.  **Delete source component** from top left components panel. Please start by deleting the source component and its instances from the canvas, only then delete will be active.
+7. **Shortcuts** (wohooo! :tada:)
+    - **Undo** with command+z shortcut
+    - **Delete** objects from the canvas with backspace
+    - **Click drilling** works with command+click -> for selecting a specific child
+
+8. **Styling capabilities**
+  - **Shadow - first effect in the DDP!** You can find it in the effects module
+  - Opacity
+
+:::note
+**Fun improvement**\
+As requested, Div default size is now Auto (and since layout is display Flex - it’s so easy to start creating new components.)
+:::
+
+**Bugs fixes**
+
+1. Copied elements that could not change the parent context are fixed
+2. Decimal point for the opacity field is fixed
+
+## Version January 18, 2024
+
+**Features**
+
+1. Tokens Management screen - we are now allowing you to edit with one click
+
+**Bugs Fixes**
+
+1. “Update component” was not shown at some places when adding a child node, removing child node, changing order, etc…
+2. Elements & components tab had small area that make the floating window close instead of staying opened.
+3. Canvas Fit-View now works great (try it out!)
+
+:::note
+**Fun Facts**
+
+Once, you could have collapsed the universe by allowing to add the instance of a component into itself. It helped us travel back in time but it made too many issues for our users. So it is now block so the universe is safe and time travel is gone…
+:::
+
+## Version January 11, 2024
+
+**FYI**
+
+* Let me tell you a secret. The button, where you would upload a new asset and the create components are the first UI elements that have been built with JUX. We are happy to be building JUX with JUX. :tada:
+
+**Improvements**
+
+It was requested during many of the calls we had with members from the community.
+
+* DDP UI improved - There is more room to work. The UI for all tokens, fields, and buttons in the design panel now allow to work smoothly.
+* Layers UI improved - We changed some of the alignments and the color of all the layers structure so you a clear understanding of the objects you design
+
+## Version January 9, 2024
+
+**Features**
+
+* :tada: We now support Copy/Paste
+* Copy an instance to get an instance pasted on the canvas :dart:
+* Copy a component to get an instance pasted on the canvas :bulb:
+*   Each layers can be named or rename
+
+These names will be used by the developer when pulling the component
+
+**Bugs fixes**
+
+* Some users that experienced _re-ordering layers_ issues - fixed!
+* Gaps between objects when using flex box was reversed. Now works properly
+
+## Version January 4, 2024
+
+* Editor supports Click-Drilling.
+* The logic is such that to interact with an element, you will first need to press the outmost layer. every additional click the selection will be drilled into the layer below that is selected. There are some extra usages that you will discover
+* We removed some extra text in the layers default naming. However, you can rename the layers as you see fit 😃
+* Improvements
+* Create component button is now using a primary button
+* Every object on the canvas now has the true size it will get when rendered in a box under the object
+
+**Bugs Fixes**
+
+* Mixed values for padding and margin fixed
+* Content Property issues have been fixed
+
+## Version December 29, 2023
+
+* Rename Layers :tada: - this was requested by the community.
+* Improving mouse hover for children objects on canvas (Sometimes it disappeared when leaving the child object)
+
+**Bugs Fixes**
+
+* Mixed value on DDP is fixed, you can now set mixed values or unified values for padding and/or margin correctly
+* You can now properly zoom in the canvas while pressing command ⌘ + scroll
+
+## Version December 25, 2023
+
+**Composition Support**
+
+* Elements
+* Button - now with the support of composition and assets
+* Div is a nestable object (as it should), meaning designers can add other object into it
+* Features
+* Drag & Drop - allowing designers to create a composition
+* Components saved in library have a thumbnail to see the preview design
+* Simple Border Module in the DDP, allowing designer the basic design of bordering objects
+* Assets support - Upload SVG to use them in design and for developers in code
+* Layers support
+* Designing composition allows users to see the structure of the object
+* Reorder layers and objects nested in other objects
+* CLI support
+* Allow pulling components using the new structure
+* Allow puling assets that designers uploaded to JUX to the code as SVG Components
+* New login - faster and easier
+* Bugs fixes
+* Tokens page small UI fixes
+* DDP UI enhancements
+* Tokens that are not saved for everyone now will be saved
+* Fixed the issue that some token folders where missing after creating a new folder
+* Deleting token that are in used by other token is not blocked and users will not be able to damage other tokens
+* New rename for folders and tokens are not CSS and JS friendly (all lower case and kabab case)
+
+## Version September 14, 2023
+
+**First release**
+
+* First Update of Editor + CLI
+* Designers
+* Built in token set as a demo token set - light and dark
+* Editor
+  * Infinite canvas - looks like a regular vector canvas
+  * Edit/Live mode on canvas are available
+  * Allow dragging elements from the panel to the canvas
+  * Allow adding tokens from the editor
+  * Create new tokens from editor
+  * Allow create components
+  * Allow invite colleagues to the app - designers, developers and more.
+* Tokens support (Import tokens from token studio)
+* Color
+  * Added support for _Font Family_ tokens 👪
+  * Typography
+  * Dimension
+  * Added support for nested aliases - _Typography.FontFamily 🪆 👉 🪆_
+* Elements
+  * Text - simple text object
+  * Div - the true auto-layout of the web
+  * Button - HTML like button
+  * Input - HTML like button
+* Developers (CLI)
+  * Allow jux:login - login from terminal
+  * Allow jux:pull - pull all components saved in JUX
+* **Bug fixes**
+  1. Adding new token now works without the need to refresh the page
+  2. Creating a folder now works without the need to refresh the page
+  3. When editing - token set name, group name and token name, when focusing out of the currently edited input, we discard the changes (in the past we used this even to save too), right now the only action that saves the changes is the Enter key press.
+  4. When we fixed the Scroll: auto problem we had we introduced a new scrolling bug which is now fixes
