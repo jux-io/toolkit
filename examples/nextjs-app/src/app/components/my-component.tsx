@@ -32,6 +32,7 @@ const StyledDiv = styled('div', {
       style: {
         fontSize: '16px',
         padding: '8px 16px',
+        color: '{color.primary}',
       },
     },
   ],
@@ -44,7 +45,7 @@ export const MyStyledComponent = ({
 }: React.PropsWithChildren & { title: string; size: 'small' | 'medium' }) => {
   return (
     <StyledDiv size={size}>
-      <span
+      <p
         className={css({
           color: 'violet',
           '&:hover': {
@@ -53,7 +54,7 @@ export const MyStyledComponent = ({
         })}
       >
         {title}
-      </span>
+      </p>
       {children}
     </StyledDiv>
   );
