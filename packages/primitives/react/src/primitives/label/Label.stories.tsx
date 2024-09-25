@@ -1,20 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import * as Label from './Label';
+import { Label } from './Label';
 import React from 'react';
-import { styled } from '@mui/material';
+import { styled } from '@juxio/react-styled';
 
-const StyledLabelRoot = styled(Label.Root)({
-  color: 'red',
-  fontSize: 20,
+const StyledLabelRoot = styled(Label, {
+  root: {
+    color: 'red',
+    fontSize: 20,
+  },
 });
 
-const meta: Meta<typeof Label.Root> = {
-  component: Label.Root,
+const meta: Meta<typeof Label> = {
+  component: Label,
   title: 'JUX/Primitives/Label',
 };
 
 export default meta;
-type Story = StoryObj<typeof Label.Root>;
+type Story = StoryObj<typeof Label>;
 
 const LabelWithCheckbox = () => {
   return (
