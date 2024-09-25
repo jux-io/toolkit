@@ -1,7 +1,7 @@
 {
   "name": "@juxio/cli",
   "description": "Jux CLI to generate design tokens and components",
-  "version": "0.7.5",
+  "version": "0.7.6",
   "author": "jux",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

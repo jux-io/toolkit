@@ -1,5 +1,16 @@
 # @juxio/core
 
+## 0.7.6
+
+### Patch Changes
+
+- [#92](https://github.com/jux-io/toolkit/pull/92) [`4524779`](https://github.com/jux-io/toolkit/commit/4524779b9149d6732dc523838928cd71e5e478c8) Thanks [@tnipri](https://github.com/tnipri)! - Typescript issues:
+  - fixed typing issue with \_name property when using css or styled function
+  - \_name will not be included in the final css output when NODE_ENV is production. This is great for debugging classes in development mode.
+  - Changed :where to :is for better browser support and specificity of styles applied to variants
+- Updated dependencies []:
+  - @juxio/design-tokens@0.7.6
+
 ## 0.7.5
 
 ### Patch Changes
