@@ -1,2 +1,2 @@
-export { Checkbox } from './checkbox/Checkbox';
-export { Label } from './label/Label';
+export * from './checkbox/Checkbox';
+export * from './label/Label';

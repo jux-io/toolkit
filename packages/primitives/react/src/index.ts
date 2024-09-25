@@ -1,1 +1,1 @@
-export * from './primitives/index';
+export * from './primitives';
