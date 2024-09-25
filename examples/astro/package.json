@@ -1,0 +1,30 @@
+{
+  "name": "astro",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "pnpm postcss && astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "postcss": "postcss src/main.css -o output.css"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.3",
+    "@astrojs/react": "^3.6.2",
+    "@juxio/css": "^0.7.6",
+    "@juxio/postcss": "^0.7.6",
+    "@juxio/react-styled": "^0.7.6",
+    "@types/react": "^18.3.9",
+    "@types/react-dom": "^18.3.0",
+    "astro": "^4.15.9",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.6.2"
+  },
+  "devDependencies": {
+    "@juxio/cli": "^0.7.6",
+    "postcss": "^8.4.47"
+  }
+}
