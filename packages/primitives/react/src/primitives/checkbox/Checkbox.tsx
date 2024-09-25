@@ -236,4 +236,4 @@ Checkbox.propTypes = {
 };
 
 export { Checkbox };
-export type { CheckboxProps, CheckboxRootElement };
+export type { CheckboxProps, CheckboxRootElement, CheckedState };
