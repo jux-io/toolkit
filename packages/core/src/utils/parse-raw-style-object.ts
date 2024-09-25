@@ -29,6 +29,14 @@ export function parseRawStyleObject({
   onError,
 }: ParseRawStyleObjectOptions) {
   return walkObject(baseStyles, (key, value) => {
+    if (process.env.NODE_ENV === 'production') {
+      if (key === '_name') {
+        return {
+          type: 'remove',
+        };
+      }
+    }
+
     const conditionValue = getConditionValue(
       conditionsManager,
       key,

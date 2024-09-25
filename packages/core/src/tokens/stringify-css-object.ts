@@ -246,7 +246,7 @@ const getResolvedSelectors = (
          *     ```
          */
         if (!selector.includes('&'))
-          return `:where(${parentSelector})` + ' ' + selector;
+          return `:is(${parentSelector})` + ' ' + selector;
 
         return selector
           .replace(

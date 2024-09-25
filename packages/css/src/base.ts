@@ -194,6 +194,12 @@ export type CSSPropertiesWithCustomValues<
       Utilities,
       Conditions
     >;
+  } & {
+    /**
+     * _name is a special property that allows you to name a style. This is useful for debugging and testing, and create unique class names that
+     * has the same set of styles.
+     */
+    _name?: string;
   };
 
 export type StyleArguments = {
