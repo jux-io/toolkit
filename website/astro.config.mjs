@@ -2,13 +2,13 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import starlightImageZoom from 'starlight-image-zoom';
 import starlightLinksValidator from 'starlight-links-validator';
-import vercel from '@astrojs/vercel/serverless';
+import vercel from '@astrojs/vercel/static';
 
 import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server',
+  output: 'static',
   adapter: vercel({
     webAnalytics: { enable: true },
   }),
@@ -42,10 +42,6 @@ export default defineConfig({
             {
               label: 'Quickstart',
               link: '/developers/quickstart',
-            },
-            {
-              label: 'Technical Overview',
-              link: '/developers/technical-overview',
             },
             {
               label: 'Working with Jux Editor',
@@ -115,15 +111,6 @@ export default defineConfig({
                 {
                   label: 'Presets',
                   link: '/developers/customization/presets',
-                },
-              ],
-            },
-            {
-              label: 'Recipes',
-              items: [
-                {
-                  label: 'Multi-projects environment',
-                  link: '/developers/recipes/monorepo',
                 },
               ],
             },
