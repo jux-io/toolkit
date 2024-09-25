@@ -10,13 +10,13 @@ import { Conditions, Tokens, Utilities } from '@juxio/css/types';
 import * as React from 'react';
 
 export interface StyledVariants<Props extends BaseProps> {
-  props: Props | ((props: Props) => boolean);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  props: Merge<Record<string, any>, Props> | ((props: Props) => boolean);
   style: CSSPropertiesWithCustomValues<
     Merge<CSSProperties, CustomTokensValues<Tokens>>,
     Utilities,
     Conditions
   >;
-  test?: Props;
 }
 
 export interface StylesDefinition<

@@ -125,7 +125,7 @@ describe('jux pull tokens', () => {
 
   it('Pull tokens', async () => {
     nock(API_URL)
-      .get('/themes/token-sets')
+      .get((uri) => uri.includes('/themes/token-sets'))
       .query(true)
       .reply(200, TOKENS_RESPONSE);
 
@@ -165,7 +165,7 @@ describe('jux pull tokens', () => {
 
   it('Pull tokens with generate definitions flag', async () => {
     nock(API_URL)
-      .get('/themes/token-sets')
+      .get((uri) => uri.includes('/themes/token-sets'))
       .query(true)
       .reply(200, TOKENS_RESPONSE);
 
@@ -212,7 +212,7 @@ describe('jux pull tokens', () => {
 
   it('Pull tokens with generate definitions flag to specific folder', async () => {
     nock(API_URL)
-      .get('/themes/token-sets')
+      .get((uri) => uri.includes('/themes/token-sets'))
       .query(true)
       .reply(200, TOKENS_RESPONSE);
 
