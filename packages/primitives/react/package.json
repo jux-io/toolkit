@@ -1,0 +1,50 @@
+{
+  "name": "@juxio/react-primitives",
+  "description": "Jux headless UI primitives",
+  "version": "0.7.6",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "keywords": [
+    "jux",
+    "react",
+    "headlessui",
+    "ui",
+    "css",
+    "styled"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jux-io/toolkit.git",
+    "directory": "packages/primitives"
+  },
+  "homepage": "https://github.com/jux-io/toolkit",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "pnpm build --watch src",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "usehooks-ts": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.9"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

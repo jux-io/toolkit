@@ -56,6 +56,7 @@ module.exports = {
     '@juxio/postcss',
     '@juxio/css',
     '@juxio/react-styled',
+    '@juxio/react-primitives',
   ],
   allowCustomScopes: true,
   allowBreakingChanges: ['feat', 'fix'],
