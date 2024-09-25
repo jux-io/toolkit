@@ -9,7 +9,7 @@ const titleStyles = css({
 
 const StyledDiv = styled('div', {
   root: {
-    border: '1px solid {color.core.brand_100}',
+    border: '1px solid {core.color.brand_200}',
     borderRadius: '{core.dimension.spacing_100}',
     padding: '1.5rem',
     flexDirection: 'column',
