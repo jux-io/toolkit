@@ -3,12 +3,14 @@ import { BasePrimitive } from '../base/BasePrimitives';
 import { useMergeRefs } from '../../hooks/useMergeRefs';
 import { globalEventHandler } from '../../utils/globalEventHandler';
 import { useControllableState } from '../../hooks/useControlledState';
+import PropTypes from 'prop-types';
 import { useResizeObserver } from 'usehooks-ts';
 import { createCustomContext } from '../../utils/createCustomContext';
 
 /****************
  * TYPES
  ****************/
+
 const CHECKBOX_NAME = 'Jux.Checkbox';
 
 type PrimitiveButtonProps = React.ComponentPropsWithoutRef<'button'>;
@@ -93,7 +95,7 @@ const InternalInput: FC<InputProps> = (props) => {
 };
 
 /**
- * CheckboxRoot
+ * Checkbox
  */
 
 interface CheckboxProps
@@ -115,13 +117,14 @@ const Checkbox = React.forwardRef<CheckboxRootElement, CheckboxProps>(
       defaultChecked,
       disabled,
       value = 'on',
+      onCheckedChange,
       ...checkboxProps
     } = props;
 
     const [checkedState = false, setChecked] = useControllableState({
       prop: checked,
       defaultProp: defaultChecked,
-      onChange: props.onCheckedChange,
+      onChange: onCheckedChange,
     });
 
     const [buttonElement, setButton] = React.useState<HTMLButtonElement | null>(
@@ -175,6 +178,62 @@ const Checkbox = React.forwardRef<CheckboxRootElement, CheckboxProps>(
 );
 
 Checkbox.displayName = CHECKBOX_NAME;
+
+/**
+ * PropTypes for the Checkbox component.
+ * @type {Object}
+ */
+Checkbox.propTypes = {
+  /**
+   * The initial checked state of the checkbox. Can be a boolean or 'indeterminate'.
+   * @type {boolean|'indeterminate'}
+   */
+  defaultChecked: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.oneOf(['indeterminate'] as const),
+  ]),
+
+  /**
+   * The current checked state of the checkbox. Can be a boolean or 'indeterminate'.
+   * Use this for controlled components.
+   * @type {boolean|'indeterminate'}
+   */
+  checked: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.oneOf(['indeterminate'] as const),
+  ]),
+
+  /**
+   * If true, the checkbox will be disabled and cannot be interacted with.
+   * @type {boolean}
+   */
+  disabled: PropTypes.bool,
+
+  /**
+   * If true, the checkbox will be marked as required in a form.
+   * @type {boolean}
+   */
+  required: PropTypes.bool,
+
+  /**
+   * The name attribute of the checkbox input element.
+   * @type {string}
+   */
+  name: PropTypes.string,
+
+  /**
+   * The value attribute of the checkbox input element.
+   * @type {string}
+   */
+  value: PropTypes.string,
+
+  /**
+   * Callback function that is called when the checked state changes.
+   * @type {function}
+   * @param {boolean | 'indeterminate'} checked - The new checked state
+   */
+  onCheckedChange: PropTypes.func,
+};
 
 export { Checkbox };
 export type { CheckboxProps, CheckboxRootElement };

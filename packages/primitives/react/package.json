@@ -27,22 +27,40 @@
     "directory": "packages/primitives"
   },
   "homepage": "https://github.com/jux-io/toolkit",
+  "bugs": "https://github.com/jux-io/toolkit/issues",
   "files": [
     "/dist"
   ],
   "scripts": {
     "build": "tsup",
     "dev": "pnpm build --watch src",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
-    "usehooks-ts": "^3.1.0"
+    "usehooks-ts": "^3.1.0",
+    "prop-types": "^15.8.1"
   },
   "devDependencies": {
-    "@types/react": "^18.3.9"
+    "@chromatic-com/storybook": "^1.9.0",
+    "@juxio/postcss": "workspace:*",
+    "@juxio/react-styled": "workspace:*",
+    "@storybook/addon-essentials": "^8.3.3",
+    "@storybook/addon-interactions": "^8.3.3",
+    "@storybook/addon-links": "^8.3.3",
+    "@storybook/blocks": "^8.3.3",
+    "@storybook/react": "^8.3.3",
+    "@storybook/react-vite": "^8.3.3",
+    "@storybook/test": "^8.3.3",
+    "@types/prop-types": "^15.7.13",
+    "storybook": "^8.3.3"
   },
   "peerDependencies": {
-    "react": "^18.2.0"
+    "@types/react": "*",
+    "@types/react-dom": "*",
+    "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc",
+    "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc"
   },
   "publishConfig": {
     "access": "public"
