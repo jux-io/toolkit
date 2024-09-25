@@ -194,6 +194,15 @@ importers:
 
   examples/vite-react-app:
     dependencies:
+      '@juxio/css':
+        specifier: ^0.7.6
+        version: 0.7.6(@types/node@18.19.41)(esbuild@0.23.1)(typescript@5.6.2)
+      '@juxio/postcss':
+        specifier: ^0.7.6
+        version: 0.7.6(@types/node@18.19.41)(esbuild@0.23.1)
+      '@juxio/react-styled':
+        specifier: ^0.7.6
+        version: 0.7.6(@types/node@18.19.41)(esbuild@0.23.1)(react@18.3.1)(typescript@5.6.2)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -204,6 +213,9 @@ importers:
       '@eslint/js':
         specifier: ^9.9.0
         version: 9.11.1
+      '@juxio/cli':
+        specifier: ^0.7.6
+        version: 0.7.6(@types/node@18.19.41)(esbuild@0.23.1)
       '@types/react':
         specifier: ^18.3.3
         version: 18.3.9
@@ -225,6 +237,9 @@ importers:
       globals:
         specifier: ^15.9.0
         version: 15.9.0
+      postcss:
+        specifier: ^8.4.47
+        version: 8.4.47
       typescript:
         specifier: ^5.5.3
         version: 5.6.2
