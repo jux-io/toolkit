@@ -1,3 +1,5 @@
-module.exports = {
-  plugins: ['@juxio/postcss'],
+export default {
+  plugins: {
+    '@juxio/postcss': {},
+  },
 };

@@ -14,7 +14,7 @@ export const MyStyledComponent = ({
   return (
     <div
       className={css({
-        border: '1px solid {color.core.grays_500}',
+        border: '1px solid {core.color.brand_200}',
         borderRadius: '{core.dimension.spacing_100}',
         padding: '1.5rem',
         flexDirection: 'column',
