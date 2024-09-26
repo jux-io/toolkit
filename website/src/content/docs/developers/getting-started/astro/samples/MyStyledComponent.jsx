@@ -11,6 +11,10 @@ export const MyStyledComponent = ({ children, title }) => {
   return (
     <div
       className={css({
+        /* 
+          Strings in the brackets {} represent design tokens 
+          from your jux.config.ts 
+        */
         border: '1px solid {color.core.grays_500}',
         borderRadius: '{core.dimension.spacing_100}',
         padding: '1.5rem',
