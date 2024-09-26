@@ -91,4 +91,4 @@ export default function Home() {
 
 ## Community
 
-Love the project? ♥️ Need help or have a question? Join our [Discord](https://discord.gg/xa4PR7T9) community or email us at [squad@jux.io](mailto:squad@jux.io) and say hi!
+Love the project? ♥️ Need help or have a question? Join our [Discord](https://discord.gg/BSXsahmyVQ) community or email us at [squad@jux.io](mailto:squad@jux.io) and say hi!

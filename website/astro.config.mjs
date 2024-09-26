@@ -29,7 +29,7 @@ export default defineConfig({
       },
       social: {
         github: 'https://github.com/jux-io/toolkit',
-        discord: 'https://discord.gg/xa4PR7T9',
+        discord: 'https://discord.gg/BSXsahmyVQ',
       },
       sidebar: [
         {
