@@ -9,6 +9,10 @@ const titleStyles = css({
 
 const StyledDiv = styled('div', {
   root: {
+    /* 
+      Strings in the brackets {} represent design tokens 
+      from your jux.config.ts 
+    */
     border: '1px solid {color.core.grays_500}',
     borderRadius: '{core.dimension.spacing_100}',
     padding: '1.5rem',
