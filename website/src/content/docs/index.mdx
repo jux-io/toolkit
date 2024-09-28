@@ -6,6 +6,8 @@ template: splash
 
 ---
 
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
 ### **The problem**
 
 Vectors have no inherent meaning in the world of code and distances, serving only as illustrations of the real world. As devs, we need to translate these vectors into real elements that computers and mobile devices can understand, which is where the problem starts.
@@ -29,12 +31,26 @@ The front of the frontend is going to change. You can offload your frontend ment
 
 ### **Key Features**
 
-- **We’re not in Canvas anymore**: You don’t need to enter the canvas every time and understand the designer’s intention. Our UI components can be pulled on the CLI, **\_\_\_\_**
-- **User-Friendly**: We prioritize developer experience, offering a fully-typed API and a consistent interface across all components for a seamless development experience.
-- **Customizable**: With Jux, you have complete control over the styling of your components. Whether you prefer vanilla CSS, CSS preprocessors, or CSS-in-JS libraries, our components are designed to accommodate your styling preferences.
-- **Accessible**: Our components adhere to established accessibility guidelines, ensuring that all users can interact with your applications seamlessly.
-- **Modular and Open**: Jux components are pre-built with a modular architecture, allowing product designers to customize them on Canvas and enabling you to extend them to meet your specific requirements.
-- **Incremental Adoption**: You can integrate Jux components into your projects incrementally, allowing you to add new components as needed without disrupting your existing workflow.
+<CardGrid>
+  <Card title='We’re not in Canvas anymore' icon='close'>
+    You don’t need to enter the canvas every time and understand the designer’s intention. Our UI components can be pulled by our CLI.
+  </Card>
+  <Card title='User-Friendly' icon="heart">
+    We prioritize developer experience, offering a fully-typed API and a consistent interface across all components for a seamless development experience.
+  </Card>
+  <Card title='Customizable' icon="seti:html">
+    With Jux, you have complete control over the styling of your components. Whether you prefer vanilla CSS, CSS preprocessors, or CSS-in-JS libraries, our components are designed to accommodate your styling preferences.
+  </Card>
+  <Card title='Accessible' icon="seti:favicon">
+    Our components adhere to established accessibility guidelines, ensuring that all users can interact with your applications seamlessly.
+  </Card>
+  <Card title='Modular and Open' icon="open-book">
+    Jux components are pre-built with a modular architecture, allowing product designers to customize them on Canvas and enabling you to extend them to meet your specific requirements.
+  </Card>
+  <Card title='Incremental Adoption' icon="approve-check-circle">
+    You can integrate Jux components into your projects incrementally, allowing you to add new components as needed without disrupting your existing workflow.
+  </Card>
+</CardGrid>
 
 ### **Community**
 
