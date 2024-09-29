@@ -1,0 +1,57 @@
+---
+title: Chip
+description: Learn how to use the Chip element in JUX.
+
+tableOfContents:
+  minHeadingLevel: 3
+  maxHeadingLevel: 6
+---
+
+import { Image } from 'astro:assets';
+import CaptionImage from "../../../../components/CaptionImage.astro";
+
+import chipElm from '../../../../assets/editor/elements/chip.png';
+import chipLayer from '../../../../assets/editor/elements/chip-layer.png';
+import chipMatrix from '../../../../assets/editor/elements/chip-matrix.png';
+
+<CaptionImage caption='Chip thumbnail placed in the elements panel in Jux UI. Click or drag to the canvas to create a local component.'>
+  <Image src={chipElm} alt="Chip Element" />
+</CaptionImage>
+
+## Technical definition
+
+Chip is not a formal HTML element, but frequently used in websites and web and native apps. Chips allow users to make selections, filter content, or trigger actions.
+
+---
+
+## Anatomy and styling
+
+In Jux - the chip element comes pre-loaded with a text label. You can place any other element inside the chip with no limitation. All the area of the chip, when clicked will change the state between ‘selected’ and ‘not selected’.
+
+You can influence the styling of the children of the chip in relation to the chip’s state and properties by selecting them in the parent [context module](/dynamic-design-panel/props-and-variants).
+
+To hide some of the children in some of the states - use [display: none](/designers/dynamic-design-panel/layout)
+
+{/* TODO: correct link */}
+If you use assets in the chip, you can change their content by using the [‘asset content’ property](/#)
+
+## Props and states
+
+<Image src={chipLayer} alt="Chip Layer" />
+
+1. Interactive state:
+    1. Default
+    2. Hover
+    3. Active
+2. Disabled property
+    1. true
+    2. false
+3. Selected (special):
+    1. selected
+    2. not selected
+
+<Image src={chipMatrix} alt="Chip Matrix" />
+
+## Special mechanics
+
+The chip does not have any special mechanics but for the fact that all the area of the chip - if clicked - will switch between the ‘selected’ and ‘not selected’ values.
