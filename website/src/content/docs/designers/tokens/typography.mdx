@@ -1,58 +1,86 @@
 ---
-title: Typography Token
+title: Typography
 description: Learn how to create and manage typography tokens in JUX.
 
 tableOfContents: false
 ---
 import { Image } from 'astro:assets';
 import { Badge } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
 import CaptionImage from "../../../../components/CaptionImage.astro";
 
 import typographyToken from '../../../../assets/editor/tokens/typography/typography_token.png'
 import typographyProps from '../../../../assets/editor/tokens/typography/typography_props.png'
 import ddpTypographyFields from '../../../../assets/editor/tokens/typography/ddp_typography_field.png'
 
+## Typography tokens in the Jux Editor
 
-Jux supports typography tokens as composite tokens that combine the following properties:
+Jux supports typography tokens as a composite token that binds together the following properties:
 
-- Font family
-- Font size
-- Font weight
-- Line height
-- Letter spacing
+1. Font family
+2. Font size 
+3. Font weight
+4. Line height
+5. Letter spacing
 
-<CaptionImage caption="Typography Token">
-  <Image src={typographyToken} alt="Typography Token" />
-</CaptionImage>
+<Image src={typographyToken} alt="Typography Token" />
 
-Each field within a typography token can be individually tokenized by referencing another token of the relevant type:
+Each of the fields can be tokenized by itself (by pointing to another token of a relevant type)
 
-- Font family - references a font family token
-- Font size - references a dimension token
-- Font weight - references a font weight token <Badge text='Coming soon' />
-- Line height - references a dimension token
-- Letter spacing - references a dimension token
+1. Font family - unique font family token
+2. Font size - dimension token
+3. Font weight - unique font weight token <Badge text='soon' />
+4. Line height - dimension token
+5. Letter spacing - dimension token
 
-Typography tokens consist of the following fields:
+<Aside>
+  There are other text properties that exist in the text module, but are not part of the typography composite token, such as text color and text alignment.
+</Aside>
 
-- Name (e.g., "heading-1" or "body-text")
-- Folder path (e.g., "typography/core/heading-1")
-- Font family
-- Font size
-- Font weight
-- Alias to another token - `optional`
-- Optional: Line height - `optional`
-- Optional: Letter spacing - `optional`
-- Optional: Description - `optional`
+Typography tokens have these fields:
 
-<CaptionImage caption="Typography Props">
-  <Image src={typographyProps} alt="Typography Props" />
-</CaptionImage>
+1. A name (like blue-500 or primary-bg)
+2. A folder path (like color/core/blue-500)
+3. Optional - an alias to another token
+4. Font family 
+5. Font size 
+6. Font weight
+7. Optional - Line height
+8. Optional - Letter spacing
+9. Optional - description
+
+<Image src={typographyProps} alt="Typography Props" />
 
 Typography tokens can only be used in the text module.
 
-To tokenize any typography field, click on the 'token icon button' that appears on the right side of the field when you hover over it. When a typography field is tokenized, its five subfields are disabled. To enable these subfields again, the typography token must be detached
+Each typography field can be tokenized by clicking on the ‘token icon button’ that appears on the right side of the field upon hover. When the typography field is tokenized - the 5 subfields are disabled. In order to enable them - the typography token must be detached.
 
-<CaptionImage caption="DDP Typography Field">
-  <Image src={ddpTypographyFields} alt="DDP Typography Field" />
-</CaptionImage>
+<Image src={ddpTypographyFields} alt="DDP Typography Field" />
+
+<hr />
+
+---
+
+## Under the hood
+
+JUX adheres to the W3C Community group’s draft guidelines regarding typography tokens (section [9.7](https://design-tokens.github.io/community-group/format/#color).) and stores the token as a JSON file with the following structure:
+
+```json
+{
+	// Our opinianated structure uses type-based groups at the root level
+	"dimension": {
+		// We like to use core/semantic/specific as the base groups in all token
+		// types, but this group's name can be any valid JSON identifier
+		"core": {
+		  // Token names must be valid JSON identifiers, e.g. "Foo", "foo_0", "spacing_xs"
+			"spacing_xs": {
+			  // Specifying the type here might seem redundant since the type is used
+			  // as the root-level grouping, but this is part of the W3C group's specs
+				"$type": "dimension",
+				"$value": "4px"
+				"$description": "Use only for padding and gaps"
+			}
+		}
+	}
+}
+```
