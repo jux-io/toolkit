@@ -203,6 +203,10 @@ export default defineConfig({
                   link: '/designers/elements/checkbox',
                 },
                 {
+                  label: 'Chip',
+                  link: '/designers/elements/chip',
+                },
+                {
                   label: 'Toggle',
                   link: '/designers/elements/toggle',
                 },
@@ -253,10 +257,6 @@ export default defineConfig({
                   link: '/designers/dynamic-design-panel/effects',
                 },
               ],
-            },
-            {
-              label: 'Editor Special Mechanics',
-              link: '/designers/designers-special-mechanics',
             },
             {
               label: 'Juxync - Figma to Jux',
