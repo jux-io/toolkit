@@ -1,58 +1,79 @@
 ---
-title: Color Token
+title: Color Tokens
 description: Learn how to create and manage color tokens in JUX.
 
 tableOfContents: false
 ---
 import { Image } from 'astro:assets';
-import CaptionImage from "../../../../components/CaptionImage.astro";
 import colorTokenCard from '../../../../assets/editor/tokens/color/color_token_card.png'
 import transparentColorExample from '../../../../assets/editor/tokens/color/transparent_color_example.png'
 import colorProps from '../../../../assets/editor/tokens/color/color_props.png'
 import ddpColorField from '../../../../assets/editor/tokens/color/ddp_color_field.png'
 import hoverForTokenSelection from '../../../../assets/editor/tokens/color/hover_for_token_selection.png'
 
-Jux provides a flexible and precise approach to color tokens: Color tokens combine a HEX value (e.g., #141414) with an opacity percentage (1-100).
+## Color tokens in the Jux Editor
 
-The combination can be expressed as a single RGBA value, maintaining its status as a simple token.
+Jux supports color tokens as a combination of HEX value (like #141414) and opacity value as percentage (1-100). Despite having 2 distinct values the color token is still considered a simple -not a composite - token (like typography, shadow or border), since it can be written as a unified RGBA value.
 
-<CaptionImage caption="Color Token Card">
-  <Image src={colorTokenCard} alt="Color Token Card" />
-</CaptionImage>
+<Image src={colorTokenCard} alt="Color Token Card" />
 
-The color circular thumbnail will show both the HEX value and the unified opacity result if the opacity value is less than 100%.
+The color circular thumbnail will show both the hex value, and the unified opacity result if the opacity value is other than 100%
 
-<CaptionImage caption="Transparent Color Example">
-  <Image src={transparentColorExample} alt="Transparent Color Example" />
-</CaptionImage>
+<Image src={transparentColorExample} alt="Transparent Color Example" />
 
-Color tokens consist of the following fields:
+Color tokens have these fields:
 
-- Name (e.g., blue-500 or primary-bg)
-- Folder path (e.g., color/core/blue-500)
-- HEX value
-- Opacity value
-- Alias to another token - `optional`
-- Description - `optional`
+1. A name (like `blue-500` or `primary-bg`)
+2. A folder path (like `color`/`core/blue-500`)
+3. Optional - an alias to another token
+4. Hex value
+5. Opacity value
+6. Optional - description
 
-<CaptionImage caption="Color Props">
-  <Image src={colorProps} alt="Color Props" />
-</CaptionImage>
+<Image src={colorProps} alt="Color Props" />
 
-Color tokens can be applied in the [Dynamic Design Panel (DDP)](/editor/dynamic-design-panel) within the following modules:
+Color tokens can later be used in the DDP in the following modules:
 
-- Background color
-- Text color
-- Border color
-- Shadow color
-- Asset color
+1. Background color 
+2. Text color
+3. Border color
+4. Shadow color
+5. Asset color
 
-<CaptionImage caption="DDP Color Field">
-  <Image src={ddpColorField} alt="DDP Color Field" />
-</CaptionImage>
+<Image src={ddpColorField} alt="DDP Color Field" />
 
-To tokenize any color field, click on the 'token icon button' that appears on the right side of the field when you hover over it.
+Each color field can be tokenized by clicking on the ‘token icon button’ that appears on the right side of the field upon hover:
 
-<CaptionImage caption="Hover for Token Selection">
-  <Image src={hoverForTokenSelection} alt="Hover for Token Selection" />
-</CaptionImage>
+<Image src={hoverForTokenSelection} alt="Hover for Token Selection" />
+
+<hr />
+
+## Under the hood
+
+JUX adheres to the W3C Community group’s draft guidelines regarding color tokens (section [8.1](https://design-tokens.github.io/community-group/format/#color).) and stores the token as a JSON file with the following structure:
+
+```jsx
+{
+	// Our opinianated structure uses type-based groups at the root level
+	"color": {
+		// We like to use core/semantic/specific as the base groups in all token
+		// types, but this group's name can be any valid JSON identifier
+		"core": {
+		  // Token names must be valid JSON identifiers, e.g. "Foo", "foo_0", "600"
+			"600": {
+			  // Specifying the type here might seem redundant since the type is used
+			  // as the root-level grouping, but this is part of the W3C group's specs
+				"$type": "color",
+				"$value": "#ff00ff"
+				"$description": "This is a color token in the core to use in brand"
+			}
+		}
+	}
+}
+```
+
+| **Property** | **Type** | **Description** |
+| --- | --- | --- |
+| `$type` | `string` | **Required.** `"color"` |
+| `$value` | `string` | **Required.**  |
+| `$description` | `string` | (Optional) A description of this token and its intended usage. |
