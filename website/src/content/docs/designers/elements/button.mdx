@@ -1,5 +1,5 @@
 ---
-title: Button Element
+title: Button
 description: Learn how to use the Button element in JUX.
 
 tableOfContents:
@@ -13,47 +13,49 @@ import buttonElement from '../../../../assets/editor/elements/button.png'
 import buttonAnatomy from '../../../../assets/editor/elements/button_anatomy.png'
 import buttonMatrix from '../../../../assets/editor/elements/button_matrix.webp'
 
-<CaptionImage caption={'Button Element'}>
+<CaptionImage caption={'Button thumbnail placed in the elements panel in Jux UI. Click or drag to the canvas to create a local component.'}>
   <Image src={buttonElement} alt="Button Element" />
 </CaptionImage>
 
-### Technical Definition
-The Button Element in Jux represents an interactive component that users can activate through various means (mouse, keyboard, touch, voice command, or assistive technology). When activated, it performs a specified action, such as submitting a form or opening a dialog.
+## Technical Definition
+The `<button>` [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) element is an interactive element activated by a user with a mouse, keyboard, finger, voice command, or other assistive technology. Once activated, it then performs an action, such as submitting a form or opening a dialog.
+
+---
 
 ### Anatony and Styling
 
-While the button element comes preloaded with:
+The button element comes pre-loaded with a leading icon, text label and a trailing icon.
 
-- A leading icon
-- Text label
-- Trailing icon
+You can influence the styling of the children of the button in relation to the button’s state and properties by selecting them in the parent [context module](/designers/dynamic-design-panel/props-and-variants).
 
-You have complete freedom to customize the button's appearance:
+To hide some of the children in some of the states - use [display: none](/designers/dynamic-design-panel/layout)
 
-- Remove or add any elements as needed
-- Style each child element independently
-- Modify styles based on the button's state and properties using the [parent context module](/editor/dynamic-design-panel/props-and-variants)
-- Hide specific children in certain states
-- Design the button from scratch if desired
+{/*  TODO: fix link */}
+To change the SVG assets use the [‘asset content’ property](/#)
 
-The preloaded structure serves as a starting point, but you're not limited by it.
-
-<CaptionImage caption={'Button Anatomy'}>
-  <Image src={buttonAnatomy} alt="Button Anatomy" />
-</CaptionImage>
+<Image src={buttonAnatomy} alt="Button Anatomy" />
 
 ### Props and States
 
-Button properties can be extended based on your design needs. You have the flexibility to add custom properties to enhance functionality and design variations. However, core properties like 'disabled' can't be removed to ensure proper web behavior.
+1. Interactive state:
+    1. Default
+    2. Hover
+    3. Active
+2. Disabled property
+    1. true
+    2. false
+3. Hierarchy property (optional):
+    1. primary
+    2. secondary
 
 ### Matrix
 
-<CaptionImage caption={'Button Matrix'}>
-  <Image src={buttonMatrix} alt="Button Matrix" />
-</CaptionImage>
+<Image src={buttonMatrix} alt="Button Matrix" />
 
-### Live Mode
-In live mode, you can:
-- Test and visualize all interactive states of the button
-- Experience the button's behavior as it would appear in the final product
-- Verify visual feedback for each state to ensure clear communication of interactivity
+### Special mechanics
+
+The button does not have any special mechanics apart from the fact that everything inside of the button will trigger the action that the button will be connected to in the code. 
+
+### Live mode
+
+In live mode you can check the interactive states of the button.
