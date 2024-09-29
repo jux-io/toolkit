@@ -7,46 +7,24 @@ tableOfContents:
   maxHeadingLevel: 6
 ---
 
-## What are Elements?
+## What are JUX Elements?
 
-Elements in Jux are the fundamental building blocks for designing and implementing components in both your design system and production environment. These elements are more than just visual representations – they are rendered code presented on the canvas, offering the full benefits of being programmatically defined.
+JUX Elements are the fundamental building blocks for designing and using any component in the design system and in production. Since the UI designed in Jux is a rendered code, presented on the canvas, the elements are holding the “benefits” of being coded. This means they expose built-in interactive states and properties, have a live view and can easily be edited and used in production. 
 
-### Key Features of Elements
+Jux elements are based on HTML Web elements which are essential components used in web development to construct user interfaces effectively. Each element comes with predefined properties and behaviors, allowing developers to create interactive and functional user interfaces, structuring content, enabling user interactions, and styling the visual aspects of websites or web applications. 
 
-1. Built-in Interactivity: Elements come with pre-defined interactive states and properties, allowing for a realistic design experience.
-2. Live View: Observe real-time changes and interactions directly on the canvas.
-3. Production-Ready: Easily edit and seamlessly integrate elements into your development workflow when working with developers.
-4. Jux elements are unstyled web elements, which are the essential components used in modern web development.
+For example: Input - a component that accepts real input from keyboard and that has built-in logic is not an object we can design using a vector tool. Checkbox or Toggle are another example of common components that are used by many products that are aware of some logic - one that knows the inner state of itself - checked/unchecked or On/Off respectively. 
 
-### Advantages of Code-Based Elements
-Using code-based elements provides several advantages over traditional vector-based design tools:
+## **How to use Elements in JUX**
 
-- **Realistic Interactions**: Elements like input fields, checkboxes, and toggles behave as they would in a real application, accepting user input and reflecting state changes.
-- **Logical Awareness**: Elements understand their own state (e.g., checked/unchecked, on/off), allowing for more accurate prototyping and design.
-- **Seamless Developer Handoff**: The code-based nature of these elements simplifies the transition from design to development.
-- **Consistency**: Ensure that your design system elements match the behavior and appearance of elements in the final product.
+Designers can anticipate ongoing releases of new Elements and added features to existing ones. Button, Input, Checkbox, Toggle, Radio-button, Tooltip, Chip/pill, progress bar, list-item/list, and more are and will be introduced, each with predefined properties and design values that can  be manipulated and tokenized on canvas.
 
-By leveraging these powerful, code-based elements, Jux enables you to create more accurate, interactive, and developer-friendly designs, bridging the gap between design and implementation.
+To use Jux elements just drag one on canvas, view it in live mode to understand its behavior and create from it a component (”Create component” button on the  top right). Now it’s ready to encapsulate your product design preferences. Select the properties you’d like to influence and use the [DDP](/designers/dynamic-design-panel) (dynamic design panel on the right hand side) to test values or match tokens.
 
-### Using Elements
+## **Logical slot - Element mechanics**
 
-Jux is constantly evolving, with new Elements being released and existing ones enhanced regularly. Each Element comes with predefined properties and design values that can be customized and tokenized directly on the canvas.
+Logical slot is a special layer in the element structure that holds logic related to the element. For example, a click area in a select element. Objects that are nested inside a logical slot will “inherit” the function tied to that layer. Every element has its specific logic built by Jux and is being held by the slot. Currently, only Jux can provide these mechanical logical slots. These logical slots are bounded to the given element and are immutable and tied to the element. You may add items nested in it this layer has no styling or properties.
 
-How to Use Elements:
+## **What's next for JUX Elements?**
 
-1. Drag and Drop: Simply drag an Element onto your canvas.
-2. Explore Behavior: Switch to live mode to understand the Element's interactive behavior.
-3. Create a Component: Click the "Create component" button in the top right to turn your customized Element into a reusable component.
-4. Customize: Use the Dynamic Design Panel (DDP) on the right-hand side to:
-    - Select properties you want to modify
-    - Test different values
-    - Apply design tokens
-5. Refine: Iterate on your design to perfectly match your product's design preferences.
-
-By following these steps, you can efficiently create components that encapsulate your unique design language while leveraging the power and consistency of Jux's pre-built Elements.
-
-### Logical Slot: Element Mechanics
-
-The logical slot is a crucial component in the structure of Jux elements, serving as a container for element-specific logic.
-
-For more detailed information about logical slots, please refer to our comprehensive guide [here](/editor/elements/logical-slots).
+To empower designers in creating intricate user interfaces, JUX plans to release additional and more complex Elements and enhance previously introduced features. Also, to enable editing in parent context which gives many more design flexibility.
