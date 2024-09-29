@@ -7,61 +7,51 @@ tableOfContents:
   maxHeadingLevel: 6
 ---
 import { Image } from 'astro:assets';
-import CaptionImage from "../../../../components/CaptionImage.astro";
 
 import checkboxElement from '../../../../assets/editor/elements/checkbox.png'
 import checkboxAnatomy from '../../../../assets/editor/elements/checkbox_anatomy.png'
 import checkboxMatrix from '../../../../assets/editor/elements/checkbox_matrix.png'
 
-<CaptionImage caption="Checkbox Element">
-  <Image src={checkboxElement} alt="Checkbox Element" />
-</CaptionImage>
+<Image src={checkboxElement} alt="Checkbox Element" />
 
-### Technical Definition
-The Checkbox Element in Jux represents an interactive control that allows users to select or deselect a single value. It's typically used in forms and can be in a checked, unchecked, or indeterminate state.
+## Technical Definition
 
-### Anatony and Styling
+[`<input>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) elements of type **`checkbox`** are rendered by default as boxes that are checked (ticked) when activated. A checkbox allows you to select single values for submission in a form (or not).
 
-The checkbox element consists of two main parts:
+## Anatomy and styling
 
-- A box with assets for 'checked', 'unchecked', and 'indeterminate' states
-- A text wrapper containing a label and helper text (which can be removed if not needed)
+The checkbox element consists has 2 child assets: an icon for the ‘checked’ state, and an icon for ‘indeterminate’ state.
 
-You can:
+You can influence the styling of the children of the checkbox in relation to the checkbox’s state and properties by selecting them in the parent [context module](/designers/dynamic-design-panel/props-and-variants).
 
-- Style each part independently based on the checkbox's state and properties using the parent context module
-- Hide specific elements in certain states
-- Modify SVG assets for check and indeterminate icons via the 'asset content' property
+To hide some of the children in some of the states (like the indeterminate icon asset when the state is ‘checked’ or ‘unchecked’) - use [display: none](/designers/dynamic-design-panel/layout)
 
-<CaptionImage caption="Checkbox Anatomy">
-  <Image src={checkboxAnatomy} alt="Checkbox Anatomy" />
-</CaptionImage>
+{/* TODO fix link */}
+To change the SVG assets of the check and indeterminate icons, use the [‘asset content’ property](/#)
 
-### Props and States
+<Image src={checkboxAnatomy} alt="Checkbox Anatomy" />
 
-Checkbox properties include:
+## Props and States
 
 1. Interactive state:
-    - Default
-    - Hover
-    - Active
+    1. Default
+    2. Hover
+    3. Active
+2. Disabled property
+    1. true
+    2. false
+3. Checked state (special):
+    1. checked
+    2. unchecked
+    3. indeterminate
 
-2. Checked state (special):
-    - checked
-    - unchecked
-    - indeterminate
+## Matrix
 
-Checkbox properties can be extended based on your design needs, allowing for custom properties to enhance functionality and design variations. However, core properties like 'disabled' can't be removed to ensure proper web behavior.
+<Image src={checkboxMatrix} alt="Checkbox Matrix" />
 
-### Matrix
+## Live mode
 
-<CaptionImage caption="Checkbox Matrix">
-  <Image src={checkboxMatrix} alt="Checkbox Matrix" />
-</CaptionImage>
+In live mode you can:
 
-### Special Mechanics
-
-The checkbox includes two logical slots:
-
-- Checkbox primitive: Contains the visual 'box' of the element. This slot must not be empty for proper functionality.
-- Trigger (hit area): Allows objects inside to change the checkbox state. Can be empty or contain other objects.
+1. Check the interactive states of the checkbox.
+2. Change the state of the checkbox by clicking on it
