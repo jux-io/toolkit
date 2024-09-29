@@ -7,66 +7,53 @@ tableOfContents:
   maxHeadingLevel: 6
 ---
 import { Image } from 'astro:assets';
-import CaptionImage from "../../../../components/CaptionImage.astro";
 
 import inputElement from '../../../../assets/editor/elements/input.png'
 import inputAnatomy from '../../../../assets/editor/elements/input_anatomy.png'
-import inputProps from '../../../../assets/editor/elements/input_props.png'
 import inputMatrix from '../../../../assets/editor/elements/input_matrix.png'
 
-<CaptionImage caption="Input Element">
-  <Image src={inputElement} alt="Input Element" />
-</CaptionImage>
+<Image src={inputElement} alt="Input Element" />
 
-### Technical Definition
-The Input Element in Jux represents an interactive control for web-based forms, allowing users to input data. Currently, Jux supports a simple text input type, with more types planned for future releases.
+## Technical Definition
+The `<input>` [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) element is used to create interactive controls for web-based forms in order to accept data from the user; a wide variety of types of input data and control widgets are available, depending on the device and [user agent](https://developer.mozilla.org/en-US/docs/Glossary/User_agent). This element in Jux only allows a simple text input type, other types are coming soon.
+
+---
 
 ### Anatony and Styling
 
-The input element is a single layer:
+In Jux - the input element is a single indivisible layer. No other elements can be placed inside of the input.
 
-- No other elements can be placed inside the input
-- You can style both the text value and placeholder directly on the input itself
-- To switch between styling the value and the placeholder, change the 'input mode' property in the Dynamic Design Panel
+The way to style the both the text value and the text placeholder is directly on the input itself. To switch between the styling of the value to the styling of the placeholder - change the selection on the ‘input mode’ property in the [DDP](/designers/dynamic-design-panel).
 
-<CaptionImage caption="Input Anatomy">
-  <Image src={inputAnatomy} alt="Input Anatomy" />
-</CaptionImage>
+<Image src={inputAnatomy} alt="Input Anatomy" />
 
 ### Props and States
 
-Input properties includes:
 1. Interactive state:
-    - Default
-    - Hover
-    - Active
-2. Input mode (determines which content the rest of the DDP will affect):
-    - Value
-    - Placeholder
-3. Input text (text string)
-4. Placeholder text (text string)
-
-Input properties can be extended based on your design needs, allowing for custom properties to enhance functionality and design variations. However, core properties like 'disabled' can't be removed to ensure proper web behavior.
-
-<CaptionImage caption="Input Properties">
-  <Image src={inputProps} alt="Input Properties" />
-</CaptionImage>
+    1. Default
+    2. Hover
+    3. Active
+2. Disabled property
+    1. true
+    2. false
+3. Input mode (selects which content the rest of the DDP will affect:
+    1. Value
+    2. Placeholder
+4. Input text (text string)
+5. Placeholder text (text string)
 
 ### Matrix
 
-<CaptionImage caption="Input Matrix">
-  <Image src={inputMatrix} alt="Input Matrix" />
-</CaptionImage>
+<Image src={inputMatrix} alt="Input Matrix" />
 
-### Special Mechanics
-The input has two key limitations:
+### Special mechanics
 
-- No other element can be placed inside it
-- Clicking anywhere in its area triggers the focus state, ready for typing
+The input has the limitation that no other element can be put inside of it, and if clicked anywhere in it’s area - will trigger the focus state to start typing.
 
-### Live Mode
-In live mode, you can:
+### Live mode
 
-- Test and visualize all interactive states of the input
-- See the placeholder text set in the source/instance of the input
-- Type any value inside the input and observe the placeholder text disappear
+In live mode you can:
+
+1. Check the interactive states of the input
+2. See the placeholder that was set in the source / instance of the input
+3. Type any value inside the input and see the placeholder text disappear.
