@@ -138,8 +138,17 @@ export default defineConfig({
           items: [
             { label: 'Quickstart', link: '/designers/quickstart' },
             {
-              label: 'Creating Components',
-              link: '/designers/creating-components',
+              label: 'Editor',
+              items: [
+                {
+                  label: 'Creating components',
+                  link: '/designers/editor/creating-components',
+                },
+                {
+                  label: 'Keyboard shortcuts',
+                  link: '/designers/editor/keyboard-shortcuts',
+                },
+              ],
             },
             {
               label: 'Tokens',
