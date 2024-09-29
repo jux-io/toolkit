@@ -158,7 +158,7 @@ export default defineConfig({
                   link: '/designers/tokens',
                 },
                 {
-                  label: 'Color',
+                  label: 'Color tokens',
                   link: '/designers/tokens/color',
                 },
                 {
