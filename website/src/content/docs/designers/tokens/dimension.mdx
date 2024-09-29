@@ -1,12 +1,12 @@
 ---
-title: Dimension Token
+title: Dimension
 description: Learn how to create and manage dimension tokens in JUX.
 
 tableOfContents: false
 ---
 import { Image } from 'astro:assets';
 import { Badge } from '@astrojs/starlight/components';
-import CaptionImage from "../../../../components/CaptionImage.astro";
+import { Aside } from '@astrojs/starlight/components';
 
 import dimensionToken from '../../../../assets/editor/tokens/dimension/dimension_token.png'
 import dimensionProps from '../../../../assets/editor/tokens/dimension/dimension_props.png'
@@ -14,32 +14,26 @@ import ddpSizeModule from '../../../../assets/editor/tokens/dimension/ddp_size_m
 import ddpHoverForSelection from '../../../../assets/editor/tokens/dimension/ddp_hover_for_selection.png'
 
 
-Jux supports dimension tokens consisting of a positive number and a unit of measure. Currently, Jux supports the following units: PX, %, EM, REM, VH, and VW.
+Jux supports dimension tokens as consisting of an positive number and a unit of measure. Jux currently supports the following units:
+`px`, `%`, `em`, `rem`, `vh`, `vw`.
 
-<CaptionImage caption="Dimension Token">
-  <Image src={dimensionToken} alt="Dimension Token"  />
-</CaptionImage>
+<Image src={dimensionToken} alt="Dimension Token"  />
 
-- Note: Dimension fields can accept entries like 'auto', which cannot be tokenized.
+<Aside>
+  Dimension fields can accept entries like `auto`, which cannot be tokenized.
+</Aside>
 
-<Badge text='Coming soon' />: Dimension tokens can be referenced by other composite tokens, such as:
-
-- Font size, line height, and letter spacing in Typography tokens
-- Border width in Border tokens
-- X, Y, spread, and blur values in Shadow tokens
-
-
+<Badge text='Coming soon' />: <br/>
+Dimension tokens could be aliased (pointed to) by other composite tokens like the font size, line height and letter spacing in Typography token, the border width in Border token, the x, y, spread and blur values in Shadow token etc..
 
 Dimension tokens consist of the following fields:
-- Name (e.g., "space_xs" or "padding_top_input")
-- Folder path (e.g., "dimension/core/space_xs")
-- Number value + unit
-- Alias to another token - `optional`
-- Description - `optional`
+1. A name (like `space_xs` or `padding_top_input`)
+2. A folder path (like `color`/`core`/`space_xs`)
+3. Optional - an alias to another token
+4. Number value + unit
+5. Optional - description
 
-<CaptionImage caption="Dimension Props">
-  <Image src={dimensionProps} alt="Dimension Props" width={563} />
-</CaptionImage>
+<Image src={dimensionProps} alt="Dimension Props" width={563} />
 
 Dimension tokens can be applied in the Dynamic Design Panel (DDP) within the following modules:
 
@@ -50,12 +44,40 @@ Dimension tokens can be applied in the Dynamic Design Panel (DDP) within the fol
 - Corner radius
 - Shadow measurements
 
-<CaptionImage caption="DDP Size Module">
-  <Image src={ddpSizeModule} alt="DDP Size Module" width={563} />
-</CaptionImage>
+<Image src={ddpSizeModule} alt="DDP Size Module" width={563} />
 
-To tokenize any dimension field, click on the 'token icon button' that appears on the right side of the field when you hover over it.
+Each color field can be tokenized by clicking on the ‘token icon button’ that appears on the right side of the field upon hover:
 
-<CaptionImage caption="DDP Hover For Selection">
-  <Image src={ddpHoverForSelection} alt="DDP Hover For Selection" width={563} />
-</CaptionImage>
+<Image src={ddpHoverForSelection} alt="DDP Hover For Selection" width={563} />
+
+---
+
+## Under the hood
+
+Jux adheres to the W3C Community group’s draft guidelines regarding dimension tokens (section [8.2](https://design-tokens.github.io/community-group/format/#color).) and stores the token as a JSON file with the following structure:
+
+```json
+{
+	// Our opinianated structure uses type-based groups at the root level
+	"dimension": {
+		// We like to use core/semantic/specific as the base groups in all token
+		// types, but this group's name can be any valid JSON identifier
+		"core": {
+		  // Token names must be valid JSON identifiers, e.g. "Foo", "foo_0", "spacing_xs"
+			"spacing_xs": {
+			  // Specifying the type here might seem redundant since the type is used
+			  // as the root-level grouping, but this is part of the W3C group's specs
+				"$type": "dimension",
+				"$value": "4px"
+				"$description": "Use only for padding and gaps"
+			}
+		}
+	}
+}
+```
+
+| **Property** | **Type** | **Description** |
+| --- | --- | --- |
+| `$type` | `string` | **Required.** `"dimension"` |
+| `$value` | `string` of number and unit | **Required.** |
+| `$description` | `string` | (Optional) A description of this token and its intended usage. |
