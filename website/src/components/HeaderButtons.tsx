@@ -51,18 +51,18 @@ const AnimatedButtonGroup = ({ current }: { current: string }) => {
     >
       <div className={css({ display: 'flex', gap: '8px' })}>
         <Button
+          href={'/designers/quickstart'}
+          onClick={() => handleClick('designers')}
+          selected={selectedButton === 'designers'}
+        >
+          Designers
+        </Button>
+        <Button
           href={'/developers/quickstart'}
           onClick={() => handleClick('developers')}
           selected={selectedButton === 'developers'}
         >
           Developers
-        </Button>
-        <Button
-          href={'/editor'}
-          onClick={() => handleClick('editor')}
-          selected={selectedButton === 'editor'}
-        >
-          Designers
         </Button>
       </div>
     </div>

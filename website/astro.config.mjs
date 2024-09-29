@@ -134,35 +134,35 @@ export default defineConfig({
           ],
         },
         {
-          label: 'editor',
+          label: 'designers',
           items: [
-            { label: 'Introduction', link: '/editor' },
+            { label: 'Quickstart', link: '/designers/quickstart' },
             {
               label: 'Creating Components',
-              link: '/editor/creating-components',
+              link: '/designers/creating-components',
             },
             {
               label: 'Tokens',
               items: [
                 {
                   label: 'Introduction',
-                  link: '/editor/tokens',
+                  link: '/designers/tokens',
                 },
                 {
                   label: 'Color',
-                  link: '/editor/tokens/color',
+                  link: '/designers/tokens/color',
                 },
                 {
                   label: 'Font Family',
-                  link: '/editor/tokens/font-family',
+                  link: '/designers/tokens/font-family',
                 },
                 {
                   label: 'Typography',
-                  link: '/editor/tokens/typography',
+                  link: '/designers/tokens/typography',
                 },
                 {
                   label: 'Dimension',
-                  link: '/editor/tokens/dimension',
+                  link: '/designers/tokens/dimension',
                 },
               ],
             },
@@ -171,35 +171,35 @@ export default defineConfig({
               items: [
                 {
                   label: 'Introduction',
-                  link: '/editor/elements',
+                  link: '/designers/elements',
                 },
                 {
                   label: 'Text',
-                  link: '/editor/elements/text',
+                  link: '/designers/elements/text',
                 },
                 {
                   label: 'Div',
-                  link: '/editor/elements/div',
+                  link: '/designers/elements/div',
                 },
                 {
                   label: 'Button',
-                  link: '/editor/elements/button',
+                  link: '/designers/elements/button',
                 },
                 {
                   label: 'Input',
-                  link: '/editor/elements/input',
+                  link: '/designers/elements/input',
                 },
                 {
                   label: 'Checkbox',
-                  link: '/editor/elements/checkbox',
+                  link: '/designers/elements/checkbox',
                 },
                 {
                   label: 'Toggle',
-                  link: '/editor/elements/toggle',
+                  link: '/designers/elements/toggle',
                 },
                 {
                   label: 'Logical Slots',
-                  link: '/editor/elements/logical-slots',
+                  link: '/designers/elements/logical-slots',
                 },
               ],
             },
@@ -209,58 +209,58 @@ export default defineConfig({
               items: [
                 {
                   label: 'Introduction',
-                  link: '/editor/dynamic-design-panel',
+                  link: '/designers/dynamic-design-panel',
                 },
                 {
                   label: 'Props and Variants',
-                  link: '/editor/dynamic-design-panel/props-and-variants',
+                  link: '/designers/dynamic-design-panel/props-and-variants',
                 },
                 {
                   label: 'Size and Position',
-                  link: '/editor/dynamic-design-panel/size-and-position',
+                  link: '/designers/dynamic-design-panel/size-and-position',
                 },
                 {
                   label: 'Layout',
-                  link: '/editor/dynamic-design-panel/layout',
+                  link: '/designers/dynamic-design-panel/layout',
                 },
                 {
                   label: 'Text',
-                  link: '/editor/dynamic-design-panel/text',
+                  link: '/designers/dynamic-design-panel/text',
                 },
                 {
                   label: 'Background',
-                  link: '/editor/dynamic-design-panel/background',
+                  link: '/designers/dynamic-design-panel/background',
                 },
                 {
                   label: 'Border',
-                  link: '/editor/dynamic-design-panel/border',
+                  link: '/designers/dynamic-design-panel/border',
                 },
                 {
                   label: 'Opacity',
-                  link: '/editor/dynamic-design-panel/opacity',
+                  link: '/designers/dynamic-design-panel/opacity',
                 },
                 {
                   label: 'Effects (Shadow)',
-                  link: '/editor/dynamic-design-panel/effects',
+                  link: '/designers/dynamic-design-panel/effects',
                 },
               ],
             },
             {
               label: 'Editor Special Mechanics',
-              link: '/editor/editor-special-mechanics',
+              link: '/designers/designers-special-mechanics',
             },
             {
               label: 'Juxync - Figma to Jux',
-              link: '/editor/juxync',
+              link: '/designers/juxync',
               badge: 'New',
             },
             {
               label: 'Community',
-              link: '/editor/people-of-jux',
+              link: '/designers/people-of-jux',
             },
             {
               label: 'Changelog',
-              link: '/editor/changelog',
+              link: '/designers/changelog',
             },
           ],
         },

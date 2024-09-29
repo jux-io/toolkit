@@ -1,5 +1,5 @@
 ---
-title: Design Tokens
+title: Tokens
 description: Learn how to create and manage design tokens in JUX.
 
 tableOfContents:
@@ -11,25 +11,34 @@ import nonAlias from '../../../../assets/editor/tokens/alias_non_alias.png'
 import simpleVsComposite from '../../../../assets/editor/tokens/simple_vs_composite.png'
 import tokensPage from '../../../../assets/editor/tokens/tokens_page.png'
 import ddpTokens from '../../../../assets/editor/tokens/ddp_tokens.png'
+import tokenManagment from '../../../../assets/editor/tokens/token-management.png'
 
-## What are Design Tokens ?
+## What are Tokens ?
 
-Design tokens are the building blocks of your user interface, representing reusable visual elements that encapsulate design decisions. They serve as a unified language for communicating design choices, enabling a multi-layered architecture of styles that seamlessly translate to code.
+Design tokens are reusable visual elements that represent design choices in user interface design. Tokens provide a unified language for communicating design decisions, allowing for a multi-layered architecture of styles which are then used in code.
 
-Key aspects of design tokens:
+Design tokens are defined and stored in a central location (in Jux - the token management page), allowing designers to quickly and easily apply consistent styles across various products and projects. Tokens include styling information such as colors, typography, dimensions (for size, space etc) etc. This allows for a more efficient and scalable design process, as designers can reuse and build upon existing tokens instead of starting from scratch each time.
 
-- Centrally defined and stored
-- Represent colors, typography styles, sizes, spacing, and more
-- Enable consistent styling across products and projects
-- Facilitate efficient and scalable design processes (as you can reuse and build upon existing tokens instead of starting from scratch each time)
-- Allow for easy implementation of design decisions in code
-- Enhance collaboration between design and development teams
+With the use of the JSON format, design tokens allow developers to implement design decisions across code bases, while being agnostic to the framework. Using design tokens in this manner allows teams to collaborate more easily, align their designs with brand design guidelines, and increase efficiency.
 
-Design tokens allow developers to implement design decisions across codebases. In this way, the design and development teams are aligned, and development efficiency is increased. Using design tokens in this manner allows teams to collaborate more easily, align their designs with brand design guidelines, and increase efficiency.
+It’s important to keep in mind that there are two properties that tokens can have, with two options for each property: *alias vs non-alias* tokens:
 
-## Token Properties
+<Image src={nonAlias} alt="Alias vs. Non-Alias Tokens" />
 
-Tokens can be categorized based on two key properties:
+and simple vs composite tokens:
+
+<Image src={simpleVsComposite} alt={"Simple vs. Composite Tokens"} />
+
+For more references check out this [article](https://blog.jux.io/cp/135867686) for a deeper dive. Also, Tokens naming is an important topic recommended to read about [here](https://medium.com/eightshapes-llc/naming-tokens-in-design-systems-9e86c7444676).
+
+### Jux token management 
+
+Jux tokens are managed in a dedicated page, accessed through the left sidebar navigation panel.
+
+<Image src={tokenManagment} alt={"Token management"} />
+
+
+
 
 ### Alias vs. Non-Alias Tokens
 
