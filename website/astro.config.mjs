@@ -151,7 +151,7 @@ export default defineConfig({
               ],
             },
             {
-              label: 'Tokens',
+              label: 'Tokens Management',
               items: [
                 {
                   label: 'Introduction',

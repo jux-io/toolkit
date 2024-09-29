@@ -1,5 +1,5 @@
 ---
-title: Tokens
+title: Tokens Management
 description: Learn how to create and manage design tokens in JUX.
 
 tableOfContents:
@@ -9,9 +9,12 @@ tableOfContents:
 import { Image } from 'astro:assets';
 import nonAlias from '../../../../assets/editor/tokens/alias_non_alias.png'
 import simpleVsComposite from '../../../../assets/editor/tokens/simple_vs_composite.png'
-import tokensPage from '../../../../assets/editor/tokens/tokens_page.png'
 import ddpTokens from '../../../../assets/editor/tokens/ddp_tokens.png'
 import tokenManagment from '../../../../assets/editor/tokens/token-managment.png'
+import tokenManagerSide from '../../../../assets/editor/tokens/tm-sidebar.png'
+import tokenManagerSets from '../../../../assets/editor/tokens/tm-sets.png'
+import tokenManagerStructure from '../../../../assets/editor/tokens/tm-structure.png'
+import tokenDrawer from '../../../../assets/editor/tokens/tm-token-drawer.png'
 
 ## What are Tokens?
 
@@ -33,68 +36,40 @@ For more references check out this [article](https://blog.jux.io/cp/135867686) f
 
 ### Jux token management 
 
-Jux tokens are managed in a dedicated page, accessed through the left sidebar navigation panel.
+<div style="display: grid; gap: 8px; grid-template-columns: 1fr 1fr;">
+  Jux tokens are managed in a dedicated page, accessed through the left sidebar navigation panel.
+  <Image src={tokenManagment} alt={"Token management"} />
+</div>
 
-<Image src={tokenManagment} alt={"Token management"} />
+<div style="display: grid; gap: 8px; grid-template-columns: 1fr 1fr;">
+  It is organized by types based on W3C standards. Currently 4 types - Color, Typography, Font family and Dimension:
+  <Image src={tokenManagerSide} alt={"Token page"} />
+</div>
 
+You can create different token sets: a core set for core tokens and theme sets with alias tokens that are identical in structure, but point to different core tokens in the core set. (for example light/dark dense/loose modes of the UI).
 
+<Image src={tokenManagerSets} alt={"Token sets"} />
 
+The way to structure tokens in Jux:
 
-### Alias vs. Non-Alias Tokens
+1. Start by creating the core tokens in the core set (ex. brand colors)
+2. Create theme sets which will have alias tokens that will point to some of the core tokens in the core set.
+3. You can use any taxonomy you’d like for the token structure, with the only rigid parts being that they would start with the token type (color for example) and then follow the folder structure (color.folder.folder.folder.token_name). Tokens in the core set will also have ‘core’ as the second item in the token name (color.core.folder.folder.folder.token_name).
+4. You can duplicate the theme sets to have as many as you need.
 
-<Image src={nonAlias} alt="Alias vs. Non-Alias Tokens" />
+<Image src={tokenManagerStructure} alt={"Token structure"} />
 
-### Simple vs. Composite Tokens
+## Using tokens in Jux
 
-<Image src={simpleVsComposite} alt={"Simple vs. Composite Tokens"} />
+Tokens can be created and edited in the management page. Once created, they will appear in the Editor DDP (dynamic design panel) inputs for selection.
 
-:::note
-For a deeper understanding of these concepts, we recommend reading [this article on token properties](https://blog.jux.io/cp/135867686) and [this article](https://medium.com/eightshapes-llc/naming-tokens-in-design-systems-9e86c7444676) on token naming.
-:::
+<Image src={ddpTokens} alt={"Token DDP"} />
 
-## Jux Token Management
+<div style="display: grid; gap: 8px; grid-template-columns: 1fr 1fr;">
+  Sometimes, it’s more convenient to create a new token while testing the design decisions (values) on different components, on the canvas itself. To create tokens in the editor view on canvas, hover over the DDP fields to reveal the token icon menu button and click it. Create token action is placed at the bottom of the dropdown. After clicking it - the ‘token creation sidebar’ will appear for you to make sure the values are correct and save it.
+  <Image src={tokenDrawer} alt={"Token page"} />
+</div>
 
-Jux provides a dedicated token management interface, accessible through the left sidebar navigation panel.
+## Sharing design tokens with development
 
-<Image src={tokensPage} alt={"Jux tokens page"} />
-
-Jux currently supports the following token types (see our roadmap for future token support):
-
-- [Color](/editor/tokens/color)
-- [Typography](/editor/tokens/typography)
-- [Font family](/editor/tokens/font-family)
-- [Dimension](/editor/tokens/dimension)
-
-### Creating Token Sets
-
-Jux allows you to create and manage multiple token sets, each serving a specific purpose in your design system:
-
-- Core set:
-  - Contains fundamental tokens (e.g., brand colors, primary typography styles)
-  - Serves as a shared resource across all themes
-  - Enables easy reusability of common design decisions
-  - Promotes consistency across your entire design system
-
-
-- Theme sets:
-  - Comprise alias tokens that reference core tokens (or a fixed token value)
-  - Allow for different UI modes (e.g., light/dark, dense/loose)
-  - All theme sets have identical structure, mirroring each other
-  - When you add or remove a token in one theme set, the change is automatically reflected across all other theme sets
-  - While structurally identical, each theme set can point to different core tokens, enabling varied UI modes
-
-### Using Tokens in Jux Editor
-
-Tokens created in the management page are available for selection in the Editor's [Dynamic Design Panel (DDP)](/editor/dynamic-design-panel) inputs.
-
-Tokens are easier to create while testing design decisions (values) on different components on the canvas itself. To create tokens in the editor view on canvas, hover over the DDP fields to reveal the token icon menu button and click it. The "Create token" action is placed at the bottom of the dropdown. New tokens will appear in the management page as well.
-
-<Image src={ddpTokens} alt={"Dynamic Design Panel Tokens"} />
-
-### Sharing Design Tokens with Developers
-
-[Jux CLI](/developers/jux-editor) provides a straightforward method for developers to access the latest design assets. This process allows immediate integration of the latest design tokens and components into the codebase.
-
-Maintaining an organized, shared token library is crucial for effective team collaboration. It ensures that both you and developers are working with the most up-to-date design system elements.
-
-We're here to assist you in establishing your team's token library or to receive your feedback on our token management system. Your input helps us continually improve the Jux experience for both you and developers.
+All the tokens you see in the token management page are immediately shared with the developers once they use the Jux CLI ‘pull’ command. If any new token is created - it will be shared the next time the developers use the pull command. If any token is updated in the Jux token management screen - the corresponding token will be updated after the next ‘pull’.
