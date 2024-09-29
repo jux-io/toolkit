@@ -1,0 +1,43 @@
+---
+title: Keyboard shortcuts 
+description: Learn what keyboard shortcuts in JUX.
+
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 6
+---
+import { Image } from 'astro:assets';
+import keyboardShortcutsImage from '../../../../../assets/editor/keyboard-shortcuts.png'
+
+Here are the essential keyboard shortcuts you can use in Jux to improve your workflow.
+
+<Image src={keyboardShortcutsImage} alt="Keyboard shortcuts" />
+
+## Essential Shortcuts
+
+| Shortcut | Action |
+| --- | --- |
+| `⌘ + c` | **Copy** - Copies the selected element or content to the clipboard. |
+| `⌘ + v` | **Paste** - Pastes the copied content from the clipboard. See below for more  |
+| `⌘ + d` | **Duplicate Source** - Duplicates the selected element or block. |
+| `shift + d` | **Wrap with Div** - Wraps the selected content in a `<div>` element. |
+
+## Selection Shortcuts
+
+| Shortcut | Action |
+| --- | --- |
+| `⌘ + click` | **Deep Select** - Selects a nested element inside a parent component. |
+| `esc` | **Select None** - Deselects any selected element. |
+| `enter` | **Select Children** - Selects the child elements of the current selection. |
+| `shift + enter` | **Select Parent** - Selects the parent element of the current selection. |
+
+These shortcuts help streamline your design process by allowing quick navigation and manipulation of elements within the editor.
+
+# Paste mechanics
+
+When you paste in Jux, the system checks the properties of the copied element and applies the right rules to the new object.
+
+For example:
+
+- If you copy a source component and make changes, pasting it will create a new instance that still follows the original source component.
+- If you copy an instance with certain properties selected, pasting it will keep those same property selections.
