@@ -1,6 +1,4 @@
 packages:
   - 'packages/**'
   - 'website'
-  - 'examples/nextjs-app'
-  - 'examples/astro'
-  - 'examples/vite-react-app'
+  - 'examples/**'
