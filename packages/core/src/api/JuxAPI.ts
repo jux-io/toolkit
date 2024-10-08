@@ -149,11 +149,11 @@ export class JuxAPI {
 
   async pullGeneratedComponentsCode(components: string[] = []) {
     const { data } = await this.axios.get<ComponentFileStructure[]>(
-      `${this.apiServer}/library/generate`,
+      `${this.apiServer}/library`,
       {
         params: {
           organizationId: this.orgId,
-          components,
+          components: components.join(','),
         },
       }
     );
