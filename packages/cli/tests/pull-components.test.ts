@@ -40,7 +40,7 @@ describe('jux pull components', () => {
 
   it('Pull all components', async () => {
     nock(API_URL)
-      .get((uri) => uri.includes('/library/generate'))
+      .get((uri) => uri.includes('/library'))
       .query(true)
       .reply(200, [
         {
@@ -83,7 +83,7 @@ describe('jux pull components', () => {
 
   it('Pull all components to specific folder [relative path]', async () => {
     nock(API_URL)
-      .get((uri) => uri.includes('/library/generate'))
+      .get((uri) => uri.includes('/library'))
       .query(true)
       .reply(200, [
         {
@@ -129,7 +129,7 @@ describe('jux pull components', () => {
 
   it('Pull all components to specific folder [absolute path]', async () => {
     nock(API_URL)
-      .get((uri) => uri.includes('/library/generate'))
+      .get((uri) => uri.includes('/library'))
       .query(true)
       .reply(200, [
         {
@@ -177,7 +177,7 @@ describe('jux pull components', () => {
 
   it('Pull specific component', async () => {
     nock(API_URL)
-      .get((uri) => uri.includes('/library/generate'))
+      .get((uri) => uri.includes('/library'))
       .query({
         organizationId: '1',
         'components[]': 'Input',
