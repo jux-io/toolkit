@@ -2,11 +2,11 @@
 title: Introduction
 description: Welcome to the Jux documentation!
 
-template: splash
-
+prev: false
+next: false
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 
 ### **The problem**
 
@@ -59,3 +59,17 @@ The front of the frontend is going to change. You can offload your frontend ment
 **Contribute to Jux on GitHub** by filing issues, requesting features, and submitting pull requests.
 
 With a button state of mind.
+
+
+<CardGrid>
+  <LinkCard
+    title="Designers"
+    description="Learn how to use Jux Editor."
+    href={'/designers/quickstart'}
+  />
+  <LinkCard
+    title="Developers"
+    description="Learn how to setup Jux in your codebase."
+    href={'/developers/quickstart'}
+  />
+</CardGrid>

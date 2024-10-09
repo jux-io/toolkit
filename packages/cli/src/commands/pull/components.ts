@@ -62,6 +62,8 @@ export default class PullComponents extends JuxCommand<typeof PullComponents> {
         directory
       );
 
+      spinner.succeed('Done');
+
       components.map((a) => ctx.fs.writeAsset(a));
     } catch (error) {
       if (error instanceof AxiosError && error.response?.status === 404) {
@@ -70,9 +72,9 @@ export default class PullComponents extends JuxCommand<typeof PullComponents> {
         spinner.fail('Failed to generate assets');
         throw new Error(error);
       }
+    } finally {
+      spinner.stop();
     }
-
-    spinner.succeed('Done');
 
     return true;
   }

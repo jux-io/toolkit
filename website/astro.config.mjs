@@ -15,7 +15,16 @@ export default defineConfig({
   integrations: [
     starlight({
       plugins: [starlightImageZoom(), starlightLinksValidator()],
-
+      head: [
+        {
+          tag: 'script',
+          content: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-563F8T9');`,
+        },
+      ],
       customCss: ['./src/styles/custom.css'],
       title: 'Jux Docs',
       components: {
@@ -24,7 +33,8 @@ export default defineConfig({
       },
       favicon: '/favicon.ico',
       logo: {
-        src: './src/assets/JuxButtonWhite.png',
+        light: './src/assets/jux_logo_light.svg',
+        dark: './src/assets/jux_logo_dark.svg',
         replacesTitle: true,
       },
       social: {
@@ -35,10 +45,6 @@ export default defineConfig({
         {
           label: 'developers',
           items: [
-            {
-              label: 'Why Jux',
-              link: '/',
-            },
             {
               label: 'Quickstart',
               link: '/developers/quickstart',
@@ -129,7 +135,21 @@ export default defineConfig({
             },
             {
               label: 'Community',
-              link: '/developers/people-of-jux',
+              link: '/people-of-jux',
+            },
+          ],
+        },
+        {
+          label: 'welcome',
+          items: [
+            { label: 'Introduction', link: '/' },
+            {
+              label: 'Community',
+              link: '/people-of-jux',
+            },
+            {
+              label: 'Roadmap',
+              link: '/roadmap',
             },
           ],
         },
@@ -265,7 +285,7 @@ export default defineConfig({
             },
             {
               label: 'Community',
-              link: '/designers/people-of-jux',
+              link: '/people-of-jux',
             },
             {
               label: 'Changelog',
