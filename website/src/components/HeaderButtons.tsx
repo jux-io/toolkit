@@ -14,20 +14,15 @@ const Button = styled('a', {
     {
       props: { selected: true },
       style: {
-        border: '1px solid',
-        backgroundColor: 'var(--sl-color-text-accent)',
-        color: 'var(--sl-color-text-invert)',
+        color: 'var(--jux-color-text-strong)',
       },
     },
     {
       props: { selected: false },
       style: {
         border: 'none',
-        color: 'var(--sl-color-gray-600)',
+        color: 'var(--jux-color-text-weak)',
         backgroundColor: 'transparent',
-        '&:hover': {
-          backgroundColor: 'var(--sl-color-gray-5)',
-        },
       },
     },
   ],
@@ -50,6 +45,13 @@ const AnimatedButtonGroup = ({ current }: { current: string }) => {
       })}
     >
       <div className={css({ display: 'flex', gap: '8px' })}>
+        <Button
+          href={'/'}
+          onClick={() => handleClick('welcome')}
+          selected={selectedButton === 'welcome'}
+        >
+          Welcome
+        </Button>
         <Button
           href={'/designers/quickstart'}
           onClick={() => handleClick('designers')}
