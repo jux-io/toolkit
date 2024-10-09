@@ -40,12 +40,12 @@ starlight-image-zoom-zoomable {
 
   --sl-color-bg-sidebar: var(--sl-color-bg);
 
-  --sl-sidebar-width: 19.5rem
+  --sl-sidebar-width: 19.5rem;
 }
 
 @media (min-width: 72rem) {
   .right-sidebar-container {
-    width: var(--sl-sidebar-width)
+    width: var(--sl-sidebar-width);
   }
 }
 
@@ -62,7 +62,7 @@ a.large {
 }
 
 a.large:hover {
-  font-weight: normal
+  font-weight: normal;
 }
 
 .sidebar-content {
@@ -105,5 +105,5 @@ a.large:hover {
 }
 
 mobile-starlight-toc {
-    display: none;
+  display: none;
 }
