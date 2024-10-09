@@ -180,7 +180,7 @@ describe('jux pull components', () => {
       .get((uri) => uri.includes('/library'))
       .query({
         organizationId: '1',
-        'components[]': 'Input',
+        components: 'Input',
       })
       .reply(200, [
         {
