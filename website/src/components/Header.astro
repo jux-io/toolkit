@@ -1,7 +1,6 @@
 ---
 import config from 'virtual:starlight/user-config';
 import type { Props } from '@astrojs/starlight/props';
-import SpeedInsights from '@vercel/speed-insights/astro';
 
 import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
 import Search from '@astrojs/starlight/components/Search.astro';
@@ -15,6 +14,11 @@ if (Astro.props.slug.startsWith('developers')) {
   current = 'developers';
 } else if (Astro.props.slug.startsWith('designers')) {
   current = 'designers';
+} else if (
+  !Astro.props.slug.startsWith('developers') &&
+  !Astro.props.slug.startsWith('designers')
+) {
+  current = 'welcome';
 }
 
 /**
@@ -26,7 +30,6 @@ const shouldRenderSearch =
 ---
 
 <div class="header sl-flex">
-  <SpeedInsights />
   <div class="title-wrapper sl-flex flex-grow-1" style="flex-grow: 1">
     <SiteTitle {...Astro.props} />
   </div>

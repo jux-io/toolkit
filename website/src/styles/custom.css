@@ -35,12 +35,17 @@ starlight-image-zoom-zoomable {
   --sl-color-black: #17181c;
   --sl-color-bg-nav: #000;
 
+  --jux-color-text-strong: var(--sl-color-white);
+  --jux-color-text-weak: var(--sl-color-gray-3);
+
   --sl-color-bg-sidebar: var(--sl-color-bg);
+
+  --sl-sidebar-width: 19.5rem
 }
 
 @media (min-width: 72rem) {
   .right-sidebar-container {
-    flex: 2 1 0;
+    width: var(--sl-sidebar-width)
   }
 }
 
@@ -54,6 +59,10 @@ starlight-image-zoom-zoomable {
 
 a.large {
   font-weight: normal;
+}
+
+a.large:hover {
+  font-weight: normal
 }
 
 .sidebar-content {
@@ -76,9 +85,14 @@ a.large {
   --sl-color-gray-7: #f5f6f8;
   --sl-color-black: #ffffff;
 
+  --jux-color-text-strong: var(--sl-color-white);
+  --jux-color-text-weak: var(--sl-color-gray-4);
+
   --sl-badge-default-bg: var(--sl-color-text-accent);
   --sl-color-text-badge: var(--sl-color-text-accent);
   --sl-color-blue-low: #e3ebfa;
+
+  --sl-color-bg-nav: #fff;
 }
 
 .code-preview > .expressive-code pre {
@@ -88,4 +102,8 @@ a.large {
 
 .no-border {
   border: none !important;
+}
+
+mobile-starlight-toc {
+    display: none;
 }
