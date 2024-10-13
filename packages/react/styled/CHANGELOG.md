@@ -1,5 +1,15 @@
 # @juxio/react-styled
 
+## 0.7.7
+
+### Patch Changes
+
+- [#97](https://github.com/jux-io/toolkit/pull/97) [`c699b05`](https://github.com/jux-io/toolkit/commit/c699b05b70692da257bf33178345e18e49599d5e) Thanks [@tnipri](https://github.com/tnipri)! - variant props in styled function can now be defined independently even if Props type (which is passed to styled) require all of them.
+
+- Updated dependencies [[`a0d151f`](https://github.com/jux-io/toolkit/commit/a0d151f43012a230efc756be9366514d1d7199de)]:
+  - @juxio/core@0.7.7
+  - @juxio/css@0.7.7
+
 ## 0.7.6
 
 ### Patch Changes

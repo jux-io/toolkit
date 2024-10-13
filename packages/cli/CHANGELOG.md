@@ -1,5 +1,15 @@
 # @juxio/cli
 
+## 0.7.7
+
+### Patch Changes
+
+- [#99](https://github.com/jux-io/toolkit/pull/99) [`a0d151f`](https://github.com/jux-io/toolkit/commit/a0d151f43012a230efc756be9366514d1d7199de) Thanks [@tnipri](https://github.com/tnipri)! - modified code generation api
+
+- Updated dependencies [[`a0d151f`](https://github.com/jux-io/toolkit/commit/a0d151f43012a230efc756be9366514d1d7199de)]:
+  - @juxio/core@0.7.7
+  - @juxio/design-tokens@0.7.7
+
 ## 0.7.6
 
 ### Patch Changes
