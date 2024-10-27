@@ -1,5 +1,13 @@
 import { runCommand } from '@oclif/test';
-import { describe, it, beforeAll, expect } from 'vitest';
+import {
+  describe,
+  it,
+  beforeAll,
+  expect,
+  vi,
+  afterEach,
+  afterAll,
+} from 'vitest';
 import { join, resolve } from 'node:path';
 import fs from 'fs-extra';
 import nock from 'nock';
