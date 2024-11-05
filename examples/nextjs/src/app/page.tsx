@@ -1,6 +1,7 @@
 import styles from './page.module.css';
 import { MyStyledComponent } from './components/my-component';
-import { MyButton } from '@/jux/components/MyButton';
+import { Button as MyButton } from '@/jux/components/Button';
+import { RegularModal } from '@/jux/components/RegularModal';
 
 export default function Home() {
   return (
@@ -14,6 +15,9 @@ export default function Home() {
       <section>
         <h2>Check out my imported button:</h2>
         <MyButton hierarchy="primary" disabled={false} />
+      </section>
+      <section>
+        <RegularModal body={<p>Modal body! isnt that cool?</p>} />
       </section>
     </div>
   );
