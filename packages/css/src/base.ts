@@ -37,9 +37,15 @@ export type CSSProperties = CSS.PropertiesFallback<number | string>;
 
 export type BaseProps = Record<string, any>;
 
-export type FlattenArrays<T> = {
-  [K in keyof T]: T[K] extends readonly (infer U)[] ? U : never;
-}[keyof T] &
+// Get union of all value arrays in the object
+type ValueArrays<T> = T[keyof T];
+
+// Unwrap arrays into union of their elements
+type UnwrapArray<T> = T extends readonly (infer U)[] ? U : never;
+
+// Final utility type that returns union of all values
+// Add constraint to ensure it works with indexed types
+type FlattenArrays<T> = UnwrapArray<ValueArrays<T>> &
   (string | number | symbol);
 
 /**
@@ -163,12 +169,6 @@ export type Prefix<
   T,
 > = `${K}${Extract<T, boolean | number | string>}`;
 
-type AnySelector =
-  | `&${string}`
-  | `[${string}]`
-  | `${CSS.AtRules}${string}`
-  | `.${string}`;
-
 /**
  * Represents a type that extends CSS properties with custom values and functions.
  * This type is useful for defining CSS properties that can accept custom token values and
@@ -181,29 +181,28 @@ export type CSSPropertiesWithCustomValues<
   Utilities extends BaseProps = EmptyObject,
   Conditions extends BaseProps = EmptyObject,
 > = {
-  [K in keyof CSSProperties]: BaseStyles[K];
+  [K in Prefix<'&', CSS.Pseudos>]?: CSSPropertiesWithCustomValues<
+    BaseStyles,
+    Utilities,
+    Conditions
+  >;
+} & {
+  [K in keyof CSSProperties as K extends keyof Utilities
+    ? never
+    : K]?: BaseStyles[K];
 } & Utilities & {
-    [K in Prefix<'&', CSS.Pseudos>]?: CSSPropertiesWithCustomValues<
-      BaseStyles,
-      Utilities,
-      Conditions
-    >;
-  } & {
-    [K in AnySelector]?:
-      | CSSPropertiesWithCustomValues<BaseStyles, Utilities, Conditions>
-      | string;
-  } & {
     [K in FlattenArrays<Conditions>]?: CSSPropertiesWithCustomValues<
       BaseStyles,
       Utilities,
       Conditions
     >;
   } & {
-    /**
-     * _name is a special property that allows you to name a style. This is useful for debugging and testing, and create unique class names that
-     * has the same set of styles.
-     */
-    _name?: string;
+    [K: string]:
+      | number
+      | string
+      | CSSPropertiesWithCustomValues<BaseStyles, Utilities, Conditions>
+      | EmptyObject
+      | undefined;
   };
 
 export type StyleArguments = {

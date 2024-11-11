@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
+import { GenericSlot } from '../generic-slot/GenericSlot';
 
 const BasePrimitives = [
   'button',
@@ -14,15 +15,21 @@ type IBasePrimitives = {
   [E in (typeof BasePrimitives)[number]]: BasePrimitiveForwardRefComponent<E>;
 };
 
-type BasePrimitiveForwardRefComponent<E extends React.ElementType> =
-  React.ForwardRefExoticComponent<React.ComponentPropsWithRef<E>>;
+type PrimitivePropsWithRef<ElementType extends React.ElementType> =
+  React.ComponentPropsWithRef<ElementType> & {
+    asChild?: boolean;
+  };
+
+type BasePrimitiveForwardRefComponent<ElementType extends React.ElementType> =
+  React.ForwardRefExoticComponent<PrimitivePropsWithRef<ElementType>>;
 
 const BasePrimitive = BasePrimitives.reduce((primitives, primitive) => {
   const Primitive = React.forwardRef(
-    (props: React.ComponentPropsWithRef<typeof primitive>, forwardedRef) => {
-      const Comp: any = primitive;
+    (props: PrimitivePropsWithRef<typeof primitive>, forwardedRef) => {
+      const { asChild, ...rest } = props;
+      const Comp: any = asChild ? GenericSlot : primitive;
 
-      return <Comp {...props} ref={forwardedRef} />;
+      return <Comp {...rest} ref={forwardedRef} />;
     }
   );
 

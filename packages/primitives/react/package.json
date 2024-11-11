@@ -39,7 +39,9 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.26.27",
     "prop-types": "^15.8.1",
+    "react-remove-scroll": "^2.6.0",
     "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {

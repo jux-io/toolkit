@@ -18,6 +18,8 @@ export function createCustomContext<ContextValueType>(
     return <Context.Provider value={value}>{children}</Context.Provider>;
   };
 
+  const Consumer = Context.Consumer;
+
   const useContext = (consumerName: string) => {
     const context = React.useContext(Context);
     if (context) return context;
@@ -32,5 +34,6 @@ export function createCustomContext<ContextValueType>(
   return {
     Provider,
     useContext,
+    Consumer,
   };
 }

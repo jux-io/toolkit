@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-interface UseControllableStateParams<T> {
+interface UseControlledStateParams<T> {
   prop?: T | undefined;
   defaultProp?: T | undefined;
   onChange?: (state: T) => void;
@@ -11,7 +11,7 @@ type SetStateFn<T> = (prevState?: T) => T;
 function useUncontrolledState<T>({
   defaultProp,
   onChange,
-}: Omit<UseControllableStateParams<T>, 'prop'>) {
+}: Omit<UseControlledStateParams<T>, 'prop'>) {
   const uncontrolledState = React.useState<T | undefined>(defaultProp);
   const [value] = uncontrolledState;
   const prevValueRef = React.useRef(value);
@@ -26,13 +26,13 @@ function useUncontrolledState<T>({
   return uncontrolledState;
 }
 
-function useControllableState<T>({
+function useControlledState<T>({
   prop,
   defaultProp,
   onChange = () => {
     /* noop */
   },
-}: UseControllableStateParams<T>) {
+}: UseControlledStateParams<T>) {
   const [uncontrolledProp, setUncontrolledProp] = useUncontrolledState({
     defaultProp,
     onChange,
@@ -58,4 +58,4 @@ function useControllableState<T>({
   return [value, setValue] as const;
 }
 
-export { useControllableState };
+export { useControlledState };
