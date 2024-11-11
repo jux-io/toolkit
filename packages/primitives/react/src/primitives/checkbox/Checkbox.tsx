@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { BasePrimitive } from '../base/BasePrimitives';
 import { useMergeRefs } from '../../hooks/useMergeRefs';
 import { globalEventHandler } from '../../utils/globalEventHandler';
-import { useControllableState } from '../../hooks/useControlledState';
+import { useControlledState } from '../../hooks/useControlledState';
 import PropTypes from 'prop-types';
 import { useResizeObserver } from 'usehooks-ts';
 import { createCustomContext } from '../../utils/createCustomContext';
@@ -13,7 +13,9 @@ import { createCustomContext } from '../../utils/createCustomContext';
 
 const CHECKBOX_NAME = 'Jux.Checkbox';
 
-type PrimitiveButtonProps = React.ComponentPropsWithoutRef<'button'>;
+type PrimitiveButtonProps = React.ComponentPropsWithoutRef<
+  typeof BasePrimitive.button
+>;
 
 type CheckedState = boolean | 'indeterminate';
 
@@ -51,16 +53,16 @@ const { Provider: CheckboxProvider } =
  * COMPONENTS
  ****************/
 
-/**
- * InternalInput component that is hidden from the user
- */
-
 interface InputProps
   extends Omit<React.ComponentPropsWithoutRef<'input'>, 'checked'> {
   checked: CheckedState;
   checkboxButton: HTMLButtonElement | null;
 }
 
+/**
+ * InternalInput component that is hidden from the user.
+ * It synchronizes with the visible checkbox component to ensure proper form submission.
+ */
 const InternalInput: FC<InputProps> = (props) => {
   const { checkboxButton, checked, ...inputProps } = props;
   const ref = React.useRef<HTMLInputElement>(null);
@@ -121,7 +123,7 @@ const Checkbox = React.forwardRef<CheckboxRootElement, CheckboxProps>(
       ...checkboxProps
     } = props;
 
-    const [checkedState = false, setChecked] = useControllableState({
+    const [checkedState = false, setChecked] = useControlledState({
       prop: checked,
       defaultProp: defaultChecked,
       onChange: onCheckedChange,

@@ -76,7 +76,7 @@ const DividerIcon = ({ className }: { className: string }) => {
       width="15"
       height="100%"
     >
-      <path d="M0 1 H100" stroke="currentColor" stroke-width="8" fill="none" />
+      <path d="M0 1 H100" stroke="currentColor" strokeWidth="8" fill="none" />
     </svg>
   );
 };
