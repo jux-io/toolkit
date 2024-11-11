@@ -405,15 +405,13 @@ const Options = React.forwardRef<SelectOptionsElement, SelectOptionsProps>(
 
     const [fragment, setFragment] = React.useState<DocumentFragment>();
 
-    // setting the fragment in `useLayoutEffect` as `DocumentFragment` doesn't exist on the server
     useLayoutEffect(() => {
       setFragment(new DocumentFragment());
     }, []);
 
     if (!open) {
-      const frag = fragment as Element | undefined;
-      return frag
-        ? ReactDOM.createPortal(<div>{props.children}</div>, frag)
+      return fragment
+        ? ReactDOM.createPortal(<div>{props.children}</div>, fragment)
         : null;
     }
 
