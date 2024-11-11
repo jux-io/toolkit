@@ -115,8 +115,6 @@ const colors = [
   'Gold',
 ];
 
-// TODO: Add DocumentFragment
-
 export const Basic: Story = {
   render: () => {
     return (
