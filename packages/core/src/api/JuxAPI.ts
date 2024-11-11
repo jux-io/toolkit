@@ -97,7 +97,6 @@ export class JuxAPI {
               logMessage = `Request failed with error: BAD_REQUEST (400)`;
               break;
             case 401:
-              // TODO: Try to get new access token using refresh token
               logMessage = `CLI is unauthorized (401). Please login again.`;
               break;
             case 403:
