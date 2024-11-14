@@ -30,6 +30,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       components: {
         Header: './src/components/Header.astro',
         Sidebar: './src/components/Sidebar/Sidebar.astro',
+        PageFrame: './src/components/PageFrame.astro',
       },
       favicon: '/favicon.ico',
       logo: {
