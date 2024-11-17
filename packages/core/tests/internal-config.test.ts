@@ -7,6 +7,7 @@ import {
 } from '../src';
 import fs from 'fs-extra';
 import path from 'path';
+import { describe, it, expect, afterEach, beforeEach } from 'vitest';
 import { join, resolve } from 'node:path';
 
 const root = resolve(join(__dirname, '../'));

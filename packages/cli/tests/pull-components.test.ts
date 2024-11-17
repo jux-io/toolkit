@@ -11,7 +11,7 @@ import {
 import { join, resolve } from 'node:path';
 import fs from 'fs-extra';
 import nock from 'nock';
-import { ComponentFileStructure } from '@juxio/core/src';
+import { ComponentFileStructure } from '@juxio/core';
 import { API_URL } from './setup';
 
 const testsOutputDir = resolve(join(__dirname, './output/pull-components'));

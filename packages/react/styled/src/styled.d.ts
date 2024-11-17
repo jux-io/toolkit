@@ -1,32 +1,21 @@
 import {
   BaseProps,
-  CSSProperties,
   CSSPropertiesWithCustomValues,
-  CustomTokensValues,
   EmptyObject,
   Merge,
 } from '@juxio/css';
-import { Conditions, Tokens, Utilities } from '@juxio/css/types';
 import * as React from 'react';
 
 export interface StyledVariants<Props extends BaseProps> {
   props: // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Merge<Record<string, any>, Partial<Props>> | ((props: Props) => boolean);
-  style: CSSPropertiesWithCustomValues<
-    Merge<CSSProperties, CustomTokensValues<Tokens>>,
-    Utilities,
-    Conditions
-  >;
+  style: CSSPropertiesWithCustomValues;
 }
 
 export interface StylesDefinition<
   Props extends BaseProps = NonNullable<unknown>,
 > {
-  root: CSSPropertiesWithCustomValues<
-    Merge<CSSProperties, CustomTokensValues<Tokens>>,
-    Utilities,
-    Conditions
-  >;
+  root: CSSPropertiesWithCustomValues;
   variants?: StyledVariants<Props>[];
 }
 

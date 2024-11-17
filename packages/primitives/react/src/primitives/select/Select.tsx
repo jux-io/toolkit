@@ -33,6 +33,8 @@ import {
 
 const SELECT_NAME = 'Jux.Select';
 
+export const TRIGGER_WIDTH_VAR = '--jux-select-trigger-width';
+
 enum OpenState {
   Open = 'open',
   Closed = 'closed',
@@ -50,7 +52,7 @@ type Direction = 'ltr' | 'rtl';
  ****************/
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isValueEmpty(value?: any | any[]) {
+function isValueEmpty(value?: SelectValue) {
   if (Array.isArray(value)) {
     return value.length === 0;
   }
@@ -163,7 +165,7 @@ function Root<ValueType>(props: SelectProps<ValueType>) {
       size({
         apply({ rects, elements }) {
           elements.floating.style.setProperty(
-            '--jux-select-trigger-width',
+            TRIGGER_WIDTH_VAR,
             `${rects.reference.width}px`
           );
         },

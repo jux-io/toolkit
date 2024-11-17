@@ -1,4 +1,4 @@
-import { describe, it, vi } from 'vitest';
+import { describe, it, vi, expect } from 'vitest';
 import { DesignTokensParser } from '../src';
 // do not change the import path, it is used for testing the mock
 import { getCurrentTimestamp } from '../src/parser/helpers';

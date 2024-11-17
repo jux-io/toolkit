@@ -10,6 +10,10 @@ export default defineConfig({
     },
   },
   test: {
+    typecheck: {
+      enabled: true,
+      tsconfig: 'packages/css/tsconfig.json',
+    },
     globals: true,
     coverage: {
       provider: 'v8',
