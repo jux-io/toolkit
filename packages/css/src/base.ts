@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as CSS from 'csstype';
+import type { Tokens, Utilities, Conditions } from './types';
 
 declare const emptyObjectSymbol: unique symbol;
 
@@ -33,10 +34,6 @@ export interface EmptyObject {
   [emptyObjectSymbol]?: never;
 }
 
-export type CSSProperties = CSS.PropertiesFallback<number | string>;
-
-export type BaseProps = Record<string, any>;
-
 // Get union of all value arrays in the object
 type ValueArrays<T> = T[keyof T];
 
@@ -68,13 +65,6 @@ type FastOmit<T extends object, U extends string | number | symbol> = {
  */
 export type Merge<A extends object, B extends object> = FastOmit<A, keyof B> &
   B;
-
-export type ConditionalValue<V> =
-  | V
-  | (V | null)[]
-  | {
-      [K in keyof string]?: ConditionalValue<V>;
-    };
 
 /**
  * Helper type to safely access nested properties and handle unknown types
@@ -132,28 +122,6 @@ export interface CustomTokensValues<
 }
 
 /**
- * This allows us to add typing and auto-completion to custom types that are not part of CSSProperties
- *
- * ```
- * const JuxStyled = styled('button')({
- *   root: {
- *     typography: '{core.typography.body}',
- *   },
- * });
- * ```
- */
-export interface CustomTypes<Tokens extends BaseProps> {
-  /**
-   * Custom typography tokens as defined in jux config file.
-   *
-   * ```
-   * const juxStyles = css({ typography: '{typography.body}' });
-   * ```
-   */
-  typography?: Tokens['typography'];
-}
-
-/**
  * Constructs a type by prefixing a given string `K` to each member of a union type `T`.
  * This utility type is useful for creating string types that are prefixed with a specific
  * string, which can be particularly handy in scenarios such as generating class names
@@ -169,6 +137,16 @@ export type Prefix<
   T,
 > = `${K}${Extract<T, boolean | number | string>}`;
 
+export type CSSProperties = CSS.Properties<number | (string & EmptyObject)>;
+
+export type CSSPseudos = {
+  [K in Prefix<'&', CSS.Pseudos>]?: CSSPropertiesWithCustomValues;
+};
+
+export type CustomConditions = {
+  [K in FlattenArrays<Conditions>]?: CSSPropertiesWithCustomValues;
+};
+
 /**
  * Represents a type that extends CSS properties with custom values and functions.
  * This type is useful for defining CSS properties that can accept custom token values and
@@ -176,35 +154,10 @@ export type Prefix<
  *
  * @returns A type that includes CSS properties with custom values, pseudo-classes, and additional custom types.
  */
-export type CSSPropertiesWithCustomValues<
-  BaseStyles extends CSSProperties = CSSProperties,
-  Utilities extends BaseProps = EmptyObject,
-  Conditions extends BaseProps = EmptyObject,
-> = {
-  [K in Prefix<'&', CSS.Pseudos>]?: CSSPropertiesWithCustomValues<
-    BaseStyles,
+export interface CSSPropertiesWithCustomValues
+  extends Merge<CSSProperties, CustomTokensValues<Tokens>>,
     Utilities,
-    Conditions
-  >;
-} & {
-  [K in keyof CSSProperties as K extends keyof Utilities
-    ? never
-    : K]?: BaseStyles[K];
-} & Utilities & {
-    [K in FlattenArrays<Conditions>]?: CSSPropertiesWithCustomValues<
-      BaseStyles,
-      Utilities,
-      Conditions
-    >;
-  } & {
-    [K: string]:
-      | number
-      | string
-      | CSSPropertiesWithCustomValues<BaseStyles, Utilities, Conditions>
-      | EmptyObject
-      | undefined;
-  };
-
-export type StyleArguments = {
-  [K in keyof CSSProperties]: CSS.Properties[K];
-};
+    CSSPseudos,
+    CustomConditions {
+  [key: string]: CSSPropertiesWithCustomValues | string | number | undefined;
+}

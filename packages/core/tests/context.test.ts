@@ -1,4 +1,4 @@
-import { describe, it } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { getConfigContext } from '../src';
 import { join, resolve } from 'node:path';
 

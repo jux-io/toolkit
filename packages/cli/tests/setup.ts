@@ -1,1 +1,1 @@
-export const API_URL = /jux\.(io|dev)/i;
+export const API_URL = /.*/i;

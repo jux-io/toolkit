@@ -1,19 +1,7 @@
-import {
-  CSSProperties,
-  CSSPropertiesWithCustomValues,
-  CustomTokensValues,
-  Merge,
-} from './base';
+import { CSSPropertiesWithCustomValues } from './base';
 import cssFunction from './css';
-import { Conditions, Tokens, Utilities } from './types';
 
-export type CSS = (
-  styles: CSSPropertiesWithCustomValues<
-    Merge<CSSProperties, CustomTokensValues<Tokens>>,
-    Utilities,
-    Conditions
-  >
-) => string;
+export type CSS = (styles: CSSPropertiesWithCustomValues) => string;
 
 /**
  * CSS function that returns a string of class name.
