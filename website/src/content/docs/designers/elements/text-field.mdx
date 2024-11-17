@@ -1,0 +1,59 @@
+---
+title: Text Field
+description: Learn how to use the Text Field element in Jux.
+
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 6
+---
+import { Image } from 'astro:assets';
+import CaptionImage from "../../../../components/CaptionImage.astro";
+
+import textFieldThumbnail from '../../../../assets/editor/elements/text-field/text_field_thumbnail.png';
+import textFieldObjectNavigator from '../../../../assets/editor/elements/text-field/text_field_object_navigator.png';
+import textFieldMatrix from '../../../../assets/editor/elements/text-field/text_field_matrix.png';
+
+<CaptionImage caption="Text field thumbnail placed in the elements panel in Jux UI. Click or drag to the canvas to create a local component.">
+  <Image src={textFieldThumbnail} alt="Text field thumbnail in the elements panel" />
+</CaptionImage>
+
+## Technical definition
+
+The text field is a composite component build with a transparent 'input element' within. There's no native text field element in HTML, but it is a very popular component in most design systems.
+
+## Anatomy and styling
+
+The Text field element consists of 3 parts: A label, a logical slot named 'trigger' that holds a div wrapper with the instance of the text area element, and a helper text.
+
+Like with the input inside the Text area field element, the Input element inside the content wrapper is un-styled in all of its states. All of the styles are happening on the level of the content wrapper. This structure allows inserting other elements like icons into the content wrapper that are not part of Text area element, while still visually making it look like part of the 'field boundary'.
+
+<Image src={textFieldObjectNavigator} alt="Text field object navigator showing the component structure" />
+
+## Props and states
+
+1. Interactive state:
+    1. Default
+    2. Hover
+    3. Active
+2. Disabled property
+    1. true
+    2. false
+3. Input text (text string)
+4. Placeholder text (text string)
+
+## Matrix
+
+<Image src={textFieldMatrix} alt="Matrix showing different text field states and variations" />
+
+## Special mechanics
+
+1. The Text field mirrors the placeholder and value props from the Text area instance that resides inside of it.
+2. Trigger (hit area) - is a container that can control what makes the input be focused for inputing text. By default the objects inside are the input element instance and 2 icons, one on each side. Adding or removing more objects is possible.
+
+## Live mode
+
+In live mode you can:
+
+1. Switch between the interactive states of the Text field
+2. See the placeholder that was set in the source / instance of the input
+3. Type any value inside the input and see the placeholder text disappear. 

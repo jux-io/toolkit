@@ -169,6 +169,87 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   label: 'Keyboard shortcuts',
                   link: '/designers/editor/keyboard-shortcuts',
                 },
+                {
+                  label: 'Managing Assets',
+                  link: '/designers/editor/managing-assets',
+                },
+                {
+                  label: 'Objects Navigator',
+                  link: '/designers/editor/objects-navigator',
+                },
+                {
+                  label: 'Editing Properties',
+                  link: '/designers/editor/editing-properties',
+                },
+              ],
+            },
+            {
+              label: 'Elements',
+              items: [
+                {
+                  label: 'Introduction',
+                  link: '/designers/elements',
+                },
+                {
+                  label: 'Button',
+                  link: '/designers/elements/button',
+                },
+                {
+                  label: 'Checkbox',
+                  link: '/designers/elements/checkbox',
+                },
+                {
+                  label: 'Checkbox Field',
+                  link: '/designers/elements/checkbox-field',
+                },
+                {
+                  label: 'Chip',
+                  link: '/designers/elements/chip',
+                },
+                {
+                  label: 'Div',
+                  link: '/designers/elements/div',
+                },
+                {
+                  label: 'Divider',
+                  link: '/designers/elements/divider',
+                },
+                {
+                  label: 'Dynamic Content Slot',
+                  link: '/designers/elements/dynamic-content-slot',
+                },
+                {
+                  label: 'Input',
+                  link: '/designers/elements/input',
+                },
+                {
+                  label: 'Logical Slots',
+                  link: '/designers/elements/logical-slots',
+                },
+                {
+                  label: 'Radio Field',
+                  link: '/designers/elements/radio-field',
+                },
+                {
+                  label: 'Text',
+                  link: '/designers/elements/text',
+                },
+                {
+                  label: 'Text Area',
+                  link: '/designers/elements/text-area',
+                },
+                {
+                  label: 'Text Area Field',
+                  link: '/designers/elements/text-area-field',
+                },
+                {
+                  label: 'Text Field',
+                  link: '/designers/elements/text-field',
+                },
+                {
+                  label: 'Toggle',
+                  link: '/designers/elements/toggle',
+                },
               ],
             },
             {
@@ -193,47 +274,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 {
                   label: 'Dimension',
                   link: '/designers/tokens/dimension',
-                },
-              ],
-            },
-            {
-              label: 'Elements',
-              items: [
-                {
-                  label: 'Introduction',
-                  link: '/designers/elements',
-                },
-                {
-                  label: 'Text',
-                  link: '/designers/elements/text',
-                },
-                {
-                  label: 'Div',
-                  link: '/designers/elements/div',
-                },
-                {
-                  label: 'Button',
-                  link: '/designers/elements/button',
-                },
-                {
-                  label: 'Input',
-                  link: '/designers/elements/input',
-                },
-                {
-                  label: 'Checkbox',
-                  link: '/designers/elements/checkbox',
-                },
-                {
-                  label: 'Chip',
-                  link: '/designers/elements/chip',
-                },
-                {
-                  label: 'Toggle',
-                  link: '/designers/elements/toggle',
-                },
-                {
-                  label: 'Logical Slots',
-                  link: '/designers/elements/logical-slots',
                 },
               ],
             },

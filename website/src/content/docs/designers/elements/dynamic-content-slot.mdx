@@ -1,0 +1,59 @@
+---
+title: Dynamic Content Slot
+description: Learn how to use the Dynamic Content Slot element in Jux.
+
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 6
+---
+import { Image } from 'astro:assets';
+import CaptionImage from "../../../../components/CaptionImage.astro";
+
+import placeholder from '../../../../assets/editor/elements/dynamic-content-slot/placeholder.png';
+import dcsGuidelines from '../../../../assets/editor/elements/dynamic-content-slot/dynamic_content_slot_guidelines.png';
+import dcsLinking from '../../../../assets/editor/elements/dynamic-content-slot/linking_content.png';
+import canvasBehavior from '../../../../assets/editor/elements/dynamic-content-slot/canvas_behavior.png';
+import slotsWidthHeight from '../../../../assets/editor/elements/dynamic-content-slot/slots_width_height.png';
+
+Dynamic content slot (in short DCS) is a special div that - when placed inside a component - allows adding and removing objects in any of the components instances. 
+
+<Image src={placeholder} alt="Dynamic content slot preview" />
+
+The DCS is the only ability that allows adding or removing nested objects into another instance and will allow users to populate lists items, tabs items, cards, menu items for example inside instances of components like lists, tabs navigation panels and menus, and many more.
+
+## DCS key rules
+
+1. Cannot be made into a source component by itself, only inserted into one.
+2. Can be styled using the DDP in the same way that a div can be
+3. These objects don't have any props
+4. The DCS can be dragged into all elements that allow dragging objects into them.
+
+## How to add a DCS to a component?
+
+To add the dynamic content slot you need to click on the navigation icon button […]
+
+<Image src={dcsGuidelines} alt="Adding a dynamic content slot through navigation" />
+
+DCS's are represented as layers as well, and can be dragged around and inside regular divs and elements. They can and should be renamed meaningfully. No two dynamic slots can have the same name, so if you don't change the name of the layer and create another one - Jux will add a suffix to the layer name like: 'dynamic content 2'.
+
+## Non trivial nesting mechanic logic
+
+In order to be able to add and remove objects from a nested instance's dynamic content slot - you should place the instance inside a dynamic content slot in the main component.
+
+To make it concrete: In this example the only reason 'left content' DCS can be accessed is because the footer instance is placed inside of 'footer_wrapper' DCS. If the footer instance was just placed after 'body' a user wouldn't be able to access it from an instance of the modal.
+
+<Image src={dcsLinking} alt="Example of nested dynamic content slot mechanics" />
+
+## Canvas behavior
+
+- All dynamic content slots start with their width and height being 'auto'. You can see a purple dashed outline of 1px height when the height is 0.
+    
+    <Image src={canvasBehavior} alt="Empty dynamic content slot with purple outline" />
+    
+- If the particular dynamic content slot gets both height and width the purple border indication will be revealed around all of the area it populates.
+    
+    <Image src={slotsWidthHeight} alt="Dynamic content slot with dimensions showing purple border" />
+    
+- In instances with DCS - while in default state the purple indication is not shown. When hovering above the area of the slot it would show the border and hint to the user that this area is reserved for the DCS.
+    
+    <Image src={placeholder} alt="Dynamic content slot hover state showing purple border" /> 

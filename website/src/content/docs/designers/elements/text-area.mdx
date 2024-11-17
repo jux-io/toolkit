@@ -1,0 +1,70 @@
+---
+title: Text Area
+description: Learn how to use the Text Area element in Jux
+
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 6
+---
+import { Image } from 'astro:assets';
+import CaptionImage from '../../../../components/CaptionImage.astro';
+
+import thumbnail from '../../../../assets/editor/elements/text-area/thumbnail.png';
+import objectNavigator from '../../../../assets/editor/elements/text-area/object_navigator.png';
+import matrix from '../../../../assets/editor/elements/text-area/matrix.png';
+
+<CaptionImage caption="Text area thumbnail placed in the elements panel in Jux UI. Click or drag to the canvas to create a local component.">
+  <Image src={thumbnail} alt="Text area thumbnail placed in the elements panel in Jux UI" />
+</CaptionImage>
+
+## Technical definition
+
+The **`<textarea>`** [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) element represents a multi-line plain-text editing control, useful when you want to allow users to enter a large amount of free-form text, for example a comment on a review or feedback form.
+
+---
+
+## Anatomy and styling
+
+The text area element is a single indivisible layer. No other elements can be placed inside of the text area.
+
+The way to style both the text value and the text placeholder is directly on the input itself. To switch between the styling of the value to the styling of the placeholder - change the selection on the 'input mode' property in the DDP.
+
+<Image src={objectNavigator} alt="Text area object navigator showing the single layer structure" />
+
+## Props and states
+
+1. Interactive state:
+    1. Default
+    2. Hover
+    3. Active
+2. Disabled property
+    1. true
+    2. false
+3. Expandable (controls wether the text area can be resized when live)
+    1. true
+    2. false
+4. Input mode (selects which content the rest of the DDP will affect:
+    1. Value
+    2. Placeholder
+5. Input text (text string)
+6. Placeholder text (text string)
+
+## Matrix
+
+<CaptionImage caption="Matrix view showing all possible combinations of text area states and properties">
+  <Image src={matrix} alt="Text area component matrix showing different states and properties" />
+</CaptionImage>
+
+## Special mechanics
+
+1. The Text area has the limitation that no other element can be put inside of it, and if clicked anywhere in it's area - will trigger the focus state to start typing.
+2. Expandable prop allows you to select wether the text area should be open to be resized when live.
+
+## Live mode
+
+In live mode you can:
+
+1. Switch between the interactive states of the input
+2. See the placeholder that was set in the source / instance of the Text area
+3. Type any value inside the input and see the placeholder text disappear.
+4. If Expandable is true - resize the text area with the mouse.

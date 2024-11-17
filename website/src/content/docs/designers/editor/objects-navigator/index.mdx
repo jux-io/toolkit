@@ -1,0 +1,57 @@
+---
+title: Objects Navigator
+description: Learn how to use the Objects Navigator in Jux
+
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 6
+---
+import { Image } from 'astro:assets';
+import parts from '/src/assets/editor/objects-navigator/parts.png';
+import actions from '/src/assets/editor/objects-navigator/actions.png';
+import layerTypes from '/src/assets/editor/objects-navigator/layer_types.png';
+import hidden from '/src/assets/editor/objects-navigator/hidden.png';
+
+## Overall structure
+
+The Object navigator shows a list of all objects on a particular canvas in the order they are rendered in their natural flow (like in HTML where from top to bottom the DOM renders element after element). 
+
+Objects in the navigator are indented to represent their nesting level inside other parent objects
+
+<Image src={parts} alt="Object Navigator structure and parts" />
+
+## Object layer actions
+
+Object layers can be dragged around, above below or nested inside one another (with some objects limited to some actions). 
+
+Objects that have nested children can be expanded and contracted.
+
+Object layers can be deleted (because they are bidirectionally synced with the object on the canvas).
+
+Object layers can be renamed
+
+<Image src={actions} alt="Object Navigator actions" />
+
+## Types of object layers
+
+There are several types of objects, differentiated by a few visual traits:
+
+1. Assets - strong color (either black or blue, depending on if local or library object). Doesn't allow dragging anything into it.
+2. Text - strong color (either black or blue, depending on if local or library object). Doesn't allow dragging anything into it.
+3. Div - strong color (either black or blue, depending on if local or library object). Allows dragging into it.
+4. Instance - strong color (either black or blue, depending on if local or library object). Can't drag anything into this object, unless directly into a dynamic content slot the is nested inside of the instance.
+5. Source component - strong color (either black or blue, depending on if local or library object). Allows dragging into it. Can't be nested inside any other object, has to be always root level object directly on the canvas. If is dragged into another object (like a div or another source component) the source component will leave an instance instead of itself and re-appear to the right of the object. 
+6. Logical slot - grey color - can't be moved around, added or deleted. Will only appear in elements that are provided by Jux. Doesn't have DDP.
+7. Dynamic content slot - purple color - can be moved around. Is only meaningful inside components. When inside instances allows dragging objects into it. Has full DDP.
+    
+<Image src={layerTypes} alt="Different types of object layers" />
+
+## Hidden object indicator
+
+When an object has its display set to 'none' - it will be invisible on the canvas, and will have a special visual state and an icon for his object layer.
+
+If a parent object has display set to none, all its children will be effectively invisible as well, but since they are not the ones that have display set to none - their object layers will look as if they are visible. If you drag a layer like this out - it will immediately be visible and render on the canvas.
+
+Once a source component is set to be display none - all of it's instances will be invisible as well.
+
+<Image src={hidden} alt="Hidden object indicators" /> 

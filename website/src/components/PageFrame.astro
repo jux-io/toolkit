@@ -2,6 +2,7 @@
 import type { Props } from '@astrojs/starlight/props';
 import MobileMenuToggle from './MobileMenuToggle.astro';
 const { hasSidebar } = Astro.props;
+const i18nStrings = Astro.locals.t.all();
 ---
 
 <div class="page sl-flex">
@@ -10,7 +11,7 @@ const { hasSidebar } = Astro.props;
     hasSidebar && (
       <nav
         class="sidebar"
-        aria-label={Astro.locals.t('sidebarNav.accessibleLabel')}
+        aria-label={Astro.locals.t(i18nStrings['sidebarNav.accessibleLabel'])}
       >
         <MobileMenuToggle {...Astro.props} />
         <div id="starlight__sidebar" class="sidebar-pane">

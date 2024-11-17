@@ -1,0 +1,47 @@
+---
+title: Managing Assets
+description: Learn how to manage assets in Jux
+
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 6
+---
+
+import { Image } from 'astro:assets';
+import assetsPanel from '/src/assets/editor/managing-assets/swap_assets.png';
+import assetsInDDP from '/src/assets/editor/managing-assets/assets_in_ddp.png';
+
+## Assets panel and types
+
+The assets panel is located at the top navigation bar. It is divided into two tabs: "**Elements assets**" and "**Your assets**":
+
+- **Elements assets** - This list contains generic icons created for Jux elements. Currently, elements assets can't be deleted or removed from the list.  On canvas, they can be replaced in the elements themselves to one of your assets with the swap assets ability. You are welcome to use the elements assets as your own and they will be pulled to development as long as the component using them is a library component.
+- **Your assets** - Here you can upload one or more SVG files by clicking the "Upload" button. You can use the SVGs in two ways, dropping them on canvas and placing them in your designs, or using the swap asset ability, selecting the SVG inside a component and then through the DDP selecting some other asset to replace it if needed.
+    
+<Image src={assetsPanel} alt="Assets panel screenshot showing the upload interface" />
+
+## Editing Assets
+
+Every asset that is placed on canvas is under the hood a stand alone component. As opposed to components instances, assets instances can have their styling overridden, so you can edit each instance as needed.  
+
+Overriding abilities include: 
+
+1. Rename on canvas (through the kicker), and rename through the layers. 
+2. Size, layout and display
+3. Color and opacity 
+
+## Components swap assets ability
+
+The assets you use in various places in your designs allow a separation of the actual content of the SVG of the asset and DDP styling values this asset has. This means that you can have a placeholder icon asset in your button, for example, and have some stylistic decisions about it (like size, color opacity etc.) and allow the instances of this button component to swap the SVG content of the asset to the particular one you need in your use case. Whichever new asset you swap instead of the original one - will inherit all the DDP styling values the original asset had. 
+
+<Image src={assetsInDDP} alt="Assets in DDP interface showing styling options" />
+
+## Pulling and using assets in development
+
+When pulling library components, the developer gets the used assets as a part of the components.
+
+## Coming soon:
+
+1. Instances asset swap
+2. Re-upload instance - so the content of the SVG changes but the instances stylistic overrides stays the same. 
+3. Upload PNGs
