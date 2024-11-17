@@ -1,12 +1,12 @@
 ---
-import type { Props } from '@astrojs/starlight/props';
 import { Icon } from '@astrojs/starlight/components';
+const i18nStrings = Astro.locals.t.all();
 ---
 
 <starlight-menu-button>
   <button
     aria-expanded="false"
-    aria-label={Astro.locals.t('menuButton.accessibleLabel')}
+    aria-label={Astro.locals.t(i18nStrings['menuButton.accessibleLabel'])}
     aria-controls="starlight__sidebar"
     class="sl-flex md:sl-hidden"
   >

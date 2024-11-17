@@ -1,0 +1,52 @@
+---
+title: Divider
+description: Learn how to use the Divider element in Jux.
+
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 6
+---
+import { Image } from 'astro:assets';
+import CaptionImage from "../../../../components/CaptionImage.astro";
+
+import dividerThumbnail from '../../../../assets/editor/elements/divider/divider_thumbnail_current.png';
+import dividerObjectNavigator from '../../../../assets/editor/elements/divider/divider_object_navigator.png';
+import dividerMatrix from '../../../../assets/editor/elements/divider/divider_matrix.png';
+
+<CaptionImage caption="Divider thumbnail placed in the elements panel in Jux UI. Click or drag to the canvas to create a local component.">
+  <Image src={dividerThumbnail} alt="Divider thumbnail in the elements panel" />
+</CaptionImage>
+
+## Technical definition
+
+The divider is not a formal HTML element, but frequently used in websites and web and native apps. Dividers allow users to separate between groups of objects easily.
+
+## Anatomy and styling
+
+In Jux - the divider element is very simply a div within a div. 
+
+You can influence the styling of the divider line in relation to the divider element's state and properties by selecting them in the parent [context module](/designers/dynamic-design-panel/props-and-variants).
+
+In case you want to add more children to the divider, you can hide some of the children in some of the states - using [display: none](/designers/dynamic-design-panel/layout)
+
+If you add assets to your divider, you can change their content by using the ['asset content' property](/designers/editor/managing-assets)
+
+## Props and states
+
+<Image src={dividerObjectNavigator} alt="Divider object navigator showing the structure" />
+
+1. Interactive state:
+    1. Default
+    2. Hover
+    3. Active
+2. Padding size
+    1. No padding
+    2. Small
+    3. Medium
+    4. Large
+3. Thickness
+    1. Thin
+    2. Medium
+    3. Thick
+
+<Image src={dividerMatrix} alt="Matrix showing different divider states and variations" />

@@ -3,7 +3,10 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "types": ["./src/jux/types/tokens.d.ts"]
+    "types": ["./src/jux/types/tokens.d.ts"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "exclude": ["**/samples/**/*"]
 }

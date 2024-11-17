@@ -1,0 +1,69 @@
+---
+title: Editing Properties
+description: Learn how to edit properties in Jux
+
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 6
+---
+
+import { Image } from 'astro:assets';
+import editPropsButton from '/src/assets/editor/editing-properties/edit_props_button.png';
+import editPropsPanel from '/src/assets/editor/editing-properties/edit_props_panel.png';
+import editPropsRenameProp from '/src/assets/editor/editing-properties/edit_props_rename_prop.png';
+import editPropsDeleteProp from '/src/assets/editor/editing-properties/edit_props_delete_prop.png';
+import editPropsDeletePropDialog from '/src/assets/editor/editing-properties/edit_props_delete_prop_dialog.png';
+import editPropsRenameValue from '/src/assets/editor/editing-properties/edit_props_rename_value.png';
+import editPropsAddDeleteValue from '/src/assets/editor/editing-properties/edit_props_add_delete_value.png';
+import editPropsDeleteValueDialog from '/src/assets/editor/editing-properties/edit_props_delete_value_dialog.png';
+
+
+## Invoking the edit properties panel
+
+Editing a component’s properties can be done from ‘edit properties’ button under the list in the properties module. This option will not be available for text objects and assets, and will become available for divs only after they are turned into a component.
+
+<Image src={editPropsButton} alt="edit props button" />
+
+After clicking the ‘edit properties’ button - a panel will open alongside the properties' module:
+
+<Image src={editPropsPanel} alt="edit props panel" />
+
+The edit properties panel will show all the properties besides the interactive states, because the interactive states cannot be changed in any way and they are mandatory for each component in Jux.
+
+The disabled property is also closed for editing, but not all elements will have a disabled property.
+
+In the above example the Hierarchy is the only property that is completely editable (open for rename, delete, add and remove values).
+
+## Editing properties and values
+
+If you want to rename the properties, just double click on the name of the property and it will become editable:
+
+<Image src={editPropsRenameProp} alt="edit props rename prop" />
+
+Once you hover a property row, an icon button with ‘x’ will appear on the right side to delete the property
+
+<Image src={editPropsDeleteProp} alt="edit props delete prop" />
+
+Deleting a property for a component that has instances that use this property is a dangerous action, so you’ll get a dialog box ensuring you understand the ramifications of the action on all the instances, which is that the first value of that deleted property will be applied to all the instances instead of the other values they might have had.
+
+<Image src={editPropsDeletePropDialog} alt="edit props delete prop dialog" />
+
+You can also rename each value of the properties that are open for editing, by double clicking the value chip
+
+<Image src={editPropsRenameValue} alt="edit props rename value" />
+
+You can also add and remove a value
+
+<Image src={editPropsAddDeleteValue} alt="edit props add delete value" />
+
+Deleting a value for a component that has instances that use this value is a dangerous action, so you’ll get a dialog box ensuring you understand the ramifications of the action on all the instances, which is that the first value in the property will be applied to all the instances instead of the value you just deleted.
+
+<Image src={editPropsDeleteValueDialog} alt="edit props delete value dialog" />
+
+***
+
+Coming soon:
+
+1. Ability to reorder the values by dragging the values chips, and let it be immediately reflected in the variant matrix of the component
+2. Ability to reorder properties by dragging the property rows, and let it be immediately reflected in the variant matrix of the component.
+3. Ability to toggle the visibility of the interactive state and the disabled property in the properties module and the variant matrix
