@@ -44,18 +44,9 @@ export const MyStyledComponent = ({
   size,
 }: React.PropsWithChildren & { title: string; size: 'small' | 'medium' }) => {
   return (
-    <StyledDiv size={size}>
-      <p
-        className={css({
-          color: 'violet',
-          '&:hover': {
-            color: 'darkviolet',
-          },
-        })}
-      >
-        {title}
-      </p>
-      {children}
+    <StyledDiv size={size} className={css({ '& span': { color: 'red' } })}>
+      <p className={titleStyles}>{title}</p>
+      <span>{children}</span>
     </StyledDiv>
   );
 };
