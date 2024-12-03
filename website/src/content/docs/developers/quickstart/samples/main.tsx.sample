@@ -1,4 +1,4 @@
-import './jux.css';
+import './main.css';
 
 import { css } from '@juxio/css';
 
