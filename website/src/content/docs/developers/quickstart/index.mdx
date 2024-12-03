@@ -30,19 +30,10 @@ import postcssConfig from './samples/postcss.config.js.sample?raw';
 
 This guide will walk you through the basics of setting up and using Jux toolkit in your project. 
 
-<Aside>
-  For using Jux Toolkit with the Jux editor see the [working with Jux Editor](/developers/jux-editor) guide.
-  This guide is for projects using any framework. 
-  If you're using React, please refer to the [Vite/React guide](/developers/getting-started/vite).
+<Aside title='Or clone our Next.js example app:'>
+  <Code code={`pnpm create next-app --example https://github.com/jux-io/quickstart/`} title={'Terminal'} frame={'terminal'} lang={'shellscript'} />
 </Aside>
 
-<details>
-<summary>What is Jux?</summary>
-Jux is a type-safe, zero-runtime CSS-in-JS solution with full interpolation capabilities. 
-It leverages PostCSS to generate optimized stylesheets during build time, combining the flexibility of CSS-in-JS with the performance of traditional CSS.
-</details>
-
-Let's dive in and get Jux set up in your project!
 
 #### Installation
 
@@ -91,53 +82,29 @@ The fastest way to get started with Jux is to use the Jux CLI. The CLI will help
         <br/>
 
     3. ##### Add the Jux layers to your main CSS file:
-        <Code code={`@layer juxbase, juxtokens, juxutilities;`} lang="css" title={'main.css'} mark={1} />
+        <Code code={`@layer juxbase, juxtokens, juxutilities;`} lang="css" title={'main.css'} />
 
     4. ##### Start using Jux in your project
 
-        Include the main CSS file in your project and start using Jux to style your components.
-        <Code code={mainTsx} lang="tsx" title={'index.tsx'} mark={1} />
+        <Code code={mainTsx} lang="tsx" title={'index.tsx'} mark={[7,8,9,10]}/>
 
 </Steps>
 
-## Framework Guides
-
-<div className={frameworkGridStyle}>
-  <FrameworkCard title="React/Vite" href={'/developers/getting-started/vite'}>
-    <Image class={'no-border'}  src={reactLogo} alt="react_logo" width="30" height="30" />
-  </FrameworkCard>
-  <FrameworkCard title="Next.js" href={'/developers/getting-started/nextjs'}>
-    <Image
-      src={nextjsLogo} class={'no-border'}
-      alt="nextjs_logo"
-      width="30"
-      height="30"
-      style={{
-        backgroundColor: 'white',
-        borderRadius: '50%',
-        padding: '1px',
-      }}
-    />
-  </FrameworkCard>
-  <FrameworkCard title="Astro" href={'/developers/getting-started/astro'}>
-    <Image class={'no-border'} src={astroLogo} alt="astro_logo" width="30" height="30" />
-  </FrameworkCard>
-</div>
-
-## Next steps
+#### Next steps
 
 Get familiar with some of the core concepts that make Jux different compared to other styling solutions.
 
 <CardGrid>
   <LinkCard
-    title="Using with PostCSS"
-    description="Learn how to setup Jux as a PostCSS plugin."
-    href={'/developers/getting-started/postcss'}
-  />
-  <LinkCard
     title="Integrate with Jux Editor"
     description="Pull design tokens and components from Jux Editor to your project."
     href={'/developers/jux-editor'}
+    class="highlight"
+  />
+  <LinkCard
+    title="Using with PostCSS"
+    description="Learn how to setup Jux as a PostCSS plugin."
+    href={'/developers/getting-started/postcss'}
   />
   <LinkCard
     title="Create a Theme System"
