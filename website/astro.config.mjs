@@ -74,7 +74,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   link: '/developers/getting-started/astro',
                 },
                 {
-                  label: 'Vite',
+                  label: 'Vite/React',
                   link: '/developers/getting-started/vite',
                 },
               ],
