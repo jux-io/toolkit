@@ -3,17 +3,11 @@ import * as tokens from './src/jux/tokens';
 
 export default defineConfig({
   /* ... */
-  tokens_directory: './src/jux/tokens',
-
-  components_directory: './src/jux/components',
-
-  definitions_directory: './src/jux/types',
-
   core_tokens: tokens.core,
-
   themes: {
     light: tokens.light,
     dark: tokens.dark,
     my_custom_theme: tokens.my_custom_theme,
   },
+  /* ... */
 });

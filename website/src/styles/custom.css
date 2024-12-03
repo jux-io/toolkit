@@ -19,6 +19,10 @@ starlight-image-zoom-zoomable {
   align-items: center;
 }
 
+.sl-link-card:has(.highlight) {
+  background-color: var(--highlight-color);
+}
+
 /* Dark mode colors. */
 :root {
   --sl-color-accent-low: #131e4f;
@@ -41,6 +45,7 @@ starlight-image-zoom-zoomable {
   --sl-color-bg-sidebar: var(--sl-color-bg);
 
   --sl-sidebar-width: 19.5rem;
+  --highlight-color: #0a1f5c;
 }
 
 @media (min-width: 72rem) {
@@ -93,6 +98,8 @@ a.large:hover {
   --sl-color-blue-low: #e3ebfa;
 
   --sl-color-bg-nav: #fff;
+
+  --highlight-color: #e5f2ff;
 }
 
 .code-preview > .expressive-code pre {

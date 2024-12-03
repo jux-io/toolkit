@@ -1,18 +1,14 @@
+// Import main CSS file and style your components using Jux.
 import './main.css';
-
 import { css } from '@juxio/css';
 
-export default function Home() {
-  return (
-    <div
-      className={css({
-        color: 'violet',
-        '&:hover': {
-          color: 'darkviolet',
-        },
-      })}
-    >
-      Hello from Jux 🤖
-    </div>
-  );
-}
+const Home = () => (
+  <p
+    className={css({
+      color: 'violet',
+      '& span': { color: 'darkviolet' },
+    })}
+  >
+    Hello from <span>Jux 🤖</span>
+  </p>
+);
