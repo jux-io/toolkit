@@ -47,6 +47,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           label: 'developers',
           items: [
             {
+              label: 'Introduction',
+              link: '/developers/introduction',
+            },
+            {
               label: 'Quickstart',
               link: '/developers/quickstart',
             },
