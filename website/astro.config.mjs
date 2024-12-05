@@ -55,8 +55,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               link: '/developers/quickstart',
             },
             {
-              label: 'Working with Jux Editor',
-              link: '/developers/jux-editor/',
+              label: 'Collaborate with Designers',
+              link: '/developers/collaborate-with-designers/',
             },
             {
               label: 'TypeScript',
