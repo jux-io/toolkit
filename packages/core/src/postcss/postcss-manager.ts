@@ -218,6 +218,15 @@ export class PostcssManager {
     const css: string[] = [];
     this.context.stylesheetManager.layers.juxbase.removeAll();
     this.context.stylesheetManager.layers.juxtokens.removeAll();
+
+    if (this.context.cliConfig.builtInFonts) {
+      // If user has enabled built-in fonts, inject the Google Fonts stylesheet based on given configuration
+      css.push(
+        this.context.stylesheetManager.generateGoogleFontsStyles(
+          this.context.cliConfig.builtInFonts.google
+        ) + '\n\n'
+      );
+    }
     await this.context.stylesheetManager.appendBaseStyles();
 
     // Clear all the previous layers
@@ -238,15 +247,6 @@ export class PostcssManager {
         atRule.remove();
       }
     });
-
-    if (this.context.cliConfig.builtInFonts) {
-      // If user has enabled built-in fonts, inject the Google Fonts stylesheet based on given configuration
-      css.push(
-        this.context.stylesheetManager.generateGoogleFontsStyles(
-          this.context.cliConfig.builtInFonts.google
-        ) + '\n\n'
-      );
-    }
 
     css.push(this.context.stylesheetManager.layers.juxbase.toString());
     css.push(this.context.stylesheetManager.layers.juxtokens.toString());
