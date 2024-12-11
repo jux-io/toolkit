@@ -1,0 +1,59 @@
+---
+title: Radio Field
+description: Learn how to use the Radio Field element in Jux.
+
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 6
+---
+
+import { Image } from 'astro:assets';
+import radioButton from '/src/assets/editor/elements/radio-button/radio_button_thumbnail.png';
+import radioObjectNavigator from '/src/assets/editor/elements/radio-button/radio_object_navigator.png';
+import radioMatrix from '/src/assets/editor/elements/radio-button/radio_matrix.png';
+
+<Image src={radioButton} alt="Radio button thumbnail in the elements panel" />
+
+## Technical definition
+
+[`<input>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) elements of type **`radio`** are generally used in **radio groups**—collections of radio buttons describing a set of related options.
+
+Only one radio button in a given group can be selected at the same time. Radio buttons are typically rendered as small circles, which are filled or highlighted when selected.
+
+---
+
+## Anatomy and styling
+
+The Radio button element consists of 2 logical slots. A slot that "holds" the ‘circle radio’ in it for the "states": checked/uncheck, and another slot that "holds" a text wrapper div with a label and a helper text.
+You can influence the styling of the children of the radio in relation to the radio’s state and properties by selecting them in the parent [context module](https://www.notion.so/Props-and-Variants-c510173bd31643bf9d5a2eff1e61b04d?pvs=21).
+If you want a special asset to represent the radio, you can later change this SVG assets by using the [‘asset content’ property](https://www.notion.so/Asset-swap-07998280404842f48c3aa020aa19ce8b?pvs=21)
+
+<Image src={radioObjectNavigator} alt="Radio button object navigator" />
+## Props and states
+
+1. Interactive state:
+    1. Default
+    2. Hover
+    3. Active
+2. Disabled property
+    1. true
+    2. false
+3. Checked state (special):
+    1. checked
+    2. unchecked
+4. Value property (field) [coming soon]
+<Image src={radioMatrix} alt="Radio button matrix" />
+
+## Special mechanics
+
+The checked property cannot be deleted or edited.
+
+---
+
+### Live mode
+
+In live mode you can:
+
+1. Check the interactive states of the radio.
+2. Change the state of the radio from unchecked to checked (but not reverse it) by clicking either on the primitive or the whatever is in the trigger logical slot. Note that in reality radio buttons never come in singular form, but rather in radio groups, so your actual use inside screens and form components will be through the ‘radio group’ element.
+

@@ -1,0 +1,62 @@
+---
+title: Icon Button
+description: Learn how to use the Button element in JUX.
+
+tableOfContents:
+  minHeadingLevel: 3
+  maxHeadingLevel: 6
+---
+import { Image } from 'astro:assets';
+import CaptionImage from "../../../../components/CaptionImage.astro";
+
+import buttonElement from '../../../../assets/editor/elements/button.png'
+import buttonAnatomy from '../../../../assets/editor/elements/button_anatomy.png'
+import buttonMatrix from '../../../../assets/editor/elements/button_matrix.webp'
+
+//TODO:the icon button is not yet implemented
+<CaptionImage caption={'Button thumbnail placed in the elements panel in Jux UI. Click or drag to the canvas to create a local component.'}>
+  <Image src={buttonElement} alt="Button Element" />
+</CaptionImage>
+
+## Technical Definition
+The `<button>` [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) element is an interactive element activated by a user with a mouse, keyboard, finger, voice command, or other assistive technology. Once activated, it then performs an action, such as submitting a form or opening a dialog.
+
+---
+
+## Anatony and Styling
+
+The button element comes pre-loaded with a leading icon, text label and a trailing icon.
+
+You can influence the styling of the children of the button in relation to the button’s state and properties by selecting them in the parent [context module](/designers/dynamic-design-panel/props-and-variants).
+
+To hide some of the children in some of the states - use [display: none](/designers/dynamic-design-panel/layout)
+
+{/*  TODO: fix link */}
+To change the SVG assets use the [‘asset content’ property](/#)
+
+<Image src={buttonAnatomy} alt="Button Anatomy" />
+
+## Props and States
+
+1. Interactive state:
+    1. Default
+    2. Hover
+    3. Active
+2. Disabled property
+    1. true
+    2. false
+3. Hierarchy property (optional):
+    1. primary
+    2. secondary
+
+## Matrix
+
+<Image src={buttonMatrix} alt="Button Matrix" />
+
+## Special mechanics
+
+The button does not have any special mechanics apart from the fact that everything inside of the button will trigger the action that the button will be connected to in the code. 
+
+## Live mode
+
+In live mode you can check the interactive states of the button.

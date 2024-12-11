@@ -185,6 +185,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   label: 'Editing Properties',
                   link: '/designers/editor/editing-properties',
                 },
+                {
+                  label: 'Matrix',
+                  link: '/designers/editor/matrix',
+                  badge: 'New',
+                },
               ],
             },
             {
@@ -195,8 +200,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   link: '/designers/elements',
                 },
                 {
+                  label: 'Text',
+                  link: '/designers/elements/text',
+                },
+                {
+                  label: 'Div',
+                  link: '/designers/elements/div',
+                },
+                {
                   label: 'Button',
                   link: '/designers/elements/button',
+                },
+                // {
+                //   //todo: add icon button
+                //   label: 'Icon Button',
+                //   link: '/designers/elements/icon-button',
+                // },
+                {
+                  label: 'Input',
+                  link: '/designers/elements/input',
+                },
+                {
+                  label: 'Text Field',
+                  link: '/designers/elements/text-field',
                 },
                 {
                   label: 'Checkbox',
@@ -207,36 +233,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   link: '/designers/elements/checkbox-field',
                 },
                 {
-                  label: 'Chip',
-                  link: '/designers/elements/chip',
+                  label: 'Toggle',
+                  link: '/designers/elements/toggle',
                 },
                 {
-                  label: 'Div',
-                  link: '/designers/elements/div',
+                  label: 'Radio button',
+                  link: '/designers/elements/radio-button',
                 },
                 {
-                  label: 'Divider',
-                  link: '/designers/elements/divider',
-                },
-                {
-                  label: 'Dynamic Content Slot',
-                  link: '/designers/elements/dynamic-content-slot',
-                },
-                {
-                  label: 'Input',
-                  link: '/designers/elements/input',
-                },
-                {
-                  label: 'Logical Slots',
-                  link: '/designers/elements/logical-slots',
-                },
-                {
-                  label: 'Radio Field',
+                  label: 'Radio field',
                   link: '/designers/elements/radio-field',
                 },
                 {
-                  label: 'Text',
-                  link: '/designers/elements/text',
+                  //todo: add radio field
+                  label: 'Radio group',
+                  link: '/designers/elements/radio-group',
+                  badge: 'Coming Soon',
                 },
                 {
                   label: 'Text Area',
@@ -247,12 +259,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   link: '/designers/elements/text-area-field',
                 },
                 {
-                  label: 'Text Field',
-                  link: '/designers/elements/text-field',
+                  label: 'Chip',
+                  link: '/designers/elements/chip',
                 },
                 {
-                  label: 'Toggle',
-                  link: '/designers/elements/toggle',
+                  label: 'Divider',
+                  link: '/designers/elements/divider',
+                },
+                {
+                  label: 'Dynamic Content',
+                  link: '/designers/elements/dynamic-content-slot',
+                },
+                {
+                  //todo: change the location of this file
+                  label: 'Logical Slots',
+                  link: '/designers/elements/logical-slots',
                 },
               ],
             },
@@ -326,7 +347,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             {
               label: 'Juxync - Figma to Jux',
               link: '/designers/juxync',
-              badge: 'New',
             },
             {
               label: 'Community',
@@ -335,6 +355,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             {
               label: 'Release Notes',
               link: '/designers/changelog',
+              badge: 'New',
             },
           ],
         },
