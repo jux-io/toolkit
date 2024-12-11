@@ -186,6 +186,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   link: '/designers/editor/editing-properties',
                 },
                 {
+                  label: 'Logical Slots',
+                  link: '/designers/editor/logical-slots',
+                },
+                {
                   label: 'Matrix',
                   link: '/designers/editor/matrix',
                   badge: 'New',
@@ -211,11 +215,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   label: 'Button',
                   link: '/designers/elements/button',
                 },
-                // {
-                //   //todo: add icon button
-                //   label: 'Icon Button',
-                //   link: '/designers/elements/icon-button',
-                // },
                 {
                   label: 'Input',
                   link: '/designers/elements/input',
@@ -245,7 +244,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   link: '/designers/elements/radio-field',
                 },
                 {
-                  //todo: add radio field
                   label: 'Radio group',
                   link: '/designers/elements/radio-group',
                   badge: 'Coming Soon',
@@ -269,11 +267,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 {
                   label: 'Dynamic Content',
                   link: '/designers/elements/dynamic-content-slot',
-                },
-                {
-                  //todo: change the location of this file
-                  label: 'Logical Slots',
-                  link: '/designers/elements/logical-slots',
                 },
               ],
             },
