@@ -1,5 +1,5 @@
 ---
-title: Changelog
+title: Release Notes
 description: Stay up-to-date with the latest features and improvements in Jux.
 ---
 import { Image } from 'astro:assets';
@@ -11,6 +11,47 @@ import swapAssets from '../../../assets/imported/swap_assets.png'
 import editProps from '../../../assets/imported/edit_props.png'
 import searchFieldThumbnail from '../../../assets/imported/search_field_thumbnail.png'
 import inputThumbnail from '../../../assets/imported/input_thumbnail_current.png'
+
+## Version December 1, 2024
+
+**New Features**
+
+**Matrix!**
+
+A component variant is a representation of a UI component with a unique combination of property values (e.g., size, hierarchy or shape) while sharing the same core structure and functionality. 
+Product designers often manually arrange component variants and their states into a matrix so they can be styled efficiently. But what if this time-consuming process could be automated? 
+**With Jux, an automatic variants matrix is generated for any selected component!** Simply click the ‘**Open Matrix’** button (Shift+M) in the top navigation bar. Using a combination of properties and states, Jux generates the matrix for you.
+
+**Fun update**
+
+On your first component added to the library, we let you know that it is better to work together, so get your developer invited to Jux. 🎉
+
+**Bug Fixes**
+
+Figma Plugin - Juxync bugs:
+- In case your variables have been updated, you can now refresh our token-plugin and  resync them immediately
+- Some Figma files were blocked from export are now available
+- Arc users “cmd + z” ~~not working,~~ it is now working  👍 
+- Selection boxes are now selecting the objects properly even after properties and other fringe DDP changes
+- Texts on the canvas can be edited easily 😊
+- Thumbnail in the local and library components are now displayed correctly
+- Token aliasing is now working properly across all token sets. (See tokens doc)
+- Tokens can be created form the editor in all scenarios 🙂
+- Margin works correctly on the canvas
+
+## Version November 13, 2024
+
+**New Features**
+**Dynamic Content (slots/children):** We decided to build what every designer build in figma - “slots” read about it here(add link). “Dynamic Content” is a special new basic element that allows you to nest items into …. an instance!! So developers refer to this as “children” sometimes, we call it “Dynamic Content”. The usage can be to create a modal with the body as a “Dynamic Content” allowing you from the editor to add other object to this INSTANCE of the modal, to build card, navigation, toasts, wizards and much more. The main benefit is that it is the most important way to keep you design system lib small, flexiable and ready for everything
+**Percentage Units:** Width to full screen and stay responsive? Sidebar is 30% of the screen while open? With “%” you can start setting these values and never think about responsiveness - read about it in our docs (percentage in DDP)
+**Link components and Tokens:** Jux is helping you by counting the number of objects that use the tokens. We heard that you wanted to know what and how are your tokens been used. For that we will start with showing the counter of tokens used in lib components, generally in local components, as a reference in other tokens and more.
+
+**Bug Fixes**
+
+- Composite Tokens are pointing to the correct token.
+- Token aliases are saved across sets
+- Components thumbnail are displayed correctly when using absolute position
+- Max width and Max height no longer get stuck on 0
 
 ## Version September 23, 2024
 

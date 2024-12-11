@@ -333,7 +333,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               link: '/people-of-jux',
             },
             {
-              label: 'Changelog',
+              label: 'Release Notes',
               link: '/designers/changelog',
             },
           ],
