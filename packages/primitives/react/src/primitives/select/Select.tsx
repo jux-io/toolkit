@@ -662,7 +662,7 @@ const OptionsGroupLabel = React.forwardRef<
   );
 });
 
-export {
+export const Select = {
   Root,
   Trigger,
   Options,
