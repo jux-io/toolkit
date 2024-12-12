@@ -1,5 +1,12 @@
 # @juxio/react-primitives
 
+## 0.8.3
+
+### Patch Changes
+
+- [#114](https://github.com/jux-io/toolkit/pull/114) [`1be69a4`](https://github.com/jux-io/toolkit/commit/1be69a4827ffbcdd135f27d8db33e4c26d3961fa) Thanks [@hamatoyogi](https://github.com/hamatoyogi)! - - Fix select export
+  - Update Storybook
+
 ## 0.8.2
 
 ### Patch Changes
