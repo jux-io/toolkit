@@ -204,24 +204,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   link: '/designers/elements',
                 },
                 {
-                  label: 'Text',
-                  link: '/designers/elements/text',
-                },
-                {
-                  label: 'Div',
-                  link: '/designers/elements/div',
-                },
-                {
                   label: 'Button',
                   link: '/designers/elements/button',
-                },
-                {
-                  label: 'Input',
-                  link: '/designers/elements/input',
-                },
-                {
-                  label: 'Text Field',
-                  link: '/designers/elements/text-field',
                 },
                 {
                   label: 'Checkbox',
@@ -232,8 +216,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   link: '/designers/elements/checkbox-field',
                 },
                 {
-                  label: 'Toggle',
-                  link: '/designers/elements/toggle',
+                  label: 'Chip',
+                  link: '/designers/elements/chip',
+                },
+                {
+                  label: 'Div',
+                  link: '/designers/elements/div',
+                },
+                {
+                  label: 'Divider',
+                  link: '/designers/elements/divider',
+                },
+                {
+                  label: 'Dynamic Content',
+                  link: '/designers/elements/dynamic-content-slot',
+                },
+                {
+                  label: 'Input',
+                  link: '/designers/elements/input',
                 },
                 {
                   label: 'Radio button',
@@ -249,6 +249,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   badge: 'Coming Soon',
                 },
                 {
+                  label: 'Text',
+                  link: '/designers/elements/text',
+                },
+                {
                   label: 'Text Area',
                   link: '/designers/elements/text-area',
                 },
@@ -257,16 +261,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   link: '/designers/elements/text-area-field',
                 },
                 {
-                  label: 'Chip',
-                  link: '/designers/elements/chip',
+                  label: 'Text Field',
+                  link: '/designers/elements/text-field',
                 },
                 {
-                  label: 'Divider',
-                  link: '/designers/elements/divider',
-                },
-                {
-                  label: 'Dynamic Content',
-                  link: '/designers/elements/dynamic-content-slot',
+                  label: 'Toggle',
+                  link: '/designers/elements/toggle',
                 },
               ],
             },
@@ -342,13 +342,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               link: '/designers/juxync',
             },
             {
-              label: 'Community',
-              link: '/people-of-jux',
-            },
-            {
               label: 'Release Notes',
               link: '/designers/changelog',
               badge: 'New',
+            },
+            {
+              label: 'Community',
+              link: '/people-of-jux',
             },
           ],
         },

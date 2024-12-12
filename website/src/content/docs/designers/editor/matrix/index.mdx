@@ -42,16 +42,15 @@ Every component—whether local or from the library—has its own variants and s
 
 The matrix is designed with specific rules and behaviors to ensure consistency and ease of use. It is organized in an increasing modular manner, the first property will have it’s values stand as adjacent columns, the second property will have show grouped columns by each value, and so on, increasing with every property you add. 
 
-- **Variants creation and editing -** Property creation, deletion, and editing are only possible in the DDP's "Properties & States" module. **** **The matrix will reflect changes made in real time.**
+- **Variants creation and editing -** Property creation, deletion, and editing are only possible in the DDP's "Properties & States" module. **The matrix will reflect changes made in real time.**
 
-- **States and disable property -**States are displayed on the vertical axis (Y). The top-left cell represents the default state, followed by hover and active states. Below these, the `disabled: true` property is displayed, integrated with the states. Since the disable property doesn't interact with states like other properties, it's placed below them in order to avoid duplicating the matrix.
+- **States and disable property -** States are displayed on the vertical axis (Y). The top-left cell represents the default state, followed by hover and active states. Below these, the `disabled: true` property is displayed, integrated with the states. Since the disable property doesn't interact with states like other properties, it's placed below them in order to avoid duplicating the matrix.
     
     <Image src={toggleMatrix} alt="Toggle element with prebuilt properties and states" />
     Toggle element matrix - Y axis dispalying the states and disable prop
     
 - **Uniform structure across variants -** All objects (children) of all variants are the same, this means that each variant of a source component has the same layer structure. Text and assets must remain the same across all variants, with differences limited to styling. Editing these elements updates them across all variants automatically. If you want instances to contain dynamic content, insert a **Dynamic Content Slot** in the matrix.
-- **Default as the root component** - Styling changes made to the default state of each value (in the matrix, of each column) cascade to **all other states unless overridden by a more specific change. For example, if you set the default text size to 16px, hover and active states inherit it. However, if you explicitly set the hover text size to 20px, subsequent changes to the default will no longer affect the hover state. 
-**
+- **Default as the root component** - Styling changes made to the default state of each value (in the matrix, of each column) cascade to **all other states unless overridden by a more specific change**. For example, if you set the default text size to 16px, hover and active states inherit it. However, if you explicitly set the hover text size to 20px, subsequent changes to the default will no longer affect the hover state. 
 - Please note that the `disabled: true`  row will not inherit the styling of the default variant since it is not really a state but a distinct property.
 - **Variant layers naming** -  Layer names reflect the specific property values of each variant. These names are fixed (not editable) to maintain clarity and consistency for developers.
     
