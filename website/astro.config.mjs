@@ -185,6 +185,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   label: 'Editing Properties',
                   link: '/designers/editor/editing-properties',
                 },
+                {
+                  label: 'Logical Slots',
+                  link: '/designers/editor/logical-slots',
+                },
+                {
+                  label: 'Matrix',
+                  link: '/designers/editor/matrix',
+                  badge: 'New',
+                },
               ],
             },
             {
@@ -219,7 +228,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   link: '/designers/elements/divider',
                 },
                 {
-                  label: 'Dynamic Content Slot',
+                  label: 'Dynamic Content',
                   link: '/designers/elements/dynamic-content-slot',
                 },
                 {
@@ -227,12 +236,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   link: '/designers/elements/input',
                 },
                 {
-                  label: 'Logical Slots',
-                  link: '/designers/elements/logical-slots',
+                  label: 'Radio button',
+                  link: '/designers/elements/radio-button',
                 },
                 {
-                  label: 'Radio Field',
+                  label: 'Radio field',
                   link: '/designers/elements/radio-field',
+                },
+                {
+                  label: 'Radio group',
+                  link: '/designers/elements/radio-group',
+                  badge: 'Coming Soon',
                 },
                 {
                   label: 'Text',
@@ -326,15 +340,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             {
               label: 'Juxync - Figma to Jux',
               link: '/designers/juxync',
+            },
+            {
+              label: 'Release Notes',
+              link: '/designers/changelog',
               badge: 'New',
             },
             {
               label: 'Community',
               link: '/people-of-jux',
-            },
-            {
-              label: 'Release Notes',
-              link: '/designers/changelog',
             },
           ],
         },
