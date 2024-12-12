@@ -1,5 +1,13 @@
 # @juxio/cli
 
+## 0.8.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @juxio/core@0.8.2
+  - @juxio/design-tokens@0.8.2
+
 ## 0.8.1
 
 ### Patch Changes
