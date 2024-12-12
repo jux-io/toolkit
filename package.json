@@ -12,6 +12,7 @@
     "typecheck": "pnpm -r --filter=./packages/** typecheck",
     "build": "pnpm -r --filter=./packages/** build",
     "build:website": "pnpm -r --filter=website build",
+    "build:all": "pnpm build && pnpm build:website",
     "prepare": "husky",
     "release": "changeset publish",
     "version": "changeset version",
@@ -71,5 +72,6 @@
     "commitizen": {
       "path": "node_modules/cz-customizable"
     }
-  }
+  },
+  "packageManager": "pnpm@9.6.0"
 }

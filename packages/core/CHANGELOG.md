@@ -1,5 +1,21 @@
 # @juxio/core
 
+## 0.8.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @juxio/design-tokens@0.8.2
+
+## 0.8.1
+
+### Patch Changes
+
+- [#108](https://github.com/jux-io/toolkit/pull/108) [`812e00d`](https://github.com/jux-io/toolkit/commit/812e00d25aa1f2f0e77d1bb19e4d8737a75fad7a) Thanks [@hamatoyogi](https://github.com/hamatoyogi)! - fix(@juxio/core): fix font import injection position in css file
+
+- Updated dependencies []:
+  - @juxio/design-tokens@0.8.1
+
 ## 0.8.0
 
 ### Patch Changes
