@@ -1,5 +1,11 @@
 # @juxio/react-primitives
 
+## 0.8.2
+
+### Patch Changes
+
+- [#111](https://github.com/jux-io/toolkit/pull/111) [`8b542e2`](https://github.com/jux-io/toolkit/commit/8b542e29b2a8599ddc4291b68149478a92c4c176) Thanks [@hamatoyogi](https://github.com/hamatoyogi)! - chore(@juxio/react-primitives): export select and generic slot
+
 ## 0.8.1
 
 ## 0.8.0
