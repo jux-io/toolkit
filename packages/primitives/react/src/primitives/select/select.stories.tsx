@@ -452,7 +452,7 @@ export const CustomValue: Story = {
   },
 };
 
-export const CustomInsideForm: Story = {
+export const CustomValueMultipleInsideForm: Story = {
   render: () => {
     const [selected, setSelected] = useState<Record<string, Country[]>>({});
 
@@ -499,18 +499,27 @@ export const CustomInsideForm: Story = {
             <Select.Trigger className={triggerStyles}>
               <Select.Value<Country>
                 placeholder={'Select multiple countries'}
-                className={multipleValuesStyles}
+                className={`${multipleValuesStyles} ${css({
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                })}`}
               >
                 {(value) => (
                   <span
-                    style={{
+                    className={css({
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '8px',
-                    }}
+                      '&:after': {
+                        content: '", "',
+                      },
+                      '&:last-child:after': {
+                        content: '""',
+                      },
+                    })}
                   >
-                    <span>{value.name}</span>
                     <span>{value.emoji}</span>
+                    <span>{value.name}</span>
                   </span>
                 )}
               </Select.Value>
