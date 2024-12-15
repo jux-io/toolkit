@@ -115,6 +115,19 @@ const colors = [
   'Gold',
 ];
 
+interface Country {
+  name: string;
+  value: string;
+  emoji: string;
+}
+
+const countries: Country[] = [
+  { name: 'United States', value: 'US', emoji: '🇺🇸' },
+  { name: 'Canada', value: 'CA', emoji: '🇨🇦' },
+  { name: 'United Kingdom', value: 'UK', emoji: '🇬🇧' },
+  { name: 'Australia', value: 'AU', emoji: '🇦🇺' },
+];
+
 export const Basic: Story = {
   render: () => {
     return (
@@ -392,19 +405,6 @@ export const CountrySelect: Story = {
 
 export const CustomValue: Story = {
   render: () => {
-    interface Country {
-      name: string;
-      value: string;
-      emoji: string;
-    }
-
-    const countries: Country[] = [
-      { name: 'United States', value: 'US', emoji: '🇺🇸' },
-      { name: 'Canada', value: 'CA', emoji: '🇨🇦' },
-      { name: 'United Kingdom', value: 'UK', emoji: '🇬🇧' },
-      { name: 'Australia', value: 'AU', emoji: '🇦🇺' },
-    ];
-
     return (
       <Select.Root placement={'bottom'} sideOffset={8} multiple>
         <Select.Trigger className={triggerStyles}>
@@ -448,6 +448,105 @@ export const CustomValue: Story = {
           ))}
         </Select.Options>
       </Select.Root>
+    );
+  },
+};
+
+export const CustomInsideForm: Story = {
+  render: () => {
+    const [selected, setSelected] = useState<Record<string, Country[]>>({});
+
+    return (
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '20px',
+        }}
+      >
+        <form
+          style={{
+            display: 'flex',
+            alignItems: 'start',
+            flexDirection: 'column',
+            gap: '8px',
+          }}
+          onSubmit={(e) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.currentTarget);
+            const values = formData.getAll('country').map((value) => {
+              try {
+                const country = JSON.parse(value as string) as Country;
+                return country;
+              } catch {
+                return value;
+              }
+            });
+            setSelected({
+              color: values as Country[],
+            });
+          }}
+        >
+          <Select.Root<Country>
+            placement={'bottom'}
+            sideOffset={8}
+            name={'country'}
+            closeOnSelect={false}
+            required
+            multiple
+          >
+            <Select.Trigger className={triggerStyles}>
+              <Select.Value<Country>
+                placeholder={'Select multiple countries'}
+                className={multipleValuesStyles}
+              >
+                {(value) => (
+                  <span
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                    }}
+                  >
+                    <span>{value.name}</span>
+                    <span>{value.emoji}</span>
+                  </span>
+                )}
+              </Select.Value>
+              <span className={openIconStyles}>
+                <OpenIcon />
+              </span>
+            </Select.Trigger>
+            <Select.Options className={optionsStyles}>
+              {countries.map((country) => (
+                <Select.Option
+                  key={country.value}
+                  label={country.name}
+                  value={country}
+                  className={optionStyles}
+                >
+                  <span
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                    }}
+                  >
+                    <span>{country.name}</span>
+                    <span>{country.emoji}</span>
+                    <Select.OptionIndicator className={optionIndicatorStyles}>
+                      <CheckIcon />
+                    </Select.OptionIndicator>
+                  </span>
+                </Select.Option>
+              ))}
+            </Select.Options>
+          </Select.Root>
+          <button type="submit">Submit</button>
+        </form>
+        <div>Result: {JSON.stringify(selected)}</div>
+      </div>
     );
   },
 };

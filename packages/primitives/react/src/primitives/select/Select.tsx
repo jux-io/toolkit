@@ -97,7 +97,7 @@ interface SelectContextValue<T = unknown> {
 }
 
 const { Provider: SelectProvider, useContext: useSelectContext } =
-  createCustomContext<SelectContextValue>(SELECT_NAME);
+  createCustomContext<SelectContextValue<unknown>>(SELECT_NAME);
 
 /****************
  * COMPONENTS
@@ -307,6 +307,13 @@ const InternalSelect = React.forwardRef<
   const { multiple, value, name, required, ...selectProps } = props;
   const selectContext = useSelectContext('InternalSelect');
 
+  const stringifiedValues = useMemo(() => {
+    if (multiple) {
+      return (value as unknown[]).map((v) => JSON.stringify(v));
+    }
+    return JSON.stringify(value);
+  }, [value, multiple]);
+
   return (
     <select
       ref={forwardedRef}
@@ -328,17 +335,18 @@ const InternalSelect = React.forwardRef<
       tabIndex={-1}
       name={name}
       multiple={multiple}
-      value={value as string | string[]}
+      value={stringifiedValues}
       onChange={() => {
         return;
       }}
       required={required}
       {...selectProps}
     >
-      {selectContext.popperContext.labelsRef.current.length > 0 &&
-        selectContext.popperContext.labelsRef.current.map((label, index) => {
-          return <option value={label} key={index} />;
-        })}
+      {selectContext.popperContext.valuesRef.current.map((value, index) => (
+        <option key={index} value={JSON.stringify(value)}>
+          {selectContext.popperContext.labelsRef.current[index]}
+        </option>
+      ))}
     </select>
   );
 });
@@ -563,7 +571,7 @@ function ValueImpl<T>(
   forwardedRef: React.ForwardedRef<HTMLSpanElement>
 ) {
   const { placeholder, children, ...otherProps } = props;
-  const selectContext = useSelectContext(VALUE_NAME);
+  const selectContext = useSelectContext(VALUE_NAME) as SelectContextValue<T>;
 
   const value = useMemo(() => {
     if (isValueEmpty(selectContext.value)) {
@@ -572,17 +580,19 @@ function ValueImpl<T>(
 
     if (children) {
       if (selectContext.multiple) {
-        return (selectContext.value as unknown[]).map((val, index) => (
-          <React.Fragment key={index}>{children(val as T)}</React.Fragment>
-        ));
+        return (
+          <>
+            {(selectContext.value as T[]).map((val, index) => (
+              <React.Fragment key={index}>{children(val)}</React.Fragment>
+            ))}
+          </>
+        );
       }
       return children(selectContext.value as T);
     }
 
     if (selectContext.multiple) {
-      return (selectContext.value as unknown[])
-        .map((v) => String(v))
-        .join(', ');
+      return (selectContext.value as T[]).map((v) => String(v)).join(', ');
     }
 
     return String(selectContext.value);
