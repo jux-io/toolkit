@@ -119,7 +119,7 @@ export const Basic: Story = {
   render: () => {
     return (
       <>
-        <Select.Root placement={'bottom'} sideOffset={8}>
+        <Select.Root<string> placement={'bottom'} sideOffset={8}>
           <Select.Trigger className={triggerStyles}>
             <Select.Value placeholder={'Select a Color'} />
             <span className={openIconStyles}>
@@ -128,7 +128,12 @@ export const Basic: Story = {
           </Select.Trigger>
           <Select.Options className={optionsStyles}>
             {colors.map((name) => (
-              <Select.Option key={name} label={name} className={optionStyles}>
+              <Select.Option
+                key={name}
+                value={name}
+                label={name}
+                className={optionStyles}
+              >
                 <span>{name}</span>
                 <Select.OptionIndicator className={optionIndicatorStyles}>
                   <CheckIcon />
@@ -146,7 +151,7 @@ export const Multiple: Story = {
   render: () => {
     return (
       <>
-        <Select.Root
+        <Select.Root<string>
           placement={'bottom'}
           sideOffset={8}
           closeOnSelect={false}
@@ -163,7 +168,12 @@ export const Multiple: Story = {
           </Select.Trigger>
           <Select.Options className={optionsStyles}>
             {colors.map((name) => (
-              <Select.Option key={name} label={name} className={optionStyles}>
+              <Select.Option
+                key={name}
+                value={name}
+                label={name}
+                className={optionStyles}
+              >
                 <span>{name}</span>
                 <Select.OptionIndicator className={optionIndicatorStyles}>
                   <CheckIcon />
@@ -223,7 +233,12 @@ export const InsideForm: Story = {
             </Select.Trigger>
             <Select.Options className={optionsStyles}>
               {colors.map((name) => (
-                <Select.Option key={name} label={name} className={optionStyles}>
+                <Select.Option
+                  key={name}
+                  label={name}
+                  value={name}
+                  className={optionStyles}
+                >
                   <span>{name}</span>
                   <Select.OptionIndicator className={optionIndicatorStyles}>
                     <CheckIcon />
@@ -249,7 +264,7 @@ const colorsGroups = {
 export const Groups: Story = {
   render: () => {
     return (
-      <Select.Root placement={'bottom'} sideOffset={8} required>
+      <Select.Root<string> placement={'bottom'} sideOffset={8} required>
         <Select.Trigger className={triggerStyles}>
           <Select.Value placeholder={'Select a Color'} />
           <span className={openIconStyles}>
@@ -266,6 +281,7 @@ export const Groups: Story = {
                 {options.map((name) => (
                   <Select.Option
                     key={name}
+                    value={name}
                     label={name}
                     className={optionStyles}
                   >
@@ -316,3 +332,122 @@ const OpenIcon = () => (
     />
   </svg>
 );
+
+export const CountrySelect: Story = {
+  render: () => {
+    interface Country {
+      name: string;
+      value: string;
+      emoji: string;
+    }
+
+    const countries: Country[] = [
+      { name: 'United States', value: 'US', emoji: '🇺🇸' },
+      { name: 'Canada', value: 'CA', emoji: '🇨🇦' },
+      { name: 'United Kingdom', value: 'UK', emoji: '🇬🇧' },
+      { name: 'Australia', value: 'AU', emoji: '🇦🇺' },
+    ];
+
+    return (
+      <Select.Root placement={'bottom'} sideOffset={8} required>
+        <Select.Trigger className={triggerStyles}>
+          <Select.Value<Country> placeholder={'Select a country'}>
+            {(value) => (
+              <span
+                style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+              >
+                <span>{value.emoji}</span>
+                <span>{value.name}</span>
+              </span>
+            )}
+          </Select.Value>
+          <span className={openIconStyles}>
+            <OpenIcon />
+          </span>
+        </Select.Trigger>
+        <Select.Options className={optionsStyles}>
+          {countries.map((country) => (
+            <Select.Option
+              key={country.value}
+              value={country}
+              label={country.name}
+              className={optionStyles}
+            >
+              <span
+                style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+              >
+                <span>{country.emoji}</span>
+                <span>{country.name}</span>
+                <Select.OptionIndicator className={optionIndicatorStyles}>
+                  <CheckIcon />
+                </Select.OptionIndicator>
+              </span>
+            </Select.Option>
+          ))}
+        </Select.Options>
+      </Select.Root>
+    );
+  },
+};
+
+export const CustomValue: Story = {
+  render: () => {
+    interface Country {
+      name: string;
+      value: string;
+      emoji: string;
+    }
+
+    const countries: Country[] = [
+      { name: 'United States', value: 'US', emoji: '🇺🇸' },
+      { name: 'Canada', value: 'CA', emoji: '🇨🇦' },
+      { name: 'United Kingdom', value: 'UK', emoji: '🇬🇧' },
+      { name: 'Australia', value: 'AU', emoji: '🇦🇺' },
+    ];
+
+    return (
+      <Select.Root placement={'bottom'} sideOffset={8} multiple>
+        <Select.Trigger className={triggerStyles}>
+          <Select.Value<Country>
+            placeholder={'Select a country'}
+            className={css({
+              display: 'flex',
+            })}
+          >
+            {(value) => (
+              <span
+                style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+              >
+                <span>{value.name}</span>
+                <span>{value.emoji}</span>
+              </span>
+            )}
+          </Select.Value>
+          <span className={openIconStyles}>
+            <OpenIcon />
+          </span>
+        </Select.Trigger>
+        <Select.Options className={optionsStyles}>
+          {countries.map((country) => (
+            <Select.Option
+              key={country.value}
+              value={country}
+              label={country.name}
+              className={optionStyles}
+            >
+              <span
+                style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+              >
+                <span>{country.emoji}</span>
+                <span>{country.name}</span>
+                <Select.OptionIndicator className={optionIndicatorStyles}>
+                  <CheckIcon />
+                </Select.OptionIndicator>
+              </span>
+            </Select.Option>
+          ))}
+        </Select.Options>
+      </Select.Root>
+    );
+  },
+};

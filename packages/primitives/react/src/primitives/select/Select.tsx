@@ -51,47 +51,48 @@ type Direction = 'ltr' | 'rtl';
  * UTILS
  ****************/
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isValueEmpty(value?: SelectValue) {
+function isValueEmpty<T>(value?: SelectValue<T>) {
   if (Array.isArray(value)) {
     return value.length === 0;
   }
 
-  if (typeof value === 'string') {
-    return value === '';
+  if (value === undefined || value === null || value === '') {
+    return true;
   }
 
-  return value === undefined || value === null;
+  if (typeof value === 'object') {
+    return Object.keys(value).length === 0;
+  }
+
+  return false;
 }
 
 /****************
  * CONTEXT
  ****************/
 
-type SelectValue = string | string[];
+type SelectValue<T = string> = T | T[];
 
-interface SelectContextValue {
+interface SelectContextValue<T = unknown> {
   contentId: string;
-  // value can be any type, set by the user
-  value: SelectValue;
+  value: SelectValue<T>;
   open: boolean;
   setOpen: (open: boolean) => void;
   required?: boolean;
   disabled?: boolean;
   direction?: Direction;
   multiple?: boolean;
-
   handleSelect: (index: number) => void;
-
   activeIndex: number | null;
   selectedIndex: number | null;
-
+  getOptionValue: (index: number) => T;
   popperContext: {
     isTyping: boolean;
     interactions: ReturnType<typeof useInteractions>;
     floatingContext: ReturnType<typeof useFloating>;
     elementsRef: React.MutableRefObject<(HTMLElement | null)[]>;
     labelsRef: React.MutableRefObject<string[]>;
+    valuesRef: React.MutableRefObject<T[]>;
   };
 }
 
@@ -179,6 +180,7 @@ function Root<ValueType>(props: SelectProps<ValueType>) {
 
   const elementsRef = React.useRef<(HTMLElement | null)[]>([]);
   const labelsRef = React.useRef<string[]>([]);
+  const valuesRef = React.useRef<unknown[]>([]);
 
   const [isTyping, setIsTyping] = React.useState(false);
 
@@ -193,28 +195,29 @@ function Root<ValueType>(props: SelectProps<ValueType>) {
       setSelectedIndex(index);
 
       if (multiple) {
-        const valuesCopy = (value as string[]).slice();
+        const valuesCopy = (value as unknown[]).slice();
+        const newValue = valuesRef.current[index];
 
-        const indexInValues = valuesCopy.indexOf(
-          labelsRef.current[index] as string
+        const indexInValues = valuesCopy.findIndex(
+          (v) => JSON.stringify(v) === JSON.stringify(newValue)
         );
 
         if (-1 === indexInValues) {
-          valuesCopy.push(labelsRef.current[index] as string);
+          valuesCopy.push(newValue);
         } else {
           // Remove the value
           valuesCopy.splice(indexInValues, 1);
         }
         setValue(valuesCopy as ValueType);
       } else {
-        setValue(labelsRef.current[index] as ValueType);
+        setValue(valuesRef.current[index] as ValueType);
       }
 
       if (closeOnSelect) {
         floatingContext.context.onOpenChange(false);
       }
     },
-    [value, floatingContext.context]
+    [value, floatingContext.context, multiple, closeOnSelect, setValue]
   );
 
   function handleTypeaheadMatch(index: number) {
@@ -247,10 +250,14 @@ function Root<ValueType>(props: SelectProps<ValueType>) {
     ? !!(floatingContext.refs.reference.current as HTMLElement).closest('form')
     : true;
 
+  const getOptionValue = React.useCallback((index: number) => {
+    return valuesRef.current[index] as ValueType;
+  }, []);
+
   return (
     <SelectProvider
       contentId={`jux-select-${useId()}`}
-      value={value as string | string[]}
+      value={value as SelectValue<ValueType>}
       open={open}
       setOpen={setOpen}
       required={required}
@@ -259,12 +266,14 @@ function Root<ValueType>(props: SelectProps<ValueType>) {
       handleSelect={handleSelect}
       activeIndex={activeIndex}
       selectedIndex={selectedIndex}
+      getOptionValue={getOptionValue}
       popperContext={{
         isTyping,
         interactions,
         floatingContext,
         elementsRef,
         labelsRef,
+        valuesRef,
       }}
     >
       {/* Add a hidden select for form validation that's required if any selection is needed */}
@@ -451,13 +460,12 @@ Options.displayName = OPTIONS_NAME;
 
 const OPTION_NAME = 'Jux.Select.Option';
 
-type SelectOptionElement = React.ElementRef<typeof BasePrimitive.div>;
-
-interface SelectOptionProps
+interface SelectOptionProps<T = unknown>
   extends React.ComponentPropsWithoutRef<typeof BasePrimitive.div> {
   children: React.ReactNode;
   disabled?: boolean;
   label: string;
+  value: T;
 }
 
 interface SelectOptionContextValue {
@@ -469,61 +477,69 @@ interface SelectOptionContextValue {
 const { Provider: SelectOptionProvider, useContext: useSelectOptionContext } =
   createCustomContext<SelectOptionContextValue>(OPTION_NAME);
 
-const Option = React.forwardRef<SelectOptionElement, SelectOptionProps>(
-  (props, forwardedRef) => {
-    const id = `jux-select-option-${useId()}`;
-    const { label, disabled = false, ...otherProps } = props;
-    const selectContext = useSelectContext(OPTION_NAME);
+function OptionImpl<T>(
+  props: SelectOptionProps<T>,
+  forwardedRef: React.ForwardedRef<HTMLDivElement>
+) {
+  const id = `jux-select-option-${useId()}`;
+  const { label, value, disabled = false, ...otherProps } = props;
+  const selectContext = useSelectContext(OPTION_NAME);
 
-    const { ref, index } = useListItem({ label });
+  const { ref, index } = useListItem({ label });
 
-    const composedRefs = useMergeRefs(ref, forwardedRef);
+  React.useLayoutEffect(() => {
+    selectContext.popperContext.valuesRef.current[index] = value;
+  }, [index, value]);
 
-    const isActive = selectContext.activeIndex === index;
-    const isSelected = selectContext.multiple
-      ? (selectContext.value as string[]).some((v) => v === label)
-      : selectContext.value === label;
+  const composedRefs = useMergeRefs(ref, forwardedRef);
 
-    return (
-      <SelectOptionProvider
-        isSelected={isSelected}
-        index={index}
-        disabled={disabled}
-      >
-        <BasePrimitive.div
-          ref={composedRefs}
-          id={id}
-          role={'option'}
-          tabIndex={isActive ? 0 : -1}
-          aria-labelledby={id}
-          aria-selected={isSelected && isActive}
-          aria-disabled={disabled || undefined}
-          data-state={isSelected ? SelectState.Selected : SelectState.Idle}
-          data-disabled={disabled ? '' : undefined}
-          {...selectContext.popperContext.interactions.getItemProps({
-            ...otherProps,
-            onClick: globalEventHandler(otherProps.onClick, () => {
+  const isActive = selectContext.activeIndex === index;
+  const isSelected = selectContext.multiple
+    ? (selectContext.value as unknown[]).some(
+        (v) => JSON.stringify(v) === JSON.stringify(value)
+      )
+    : JSON.stringify(selectContext.value) === JSON.stringify(value);
+
+  return (
+    <SelectOptionProvider
+      isSelected={isSelected}
+      index={index}
+      disabled={disabled}
+    >
+      <BasePrimitive.div
+        ref={composedRefs}
+        id={id}
+        role={'option'}
+        tabIndex={isActive ? 0 : -1}
+        aria-labelledby={id}
+        aria-selected={isSelected && isActive}
+        aria-disabled={disabled || undefined}
+        data-state={isSelected ? SelectState.Selected : SelectState.Idle}
+        data-disabled={disabled ? '' : undefined}
+        {...selectContext.popperContext.interactions.getItemProps({
+          ...otherProps,
+          onClick: globalEventHandler(otherProps.onClick, () => {
+            selectContext.handleSelect(index);
+          }),
+          onKeyDown: globalEventHandler(otherProps.onKeyDown, (e) => {
+            if (e.key === Keys.Enter) {
+              e.preventDefault();
               selectContext.handleSelect(index);
-            }),
-            onKeyDown: globalEventHandler(otherProps.onKeyDown, (e) => {
-              if (e.key === Keys.Enter) {
-                e.preventDefault();
-                selectContext.handleSelect(index);
-              }
-              if (
-                e.key === Keys.Space &&
-                !selectContext.popperContext.isTyping
-              ) {
-                e.preventDefault();
-                selectContext.handleSelect(index);
-              }
-            }),
-          })}
-        />
-      </SelectOptionProvider>
-    );
-  }
-);
+            }
+            if (e.key === Keys.Space && !selectContext.popperContext.isTyping) {
+              e.preventDefault();
+              selectContext.handleSelect(index);
+            }
+          }),
+        })}
+      />
+    </SelectOptionProvider>
+  );
+}
+
+const Option = React.forwardRef(OptionImpl) as typeof OptionImpl & {
+  displayName: string;
+};
 
 Option.displayName = OPTION_NAME;
 
@@ -533,37 +549,55 @@ Option.displayName = OPTION_NAME;
 
 const VALUE_NAME = 'Jux.Select.Value';
 
-type SelectValueElement = React.ElementRef<typeof BasePrimitive.span>;
-
-interface SelectValueProps
-  extends React.ComponentPropsWithoutRef<typeof BasePrimitive.span> {
+interface SelectValueProps<T = unknown>
+  extends Omit<
+    React.ComponentPropsWithoutRef<typeof BasePrimitive.span>,
+    'children'
+  > {
   placeholder?: React.ReactNode;
+  children?: (value: T) => React.ReactNode;
 }
 
-const Value = React.forwardRef<SelectValueElement, SelectValueProps>(
-  (props, forwardedRef) => {
-    const { placeholder, ...otherProps } = props;
-    const selectContext = useSelectContext(VALUE_NAME);
+function ValueImpl<T>(
+  props: SelectValueProps<T>,
+  forwardedRef: React.ForwardedRef<HTMLSpanElement>
+) {
+  const { placeholder, children, ...otherProps } = props;
+  const selectContext = useSelectContext(VALUE_NAME);
 
-    const value = useMemo(() => {
-      if (isValueEmpty(selectContext.value)) {
-        return placeholder;
-      }
+  const value = useMemo(() => {
+    if (isValueEmpty(selectContext.value)) {
+      return placeholder;
+    }
 
+    if (children) {
       if (selectContext.multiple) {
-        return (selectContext.value as string[]).join(', ');
+        return (selectContext.value as unknown[]).map((val, index) => (
+          <React.Fragment key={index}>{children(val as T)}</React.Fragment>
+        ));
       }
+      return children(selectContext.value as T);
+    }
 
-      return selectContext.value;
-    }, [selectContext.value, selectContext.multiple, placeholder]);
+    if (selectContext.multiple) {
+      return (selectContext.value as unknown[])
+        .map((v) => String(v))
+        .join(', ');
+    }
 
-    return (
-      <BasePrimitive.span ref={forwardedRef} {...otherProps}>
-        {value}
-      </BasePrimitive.span>
-    );
-  }
-);
+    return String(selectContext.value);
+  }, [selectContext.value, selectContext.multiple, placeholder, children]);
+
+  return (
+    <BasePrimitive.span ref={forwardedRef} {...otherProps}>
+      {value}
+    </BasePrimitive.span>
+  );
+}
+
+const Value = React.forwardRef(ValueImpl) as typeof ValueImpl & {
+  displayName: string;
+};
 
 Value.displayName = VALUE_NAME;
 
