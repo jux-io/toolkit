@@ -2,12 +2,23 @@
   "root": true,
   "ignorePatterns": ["node_modules/**/*", "dist/**/*", "**/*.mdx"],
   "plugins": [
+    "prettier",
     "@typescript-eslint"
   ],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/stylistic"
+  ],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "extends": ["prettier"],
+      "rules": {
+        "no-console": "error",
+        "prettier/prettier": "error"
+      }
+    }
   ],
   "rules": {
     "no-console": "error",

@@ -50,26 +50,26 @@ export default class PullComponents extends JuxCommand<typeof PullComponents> {
       internalConfig,
     });
 
-    const spinner = ora(`Generating assets...\n`).start();
+    const spinner = ora(
+      `Pulling components and updating component map...\n`
+    ).start();
 
     const directory = flags.directory
       ? getFullPath(flags.directory, flags.cwd)
       : undefined;
 
     try {
-      const components = await ctx.pullGeneratedComponentsCode(
-        flags.components || [],
-        directory
-      );
+      await ctx.pullComponents({
+        components: flags.components || [],
+        directory,
+      });
 
-      spinner.succeed('Done');
-
-      components.map((a) => ctx.fs.writeAsset(a));
+      spinner.succeed('Components pulled and map updated successfully');
     } catch (error) {
       if (error instanceof AxiosError && error.response?.status === 404) {
         spinner.warn(error.response.data.message);
       } else {
-        spinner.fail('Failed to generate assets');
+        spinner.fail('Failed to pull components');
         throw new Error(error);
       }
     } finally {

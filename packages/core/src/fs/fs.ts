@@ -56,6 +56,10 @@ export class FileManager {
     return fs.writeFileSync(path.join(directory, fileName), content, 'utf8');
   }
 
+  exists(filePath: string) {
+    return fs.existsSync(filePath);
+  }
+
   public writeAsset(asset: Asset): void {
     fs.ensureDirSync(asset.directory);
 
@@ -66,7 +70,11 @@ export class FileManager {
         )}`
       );
 
-      fs.writeFileSync(`${asset.directory}/${file.name}`, file.content, 'utf8');
+      fs.writeFileSync(
+        path.join(asset.directory, file.name),
+        file.content,
+        'utf8'
+      );
     }
   }
 
