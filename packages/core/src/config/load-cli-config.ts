@@ -1,4 +1,6 @@
+/* eslint-disable prettier/prettier */
 import type { TSConfig } from 'pkg-types';
+import fs from 'fs-extra';
 import { findConfig } from './find-config.ts';
 import { bundleRequire } from 'bundle-require';
 import type { JuxCLIConfig } from './config.types.ts';
@@ -7,6 +9,9 @@ import deepmerge from 'deepmerge';
 // @ts-expect-error load-tsconfig is not typed
 import { loadTsConfig } from 'load-tsconfig';
 import { baseUtilities } from '../utilities/base-utilities';
+import path from 'path';
+import { prettierFormat } from '../fs/fs.utils.ts';
+import { relativePathWithPrefix } from '../utils/relative-path-with-prefix.ts';
 
 export interface LoadTsConfigRes {
   path: string;
@@ -29,7 +34,8 @@ async function require<T>(options: {
  * Since the user can define multiple presets, we need to merge all presets into a single config
  */
 export async function resolveFinalConfig(
-  config: JuxCLIConfig
+  config: JuxCLIConfig,
+  configPath: string
 ): Promise<JuxCLIConfig> {
   const stack: JuxCLIConfig[] = [config];
   const configs: JuxCLIConfig[] = [];
@@ -62,6 +68,28 @@ export async function resolveFinalConfig(
     finalConfig.tokens_directory ?? './src/jux/tokens';
   finalConfig.definitions_directory =
     finalConfig.definitions_directory ?? './src/jux/definitions';
+
+  // Add default components map file path
+  if (!finalConfig.components_map_file) {
+    finalConfig.components_map_file = relativePathWithPrefix(
+      path.relative(
+        path.parse(configPath).dir,
+        path.join(
+          path.parse(finalConfig.components_directory).dir,
+          'juxComponents.json'
+        )
+      )
+    );
+
+    const configContent = fs.readFileSync(configPath, 'utf-8');
+    const newConfigContent = configContent.replace(
+      'export default defineConfig({',
+      `export default defineConfig({
+        components_map_file: '${finalConfig.components_map_file}',`
+    );
+
+    await fs.writeFile(configPath, await prettierFormat(newConfigContent));
+  }
 
   // Add default utility values
   finalConfig.utilities = {
@@ -102,7 +130,7 @@ export async function loadCliConfig(
     throw new Error('Config must be an object');
   }
 
-  const cliConfig = await resolveFinalConfig(mod.default);
+  const cliConfig = await resolveFinalConfig(mod.default, configPath);
 
   return {
     cliConfig,
