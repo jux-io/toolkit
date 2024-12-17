@@ -1,5 +1,11 @@
 # @juxio/design-tokens
 
+## 0.8.4
+
+### Patch Changes
+
+- [#118](https://github.com/jux-io/toolkit/pull/118) [`7451f4b`](https://github.com/jux-io/toolkit/commit/7451f4be8e74a6a47a25c3e8ed67ab78d92e173f) Thanks [@JuxedJohnson](https://github.com/JuxedJohnson)! - chore(design-tokens): added support for negative dimension tokens
+
 ## 0.8.3
 
 ## 0.8.2
