@@ -28,6 +28,10 @@ export const DIMENSION_TOKEN_VALUE_UNITS = [
 ] as const;
 
 export const DIMENSION_TOKEN_VALUE_REGEX = new RegExp(
+  `^-?(\\d*(\\.\\d+)?(${DIMENSION_TOKEN_VALUE_UNITS.join('|')}))?$`
+);
+
+export const DIMENSION_TOKEN_VALUE_REGEX_POSITIVE_ONLY = new RegExp(
   `^(\\d*(\\.\\d+)?(${DIMENSION_TOKEN_VALUE_UNITS.join('|')}))?$`
 );
 
@@ -36,6 +40,8 @@ export const DIMENSION_DEFINITION_MESSAGE = `number followed by a unit (${DIMENS
 )})`;
 
 export const DIMENSION_TOKEN_VALUE_REGEX_MESSAGE = `Enter a ${DIMENSION_DEFINITION_MESSAGE}`;
+
+export const DIMENSION_TOKEN_VALUE_REGEX_POSITIVE_ONLY_MESSAGE = `Enter a positive ${DIMENSION_DEFINITION_MESSAGE}`;
 
 export const NUMBER_TOKEN_VALUE_REGEX = /^\d*(\.\d+)?$/;
 

@@ -9,6 +9,8 @@ import {
   COLOR_TOKEN_VALUE_REGEX_MESSAGE,
   STROKE_STYLE_TOKEN_VALUE_REGEX,
   STROKE_STYLE_TOKEN_VALUE_REGEX_MESSAGE,
+  DIMENSION_TOKEN_VALUE_REGEX_POSITIVE_ONLY,
+  DIMENSION_TOKEN_VALUE_REGEX_POSITIVE_ONLY_MESSAGE,
 } from '../constants';
 
 /* Token values */
@@ -26,6 +28,13 @@ export const strokeStyleTokenValueSchema = z
 export const dimensionTokenValueSchema = z
   .string()
   .regex(DIMENSION_TOKEN_VALUE_REGEX, DIMENSION_TOKEN_VALUE_REGEX_MESSAGE);
+
+export const dimensionTokenValueSchemaPositiveOnly = z
+  .string()
+  .regex(
+    DIMENSION_TOKEN_VALUE_REGEX_POSITIVE_ONLY,
+    DIMENSION_TOKEN_VALUE_REGEX_POSITIVE_ONLY_MESSAGE
+  );
 
 export const fontFamilyTokenValueSchema = z.string();
 
@@ -73,7 +82,7 @@ export const typographyTokenSchema = z.object({
 
 export const borderTokenValueSchema = z.object({
   color: aliasTokenValueSchema.or(colorTokenValueSchema),
-  width: aliasTokenValueSchema.or(dimensionTokenValueSchema),
+  width: aliasTokenValueSchema.or(dimensionTokenValueSchemaPositiveOnly),
   style: strokeStyleTokenValueSchema,
 });
 
