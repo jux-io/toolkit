@@ -86,6 +86,9 @@ interface SelectContextValue<T = unknown> {
   activeIndex: number | null;
   selectedIndex: number | null;
   getOptionValue: (index: number) => T;
+  selectedValueOptionElementsMap: React.MutableRefObject<
+    Map<string, HTMLElement>
+  >;
   popperContext: {
     isTyping: boolean;
     interactions: ReturnType<typeof useInteractions>;
@@ -181,7 +184,9 @@ function Root<ValueType>(props: SelectProps<ValueType>) {
   const elementsRef = React.useRef<(HTMLElement | null)[]>([]);
   const labelsRef = React.useRef<string[]>([]);
   const valuesRef = React.useRef<unknown[]>([]);
-
+  const selectedValueOptionElementsMap = React.useRef<Map<string, HTMLElement>>(
+    new Map()
+  );
   const [isTyping, setIsTyping] = React.useState(false);
 
   const click = useClick(floatingContext.context);
@@ -267,6 +272,7 @@ function Root<ValueType>(props: SelectProps<ValueType>) {
       activeIndex={activeIndex}
       selectedIndex={selectedIndex}
       getOptionValue={getOptionValue}
+      selectedValueOptionElementsMap={selectedValueOptionElementsMap}
       popperContext={{
         isTyping,
         interactions,
@@ -472,7 +478,7 @@ interface SelectOptionProps<T = unknown>
   extends React.ComponentPropsWithoutRef<typeof BasePrimitive.div> {
   children: React.ReactNode;
   disabled?: boolean;
-  label: string;
+  label?: string;
   value: T;
 }
 
@@ -490,16 +496,13 @@ function OptionImpl<T>(
   forwardedRef: React.ForwardedRef<HTMLDivElement>
 ) {
   const id = `jux-select-option-${useId()}`;
-  const { label, value, disabled = false, ...otherProps } = props;
+  const { label, value, disabled = false, children, ...otherProps } = props;
   const selectContext = useSelectContext(OPTION_NAME);
 
   const { ref, index } = useListItem({ label });
+  const optionRef = React.useRef<HTMLDivElement>(null);
 
-  React.useLayoutEffect(() => {
-    selectContext.popperContext.valuesRef.current[index] = value;
-  }, [index, value]);
-
-  const composedRefs = useMergeRefs(ref, forwardedRef);
+  const composedRefs = useMergeRefs(ref, forwardedRef, optionRef);
 
   const isActive = selectContext.activeIndex === index;
   const isSelected = selectContext.multiple
@@ -507,6 +510,40 @@ function OptionImpl<T>(
         (v) => JSON.stringify(v) === JSON.stringify(value)
       )
     : JSON.stringify(selectContext.value) === JSON.stringify(value);
+
+  // Handle selection state changes
+  React.useLayoutEffect(() => {
+    // Store the cloned element as soon as the option is mounted
+    selectContext.popperContext.valuesRef.current[index] = value;
+    if (optionRef.current) {
+      const clonedElement = optionRef.current.cloneNode(true) as HTMLElement;
+      selectContext.selectedValueOptionElementsMap.current.set(
+        JSON.stringify(value),
+        clonedElement
+      );
+    }
+    if (!selectContext.multiple) {
+      // In single selection mode, clear all except the selected one
+      const selectedKey = JSON.stringify(value);
+      if (isSelected) {
+        // Keep only the selected value
+        const selectedElement =
+          selectContext.selectedValueOptionElementsMap.current.get(selectedKey);
+        selectContext.selectedValueOptionElementsMap.current.clear();
+        if (selectedElement) {
+          selectContext.selectedValueOptionElementsMap.current.set(
+            selectedKey,
+            selectedElement
+          );
+        }
+      }
+    } else if (!isSelected) {
+      // In multiple selection mode, only remove if not selected
+      selectContext.selectedValueOptionElementsMap.current.delete(
+        JSON.stringify(value)
+      );
+    }
+  }, [isSelected, value, selectContext.multiple, index]);
 
   return (
     <SelectOptionProvider
@@ -540,7 +577,9 @@ function OptionImpl<T>(
             }
           }),
         })}
-      />
+      >
+        {children}
+      </BasePrimitive.div>
     </SelectOptionProvider>
   );
 }
@@ -573,30 +612,57 @@ function ValueImpl<T>(
   const { placeholder, children, ...otherProps } = props;
   const selectContext = useSelectContext(VALUE_NAME) as SelectContextValue<T>;
 
+  const renderValue = (val: T) => {
+    // Always try to get the cloned element first
+    const selectedElement =
+      selectContext.selectedValueOptionElementsMap.current.get(
+        JSON.stringify(val)
+      );
+
+    if (selectedElement) {
+      return (
+        <span dangerouslySetInnerHTML={{ __html: selectedElement.innerHTML }} />
+      );
+    }
+
+    // If no cloned element is available yet, use custom render function if provided
+    if (children) {
+      return children(val);
+    }
+
+    // Last resort fallback
+    if (val && typeof val === 'object' && 'name' in val) {
+      return String((val as { name: string }).name);
+    }
+    return String(val);
+  };
+
   const value = useMemo(() => {
     if (isValueEmpty(selectContext.value)) {
       return placeholder;
     }
 
-    if (children) {
-      if (selectContext.multiple) {
-        return (
-          <>
-            {(selectContext.value as T[]).map((val, index) => (
-              <React.Fragment key={index}>{children(val)}</React.Fragment>
-            ))}
-          </>
-        );
-      }
-      return children(selectContext.value as T);
-    }
-
     if (selectContext.multiple) {
-      return (selectContext.value as T[]).map((v) => String(v)).join(', ');
+      const selectedValues = selectContext.value as T[];
+      return (
+        <>
+          {selectedValues.map((val) => (
+            <React.Fragment key={JSON.stringify(val)}>
+              {renderValue(val)}
+            </React.Fragment>
+          ))}
+        </>
+      );
     }
 
-    return String(selectContext.value);
-  }, [selectContext.value, selectContext.multiple, placeholder, children]);
+    return renderValue(selectContext.value as T);
+  }, [
+    selectContext.value,
+    selectContext.multiple,
+    selectContext.selectedValueOptionElementsMap.current.size,
+    placeholder,
+    children,
+  ]);
 
   return (
     <BasePrimitive.span ref={forwardedRef} {...otherProps}>

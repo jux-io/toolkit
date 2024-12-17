@@ -66,7 +66,6 @@ const selectLabelStyles = css({
 });
 
 const optionIndicatorStyles = css({
-  position: 'absolute',
   right: '16px',
 });
 
@@ -406,7 +405,7 @@ export const CountrySelect: Story = {
 export const CustomValue: Story = {
   render: () => {
     return (
-      <Select.Root placement={'bottom'} sideOffset={8} multiple>
+      <Select.Root placement={'bottom'} sideOffset={8}>
         <Select.Trigger className={triggerStyles}>
           <Select.Value<Country>
             placeholder={'Select a country'}
@@ -556,6 +555,81 @@ export const CustomValueMultipleInsideForm: Story = {
         </form>
         <div>Result: {JSON.stringify(selected)}</div>
       </div>
+    );
+  },
+};
+
+export const NoValue: Story = {
+  render: () => {
+    return (
+      <Select.Root placement={'bottom'} sideOffset={8}>
+        <Select.Trigger className={triggerStyles}>
+          <Select.Value placeholder={'Select a country'} />
+          <span className={openIconStyles}>
+            <OpenIcon />
+          </span>
+        </Select.Trigger>
+        <Select.Options className={optionsStyles}>
+          {countries.map((country) => (
+            <Select.Option
+              key={country.value}
+              value={country}
+              className={optionStyles}
+            >
+              <span
+                style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+              >
+                <span>{country.emoji}</span>
+                <span>{country.name}</span>
+                <Select.OptionIndicator className={optionIndicatorStyles}>
+                  <CheckIcon />
+                </Select.OptionIndicator>
+              </span>
+            </Select.Option>
+          ))}
+        </Select.Options>
+      </Select.Root>
+    );
+  },
+};
+
+const CountryOption = ({ country }: { country: Country }) => {
+  return (
+    <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <span>{country.emoji}</span>
+      <span>{country.name}</span>
+    </span>
+  );
+};
+
+export const NoValueMultiple: Story = {
+  render: () => {
+    return (
+      <Select.Root placement={'bottom'} sideOffset={8} multiple>
+        <Select.Trigger className={triggerStyles}>
+          <Select.Value<Country>
+            placeholder={'Select a country'}
+            className={css({ display: 'flex', gap: '8px', overflow: 'hidden' })}
+          >
+            {(value) => <CountryOption country={value} />}
+          </Select.Value>
+          <span className={openIconStyles}>
+            <OpenIcon />
+          </span>
+        </Select.Trigger>
+        <Select.Options className={optionsStyles}>
+          {countries.map((country) => (
+            <Select.Option
+              key={country.value}
+              value={country}
+              label={country.name}
+              className={optionStyles}
+            >
+              <CountryOption country={country} />
+            </Select.Option>
+          ))}
+        </Select.Options>
+      </Select.Root>
     );
   },
 };
