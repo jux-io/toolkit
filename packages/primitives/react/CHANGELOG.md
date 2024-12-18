@@ -1,5 +1,11 @@
 # @juxio/react-primitives
 
+## 0.8.5
+
+### Patch Changes
+
+- [#116](https://github.com/jux-io/toolkit/pull/116) [`8bff3a1`](https://github.com/jux-io/toolkit/commit/8bff3a16e9d4c3eaf4dc1620bfc6ade70041286e) Thanks [@hamatoyogi](https://github.com/hamatoyogi)! - feat(@juxio/react-primitives): enhance select component
+
 ## 0.8.4
 
 ## 0.8.3

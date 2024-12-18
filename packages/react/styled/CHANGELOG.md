@@ -1,5 +1,13 @@
 # @juxio/react-styled
 
+## 0.8.5
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @juxio/core@0.8.5
+  - @juxio/css@0.8.5
+
 ## 0.8.4
 
 ### Patch Changes
