@@ -10,19 +10,15 @@ import {
   type UserTokens,
 } from '../config';
 import { DesignTokens } from '@juxio/design-tokens';
+import {
+  ComponentFileStructure,
+  ComponentsMap,
+  GeneratedCodeResponse,
+} from './shared-types';
 
 export interface ComponentDependencies {
   name: string;
   id: string; // The node id this component depends on (should be an instance node)
-}
-
-export interface ComponentFileStructure {
-  name: string;
-  dependencies: ComponentDependencies[];
-  file: {
-    name: string;
-    content: string;
-  };
 }
 
 export interface TokenSet {
@@ -146,16 +142,22 @@ export class JuxAPI {
     return this.organizationId;
   }
 
-  async pullGeneratedComponentsCode(components: string[] = []) {
-    const { data } = await this.axios.get<ComponentFileStructure[]>(
+  async pullGeneratedComponentsCode({
+    components = [],
+    componentsMap,
+  }: {
+    components: string[];
+    componentsMap: ComponentsMap;
+  }): Promise<GeneratedCodeResponse> {
+    const { data } = await this.axios.post<GeneratedCodeResponse>(
       `${this.apiServer}/library`,
       {
-        params: {
-          organizationId: this.orgId,
-          components: components.join(','),
-        },
+        componentsMap,
+        organizationId: this.orgId,
+        components,
       }
     );
+
     return data;
   }
 
@@ -165,6 +167,19 @@ export class JuxAPI {
       {
         params: {
           organizationId: this.orgId,
+        },
+      }
+    );
+    return data;
+  }
+
+  async pullComponentVersion(component: string, version: string) {
+    const { data } = await this.axios.get<ComponentFileStructure>(
+      `${this.apiServer}/library/component`,
+      {
+        params: {
+          organizationId: this.orgId,
+          version,
         },
       }
     );

@@ -131,6 +131,8 @@ export interface JuxCLIConfig extends PresetConfig {
   /** Where to pull generated components */
   components_directory?: string;
 
+  components_map_file?: string;
+
   /** Where to pull design tokens */
   tokens_directory?: string;
 
