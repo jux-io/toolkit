@@ -480,6 +480,7 @@ interface SelectOptionProps<T = unknown>
   disabled?: boolean;
   label?: string;
   value: T;
+  selected?: boolean;
 }
 
 interface SelectOptionContextValue {
@@ -496,7 +497,14 @@ function OptionImpl<T>(
   forwardedRef: React.ForwardedRef<HTMLDivElement>
 ) {
   const id = `jux-select-option-${useId()}`;
-  const { label, value, disabled = false, children, ...otherProps } = props;
+  const {
+    label,
+    value,
+    disabled = false,
+    children,
+    selected,
+    ...otherProps
+  } = props;
   const selectContext = useSelectContext(OPTION_NAME);
 
   const { ref, index } = useListItem({ label });
@@ -505,18 +513,31 @@ function OptionImpl<T>(
   const composedRefs = useMergeRefs(ref, forwardedRef, optionRef);
 
   const isActive = selectContext.activeIndex === index;
-  const isSelected = selectContext.multiple
-    ? (selectContext.value as unknown[]).some(
-        (v) => JSON.stringify(v) === JSON.stringify(value)
-      )
-    : JSON.stringify(selectContext.value) === JSON.stringify(value);
+  const isSelected =
+    selected ||
+    (selectContext.multiple
+      ? (selectContext.value as unknown[]).some(
+          (v) => JSON.stringify(v) === JSON.stringify(value)
+        )
+      : JSON.stringify(selectContext.value) === JSON.stringify(value));
 
   // Handle selection state changes
   React.useLayoutEffect(() => {
     // Store the cloned element as soon as the option is mounted
     selectContext.popperContext.valuesRef.current[index] = value;
     if (optionRef.current) {
-      const clonedElement = optionRef.current.cloneNode(true) as HTMLElement;
+      // take the first child of the option element and clone it
+      const clonedElement = optionRef.current.cloneNode(true)
+        .firstChild as HTMLElement;
+      // remove the class and style attributes to clean up
+      clonedElement?.setAttribute('class', '');
+      clonedElement?.setAttribute('style', '');
+      // in case OptionIndicator is used, remove the element with aria-hidden attribute from the cloned element
+      const optionIndicator = clonedElement.querySelector(
+        '[aria-hidden="true"]'
+      );
+      optionIndicator && clonedElement?.removeChild(optionIndicator);
+
       selectContext.selectedValueOptionElementsMap.current.set(
         JSON.stringify(value),
         clonedElement
@@ -525,7 +546,7 @@ function OptionImpl<T>(
     if (!selectContext.multiple) {
       // In single selection mode, clear all except the selected one
       const selectedKey = JSON.stringify(value);
-      if (isSelected) {
+      if (selected || isSelected) {
         // Keep only the selected value
         const selectedElement =
           selectContext.selectedValueOptionElementsMap.current.get(selectedKey);
@@ -537,17 +558,17 @@ function OptionImpl<T>(
           );
         }
       }
-    } else if (!isSelected) {
+    } else if (!isSelected || !selected) {
       // In multiple selection mode, only remove if not selected
       selectContext.selectedValueOptionElementsMap.current.delete(
         JSON.stringify(value)
       );
     }
-  }, [isSelected, value, selectContext.multiple, index]);
+  }, [isSelected, value, selectContext.multiple, index, selected]);
 
   return (
     <SelectOptionProvider
-      isSelected={isSelected}
+      isSelected={selected || isSelected}
       index={index}
       disabled={disabled}
     >
@@ -609,7 +630,7 @@ function ValueImpl<T>(
   props: SelectValueProps<T>,
   forwardedRef: React.ForwardedRef<HTMLSpanElement>
 ) {
-  const { placeholder, children, ...otherProps } = props;
+  const { placeholder, children, className, ...otherProps } = props;
   const selectContext = useSelectContext(VALUE_NAME) as SelectContextValue<T>;
 
   const renderValue = (val: T) => {
@@ -619,9 +640,16 @@ function ValueImpl<T>(
         JSON.stringify(val)
       );
 
+    // display: contents is used in order to avoid the cloned element from being displayed as a block element
+
     if (selectedElement) {
       return (
-        <span dangerouslySetInnerHTML={{ __html: selectedElement.innerHTML }} />
+        <BasePrimitive.span
+          style={{ display: 'contents' }}
+          ref={forwardedRef}
+          {...otherProps}
+          dangerouslySetInnerHTML={{ __html: selectedElement.innerHTML }}
+        />
       );
     }
 
@@ -632,9 +660,25 @@ function ValueImpl<T>(
 
     // Last resort fallback
     if (val && typeof val === 'object' && 'name' in val) {
-      return String((val as { name: string }).name);
+      return (
+        <BasePrimitive.span
+          style={{ display: 'contents' }}
+          ref={forwardedRef}
+          {...otherProps}
+        >
+          {String((val as { name: string }).name)}
+        </BasePrimitive.span>
+      );
     }
-    return String(val);
+    return (
+      <BasePrimitive.span
+        style={{ display: 'contents' }}
+        ref={forwardedRef}
+        {...otherProps}
+      >
+        {String(val)}
+      </BasePrimitive.span>
+    );
   };
 
   const value = useMemo(() => {
@@ -664,11 +708,7 @@ function ValueImpl<T>(
     children,
   ]);
 
-  return (
-    <BasePrimitive.span ref={forwardedRef} {...otherProps}>
-      {value}
-    </BasePrimitive.span>
-  );
+  return <div className={className}>{value}</div>;
 }
 
 const Value = React.forwardRef(ValueImpl) as typeof ValueImpl & {
