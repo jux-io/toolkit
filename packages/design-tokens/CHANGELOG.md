@@ -1,5 +1,11 @@
 # @juxio/design-tokens
 
+## 0.8.7
+
+### Patch Changes
+
+- [#126](https://github.com/jux-io/toolkit/pull/126) [`8ec73da`](https://github.com/jux-io/toolkit/commit/8ec73dae783f54aeabd193eb184ccc1afb014ad7) Thanks [@metav-drimz](https://github.com/metav-drimz)! - added Toggle primitive & Checkbox forwardRef fix
+
 ## 0.8.6
 
 ## 0.8.5
