@@ -10,6 +10,7 @@ const BasePrimitives = [
   'input',
   'textarea',
   'label',
+  'svg',
 ] as const;
 
 type IBasePrimitives = {
