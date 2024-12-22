@@ -11,25 +11,25 @@ import { createCustomContext } from '../../utils/createCustomContext';
  * TYPES
  ****************/
 
-const CHECKBOX_NAME = 'Jux.Checkbox';
+const TOGGLE_NAME = 'Jux.Toggle';
 
 type PrimitiveButtonProps = React.ComponentPropsWithoutRef<
   typeof BasePrimitive.button
 >;
 
-type CheckedState = boolean | 'indeterminate';
+type ToggleState = boolean | 'indeterminate';
 
 /****************
  * UTILS
  ****************/
 
 function isStateIndeterminate(
-  checked?: CheckedState
+  checked?: ToggleState
 ): checked is 'indeterminate' {
   return checked === 'indeterminate';
 }
 
-function getCheckedState(checked: CheckedState) {
+function getToggleState(checked: ToggleState) {
   return isStateIndeterminate(checked)
     ? 'indeterminate'
     : checked
@@ -41,13 +41,13 @@ function getCheckedState(checked: CheckedState) {
  * CONTEXT
  ****************/
 
-interface CheckboxContextValue {
-  state: CheckedState;
+interface ToggleContextValue {
+  state: ToggleState;
   disabled?: boolean;
 }
 
-const { Provider: CheckboxProvider } =
-  createCustomContext<CheckboxContextValue>(CHECKBOX_NAME);
+const { Provider: ToggleProvider } =
+  createCustomContext<ToggleContextValue>(TOGGLE_NAME);
 
 /****************
  * COMPONENTS
@@ -55,28 +55,28 @@ const { Provider: CheckboxProvider } =
 
 interface InputProps
   extends Omit<React.ComponentPropsWithoutRef<'input'>, 'checked'> {
-  checked: CheckedState;
-  checkboxButton: HTMLButtonElement | null;
+  checked: ToggleState;
+  toggleButton: HTMLButtonElement | null;
 }
 
 /**
  * InternalInput component that is hidden from the user.
- * It synchronizes with the visible checkbox component to ensure proper form submission.
+ * It synchronizes with the visible toggle component to ensure proper form submission.
  */
 const InternalInput = React.forwardRef<HTMLInputElement, InputProps>(
   (props, forwardedRef) => {
-    const { checkboxButton, checked, ...inputProps } = props;
+    const { toggleButton, checked, ...inputProps } = props;
 
-    const checkboxControlSize = useResizeObserver({
+    const toggleControlSize = useResizeObserver({
       ref: {
-        current: checkboxButton,
+        current: toggleButton,
       },
       box: 'border-box',
     });
 
     return (
       <input
-        type={'checkbox'}
+        type="checkbox"
         aria-hidden
         defaultChecked={isStateIndeterminate(checked) ? false : checked}
         tabIndex={-1}
@@ -84,8 +84,8 @@ const InternalInput = React.forwardRef<HTMLInputElement, InputProps>(
         {...inputProps}
         style={{
           ...props.style,
-          width: checkboxControlSize.width,
-          height: checkboxControlSize.height,
+          width: toggleControlSize.width,
+          height: toggleControlSize.height,
           position: 'absolute',
           pointerEvents: 'none',
           opacity: 0,
@@ -97,21 +97,23 @@ const InternalInput = React.forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
+InternalInput.displayName = 'InternalInput';
+
 /**
- * Checkbox
+ * Toggle
  */
 
-interface CheckboxProps
+interface ToggleProps
   extends Omit<PrimitiveButtonProps, 'checked' | 'defaultChecked'> {
-  checked?: CheckedState;
-  defaultChecked?: CheckedState;
+  checked?: ToggleState;
+  defaultChecked?: ToggleState;
   required?: boolean;
-  onCheckedChange?(checked: CheckedState): void;
+  onCheckedChange?(checked: ToggleState): void;
 }
 
-type CheckboxRootElement = React.ElementRef<'button'>;
+type ToggleRootElement = React.ElementRef<'button'>;
 
-const Checkbox = React.forwardRef<CheckboxRootElement, CheckboxProps>(
+const Toggle = React.forwardRef<ToggleRootElement, ToggleProps>(
   (props, forwardedRef) => {
     const {
       checked,
@@ -121,7 +123,7 @@ const Checkbox = React.forwardRef<CheckboxRootElement, CheckboxProps>(
       disabled,
       value = 'on',
       onCheckedChange,
-      ...checkboxProps
+      ...toggleProps
     } = props;
 
     const [checkedState = false, setChecked] = useControlledState({
@@ -137,31 +139,26 @@ const Checkbox = React.forwardRef<CheckboxRootElement, CheckboxProps>(
     const composedRefs = useMergeRefs(forwardedRef, (node) => setButton(node));
 
     return (
-      <CheckboxProvider state={checkedState} disabled={disabled}>
+      <ToggleProvider state={checkedState} disabled={disabled}>
         <BasePrimitive.button
-          type={'button'}
-          role={'checkbox'}
+          type="button"
+          role="switch"
           aria-checked={
             isStateIndeterminate(checkedState) ? 'mixed' : checkedState
-          } // Could be 'true', 'false', or 'mixed'
+          }
           aria-required={required}
-          data-state={getCheckedState(checkedState)} // Could be 'unchecked' or 'indeterminate'
+          data-state={getToggleState(checkedState)}
           data-disabled={disabled ? '' : undefined}
           disabled={disabled}
           value={value}
-          {...checkboxProps}
+          {...toggleProps}
           ref={composedRefs}
           onKeyDown={globalEventHandler(props.onKeyDown, (e) => {
-            // Handle keydown events
-            // WAI ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/
-
-            // Checkboxes don't activate on enter keypress
             if (e.key === 'Enter') {
               e.preventDefault();
             }
           })}
           onClick={globalEventHandler(props.onClick, () => {
-            // Handle click events
             setChecked((prevCheckedState) =>
               isStateIndeterminate(prevCheckedState) ? true : !prevCheckedState
             );
@@ -169,26 +166,26 @@ const Checkbox = React.forwardRef<CheckboxRootElement, CheckboxProps>(
         />
         <InternalInput
           checked={checkedState}
-          checkboxButton={buttonElement}
+          toggleButton={buttonElement}
           name={name}
           value={value}
           required={required}
           disabled={disabled}
         />
-      </CheckboxProvider>
+      </ToggleProvider>
     );
   }
 );
 
-Checkbox.displayName = CHECKBOX_NAME;
+Toggle.displayName = TOGGLE_NAME;
 
 /**
- * PropTypes for the Checkbox component.
+ * PropTypes for the Toggle component.
  * @type {Object}
  */
-Checkbox.propTypes = {
+Toggle.propTypes = {
   /**
-   * The initial checked state of the checkbox. Can be a boolean or 'indeterminate'.
+   * The initial state of the toggle. Can be a boolean or 'indeterminate'.
    * @type {boolean|'indeterminate'}
    */
   defaultChecked: PropTypes.oneOfType([
@@ -197,7 +194,7 @@ Checkbox.propTypes = {
   ]),
 
   /**
-   * The current checked state of the checkbox. Can be a boolean or 'indeterminate'.
+   * The current state of the toggle. Can be a boolean or 'indeterminate'.
    * Use this for controlled components.
    * @type {boolean|'indeterminate'}
    */
@@ -207,36 +204,36 @@ Checkbox.propTypes = {
   ]),
 
   /**
-   * If true, the checkbox will be disabled and cannot be interacted with.
+   * If true, the toggle will be disabled and cannot be interacted with.
    * @type {boolean}
    */
   disabled: PropTypes.bool,
 
   /**
-   * If true, the checkbox will be marked as required in a form.
+   * If true, the toggle will be marked as required in a form.
    * @type {boolean}
    */
   required: PropTypes.bool,
 
   /**
-   * The name attribute of the checkbox input element.
+   * The name attribute of the toggle input element.
    * @type {string}
    */
   name: PropTypes.string,
 
   /**
-   * The value attribute of the checkbox input element.
+   * The value attribute of the toggle input element.
    * @type {string}
    */
   value: PropTypes.string,
 
   /**
-   * Callback function that is called when the checked state changes.
+   * Callback function that is called when the toggle state changes.
    * @type {function}
-   * @param {boolean | 'indeterminate'} checked - The new checked state
+   * @param {boolean | 'indeterminate'} checked - The new toggle state
    */
   onCheckedChange: PropTypes.func,
 };
 
-export { Checkbox };
-export type { CheckboxProps, CheckboxRootElement, CheckedState };
+export { Toggle };
+export type { ToggleProps, ToggleRootElement, ToggleState };
