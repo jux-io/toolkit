@@ -1,5 +1,15 @@
 # @juxio/cli
 
+## 0.8.7
+
+### Patch Changes
+
+- [#126](https://github.com/jux-io/toolkit/pull/126) [`8ec73da`](https://github.com/jux-io/toolkit/commit/8ec73dae783f54aeabd193eb184ccc1afb014ad7) Thanks [@metav-drimz](https://github.com/metav-drimz)! - added Toggle primitive & Checkbox forwardRef fix
+
+- Updated dependencies [[`8ec73da`](https://github.com/jux-io/toolkit/commit/8ec73dae783f54aeabd193eb184ccc1afb014ad7)]:
+  - @juxio/core@0.8.7
+  - @juxio/design-tokens@0.8.7
+
 ## 0.8.6
 
 ### Patch Changes
