@@ -526,22 +526,46 @@ function OptionImpl<T>(
     // Store the cloned element as soon as the option is mounted
     selectContext.popperContext.valuesRef.current[index] = value;
     if (optionRef.current) {
-      // take the first child of the option element and clone it
-      const clonedElement = optionRef.current.cloneNode(true)
-        .firstChild as HTMLElement;
-      // remove the class and style attributes to clean up
-      clonedElement?.setAttribute('class', '');
-      clonedElement?.setAttribute('style', '');
-      // in case OptionIndicator is used, remove the element with aria-hidden attribute from the cloned element
-      const optionIndicator = clonedElement.querySelector(
-        '[aria-hidden="true"]'
-      );
-      optionIndicator && clonedElement?.removeChild(optionIndicator);
+      try {
+        // take the first child of the option element and clone it
+        const clonedNode = optionRef.current.cloneNode(true);
+        if (!(clonedNode instanceof HTMLElement)) {
+          // eslint-disable-next-line no-console
+          console.warn(
+            'Failed to clone option element: cloned node is not an HTMLElement'
+          );
+          return;
+        }
 
-      selectContext.selectedValueOptionElementsMap.current.set(
-        JSON.stringify(value),
-        clonedElement
-      );
+        const firstChild = clonedNode.firstChild;
+        if (!(firstChild instanceof HTMLElement)) {
+          // eslint-disable-next-line no-console
+          console.warn(
+            'Failed to get option content: first child is not an HTMLElement'
+          );
+          return;
+        }
+
+        // remove the class and style attributes to clean up
+        firstChild.setAttribute('class', '');
+        firstChild.setAttribute('style', '');
+
+        // in case OptionIndicator is used, remove the element with aria-hidden attribute from the cloned element
+        const optionIndicator = firstChild.querySelector(
+          '[aria-hidden="true"]'
+        );
+        if (optionIndicator) {
+          firstChild.removeChild(optionIndicator);
+        }
+
+        selectContext.selectedValueOptionElementsMap.current.set(
+          JSON.stringify(value),
+          firstChild
+        );
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.warn('Error while cloning option element:', error);
+      }
     }
     if (!selectContext.multiple) {
       // In single selection mode, clear all except the selected one
