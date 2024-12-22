@@ -8,6 +8,7 @@ const BasePrimitives = [
   'div',
   'p',
   'input',
+  'textarea',
   'label',
 ] as const;
 
