@@ -1,5 +1,11 @@
 # @juxio/design-tokens
 
+## 0.8.11
+
+### Patch Changes
+
+- [#135](https://github.com/jux-io/toolkit/pull/135) [`cd1f41b`](https://github.com/jux-io/toolkit/commit/cd1f41bbd5b616541308c603231cabed5fe4f9a0) Thanks [@metav-drimz](https://github.com/metav-drimz)! - fix stories import type
+
 ## 0.8.10
 
 ### Patch Changes
