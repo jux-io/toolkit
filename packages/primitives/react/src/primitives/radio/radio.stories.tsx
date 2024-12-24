@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { CheckedState, Radio } from './Radio';
+import { RadioState, Radio } from './Radio';
 import React from 'react';
 import { css } from '@juxio/react-styled';
 
@@ -81,7 +81,7 @@ export const StyledRadio: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [checked, setChecked] = React.useState<CheckedState>(true);
+    const [checked, setChecked] = React.useState<RadioState>(true);
     return (
       <Radio
         className={rootStyles}
@@ -156,7 +156,7 @@ export const Disabled: Story = {
 
 export const Indeterminate: Story = {
   render: () => {
-    const [checked, setChecked] = React.useState<CheckedState>('indeterminate');
+    const [checked, setChecked] = React.useState<RadioState>('indeterminate');
 
     return (
       <div
