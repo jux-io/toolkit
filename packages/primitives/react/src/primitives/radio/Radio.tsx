@@ -17,19 +17,19 @@ type PrimitiveButtonProps = React.ComponentPropsWithoutRef<
   typeof BasePrimitive.button
 >;
 
-type CheckedState = boolean | 'indeterminate';
+type RadioState = boolean | 'indeterminate';
 
 /****************
  * UTILS
  ****************/
 
 function isStateIndeterminate(
-  checked?: CheckedState
+  checked?: RadioState
 ): checked is 'indeterminate' {
   return checked === 'indeterminate';
 }
 
-function getCheckedState(checked: CheckedState) {
+function getCheckedState(checked: RadioState) {
   return isStateIndeterminate(checked)
     ? 'indeterminate'
     : checked
@@ -42,7 +42,7 @@ function getCheckedState(checked: CheckedState) {
  ****************/
 
 interface RadioContextValue {
-  state: CheckedState;
+  state: RadioState;
   disabled?: boolean;
 }
 
@@ -55,7 +55,7 @@ const { Provider: RadioProvider } =
 
 interface InputProps
   extends Omit<React.ComponentPropsWithoutRef<'input'>, 'checked'> {
-  checked: CheckedState;
+  checked: RadioState;
   radioButton: HTMLButtonElement | null;
 }
 
@@ -103,10 +103,10 @@ const InternalInput = React.forwardRef<HTMLInputElement, InputProps>(
 
 interface RadioProps
   extends Omit<PrimitiveButtonProps, 'checked' | 'defaultChecked'> {
-  checked?: CheckedState;
-  defaultChecked?: CheckedState;
+  checked?: RadioState;
+  defaultChecked?: RadioState;
   required?: boolean;
-  onCheckedChange?(checked: CheckedState): void;
+  onCheckedChange?(checked: RadioState): void;
   value?: string;
 }
 
@@ -240,4 +240,4 @@ Radio.propTypes = {
 };
 
 export { Radio };
-export type { RadioProps, RadioRootElement, CheckedState };
+export type { RadioProps, RadioRootElement, RadioState };
