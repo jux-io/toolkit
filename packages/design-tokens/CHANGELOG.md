@@ -1,5 +1,11 @@
 # @juxio/design-tokens
 
+## 0.8.10
+
+### Patch Changes
+
+- [#133](https://github.com/jux-io/toolkit/pull/133) [`ae4d62b`](https://github.com/jux-io/toolkit/commit/ae4d62bf4203d6fd6f6fb10090a1cf5ac204642c) Thanks [@metav-drimz](https://github.com/metav-drimz)! - add missing export from radio and update radio state
+
 ## 0.8.9
 
 ### Patch Changes

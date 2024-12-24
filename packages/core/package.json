@@ -1,7 +1,7 @@
 {
   "name": "@juxio/core",
   "description": "Jux core library",
-  "version": "0.8.9",
+  "version": "0.8.10",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
