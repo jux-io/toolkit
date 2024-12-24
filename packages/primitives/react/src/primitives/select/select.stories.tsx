@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Select } from './Select';
+import * as Select from './index';
 import { css } from '@juxio/react-styled';
 
 const triggerStyles = css({
