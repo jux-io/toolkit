@@ -1,5 +1,7 @@
 # @juxio/design-tokens
 
+## 0.8.8
+
 ## 0.8.7
 
 ### Patch Changes
