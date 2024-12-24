@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Toggle } from './Toggle';
+import { Toggle, ToggleState } from './Toggle';
 import React from 'react';
 import { css } from '@juxio/react-styled';
 
@@ -63,9 +63,7 @@ export const StyledToggle: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [checked, setChecked] = React.useState<boolean | 'indeterminate'>(
-      true
-    );
+    const [checked, setChecked] = React.useState<ToggleState>(true);
     return (
       <Toggle
         className={rootStyles}
@@ -78,9 +76,7 @@ export const Controlled: Story = {
 
 export const Indeterminate: Story = {
   render: () => {
-    const [checked, setChecked] = React.useState<boolean | 'indeterminate'>(
-      'indeterminate'
-    );
+    const [checked, setChecked] = React.useState<ToggleState>('indeterminate');
 
     return (
       <div
