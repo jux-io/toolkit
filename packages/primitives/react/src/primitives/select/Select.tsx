@@ -537,30 +537,17 @@ function OptionImpl<T>(
           return;
         }
 
-        const firstChild = clonedNode.firstChild;
-        if (!(firstChild instanceof HTMLElement)) {
-          // eslint-disable-next-line no-console
-          console.warn(
-            'Failed to get option content: first child is not an HTMLElement'
-          );
-          return;
-        }
-
-        // remove the class and style attributes to clean up
-        firstChild.setAttribute('class', '');
-        firstChild.setAttribute('style', '');
-
         // in case OptionIndicator is used, remove the element with aria-hidden attribute from the cloned element
-        const optionIndicator = firstChild.querySelector(
+        const optionIndicator = clonedNode.querySelector(
           '[aria-hidden="true"]'
         );
         if (optionIndicator) {
-          firstChild.removeChild(optionIndicator);
+          clonedNode.removeChild(optionIndicator);
         }
 
         selectContext.selectedValueOptionElementsMap.current.set(
           JSON.stringify(value),
-          firstChild
+          clonedNode
         );
       } catch (error) {
         // eslint-disable-next-line no-console
