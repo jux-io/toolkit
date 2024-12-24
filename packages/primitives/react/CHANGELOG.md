@@ -1,5 +1,11 @@
 # @juxio/react-primitives
 
+## 0.8.8
+
+### Patch Changes
+
+- [#128](https://github.com/jux-io/toolkit/pull/128) [`fe70f5c`](https://github.com/jux-io/toolkit/commit/fe70f5cc08c79eea37f4ababdd01154808cd34d4) Thanks [@hamatoyogi](https://github.com/hamatoyogi)! - fix(@juxio/react-primitives): option handling in select component
+
 ## 0.8.7
 
 ### Patch Changes
