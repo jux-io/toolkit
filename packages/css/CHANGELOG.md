@@ -1,5 +1,14 @@
 # @juxio/react-styled
 
+## 0.8.12
+
+### Patch Changes
+
+- [#138](https://github.com/jux-io/toolkit/pull/138) [`31e9342`](https://github.com/jux-io/toolkit/commit/31e9342ec10c493192ecdd2363fb8a4dc8defe27) Thanks [@liranasia](https://github.com/liranasia)! - add option to pass portal container id to select options
+
+- Updated dependencies [[`31e9342`](https://github.com/jux-io/toolkit/commit/31e9342ec10c493192ecdd2363fb8a4dc8defe27)]:
+  - @juxio/core@0.8.12
+
 ## 0.8.11
 
 ### Patch Changes
