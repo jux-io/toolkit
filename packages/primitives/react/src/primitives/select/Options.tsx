@@ -18,6 +18,7 @@ export type SelectOptionsProps = React.ComponentPropsWithoutRef<
   typeof BasePrimitive.div
 > & {
   portalContainerId?: string;
+  enableScrollLock?: boolean;
 };
 
 export const Options = React.forwardRef<
@@ -25,7 +26,6 @@ export const Options = React.forwardRef<
   SelectOptionsProps
 >((props, forwardedRef) => {
   const { open, popperContext } = useSelectContext(OPTIONS_NAME);
-
   const optionsRef = useMergeRefs(
     popperContext.floatingContext.refs.setFloating,
     forwardedRef
@@ -44,7 +44,7 @@ export const Options = React.forwardRef<
   }
 
   return (
-    <RemoveScroll>
+    <RemoveScroll enabled={props.enableScrollLock}>
       <FloatingPortal id={props.portalContainerId}>
         <FloatingFocusManager
           context={popperContext.floatingContext.context}
