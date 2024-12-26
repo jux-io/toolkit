@@ -16,7 +16,9 @@ const OPTIONS_NAME = 'Jux.Select.Options';
 type SelectOptionsElement = React.ElementRef<typeof BasePrimitive.div>;
 export type SelectOptionsProps = React.ComponentPropsWithoutRef<
   typeof BasePrimitive.div
->;
+> & {
+  portalContainerId?: string;
+};
 
 export const Options = React.forwardRef<
   SelectOptionsElement,
@@ -43,7 +45,7 @@ export const Options = React.forwardRef<
 
   return (
     <RemoveScroll>
-      <FloatingPortal>
+      <FloatingPortal id={props.portalContainerId}>
         <FloatingFocusManager
           context={popperContext.floatingContext.context}
           modal={false}
