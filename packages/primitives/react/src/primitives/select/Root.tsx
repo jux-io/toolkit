@@ -17,6 +17,7 @@ import {
 } from '@floating-ui/react';
 import { SelectValue } from './types';
 import { SELECT_NAME, SelectProvider, useSelectContext } from './selectContext';
+import { Trigger } from './Trigger';
 
 export const TRIGGER_WIDTH_VAR = '--jux-select-trigger-width';
 
@@ -41,7 +42,10 @@ export interface SelectProps<ValueType> {
   closeOnSelect?: boolean;
 }
 
-export function Root<ValueType>(props: SelectProps<ValueType>) {
+export function RootImpl<ValueType>(
+  props: SelectProps<ValueType>,
+  forwardedRef: React.ForwardedRef<HTMLButtonElement>
+) {
   const {
     children,
     value: controlledValue,
@@ -57,6 +61,7 @@ export function Root<ValueType>(props: SelectProps<ValueType>) {
     sideOffset = 0,
     closeOnSelect = true,
     name,
+    ...otherProps
   } = props;
 
   const [open = false, setOpen] = useControlledState({
@@ -205,12 +210,13 @@ export function Root<ValueType>(props: SelectProps<ValueType>) {
           required={required}
         />
       )}
-      {children}
+      <Trigger {...otherProps} ref={forwardedRef}>
+        {children}
+      </Trigger>
     </SelectProvider>
   );
 }
 
-Root.displayName = SELECT_NAME;
 /**
  * InternalSelect component is a hidden select element used for form validation.
  * It synchronizes with the visible select component to ensure proper form submission.
@@ -265,3 +271,9 @@ const InternalSelect = React.forwardRef<
     </select>
   );
 });
+
+export const Root = React.forwardRef(RootImpl) as typeof RootImpl & {
+  displayName: string;
+};
+
+Root.displayName = SELECT_NAME;
