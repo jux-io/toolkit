@@ -40,6 +40,7 @@ export interface SelectProps<ValueType> {
   alignOffset?: number;
   sideOffset?: number;
   closeOnSelect?: boolean;
+  className?: string;
 }
 
 export function RootImpl<ValueType>(
