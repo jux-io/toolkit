@@ -13,7 +13,7 @@ import { SelectState } from './types';
 
 export const OPTION_NAME = 'Jux.Select.Option';
 
-interface SelectOptionProps<T = unknown>
+export interface SelectOptionProps<T = unknown>
   extends React.ComponentPropsWithoutRef<typeof BasePrimitive.div> {
   children: React.ReactNode;
   disabled?: boolean;

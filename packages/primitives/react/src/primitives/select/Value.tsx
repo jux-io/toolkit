@@ -75,7 +75,15 @@ function ValueImpl<T>(
 
   const value = useMemo(() => {
     if (isValueEmpty(selectContext.value)) {
-      return placeholder;
+      return (
+        <BasePrimitive.span
+          style={{ display: 'contents' }}
+          ref={forwardedRef}
+          {...otherProps}
+        >
+          {placeholder}
+        </BasePrimitive.span>
+      );
     }
 
     if (selectContext.multiple) {
