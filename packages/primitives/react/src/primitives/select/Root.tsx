@@ -17,7 +17,7 @@ import {
 } from '@floating-ui/react';
 import { SelectValue } from './types';
 import { SELECT_NAME, SelectProvider, useSelectContext } from './selectContext';
-import { Trigger } from './Trigger';
+import { useMergeRefs } from '../../hooks/useMergeRefs';
 
 export const TRIGGER_WIDTH_VAR = '--jux-select-trigger-width';
 
@@ -40,11 +40,12 @@ export interface SelectProps<ValueType> {
   alignOffset?: number;
   sideOffset?: number;
   closeOnSelect?: boolean;
+  className?: string;
 }
 
 export function RootImpl<ValueType>(
   props: SelectProps<ValueType>,
-  forwardedRef: React.ForwardedRef<HTMLButtonElement>
+  forwardedRef: React.ForwardedRef<HTMLDivElement>
 ) {
   const {
     children,
@@ -201,6 +202,7 @@ export function RootImpl<ValueType>(
         valuesRef,
       }}
     >
+      <WrappingContainer  {...otherProps} ref={forwardedRef}>
       {/* Add a hidden select for form validation that's required if any selection is needed */}
       {isFormControl && (
         <InternalSelect
@@ -210,12 +212,25 @@ export function RootImpl<ValueType>(
           required={required}
         />
       )}
-      <Trigger {...otherProps} ref={forwardedRef}>
         {children}
-      </Trigger>
+      </WrappingContainer>
     </SelectProvider>
   );
 }
+
+const WrappingContainer = React.forwardRef<HTMLDivElement, React.ComponentPropsWithRef<'div'>>(
+  (props, forwardedRef) => {
+
+  const selectContext = useSelectContext('Root');
+
+  const ref = useMergeRefs(
+    forwardedRef,
+    selectContext.popperContext.floatingContext.refs.setReference
+  );
+
+    return <div {...props} ref={ref} />;
+  }
+);
 
 /**
  * InternalSelect component is a hidden select element used for form validation.
