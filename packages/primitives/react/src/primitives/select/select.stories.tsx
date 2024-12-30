@@ -1,12 +1,12 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Select } from './index';
+import * as Select from './index';
 import { css } from '@juxio/react-styled';
 
 const triggerStyles = css({
   fontFamily: 'Inter',
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'space-between',
   background: 'transparent',
   fontSize: '14px',
   border: '1px solid lightgrey',
@@ -16,7 +16,6 @@ const triggerStyles = css({
   paddingInline: '0.75rem',
   width: '320px',
   height: '38px',
-
   '&:focus': {
     outline: 'none',
     border: '1px solid darkviolet',
@@ -78,6 +77,10 @@ const openIconStyles = css({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+});
+
+const buttonStyles = css({
+  display: 'contents',
 });
 
 const meta: Meta<typeof Select.Root> = {
@@ -158,6 +161,44 @@ export const Basic: Story = {
   },
 };
 
+export const PartialTrigger: Story = {
+  render: () => {
+    return (
+      <>
+        <Select.Root<string> className={triggerStyles} placement={'bottom'} sideOffset={8}>
+          <div style={{  width:'16px', height:'16px' }}>
+            &#128512;
+          </div>
+          <Select.Trigger className={buttonStyles}>
+            <div style={{ display: 'flex', justifyContent: 'space-between',   width: '100%',
+  height: '100%', alignItems: 'center',}}>
+            <Select.Value placeholder={'Select a Color'} />
+            </div>
+          </Select.Trigger>
+          <span className={openIconStyles}>
+              <OpenIcon />
+            </span>
+          <Select.Options className={optionsStyles}>
+            {colors.map((name) => (
+              <Select.Option
+                key={name}
+                value={name}
+                label={name}
+                className={optionStyles}
+              >
+                <span>{name}</span>
+                <Select.OptionIndicator className={optionIndicatorStyles}>
+                  <CheckIcon />
+                </Select.OptionIndicator>
+              </Select.Option>
+            ))}
+          </Select.Options>
+        </Select.Root>
+      </>
+    );
+  },
+};
+
 export const Multiple: Story = {
   render: () => {
     return (
@@ -200,7 +241,7 @@ export const Multiple: Story = {
 
 export const InsideForm: Story = {
   render: () => {
-    const [selected, setSelected] = useState<Record<string, string[]>>({});
+    const [selected, setSelected] = React.useState<Record<string, string[]>>({});
 
     return (
       <div
@@ -452,7 +493,7 @@ export const CustomValue: Story = {
 
 export const CustomValueMultipleInsideForm: Story = {
   render: () => {
-    const [selected, setSelected] = useState<Record<string, Country[]>>({});
+    const [selected, setSelected] = React.useState<Record<string, Country[]>>({});
 
     return (
       <div

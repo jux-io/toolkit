@@ -44,7 +44,10 @@ export const Options = React.forwardRef<
   }
 
   return (
-    <RemoveScroll enabled={props.enableScrollLock}>
+    <RemoveScroll
+      enabled={props.enableScrollLock}
+      style={{ position: 'absolute' }}
+    >
       <FloatingPortal id={props.portalContainerId}>
         <FloatingFocusManager
           context={popperContext.floatingContext.context}

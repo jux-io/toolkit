@@ -78,7 +78,7 @@ function OptionImpl<T>(
           '[aria-hidden="true"]'
         );
         if (optionIndicator) {
-          clonedNode.removeChild(optionIndicator);
+          optionIndicator.remove();
         }
 
         selectContext.selectedValueOptionElementsMap.current.set(
