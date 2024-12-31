@@ -1,6 +1,7 @@
+/* eslint-disable prettier/prettier */
 import { type LoadConfigRes } from './load-config';
 import bluebird from 'bluebird';
-import { JuxAPI } from '../api';
+import { ComponentFileStructure, JuxAPI } from '../api';
 import { type Asset } from '../assets';
 import { type JuxCLIConfig, type Themes } from './config.types';
 import { Config } from '@oclif/core';
@@ -16,6 +17,11 @@ import { loadCliConfig } from './load-cli-config.ts';
 import { UtilitiesManager } from '../utilities';
 import { ConditionsManager } from '../conditions';
 import hash from 'object-hash';
+import { ComponentsMapManager } from './components-map';
+import { promisify } from 'util';
+import { exec } from 'child_process';
+import { tmpdir } from 'os';
+import { logger } from '../utils/logger.ts';
 
 interface PullAssetsOptions {
   components: string[];
@@ -75,6 +81,8 @@ export class JuxContext {
    */
   private readonly environmentConfig: Config | undefined;
 
+  private readonly componentsMap: ComponentsMapManager;
+
   constructor(config: LoadConfigRes) {
     this.tokens = new TokensManager({
       core: config.cliConfig.core_tokens ?? {},
@@ -114,6 +122,19 @@ export class JuxContext {
       globalCss: this.cliConfig.globalCss,
       utilitiesManager: this.utilities,
       conditionsManager: this.conditions,
+    });
+
+    const componentsMapFile =
+      config.cliConfig.components_map_file ??
+      path.join(
+        config.cliConfig.components_directory ?? this.cwd,
+        'juxComponents.json'
+      );
+    this.cliConfig.components_map_file = componentsMapFile;
+
+    this.componentsMap = new ComponentsMapManager({
+      componentsMapFile,
+      fs: this.fs,
     });
   }
 
@@ -166,26 +187,131 @@ export class JuxContext {
     ];
   }
 
-  public async pullGeneratedComponentsCode(
-    components: string[],
-    directory?: string
-  ): Promise<Asset[]> {
-    const generatedFiles =
-      await this.api.pullGeneratedComponentsCode(components);
+  private async mergeComponentFile({
+    component,
+    previousVersion,
+    newContent,
+  }: {
+    component: ComponentFileStructure;
+    previousVersion: string;
+    newContent: string;
+  }): Promise<string> {
+    // Create temporary files for the merge
+    const tempDir = tmpdir();
+    const baseFile = `${component.name}.base.tsx`;
+    const currentFile = `${component.name}.current.tsx`;
+    const otherFile = `${component.name}.other.tsx`;
+
+    try {
+      // Write all versions to temp files
+      await this.fs.writeFile(tempDir, baseFile, previousVersion);
+      await this.fs.writeFile(tempDir, currentFile, newContent);
+
+      // Read and write the current file from disk
+      const currentContent = await this.fs.readFile(
+        path.join(this.cwd, component.file.name)
+      );
+      await this.fs.writeFile(tempDir, otherFile, currentContent);
+
+      // Execute git merge-file
+      const { stdout } = await promisify(exec)(
+        `git merge-file -p "${currentFile}" "${baseFile}" "${otherFile}"`
+      );
+
+      return stdout;
+    } finally {
+      // Cleanup temp files
+      await Promise.all([
+        this.fs.removeFileIfExists(path.join(tempDir, baseFile)),
+        this.fs.removeFileIfExists(path.join(tempDir, currentFile)),
+        this.fs.removeFileIfExists(path.join(tempDir, otherFile)),
+      ]);
+    }
+  }
+
+  public async pullComponents({
+    components,
+    directory,
+  }: {
+    components: string[];
+    directory?: string;
+  }) {
+    const outputDir =
+      directory ?? path.join(this.cwd, this.cliConfig.components_directory!);
+    const componentsMap = await this.componentsMap.readMap();
+
+    const {
+      components: generatedFiles,
+      componentsMap: newComponentsMap,
+      previousVersions,
+    } = await this.api.pullGeneratedComponentsCode({
+      components,
+      componentsMap,
+    });
 
     return bluebird.map(generatedFiles, async (f) => {
       f.file.name = `${f.file.name}.tsx`;
-      f.file.content = await this.fs.prettierFormat(f.file.content);
+      const newContent = await this.fs.prettierFormat(f.file.content);
+
+      const newFilePath = newComponentsMap[f.name].path;
+      const fileExists = await this.fs.exists(newComponentsMap[f.name].path);
+      const previousVersion = previousVersions?.[f.name];
+
+      // Only attempt merge if both conditions are met:
+      // 1. File exists on disk
+      // 2. We have a previous version from the server
+      if (fileExists && previousVersion) {
+        try {
+          // Perform three-way merge
+          const mergedContent = await this.mergeComponentFile({
+            component: f,
+            previousVersion,
+            newContent,
+          });
+
+          f.file.content = await this.fs.prettierFormat(mergedContent);
+
+          logger.info(
+            `updated component ${f.name} and rebased your changes to the server version`
+          );
+        } catch (error) {
+          logger.warn(
+            `Failed to merge changes for component ${f.name}, using new version. You will have to merge manually.`
+          );
+        }
+      } else if (fileExists) {
+        // File exists on disk but no previous version in DB
+        // This means it's the first time we're syncing this component
+        logger.info(
+          `Overwriting existing file for component ${f.name} as it's not yet tracked in the DB`
+        );
+      }
+
+      const componentMapFilePath = this.componentsMap.getComponentMapFile();
+      const componentMapFileDir = path.resolve(
+        componentMapFilePath,
+        path.parse(newFilePath).dir
+      );
+      logger.info(
+        `writing component ${f.name} to ${componentMapFilePath}. Writing to ${componentMapFileDir}`
+      );
+
+      await this.fs.writeAsset({
+        directory: path.resolve(
+          componentMapFilePath,
+          path.parse(newFilePath).dir
+        ),
+        files: [f.file],
+      });
+
       return {
-        /**
-         * It's safe to cast here because we are sure that components_directory is defined {@link resolveFinalConfig}
-         */
-        directory:
-          directory ??
-          path.join(this.cwd, this.cliConfig.components_directory!),
+        directory: outputDir,
         files: [f.file],
       };
     });
+
+    // Write the new components map to disk
+    await this.componentsMap.writeMap(newComponentsMap);
   }
 
   public async pullDesignTokens(
@@ -239,7 +365,9 @@ export class JuxContext {
 
   public async pullAssets(options: PullAssetsOptions): Promise<Asset[]> {
     return [
-      ...(await this.pullGeneratedComponentsCode(options.components)),
+      ...(await this.pullComponents({
+        components: options.components,
+      })),
       ...(await this.pullDesignTokens()),
     ];
   }
