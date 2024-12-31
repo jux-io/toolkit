@@ -7,6 +7,7 @@ const triggerStyles = css({
   fontFamily: 'Inter',
   display: 'flex',
   alignItems: 'center',
+  justifyContent: 'space-between',
   background: 'transparent',
   fontSize: '14px',
   border: '1px solid lightgrey',
@@ -79,19 +80,36 @@ const openIconStyles = css({
   justifyContent: 'center',
 });
 
-const buttonStyles = css({
-  display: 'contents',
-});
-
 const meta: Meta<typeof Select.Root> = {
   component: Select.Root,
   tags: ['autodocs'],
   title: 'JUX/Primitives/Select',
+  argTypes: {
+    placement: {
+      options: ['bottom-start', 'bottom-end', 'top-start', 'top-end'],
+      control: { type: 'select' },
+    },
+    sideOffset: {
+      control: { type: 'number' },
+    },
+    alignOffset: {
+      control: { type: 'number' },
+    },
+    open: {
+      control: { type: 'boolean' },
+    },
+    disabled: {
+      control: { type: 'boolean' },
+    },
+    required: {
+      control: { type: 'boolean' },
+    },
+  },
 };
 
 export default meta;
 
-type Story = StoryObj<typeof Select>;
+type Story = StoryObj<typeof Select.Root>;
 
 const colors = [
   'Red',
@@ -130,10 +148,10 @@ const countries: Country[] = [
 ];
 
 export const Basic: Story = {
-  render: () => {
+  render: (args) => {
     return (
       <>
-        <Select.Root<string> placement={'bottom'} sideOffset={8}>
+        <Select.Root {...args}>
           <Select.Trigger className={triggerStyles}>
             <Select.Value placeholder={'Select a Color'} />
             <span className={openIconStyles}>
@@ -165,19 +183,22 @@ export const PartialTrigger: Story = {
   render: () => {
     return (
       <>
-        <Select.Root<string> className={triggerStyles} placement={'bottom'} sideOffset={8}>
-          <div style={{  width:'16px', height:'16px' }}>
-            &#128512;
-          </div>
-          <Select.Trigger className={buttonStyles}>
-            <div style={{ display: 'flex', justifyContent: 'space-between',   width: '100%',
-  height: '100%', alignItems: 'center',}}>
+        <Select.Root<string>
+          className={triggerStyles}
+          placement={'bottom'}
+          sideOffset={8}
+        >
+          <div>&#128512;</div>
+          <Select.Trigger
+            className={css({
+              display: 'contents',
+            })}
+          >
             <Select.Value placeholder={'Select a Color'} />
-            </div>
           </Select.Trigger>
           <span className={openIconStyles}>
-              <OpenIcon />
-            </span>
+            <OpenIcon />
+          </span>
           <Select.Options className={optionsStyles}>
             {colors.map((name) => (
               <Select.Option
@@ -241,7 +262,9 @@ export const Multiple: Story = {
 
 export const InsideForm: Story = {
   render: () => {
-    const [selected, setSelected] = React.useState<Record<string, string[]>>({});
+    const [selected, setSelected] = React.useState<Record<string, string[]>>(
+      {}
+    );
 
     return (
       <div
@@ -493,7 +516,9 @@ export const CustomValue: Story = {
 
 export const CustomValueMultipleInsideForm: Story = {
   render: () => {
-    const [selected, setSelected] = React.useState<Record<string, Country[]>>({});
+    const [selected, setSelected] = React.useState<Record<string, Country[]>>(
+      {}
+    );
 
     return (
       <div
