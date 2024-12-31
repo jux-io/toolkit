@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { useLayoutEffect } from 'react';
 import { useMergeRefs } from '../../hooks/useMergeRefs';
-import * as ReactDOM from 'react-dom';
 import { RemoveScroll } from 'react-remove-scroll';
 import {
   FloatingFocusManager,
@@ -31,43 +29,33 @@ export const Options = React.forwardRef<
     forwardedRef
   );
 
-  const [fragment, setFragment] = React.useState<DocumentFragment>();
-
-  useLayoutEffect(() => {
-    setFragment(new DocumentFragment());
-  }, []);
-
-  if (!open) {
-    return fragment
-      ? ReactDOM.createPortal(<div>{props.children}</div>, fragment)
-      : null;
-  }
-
   return (
-    <RemoveScroll
-      enabled={props.enableScrollLock}
-      style={{ position: 'absolute' }}
-    >
-      <FloatingPortal id={props.portalContainerId}>
+    <FloatingPortal id={props.portalContainerId}>
+      {open && (
         <FloatingFocusManager
           context={popperContext.floatingContext.context}
           modal={false}
         >
-          <BasePrimitive.div
-            ref={optionsRef}
-            style={popperContext.floatingContext.floatingStyles}
-            {...popperContext.interactions.getFloatingProps(props)}
+          <FloatingList
+            elementsRef={popperContext.elementsRef}
+            labelsRef={popperContext.labelsRef}
           >
-            <FloatingList
-              elementsRef={popperContext.elementsRef}
-              labelsRef={popperContext.labelsRef}
+            <RemoveScroll
+              enabled={props.enableScrollLock}
+              style={{ position: 'absolute' }}
             >
-              {props.children}
-            </FloatingList>
-          </BasePrimitive.div>
+              <BasePrimitive.div
+                ref={optionsRef}
+                style={popperContext.floatingContext.floatingStyles}
+                {...popperContext.interactions.getFloatingProps(props)}
+              >
+                {props.children}
+              </BasePrimitive.div>
+            </RemoveScroll>
+          </FloatingList>
         </FloatingFocusManager>
-      </FloatingPortal>
-    </RemoveScroll>
+      )}
+    </FloatingPortal>
   );
 });
 
