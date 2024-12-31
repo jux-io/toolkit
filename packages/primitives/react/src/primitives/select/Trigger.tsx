@@ -39,10 +39,8 @@ export const Trigger = React.forwardRef<HTMLButtonElement, TriggerButtonProps>(
         data-disabled={isDisabled ? '' : undefined}
         disabled={isDisabled}
         dir={selectContext.direction}
-        {...selectContext.popperContext.interactions.getReferenceProps(
-          otherProps
-        )}
         ref={ref}
+        {...otherProps}
       >
         {children}
       </BasePrimitive.button>
