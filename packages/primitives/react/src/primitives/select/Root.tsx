@@ -3,10 +3,10 @@ import { useId, useMemo } from 'react';
 import { useControlledState } from '../../hooks/useControlledState';
 import {
   autoUpdate,
+  computePosition,
   flip,
   offset,
   Placement,
-  shift,
   size,
   useClick,
   useDismiss,
@@ -81,7 +81,19 @@ export function RootImpl<ValueType>(
     strategy: 'fixed',
     open,
     placement: placement,
-    whileElementsMounted: autoUpdate,
+    whileElementsMounted: (...args) => {
+      const [reference, floating, update] = args;
+      const cleanup = autoUpdate(reference, floating, () => {
+        computePosition(reference, floating).then(({ x, y }) => {
+          Object.assign(floating.style, {
+            transform: `translate3d(${x + sideOffset}px, ${y + alignOffset}px, 0)`,
+          });
+          update();
+        });
+      });
+      return cleanup;
+    },
+    transform: true,
     onOpenChange: setOpen,
     middleware: [
       offset({ mainAxis: sideOffset, alignmentAxis: alignOffset }),
@@ -93,10 +105,6 @@ export function RootImpl<ValueType>(
             `${rects.reference.width}px`
           );
         },
-      }),
-      shift({
-        mainAxis: true,
-        crossAxis: false,
       }),
     ],
   });
@@ -179,6 +187,8 @@ export function RootImpl<ValueType>(
     return valuesRef.current[index] as ValueType;
   }, []);
 
+  const ref = useMergeRefs(forwardedRef, floatingContext.refs.setReference);
+
   return (
     <SelectProvider
       contentId={`jux-select-${useId()}`}
@@ -202,35 +212,21 @@ export function RootImpl<ValueType>(
         valuesRef,
       }}
     >
-      <WrappingContainer  {...otherProps} ref={forwardedRef}>
-      {/* Add a hidden select for form validation that's required if any selection is needed */}
-      {isFormControl && (
-        <InternalSelect
-          value={value as string | string[]}
-          name={name}
-          multiple={multiple}
-          required={required}
-        />
-      )}
+      <div ref={ref} {...interactions.getReferenceProps(otherProps)}>
+        {/* Add a hidden select for form validation that's required if any selection is needed */}
+        {isFormControl && (
+          <InternalSelect
+            value={value as string | string[]}
+            name={name}
+            multiple={multiple}
+            required={required}
+          />
+        )}
         {children}
-      </WrappingContainer>
+      </div>
     </SelectProvider>
   );
 }
-
-const WrappingContainer = React.forwardRef<HTMLDivElement, React.ComponentPropsWithRef<'div'>>(
-  (props, forwardedRef) => {
-
-  const selectContext = useSelectContext('Root');
-
-  const ref = useMergeRefs(
-    forwardedRef,
-    selectContext.popperContext.floatingContext.refs.setReference
-  );
-
-    return <div {...props} ref={ref} />;
-  }
-);
 
 /**
  * InternalSelect component is a hidden select element used for form validation.
