@@ -1,5 +1,11 @@
 # @juxio/react-primitives
 
+## 0.8.13
+
+### Patch Changes
+
+- [#140](https://github.com/jux-io/toolkit/pull/140) [`425efd2`](https://github.com/jux-io/toolkit/commit/425efd2e576c05df0055fb001735f39cd55e3b48) Thanks [@hamatoyogi](https://github.com/hamatoyogi)! - Split select element into separate files + use transform for portal
+
 ## 0.8.12
 
 ### Patch Changes

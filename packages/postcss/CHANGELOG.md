@@ -1,5 +1,12 @@
 # @juxio/postcss
 
+## 0.8.13
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @juxio/core@0.8.13
+
 ## 0.8.12
 
 ### Patch Changes
