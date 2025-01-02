@@ -1,5 +1,11 @@
 # @juxio/react-primitives
 
+## 0.8.14
+
+### Patch Changes
+
+- [#142](https://github.com/jux-io/toolkit/pull/142) [`6dcea9a`](https://github.com/jux-io/toolkit/commit/6dcea9a331e58cef69b58cf27f0e3df87bd7261f) Thanks [@hamatoyogi](https://github.com/hamatoyogi)! - fix: select refs
+
 ## 0.8.13
 
 ### Patch Changes
