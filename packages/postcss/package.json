@@ -1,7 +1,7 @@
 {
   "name": "@juxio/postcss",
   "description": "PostCSS plugin for Jux",
-  "version": "0.8.13",
+  "version": "0.8.14",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
