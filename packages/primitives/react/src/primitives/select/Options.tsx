@@ -40,10 +40,7 @@ export const Options = React.forwardRef<
             elementsRef={popperContext.elementsRef}
             labelsRef={popperContext.labelsRef}
           >
-            <RemoveScroll
-              enabled={props.enableScrollLock}
-              style={{ position: 'absolute' }}
-            >
+            <RemoveScroll enabled={props.enableScrollLock}>
               <BasePrimitive.div
                 ref={optionsRef}
                 style={popperContext.floatingContext.floatingStyles}
