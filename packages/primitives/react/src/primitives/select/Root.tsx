@@ -212,7 +212,7 @@ export function RootImpl<ValueType>(
         valuesRef,
       }}
     >
-      <div ref={ref} {...interactions.getReferenceProps(otherProps)}>
+      <div {...interactions.getReferenceProps({ ...otherProps })} ref={ref}>
         {/* Add a hidden select for form validation that's required if any selection is needed */}
         {isFormControl && (
           <InternalSelect
