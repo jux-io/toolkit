@@ -81,12 +81,33 @@ export function RootImpl<ValueType>(
     strategy: 'fixed',
     open,
     placement: placement,
+    // We use a fixed position + transform strategy instead of absolute positioning:
+    // 1. Better performance - transforms are GPU accelerated
+    // 2. More reliable positioning - fixed positioning ensures consistent coordinates
+    // 3. Handles all placements (top, bottom, etc) correctly by using translate3d
+    // 4. Prevents layout shifts by setting initial position to 0,0 and moving with transform
     whileElementsMounted: (...args) => {
       const [reference, floating, update] = args;
       const cleanup = autoUpdate(reference, floating, () => {
-        computePosition(reference, floating).then(({ x, y }) => {
+        computePosition(reference, floating, {
+          placement,
+          middleware: [
+            offset({ mainAxis: sideOffset, alignmentAxis: alignOffset }),
+            flip(),
+            size({
+              apply({ rects }) {
+                Object.assign(floating.style, {
+                  width: `${rects.reference.width}px`,
+                });
+              },
+            }),
+          ],
+        }).then(({ x, y }) => {
           Object.assign(floating.style, {
-            transform: `translate3d(${x + sideOffset}px, ${y + alignOffset}px, 0)`,
+            position: 'fixed',
+            top: '0',
+            left: '0',
+            transform: `translate3d(${Math.round(x)}px, ${Math.round(y)}px, 0)`,
           });
           update();
         });
