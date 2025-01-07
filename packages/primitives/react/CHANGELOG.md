@@ -1,5 +1,11 @@
 # @juxio/react-primitives
 
+## 0.8.15
+
+### Patch Changes
+
+- [#144](https://github.com/jux-io/toolkit/pull/144) [`e20ab03`](https://github.com/jux-io/toolkit/commit/e20ab0392b259c3bda866876daea1cbcb7d0e830) Thanks [@hamatoyogi](https://github.com/hamatoyogi)! - refactor(@juxio/react-primitives): improve select component placement positioning
+
 ## 0.8.14
 
 ### Patch Changes

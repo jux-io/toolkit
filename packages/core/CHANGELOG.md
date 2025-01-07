@@ -1,5 +1,12 @@
 # @juxio/core
 
+## 0.8.15
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @juxio/design-tokens@0.8.15
+
 ## 0.8.14
 
 ### Patch Changes
