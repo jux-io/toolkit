@@ -1,5 +1,14 @@
 # @juxio/core
 
+## 0.8.17
+
+### Patch Changes
+
+- [#148](https://github.com/jux-io/toolkit/pull/148) [`61639e9`](https://github.com/jux-io/toolkit/commit/61639e9d0eea7962a1f1b775eaf7576eeb80a169) Thanks [@metav-drimz](https://github.com/metav-drimz)! - Radio group primitive + Radio primite fixes
+
+- Updated dependencies [[`61639e9`](https://github.com/jux-io/toolkit/commit/61639e9d0eea7962a1f1b775eaf7576eeb80a169)]:
+  - @juxio/design-tokens@0.8.17
+
 ## 0.8.16
 
 ### Patch Changes
