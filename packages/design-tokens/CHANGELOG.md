@@ -1,5 +1,11 @@
 # @juxio/design-tokens
 
+## 0.8.16
+
+### Patch Changes
+
+- [#146](https://github.com/jux-io/toolkit/pull/146) [`58fb172`](https://github.com/jux-io/toolkit/commit/58fb1726cd5cb5e2a1966ddfd65499c6d55c0ca6) Thanks [@liranasia](https://github.com/liranasia)! - added new tabs primitive
+
 ## 0.8.15
 
 ## 0.8.14
