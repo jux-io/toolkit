@@ -1,148 +1,88 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { RadioState, Radio } from './Radio';
 import React from 'react';
-import { css } from '@juxio/react-styled';
-
-const rootStyles = css({
-  all: 'unset',
-  width: '16px',
-  height: '16px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderRadius: '50%',
-  border: '1.5px solid #9E9E9E',
-  outline: 'none',
-  cursor: 'pointer',
-  transition: 'all 0.2s ease-in-out',
-  backgroundColor: '#fff',
-
-  '&[data-state="checked"]': {
-    borderColor: '#058FF2',
-    backgroundColor: '#058FF2',
-    boxShadow: 'inset 0 0 0 2px #fff',
-  },
-
-  '&[data-state="indeterminate"]': {
-    borderColor: '#058FF2',
-    backgroundColor: '#058FF2',
-    boxShadow: 'inset 0 0 0 2px #fff',
-    '&::after': {
-      content: '""',
-      display: 'block',
-      width: '8px',
-      height: '2px',
-      backgroundColor: '#fff',
-    },
-  },
-
-  '&:hover[data-state="unchecked"]': {
-    borderColor: '#272727',
-  },
-  '&:hover[data-state="checked"], &:hover[data-state="indeterminate"]': {
-    borderColor: '#0470C2',
-    backgroundColor: '#0470C2',
-  },
-
-  '&:active[data-state="unchecked"]': {
-    borderColor: '#1A1A1A',
-  },
-  '&:active[data-state="checked"], &:active[data-state="indeterminate"]': {
-    borderColor: '#035592',
-    backgroundColor: '#035592',
-  },
-
-  '&[data-disabled]': {
-    cursor: 'default',
-    '&[data-state="checked"], &[data-state="indeterminate"]': {
-      borderColor: '#D9EFFF',
-      backgroundColor: '#D9EFFF',
-    },
-    '&[data-state="unchecked"]': {
-      borderColor: '#BDBDBD',
-    },
-  },
-});
+import {
+  RadioButtonStyles,
+  RadioLabelStyles,
+  RadioWrapperStyles,
+} from './radio.stories.styles';
 
 const meta: Meta<typeof Radio> = {
   component: Radio,
   tags: ['autodocs'],
   title: 'JUX/Primitives/Radio',
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A radio button component with support for various states including checked, unchecked, indeterminate, and disabled.',
+      },
+    },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof Radio>;
 
-export const StyledRadio: Story = {
+export const Default: Story = {
   render: () => {
-    return <Radio className={rootStyles} defaultChecked={true} />;
-  },
-};
-
-export const Controlled: Story = {
-  render: () => {
-    const [checked, setChecked] = React.useState<RadioState>(true);
     return (
-      <Radio
-        className={rootStyles}
-        checked={checked}
-        onCheckedChange={setChecked}
-      />
+      <div className={RadioWrapperStyles}>
+        <Radio
+          className={RadioButtonStyles}
+          value="default"
+          id="default-radio"
+        />
+        <label className={RadioLabelStyles} htmlFor="default-radio">
+          Default Radio
+        </label>
+      </div>
     );
   },
 };
 
-export const RadioGroup: Story = {
+export const Checked: Story = {
   render: () => {
-    const [selectedValue, setSelectedValue] = React.useState('1');
-
     return (
-      <div
-        role="radiogroup"
-        aria-label="Sample radio group"
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '10px',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <div className={RadioWrapperStyles}>
+        <Radio
+          className={RadioButtonStyles}
+          value="checked"
+          defaultChecked
+          id="checked-radio"
+        />
+        <label className={RadioLabelStyles} htmlFor="checked-radio">
+          Checked Radio
+        </label>
+      </div>
+    );
+  },
+};
+
+export const Indeterminate: Story = {
+  render: () => {
+    const [checked, setChecked] = React.useState<RadioState>('indeterminate');
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <div className={RadioWrapperStyles}>
           <Radio
-            id="radio-1"
-            className={rootStyles}
-            checked={selectedValue === '1'}
-            onCheckedChange={() => setSelectedValue('1')}
-            value="1"
-            name="radio-group"
+            className={RadioButtonStyles}
+            checked={checked}
+            onCheckedChange={setChecked}
+            value="indeterminate"
+            id="indeterminate-radio"
           />
-          <label htmlFor="radio-1">Option 1</label>
+          <label className={RadioLabelStyles} htmlFor="indeterminate-radio">
+            Indeterminate Radio
+          </label>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Radio
-            id="radio-2"
-            className={rootStyles}
-            checked={selectedValue === '2'}
-            onCheckedChange={() => setSelectedValue('2')}
-            value="2"
-            name="radio-group"
-          />
-          <label htmlFor="radio-2">Option 2</label>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <button onClick={() => setChecked(false)}>Set Unchecked</button>
+          <button onClick={() => setChecked('indeterminate')}>
+            Set Indeterminate
+          </button>
+          <button onClick={() => setChecked(true)}>Set Checked</button>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Radio
-            id="radio-3"
-            className={rootStyles}
-            checked={selectedValue === '3'}
-            onCheckedChange={() => setSelectedValue('3')}
-            value="3"
-            name="radio-group"
-          />
-          <label htmlFor="radio-3">Option 3</label>
-        </div>
-        <p style={{ marginTop: '10px', fontSize: '14px', color: '#666' }}>
-          Use keyboard navigation (Tab, Space, Enter) to interact with the radio
-          buttons
-        </p>
       </div>
     );
   },
@@ -150,40 +90,70 @@ export const RadioGroup: Story = {
 
 export const Disabled: Story = {
   render: () => {
-    return <Radio className={rootStyles} disabled defaultChecked />;
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <div className={RadioWrapperStyles} data-disabled>
+          <Radio
+            className={RadioButtonStyles}
+            disabled
+            value="disabled-unchecked"
+            id="disabled-radio"
+          />
+          <label className={RadioLabelStyles} htmlFor="disabled-radio">
+            Disabled Radio (Unchecked)
+          </label>
+        </div>
+        <div className={RadioWrapperStyles} data-disabled>
+          <Radio
+            className={RadioButtonStyles}
+            disabled
+            defaultChecked
+            value="disabled-checked"
+            id="disabled-checked-radio"
+          />
+          <label className={RadioLabelStyles} htmlFor="disabled-checked-radio">
+            Disabled Radio (Checked)
+          </label>
+        </div>
+        <div className={RadioWrapperStyles} data-disabled>
+          <Radio
+            className={RadioButtonStyles}
+            checked="indeterminate"
+            disabled
+            value="disabled-indeterminate"
+            id="disabled-indeterminate-radio"
+          />
+          <label
+            className={RadioLabelStyles}
+            htmlFor="disabled-indeterminate-radio"
+          >
+            Disabled Radio (Indeterminate)
+          </label>
+        </div>
+      </div>
+    );
   },
 };
 
-export const Indeterminate: Story = {
+export const Controlled: Story = {
   render: () => {
-    const [checked, setChecked] = React.useState<RadioState>('indeterminate');
-
+    const [checked, setChecked] = React.useState<RadioState>(false);
     return (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '10px',
-        }}
-      >
-        <Radio
-          className={rootStyles}
-          checked={checked}
-          onCheckedChange={setChecked}
-        />
-
-        <button
-          type="button"
-          style={{
-            width: '200px',
-          }}
-          onClick={() =>
-            setChecked((prevIsChecked) =>
-              prevIsChecked === 'indeterminate' ? false : 'indeterminate'
-            )
-          }
-        >
-          Toggle indeterminate
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <div className={RadioWrapperStyles}>
+          <Radio
+            className={RadioButtonStyles}
+            checked={checked}
+            onCheckedChange={setChecked}
+            value="controlled"
+            id="controlled-radio"
+          />
+          <label className={RadioLabelStyles} htmlFor="controlled-radio">
+            Controlled Radio (Checked: {String(checked)})
+          </label>
+        </div>
+        <button onClick={() => setChecked((prev) => !prev)}>
+          Toggle Radio
         </button>
       </div>
     );
