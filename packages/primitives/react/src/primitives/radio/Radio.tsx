@@ -6,6 +6,7 @@ import { useControlledState } from '../../hooks/useControlledState';
 import PropTypes from 'prop-types';
 import { useResizeObserver } from 'usehooks-ts';
 import { createCustomContext } from '../../utils/createCustomContext';
+import { useRadioGroupContext } from '../radio-group/RadioGroup';
 
 /****************
  * TYPES
@@ -23,19 +24,16 @@ type RadioState = boolean | 'indeterminate';
  * UTILS
  ****************/
 
-function isStateIndeterminate(
+const isStateIndeterminate = (
   checked?: RadioState
-): checked is 'indeterminate' {
-  return checked === 'indeterminate';
-}
+): checked is 'indeterminate' => checked === 'indeterminate';
 
-function getCheckedState(checked: RadioState) {
-  return isStateIndeterminate(checked)
+const getCheckedState = (checked: RadioState) =>
+  isStateIndeterminate(checked)
     ? 'indeterminate'
     : checked
       ? 'checked'
       : 'unchecked';
-}
 
 /****************
  * CONTEXT
@@ -46,8 +44,15 @@ interface RadioContextValue {
   disabled?: boolean;
 }
 
-const { Provider: RadioProvider } =
-  createCustomContext<RadioContextValue>(RADIO_NAME);
+const defaultContext: RadioContextValue = {
+  state: false,
+  disabled: false,
+};
+
+const { Provider: RadioProvider } = createCustomContext<RadioContextValue>(
+  RADIO_NAME,
+  defaultContext
+);
 
 /****************
  * COMPONENTS
@@ -98,16 +103,34 @@ const InternalInput = React.forwardRef<HTMLInputElement, InputProps>(
 );
 
 /**
- * Radio
+ * Radio component
  */
-
 interface RadioProps
-  extends Omit<PrimitiveButtonProps, 'checked' | 'defaultChecked'> {
+  extends Omit<PrimitiveButtonProps, 'checked' | 'defaultChecked' | 'value'> {
+  /**
+   * The value of the radio button, used when it belongs to a radio group
+   */
+  value: string;
+  /**
+   * The checked state of the radio button
+   */
   checked?: RadioState;
+  /**
+   * The default checked state
+   */
   defaultChecked?: RadioState;
+  /**
+   * Whether the radio is required in a form context
+   */
   required?: boolean;
+  /**
+   * Callback when the checked state changes
+   */
   onCheckedChange?(checked: RadioState): void;
-  value?: string;
+  /**
+   * Whether the radio is disabled
+   */
+  disabled?: boolean;
 }
 
 type RadioRootElement = React.ElementRef<'button'>;
@@ -115,20 +138,39 @@ type RadioRootElement = React.ElementRef<'button'>;
 const Radio = React.forwardRef<RadioRootElement, RadioProps>(
   (props, forwardedRef) => {
     const {
-      checked,
-      name,
+      checked: checkedProp,
+      name: nameProp,
       required,
       defaultChecked,
-      disabled,
+      disabled: disabledProp,
       value,
       onCheckedChange,
       ...radioProps
     } = props;
 
+    // Get radio group context if within a group
+    const groupContext = useRadioGroupContext(RADIO_NAME);
+    const isInGroup = groupContext !== null && groupContext.name !== undefined;
+
+    // If in group, use group's name and disabled state
+    const name = isInGroup ? groupContext?.name : nameProp;
+    const disabled = isInGroup
+      ? groupContext?.disabled || disabledProp
+      : disabledProp;
+
+    // If in group, checked state is controlled by the group's selected value
+    const checked = isInGroup ? groupContext?.value === value : checkedProp;
+
     const [checkedState = false, setChecked] = useControlledState({
       prop: checked,
       defaultProp: defaultChecked,
-      onChange: onCheckedChange,
+      onChange: (newState) => {
+        if (isInGroup && groupContext?.onValueChange && value) {
+          groupContext.onValueChange(value);
+        } else {
+          onCheckedChange?.(newState);
+        }
+      },
     });
 
     const [buttonElement, setButton] = React.useState<HTMLButtonElement | null>(
@@ -137,8 +179,16 @@ const Radio = React.forwardRef<RadioRootElement, RadioProps>(
 
     const composedRefs = useMergeRefs(forwardedRef, (node) => setButton(node));
 
+    const contextValue = React.useMemo(
+      () => ({
+        state: checkedState,
+        disabled,
+      }),
+      [checkedState, disabled]
+    );
+
     return (
-      <RadioProvider state={checkedState} disabled={disabled}>
+      <RadioProvider {...contextValue}>
         <BasePrimitive.button
           type="button"
           role="radio"
@@ -189,6 +239,12 @@ Radio.displayName = RADIO_NAME;
  */
 Radio.propTypes = {
   /**
+   * The value of the radio button
+   * @type {string}
+   */
+  value: PropTypes.string.isRequired,
+
+  /**
    * The initial checked state of the radio. Can be a boolean or 'indeterminate'.
    * @type {boolean|'indeterminate'}
    */
@@ -224,12 +280,6 @@ Radio.propTypes = {
    * @type {string}
    */
   name: PropTypes.string,
-
-  /**
-   * The value attribute of the radio input element.
-   * @type {string}
-   */
-  value: PropTypes.string,
 
   /**
    * Callback function that is called when the checked state changes.
