@@ -28,6 +28,7 @@ export interface SelectContextValue<T = unknown> {
   selectedValueOptionElementsMap: React.MutableRefObject<
     Map<string, HTMLElement>
   >;
+  optionListElementsMap: React.MutableRefObject<Map<string, HTMLElement>>;
   popperContext: {
     isTyping: boolean;
     interactions: ReturnType<typeof useInteractions>;

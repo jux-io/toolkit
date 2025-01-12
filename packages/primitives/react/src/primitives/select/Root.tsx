@@ -136,6 +136,9 @@ export function RootImpl<ValueType>(
   const selectedValueOptionElementsMap = React.useRef<Map<string, HTMLElement>>(
     new Map()
   );
+  const optionListElementsMap = React.useRef<Map<string, HTMLElement>>(
+    new Map()
+  );
   const [isTyping, setIsTyping] = React.useState(false);
 
   const click = useClick(floatingContext.context);
@@ -224,6 +227,7 @@ export function RootImpl<ValueType>(
       selectedIndex={selectedIndex}
       getOptionValue={getOptionValue}
       selectedValueOptionElementsMap={selectedValueOptionElementsMap}
+      optionListElementsMap={optionListElementsMap}
       popperContext={{
         isTyping,
         interactions,

@@ -25,15 +25,15 @@ function ValueImpl<T>(
   const { placeholder, children, className, ...otherProps } = props;
   const selectContext = useSelectContext(VALUE_NAME) as SelectContextValue<T>;
 
-  const renderValue = (val: T) => {
+  const selectedElement = useMemo(() => {
     // Always try to get the cloned element first
-    const selectedElement =
-      selectContext.selectedValueOptionElementsMap.current.get(
-        JSON.stringify(val)
-      );
+    return selectContext.optionListElementsMap.current.get(
+      JSON.stringify(selectContext.value)
+    );
+  }, [selectContext.value]);
 
+  const renderValue = (val: T) => {
     // display: contents is used in order to avoid the cloned element from being displayed as a block element
-
     if (selectedElement) {
       return (
         <BasePrimitive.span
