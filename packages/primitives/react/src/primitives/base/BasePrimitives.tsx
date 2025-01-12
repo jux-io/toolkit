@@ -11,6 +11,9 @@ const BasePrimitives = [
   'textarea',
   'label',
   'svg',
+  'h1',
+  'h2',
+  'h3',
 ] as const;
 
 type IBasePrimitives = {

@@ -10,25 +10,26 @@ interface TriggerProps
   extends React.ComponentPropsWithoutRef<typeof BasePrimitive.button> {
   value: string;
   disabled?: boolean;
+  isSelected?: boolean;
 }
 
 export const Trigger = React.forwardRef<HTMLButtonElement, TriggerProps>(
   (props, forwardedRef) => {
-    const { value, disabled, ...triggerProps } = props;
+    const { value, disabled, isSelected, ...triggerProps } = props;
     const context = useTabsContext(TRIGGER_NAME);
-    const isSelected = context.value === value;
+    const isTabSelected = isSelected ?? context.value === value;
 
     return (
       <BasePrimitive.button
         type="button"
         role="tab"
-        aria-selected={isSelected}
+        aria-selected={isTabSelected}
         aria-controls={`${context.baseId}-content-${value}`}
-        data-state={isSelected ? TabsState.Active : TabsState.Inactive}
+        data-state={isTabSelected ? TabsState.Active : TabsState.Inactive}
         data-orientation={context.orientation}
         data-disabled={disabled ? '' : undefined}
         disabled={disabled}
-        tabIndex={isSelected ? 0 : -1}
+        tabIndex={isTabSelected ? 0 : -1}
         ref={forwardedRef}
         {...triggerProps}
         onClick={globalEventHandler(props.onClick, () => {

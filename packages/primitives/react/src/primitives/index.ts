@@ -7,3 +7,4 @@ export * as RadioGroup from './radio-group';
 export * from './radio/Radio';
 export * as Tabs from './tabs';
 export * from './toggle/Toggle';
+export * as Accordion from './accordion';
