@@ -81,7 +81,7 @@ function OptionImpl<T>(
           optionIndicator.remove();
         }
 
-        selectContext.selectedValueOptionElementsMap.current.set(
+        selectContext.optionListElementsMap.current.set(
           JSON.stringify(value),
           clonedNode
         );
@@ -96,7 +96,7 @@ function OptionImpl<T>(
       if (selected || isSelected) {
         // Keep only the selected value
         const selectedElement =
-          selectContext.selectedValueOptionElementsMap.current.get(selectedKey);
+          selectContext.optionListElementsMap.current.get(selectedKey);
         selectContext.selectedValueOptionElementsMap.current.clear();
         if (selectedElement) {
           selectContext.selectedValueOptionElementsMap.current.set(
