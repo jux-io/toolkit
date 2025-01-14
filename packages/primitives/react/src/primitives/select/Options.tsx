@@ -31,7 +31,7 @@ export const Options = forwardRef<SelectOptionsElement, SelectOptionsProps>(
 
     const isOpen = props.open ?? open;
 
-    const floatingPortalId = props.portalContainerId || portalContainerId;
+    const floatingPortalId = props.portalContainerId ?? portalContainerId;
 
     return (
       <FloatingPortal id={floatingPortalId}>
