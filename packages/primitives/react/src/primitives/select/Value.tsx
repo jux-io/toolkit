@@ -2,7 +2,7 @@
  * Select.Value
  */
 import * as React from 'react';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { BasePrimitive } from '../base/BasePrimitives';
 import { SelectContextValue, useSelectContext } from './selectContext';
 import { isValueEmpty } from './utils';
@@ -25,53 +25,73 @@ function ValueImpl<T>(
   const { placeholder, children, className, ...otherProps } = props;
   const selectContext = useSelectContext(VALUE_NAME) as SelectContextValue<T>;
 
+  // First try to get the element from the options list
   const selectedElement = useMemo(() => {
-    // Always try to get the cloned element first
-    return selectContext.optionListElementsMap.current.get(
-      JSON.stringify(selectContext.value)
-    );
-  }, [selectContext.value]);
-
-  const renderValue = (val: T) => {
-    // display: contents is used in order to avoid the cloned element from being displayed as a block element
-    if (selectedElement) {
-      return (
-        <BasePrimitive.span
-          style={{ display: 'contents' }}
-          ref={forwardedRef}
-          {...otherProps}
-          dangerouslySetInnerHTML={{ __html: selectedElement.innerHTML }}
-        />
+    const stringifiedValue = JSON.stringify(selectContext.value);
+    // Try to get from option list first (for controlled values)
+    const selectedValueElement =
+      selectContext.optionListElementsMap.current.get(stringifiedValue);
+    if (selectedValueElement) {
+      selectContext.selectedValueOptionElementsMap.current.set(
+        stringifiedValue,
+        selectedValueElement
       );
+      return selectedValueElement;
     }
+    // Fallback to selected value map (for uncontrolled/user selected values)
+    return selectContext.selectedValueOptionElementsMap.current.get(
+      stringifiedValue
+    );
+  }, [
+    selectContext.value,
+    selectContext.selectedValueOptionElementsMap.current.has(
+      JSON.stringify(selectContext.value)
+    ),
+  ]);
 
-    // If no cloned element is available yet, use custom render function if provided
-    if (children) {
-      return children(val);
-    }
+  const renderValue = useCallback(
+    (val: T) => {
+      // display: contents is used in order to avoid the cloned element from being displayed as a block element
+      if (selectedElement) {
+        return (
+          <BasePrimitive.span
+            style={{ display: 'contents' }}
+            ref={forwardedRef}
+            {...otherProps}
+            dangerouslySetInnerHTML={{ __html: selectedElement.innerHTML }}
+          />
+        );
+      }
 
-    // Last resort fallback
-    if (val && typeof val === 'object' && 'name' in val) {
+      // If no cloned element is available yet, use custom render function if provided
+      if (children) {
+        return children(val);
+      }
+
+      // Last resort fallback
+      if (val && typeof val === 'object' && 'name' in val) {
+        return (
+          <BasePrimitive.span
+            style={{ display: 'contents' }}
+            ref={forwardedRef}
+            {...otherProps}
+          >
+            {String((val as { name: string }).name)}
+          </BasePrimitive.span>
+        );
+      }
       return (
         <BasePrimitive.span
           style={{ display: 'contents' }}
           ref={forwardedRef}
           {...otherProps}
         >
-          {String((val as { name: string }).name)}
+          {String(val)}
         </BasePrimitive.span>
       );
-    }
-    return (
-      <BasePrimitive.span
-        style={{ display: 'contents' }}
-        ref={forwardedRef}
-        {...otherProps}
-      >
-        {String(val)}
-      </BasePrimitive.span>
-    );
-  };
+    },
+    [selectedElement]
+  );
 
   const value = useMemo(() => {
     if (isValueEmpty(selectContext.value)) {

@@ -24,7 +24,7 @@ export interface SelectContextValue<T = unknown> {
   handleSelect: (index: number) => void;
   activeIndex: number | null;
   selectedIndex: number | null;
-  getOptionValue: (index: number) => T;
+  portalContainerId?: string;
   selectedValueOptionElementsMap: React.MutableRefObject<
     Map<string, HTMLElement>
   >;

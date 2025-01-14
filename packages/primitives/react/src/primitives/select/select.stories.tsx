@@ -698,3 +698,33 @@ export const NoValueMultiple: Story = {
     );
   },
 };
+
+export const WithPreSelectedValue: Story = {
+  render: () => {
+    const [selected, setSelected] = React.useState<Country | null>(
+      countries[0]
+    );
+    return (
+      <Select.Root placement={'bottom'} value={selected} onChange={setSelected}>
+        <Select.Trigger className={triggerStyles}>
+          <Select.Value placeholder={'Select a country'} />
+          <span className={openIconStyles}>
+            <OpenIcon />
+          </span>
+        </Select.Trigger>
+        <Select.Options className={optionsStyles}>
+          {countries.map((country) => (
+            <Select.Option
+              key={country.value}
+              value={country}
+              label={country.name}
+              className={optionStyles}
+            >
+              <CountryOption country={country} />
+            </Select.Option>
+          ))}
+        </Select.Options>
+      </Select.Root>
+    );
+  },
+};
