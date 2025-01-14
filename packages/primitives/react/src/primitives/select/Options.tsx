@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { forwardRef } from 'react';
 import { useMergeRefs } from '../../hooks/useMergeRefs';
 import { RemoveScroll } from 'react-remove-scroll';
 import {
@@ -17,21 +17,24 @@ export type SelectOptionsProps = React.ComponentPropsWithoutRef<
 > & {
   portalContainerId?: string;
   enableScrollLock?: boolean;
+  open?: boolean;
 };
 
-export const Options = React.forwardRef<
-  SelectOptionsElement,
-  SelectOptionsProps
->((props, forwardedRef) => {
-  const { open, popperContext } = useSelectContext(OPTIONS_NAME);
-  const optionsRef = useMergeRefs(
-    popperContext.floatingContext.refs.setFloating,
-    forwardedRef
-  );
+export const Options = forwardRef<SelectOptionsElement, SelectOptionsProps>(
+  (props, forwardedRef) => {
+    const { open, popperContext, portalContainerId } =
+      useSelectContext(OPTIONS_NAME);
+    const optionsRef = useMergeRefs(
+      popperContext.floatingContext.refs.setFloating,
+      forwardedRef
+    );
 
-  return (
-    <FloatingPortal id={props.portalContainerId}>
-      {open && (
+    const isOpen = props.open ?? open;
+
+    const floatingPortalId = props.portalContainerId || portalContainerId;
+
+    return (
+      <FloatingPortal id={floatingPortalId}>
         <FloatingFocusManager
           context={popperContext.floatingContext.context}
           modal={false}
@@ -43,7 +46,10 @@ export const Options = React.forwardRef<
             <RemoveScroll enabled={props.enableScrollLock}>
               <BasePrimitive.div
                 ref={optionsRef}
-                style={popperContext.floatingContext.floatingStyles}
+                style={{
+                  ...popperContext.floatingContext.floatingStyles,
+                  ...(isOpen ? {} : { display: 'none' }),
+                }}
                 {...popperContext.interactions.getFloatingProps(props)}
               >
                 {props.children}
@@ -51,9 +57,9 @@ export const Options = React.forwardRef<
             </RemoveScroll>
           </FloatingList>
         </FloatingFocusManager>
-      )}
-    </FloatingPortal>
-  );
-});
+      </FloatingPortal>
+    );
+  }
+);
 
 Options.displayName = OPTIONS_NAME;

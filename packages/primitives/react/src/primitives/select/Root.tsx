@@ -41,6 +41,7 @@ export interface SelectProps<ValueType> {
   sideOffset?: number;
   closeOnSelect?: boolean;
   className?: string;
+  portalContainerId?: string;
 }
 
 export function RootImpl<ValueType>(
@@ -62,6 +63,7 @@ export function RootImpl<ValueType>(
     sideOffset = 0,
     closeOnSelect = true,
     name,
+    portalContainerId,
     ...otherProps
   } = props;
 
@@ -207,10 +209,6 @@ export function RootImpl<ValueType>(
     ? !!(floatingContext.refs.reference.current as HTMLElement).closest('form')
     : true;
 
-  const getOptionValue = React.useCallback((index: number) => {
-    return valuesRef.current[index] as ValueType;
-  }, []);
-
   const ref = useMergeRefs(forwardedRef, floatingContext.refs.setReference);
 
   return (
@@ -225,7 +223,7 @@ export function RootImpl<ValueType>(
       handleSelect={handleSelect}
       activeIndex={activeIndex}
       selectedIndex={selectedIndex}
-      getOptionValue={getOptionValue}
+      portalContainerId={portalContainerId}
       selectedValueOptionElementsMap={selectedValueOptionElementsMap}
       optionListElementsMap={optionListElementsMap}
       popperContext={{
