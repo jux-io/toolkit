@@ -1,5 +1,15 @@
 # @juxio/react-primitives
 
+## 0.8.18
+
+### Patch Changes
+
+- [#151](https://github.com/jux-io/toolkit/pull/151) [`4cd7ebc`](https://github.com/jux-io/toolkit/commit/4cd7ebc07d7f897d33cc72900a169f9998178a5d) Thanks [@hamatoyogi](https://github.com/hamatoyogi)! - More select fixes:
+  - refactor(select): make passing in value render selected option html
+  - expose open prop in options, allow passing portalContainerId from root.
+  - handle rendering passed value from root in value component
+  - add story
+
 ## 0.8.17
 
 ### Patch Changes
