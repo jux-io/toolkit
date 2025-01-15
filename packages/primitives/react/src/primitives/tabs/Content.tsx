@@ -8,21 +8,22 @@ const CONTENT_NAME = 'Jux.Tabs.Content';
 interface ContentProps
   extends React.ComponentPropsWithoutRef<typeof BasePrimitive.div> {
   value: string;
+  isSelected?: boolean;
 }
 
 export const Content = React.forwardRef<HTMLDivElement, ContentProps>(
   (props, forwardedRef) => {
-    const { value, ...contentProps } = props;
+    const { value, isSelected, ...contentProps } = props;
     const context = useTabsContext(CONTENT_NAME);
-    const isSelected = context.value === value;
+    const isContentSelected = isSelected ?? context.value === value;
 
     return (
       <BasePrimitive.div
         role="tabpanel"
         aria-labelledby={`${context.baseId}-trigger-${value}`}
-        hidden={!isSelected}
+        hidden={!isContentSelected}
         id={`${context.baseId}-content-${value}`}
-        data-state={isSelected ? TabsState.Active : TabsState.Inactive}
+        data-state={isContentSelected ? TabsState.Active : TabsState.Inactive}
         data-orientation={context.orientation}
         tabIndex={0}
         ref={forwardedRef}

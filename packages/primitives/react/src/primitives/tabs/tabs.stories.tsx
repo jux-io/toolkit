@@ -93,7 +93,6 @@ export const Vertical: Story = {
         <Tabs.Trigger
           value="tab1"
           className={css({
-            ...tabTriggerStyles,
             '&[data-state="active"]': {
               borderRight: '2px solid #4a5568',
               marginRight: '-1px',
@@ -106,7 +105,6 @@ export const Vertical: Story = {
         <Tabs.Trigger
           value="tab2"
           className={css({
-            ...tabTriggerStyles,
             '&[data-state="active"]': {
               borderRight: '2px solid #4a5568',
               marginRight: '-1px',
