@@ -1,5 +1,11 @@
 # @juxio/react-primitives
 
+## 0.8.19
+
+### Patch Changes
+
+- [#150](https://github.com/jux-io/toolkit/pull/150) [`ba7e705`](https://github.com/jux-io/toolkit/commit/ba7e705595703bcedb734bb80f73a67a9e2f2d1a) Thanks [@liranasia](https://github.com/liranasia)! - Added a new primitive for accordion
+
 ## 0.8.18
 
 ### Patch Changes
