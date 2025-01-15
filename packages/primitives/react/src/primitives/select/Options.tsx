@@ -33,6 +33,11 @@ export const Options = forwardRef<SelectOptionsElement, SelectOptionsProps>(
 
     const floatingPortalId = props.portalContainerId ?? portalContainerId;
 
+    const divStyles = {
+      ...popperContext.floatingContext.floatingStyles,
+      ...(isOpen ? {} : { display: 'none' }),
+    };
+
     return (
       <FloatingPortal id={floatingPortalId}>
         <FloatingFocusManager
@@ -46,10 +51,7 @@ export const Options = forwardRef<SelectOptionsElement, SelectOptionsProps>(
             <RemoveScroll enabled={props.enableScrollLock}>
               <BasePrimitive.div
                 ref={optionsRef}
-                style={{
-                  ...popperContext.floatingContext.floatingStyles,
-                  ...(isOpen ? {} : { display: 'none' }),
-                }}
+                style={divStyles}
                 {...popperContext.interactions.getFloatingProps(props)}
               >
                 {props.children}

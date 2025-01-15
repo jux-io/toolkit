@@ -728,3 +728,40 @@ export const WithPreSelectedValue: Story = {
     );
   },
 };
+
+export const CompleteControl: Story = {
+  render: () => {
+    const [selectedCountry, setSelectedCountry] =
+      React.useState<Country | null>(null);
+    const [open, setOpen] = React.useState(false);
+    return (
+      <Select.Root
+        placement={'bottom'}
+        value={selectedCountry}
+        onChange={setSelectedCountry}
+        open={open}
+        onOpenChange={setOpen}
+      >
+        <Select.Trigger className={triggerStyles}>
+          <Select.Value placeholder={'Select a country'} />
+          <span className={openIconStyles}>
+            <OpenIcon />
+          </span>
+        </Select.Trigger>
+        <Select.Options className={optionsStyles} open={open}>
+          {countries.map((country) => (
+            <Select.Option
+              selected={selectedCountry?.value === country.value}
+              key={country.value}
+              value={country}
+              label={country.name}
+              className={optionStyles}
+            >
+              <CountryOption country={country} />
+            </Select.Option>
+          ))}
+        </Select.Options>
+      </Select.Root>
+    );
+  },
+};
