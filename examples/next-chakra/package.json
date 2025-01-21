@@ -9,17 +9,23 @@
     "@chakra-ui/icons": "^2.0.2",
     "@chakra-ui/react": "^2.2.1",
     "@chakra-ui/theme-tools": "^2.0.2",
+    "@emotion/cache": "^11.9.0",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.9.0",
+    "@juxio/css": "workspace:*",
+    "@juxio/postcss": "workspace:*",
+    "@juxio/react-styled": "workspace:*",
     "framer-motion": "^6.3.0",
     "next": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@juxio/cli": "workspace:*",
     "@types/node": "^18.0.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "postcss": "^8.4.47",
     "typescript": "^4.7.2"
   }
 }
