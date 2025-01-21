@@ -1,21 +1,13 @@
-import {
-  Link as ChakraLink,
-  Text,
-  Code,
-  List,
-  ListIcon,
-  ListItem,
-} from '@chakra-ui/react';
-import { CheckCircleIcon, LinkIcon } from '@chakra-ui/icons';
+import { Link as ChakraLink, Text, Code, List } from '@chakra-ui/react';
 
 import { Hero } from '../components/Hero';
 import { Container } from '../components/Container';
 import { Main } from '../components/Main';
-import { DarkModeSwitch } from '../components/DarkModeSwitch';
 import { CTA } from '../components/CTA';
 import { Footer } from '../components/Footer';
 import { MyButton } from '../jux/components/MyButton';
 import { css } from '@juxio/react-styled';
+import { ColorModeButton } from '../components/ui/color-mode';
 
 const Index = () => (
   <Container height="100vh">
@@ -30,35 +22,43 @@ const Index = () => (
     >
       <MyButton />
     </div>
-    <Hero />
+    <Hero title="with-chakra-ui-typescript" />
     <Main>
       <Text color="text">
         Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{' '}
         <Code>TypeScript</Code>.
       </Text>
 
-      <List spacing={3} my={0} color="text">
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
+      <List.Root gap={3} my={0} color="text">
+        <List.Item>
+          <List.Indicator color="green.500">
+            <ChakraLink
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://chakra-ui.com"
+              flexGrow={1}
+              mr={2}
+            >
+              Chakra UI
+            </ChakraLink>
+          </List.Indicator>
+        </List.Item>
+        <List.Item>
+          <List.Indicator color="green.500" />
           <ChakraLink
-            isExternal
-            href="https://chakra-ui.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://nextjs.org"
             flexGrow={1}
             mr={2}
           >
-            Chakra UI <LinkIcon />
+            Next.js
           </ChakraLink>
-        </ListItem>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          <ChakraLink isExternal href="https://nextjs.org" flexGrow={1} mr={2}>
-            Next.js <LinkIcon />
-          </ChakraLink>
-        </ListItem>
-      </List>
+        </List.Item>
+      </List.Root>
     </Main>
 
-    <DarkModeSwitch />
+    <ColorModeButton />
     <Footer>
       <Text>Next ❤️ Chakra</Text>
     </Footer>
