@@ -117,7 +117,7 @@ const StyledMyButton = styled<'button', MyButtonProps>(
 
 export const MyButton = React.forwardRef<HTMLButtonElement, MyButtonProps>(
   function MyButton(
-    { disabled = false, hierarchy = 'primary', ...otherProps },
+    { disabled = false, hierarchy = 'primary', children, ...otherProps },
     ref
   ) {
     return (
@@ -128,7 +128,7 @@ export const MyButton = React.forwardRef<HTMLButtonElement, MyButtonProps>(
         {...otherProps}
       >
         <LeadingIcon className={leading_icon_ec9c55d5} />
-        <span className={button_label_b6045857}>Button</span>
+        <span className={button_label_b6045857}>{children}</span>
         <TrailingIcon className={trailing_icon_799b825e} />
       </StyledMyButton>
     );
