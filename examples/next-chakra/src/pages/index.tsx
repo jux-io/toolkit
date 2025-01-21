@@ -5,22 +5,35 @@ import {
   List,
   ListIcon,
   ListItem,
-} from "@chakra-ui/react";
-import { CheckCircleIcon, LinkIcon } from "@chakra-ui/icons";
+} from '@chakra-ui/react';
+import { CheckCircleIcon, LinkIcon } from '@chakra-ui/icons';
 
-import { Hero } from "../components/Hero";
-import { Container } from "../components/Container";
-import { Main } from "../components/Main";
-import { DarkModeSwitch } from "../components/DarkModeSwitch";
-import { CTA } from "../components/CTA";
-import { Footer } from "../components/Footer";
+import { Hero } from '../components/Hero';
+import { Container } from '../components/Container';
+import { Main } from '../components/Main';
+import { DarkModeSwitch } from '../components/DarkModeSwitch';
+import { CTA } from '../components/CTA';
+import { Footer } from '../components/Footer';
+import { MyButton } from '../jux/components/MyButton';
+import { css } from '@juxio/react-styled';
 
 const Index = () => (
   <Container height="100vh">
+    <div
+      className={css({
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: '100px',
+      })}
+    >
+      <MyButton />
+    </div>
     <Hero />
     <Main>
       <Text color="text">
-        Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{" "}
+        Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{' '}
         <Code>TypeScript</Code>.
       </Text>
 
