@@ -8,6 +8,7 @@ const breakpoints = {
 };
 
 export const system = createSystem(defaultConfig, {
+  preflight: false,
   theme: {
     tokens: {
       colors: {
