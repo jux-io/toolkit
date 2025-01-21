@@ -11,23 +11,22 @@ import { ColorModeButton } from '../components/ui/color-mode';
 
 const Index = () => (
   <Container height="100vh">
-    <div
-      className={css({
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        margin: '100px',
-      })}
-    >
-      <MyButton />
-    </div>
-    <Hero title="with-chakra-ui-typescript" />
+    <Hero title="Chakra UI with Jux" />
     <Main>
       <Text color="text">
         Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{' '}
-        <Code>TypeScript</Code>.
+        <Code>Jux</Code>.
       </Text>
+      <div
+        className={css({
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        })}
+      >
+        <MyButton>Jux Button</MyButton>
+      </div>
 
       <List.Root gap={3} my={0} color="text">
         <List.Item>

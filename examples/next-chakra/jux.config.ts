@@ -4,7 +4,7 @@ import { dark, light } from './src/jux/tokens';
 
 export default defineConfig({
   /* Whether to apply preflight styles */
-  preflight: false,
+  preflight: true,
 
   /* A list of glob file patterns to watch for styling configurations */
   include: [
