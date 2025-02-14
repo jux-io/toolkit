@@ -1,5 +1,13 @@
 # @juxio/cli
 
+## 0.8.20
+
+### Patch Changes
+
+- Updated dependencies [[`61473f2`](https://github.com/jux-io/toolkit/commit/61473f274b34f079765154547b1f08a2f8842dd4)]:
+  - @juxio/design-tokens@0.8.20
+  - @juxio/core@0.8.20
+
 ## 0.8.19
 
 ### Patch Changes

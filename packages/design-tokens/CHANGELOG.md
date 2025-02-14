@@ -1,5 +1,11 @@
 # @juxio/design-tokens
 
+## 0.8.20
+
+### Patch Changes
+
+- [#155](https://github.com/jux-io/toolkit/pull/155) [`61473f2`](https://github.com/jux-io/toolkit/commit/61473f274b34f079765154547b1f08a2f8842dd4) Thanks [@tnipri](https://github.com/tnipri)! - upgraded zod version to latest
+
 ## 0.8.19
 
 ### Patch Changes
