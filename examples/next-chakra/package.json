@@ -1,5 +1,6 @@
 {
   "private": true,
+  "name": "example-jux-next-chakra",
   "scripts": {
     "dev": "next",
     "build": "next build",
