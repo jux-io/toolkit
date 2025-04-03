@@ -2,21 +2,21 @@ import * as winston from 'winston';
 import { format } from 'winston';
 
 import { Format } from 'logform';
-import bare from 'cli-color/bare';
-import clc from 'cli-color';
+import colors from 'picocolors';
+import { Formatter } from 'picocolors/types';
 import safeStringify from 'fast-safe-stringify';
 import { inspect } from 'util';
 import path from 'path';
 import isEmpty from 'lodash/isEmpty';
 
-export const colorScheme: Record<string, bare.Format> = {
-  info: clc.cyanBright,
-  warn: clc.yellowBright,
-  error: clc.red,
-  debug: clc.magentaBright,
-  verbose: clc.cyanBright,
-  input: clc.yellowBright,
-  success: clc.greenBright,
+export const colorScheme: Record<string, Formatter> = {
+  info: colors.cyanBright,
+  warn: colors.yellowBright,
+  error: colors.red,
+  debug: colors.magentaBright,
+  verbose: colors.cyanBright,
+  input: colors.yellowBright,
+  success: colors.greenBright,
 } as const;
 
 const simpleConsoleLogFormat = (): Format =>

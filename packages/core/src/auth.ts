@@ -1,4 +1,4 @@
-import clc from 'cli-color';
+import colors from 'picocolors';
 import { errors, Issuer, TokenSet } from 'openid-client';
 import open from 'open';
 import * as util from 'util';
@@ -63,10 +63,10 @@ export const auth = async (): Promise<UserTokens | null> => {
       name: 'prompt',
       // eslint-disable-next-line max-len
       message: util.format(
-        `${clc.underline(
+        `${colors.underline(
           'Press any key'
-        )} to open up the browser to login or press ctrl-c to abort. You should see the following code: ${clc.green.bgWhite.underline(
-          user_code
+        )} to open up the browser to login or press ctrl-c to abort. You should see the following code: ${colors.green(
+          colors.bgWhite(colors.underline(user_code))
         )}. It expires in ${
           expires_in % 60 === 0
             ? `${expires_in / 60} minutes`
